@@ -5,17 +5,30 @@ import PackageDescription
 
 let package = Package(
     name: "InAppPurchaseKit",
+    defaultLocalization: "en",
+    platforms: [
+        .iOS(.v16),
+        .macOS(.v13),
+        .tvOS(.v16),
+        .visionOS(.v1),
+        .watchOS(.v10)
+    ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "InAppPurchaseKit",
             targets: ["InAppPurchaseKit"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.0.0"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "InAppPurchaseKit"),
+            name: "InAppPurchaseKit",
+            dependencies: [.product(name: "HapticsKit", package: "hapticskit")],
+            resources: [.process("Resources")]),
         .testTarget(
             name: "InAppPurchaseKitTests",
             dependencies: ["InAppPurchaseKit"]),

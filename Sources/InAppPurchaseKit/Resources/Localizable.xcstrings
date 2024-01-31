@@ -1,0 +1,107 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    " / %@" : {
+
+    },
+    "%@ / %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ / %2$@"
+          }
+        }
+      }
+    },
+    "%lld Days Free" : {
+
+    },
+    "%lld Months Free" : {
+
+    },
+    "%lld Weeks Free" : {
+
+    },
+    "An unknown error occurred." : {
+
+    },
+    "Done" : {
+
+    },
+    "Hide All Options" : {
+
+    },
+    "Lifetime" : {
+
+    },
+    "Loyalty" : {
+
+    },
+    "Manage Subscription" : {
+
+    },
+    "Month" : {
+
+    },
+    "One-time payment." : {
+
+    },
+    "Privacy Policy" : {
+
+    },
+    "Purchase" : {
+
+    },
+    "Purchase - %@" : {
+
+    },
+    "Redeem" : {
+
+    },
+    "Redeem Free Trial" : {
+
+    },
+    "Restore" : {
+
+    },
+    "Save %lld%%" : {
+
+    },
+    "Show All Options" : {
+
+    },
+    "Subscribe" : {
+
+    },
+    "Subscribe - %@ / %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Subscribe - %1$@ / %2$@"
+          }
+        }
+      }
+    },
+    "Subscribed - Thank You!" : {
+
+    },
+    "Terms" : {
+
+    },
+    "There was an error verifying your request. Please try again." : {
+
+    },
+    "Upgrade to %@" : {
+
+    },
+    "Week" : {
+
+    },
+    "Year" : {
+
+    }
+  },
+  "version" : "1.0"
+}

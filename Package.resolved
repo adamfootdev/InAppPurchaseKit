@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "hapticskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamfootdev/HapticsKit",
+      "state" : {
+        "revision" : "c44468e5ce8d69abd81cd66f4e618ed23c961ac1",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
