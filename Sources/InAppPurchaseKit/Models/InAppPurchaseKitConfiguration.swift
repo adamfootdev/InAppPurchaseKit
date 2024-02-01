@@ -10,8 +10,6 @@ import SwiftUI
 public struct InAppPurchaseKitConfiguration {
     public let title: String
     public let subtitle: String
-    public let systemImage: String
-    public let systemColor: Color
     public let tiers: [InAppPurchaseTier]
     public let features: [InAppPurchaseFeature]
     public let termsOfUseURL: URL
@@ -26,8 +24,6 @@ public struct InAppPurchaseKitConfiguration {
     public init(
         _ title: String,
         subtitle: String,
-        systemImage: String,
-        systemColor: Color = .accentColor,
         tiers: [InAppPurchaseTier],
         features: [InAppPurchaseFeature],
         termsOfUseURL: URL,
@@ -41,8 +37,6 @@ public struct InAppPurchaseKitConfiguration {
     ) {
         self.title = title
         self.subtitle = subtitle
-        self.systemImage = systemImage
-        self.systemColor = systemColor
         self.tiers = tiers
         self.features = features
         self.termsOfUseURL = termsOfUseURL
@@ -64,10 +58,8 @@ public struct InAppPurchaseKitConfiguration {
 
     public static var preview: InAppPurchaseKitConfiguration = {
         let configuration = InAppPurchaseKitConfiguration(
-            "My App Pro",
+            "Upgrade to My App Pro",
             subtitle: "Unlock all features.",
-            systemImage: "plus.app",
-            systemColor: .blue,
             tiers: [.monthlyExample, .yearlyExample, .lifetimeExample],
             features: [.example, .example, .example],
             termsOfUseURL: URL(string: "https://adamfoot.dev")!,

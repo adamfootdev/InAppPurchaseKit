@@ -1,8 +1,8 @@
 //
-//  PurchaseView.swift
+//  TiersView.swift
 //  InAppPurchaseKit
 //
-//  Created by Adam Foot on 31/01/2024.
+//  Created by Adam Foot on 01/02/2024.
 //
 
 import SwiftUI
@@ -12,7 +12,7 @@ import HapticsKit
 #endif
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
-struct PurchaseView: View {
+struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     private let configuration: InAppPurchaseKitConfiguration
@@ -28,47 +28,24 @@ struct PurchaseView: View {
     }
 
     var body: some View {
-        if (configuration.tiers.count == 1 && configuration.enableSinglePurchaseMode) {
-            singleTierView
-
-        } else {
-            #if os(iOS) || os(macOS) || os(visionOS)
-            PurchaseButton(
-                for: $selectedTier,
-                configuration: configuration
-            )
-            #endif
+        VStack(spacing: 12) {
+            VStack(alignment: .trailing, spacing: 48) {
+                VStack(alignment: .trailing, spacing: tierSpacing) {
+                    ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
+                        tierButton(for: tier)
+                    }
+                }
+            }
         }
     }
 
     private var tierSpacing: CGFloat {
-        #if os(tvOS)
+        #if os(macOS)
+        return 8
+        #elseif os(tvOS)
         return 32
-        #elseif os(visionOS)
-        return 12
-        #elseif os(watchOS)
+        #else
         return 16
-        #else
-        return 4
-        #endif
-    }
-
-    private var singleTierView: some View {
-        #if os(tvOS)
-        HStack(spacing: 100) {
-            PurchaseButton(
-                for: $selectedTier,
-                configuration: configuration
-            )
-
-            RestoreButton()
-        }
-
-        #else
-        PurchaseButton(
-            for: $selectedTier,
-            configuration: configuration
-        )
         #endif
     }
 
@@ -101,11 +78,14 @@ struct PurchaseView: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            PurchaseView(selectedTier: .constant(.example), configuration: .preview)
-//                .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    Group {
+        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+            TiersView(
+                selectedTier: .constant(.example),
+                configuration: .preview
+            )
+            .environment(InAppPurchaseKit.preview)
+        }
+    }
+}

@@ -160,7 +160,7 @@ struct LegacyTierSelectionButton: View {
         VStack(alignment: .leading, spacing: 4) {
             Group {
                 if let product = inAppPurchase.fetchProduct(for: tier) {
-                    Text("\(product.displayPrice) / \(tier.type.title.lowercased())")
+                    Text("\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())")
                 } else {
                     HStack(spacing: 4) {
                         ProgressView()
@@ -170,7 +170,7 @@ struct LegacyTierSelectionButton: View {
                             .frame(maxWidth: 40)
                             #endif
 
-                        Text(" / \(tier.type.title.lowercased())")
+                        Text("/\(tier.type.paymentTimeTitle.lowercased())")
                     }
                 }
             }

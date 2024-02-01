@@ -18,63 +18,34 @@ struct AboutInAppPurchaseView: View {
         VStack(spacing: mainSpacing) {
             InAppPurchaseHeaderView(configuration: configuration)
 
-            FeaturesListView(configuration.features)
-                #if os(tvOS)
-                .padding(.horizontal, 40)
-                #elseif os(watchOS)
-                .padding(.horizontal, 8)
-                #endif
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        #if os(tvOS)
-        .padding(.vertical, 32)
-        #elseif os(watchOS)
-        .padding(.vertical)
-        #endif
-        .background {
-            RoundedRectangle(
-                cornerRadius: backgroundCornerRadius,
-                style: .continuous
-            )
-            #if os(tvOS) || os(visionOS)
-            .foregroundStyle(.regularMaterial)
-            #else
-            .foregroundStyle(backgroundColor)
+            Button {
+
+            } label: {
+                Text("View Features")
+                    .font(titleFont)
+            }
+            #if !os(macOS) && !os(tvOS)
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
+            .controlSize(.small)
             #endif
         }
-        #if os(tvOS)
-        .padding(.horizontal, 200)
-        #endif
+        .frame(maxWidth: .infinity)
     }
 
     private var mainSpacing: CGFloat {
-        #if os(macOS) || os(watchOS)
-        return 20
-        #elseif os(tvOS)
-        return 48
-        #else
+        #if os(tvOS)
         return 32
+        #else
+        return 16
         #endif
     }
 
-    private var backgroundColor: Color {
-        #if os(iOS)
-        return Color(.secondarySystemBackground)
-        #elseif os(macOS)
-        return Color(.controlBackgroundColor)
-        #elseif os(watchOS)
-        return Color(red: 34/255, green: 34/255, blue: 35/255)
+    private var titleFont: Font {
+        #if os(macOS) || os(watchOS)
+        return Font.body
         #else
-        return Color.gray
-        #endif
-    }
-
-    private var backgroundCornerRadius: CGFloat {
-        #if os(macOS)
-        return 8
-        #else
-        return 20
+        return Font.footnote.bold()
         #endif
     }
 }

@@ -39,6 +39,9 @@ struct TermsPrivacyButton: View {
         Button(title) {
             openURL(url)
         }
+        #if os(visionOS)
+        .font(.footnote.bold())
+        #endif
         #endif
     }
 }

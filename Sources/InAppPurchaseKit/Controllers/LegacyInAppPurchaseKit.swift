@@ -255,6 +255,37 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         productsWithIntroOffer[product]
     }
 
+    func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
+        guard let product = fetchProduct(for: tier) else {
+            return ""
+        }
+
+        var message: String = ""
+
+        switch tier.type {
+        case .weekly, .monthly, .yearly:
+            if let introOffer = introOffer(for: product) {
+                switch introOffer.period.unit {
+                case .day:
+                    message += String(localized: "\(introOffer.period.value) Days Free, then ")
+                case .week:
+                    message += String(localized: "\(introOffer.period.value) Weeks Free, then ")
+                case .month:
+                    message += String(localized: "\(introOffer.period.value) Months Free, then ")
+                default:
+                    message += ""
+                }
+            }
+
+        case .lifetime, .lifetimeExisting:
+            message += String(localized: "One-time payment, ")
+        }
+
+        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"
+
+        return message
+    }
+
 
     // MARK: - Transactions
 

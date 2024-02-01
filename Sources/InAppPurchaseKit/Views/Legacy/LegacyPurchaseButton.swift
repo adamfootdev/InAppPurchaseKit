@@ -93,7 +93,7 @@ struct LegacyPurchaseButton: View {
                             return String(localized: "Redeem Free Trial")
                         } else {
                             if (configuration.tiers.count == 1 && configuration.enableSinglePurchaseMode) {
-                                return String(localized: "Subscribe - \(product.displayPrice) / \(tier.type.title.lowercased())")
+                                return String(localized: "Subscribe - \(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())")
                             } else {
                                 return String(localized: "Subscribe")
                             }

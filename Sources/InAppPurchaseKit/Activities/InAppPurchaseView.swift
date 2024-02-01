@@ -22,7 +22,8 @@ public struct InAppPurchaseView<Content: View>: View {
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
-    @State private var showingRedeemSheet: Bool = false
+    @State private var selectedTier: InAppPurchaseTier?
+
     @State private var showingManageSubscriptionSheet: Bool = false
 
     #if os(watchOS)
@@ -72,13 +73,19 @@ public struct InAppPurchaseView<Content: View>: View {
                     configuration: inAppPurchase.configuration
                 )
 
-                #if os(macOS) || os(tvOS) || os(watchOS)
-                purchaseOptionsView
+                tiersView
+
+                #if !os(iOS) && !os(visionOS)
+                if inAppPurchase.purchased == false {
+                    PurchaseView(
+                        selectedTier: $selectedTier,
+                        configuration: inAppPurchase.configuration
+                    )
+                }
                 #endif
 
                 AdditionalOptionsView(
-                    configuration: inAppPurchase.configuration,
-                    purchased: inAppPurchase.purchased
+                    configuration: inAppPurchase.configuration
                 )
             }
             .frame(maxWidth: .infinity)
@@ -93,17 +100,22 @@ public struct InAppPurchaseView<Content: View>: View {
         }
         #if os(iOS) || os(visionOS)
         .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 16) {
-                Divider()
+            if inAppPurchase.purchased == false {
+                VStack(spacing: 16) {
+                    Divider()
 
-                purchaseOptionsView
+                    PurchaseView(
+                        selectedTier: $selectedTier,
+                        configuration: inAppPurchase.configuration
+                    )
                     .padding([.horizontal, .bottom])
-            }
-            .background {
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .edgesIgnoringSafeArea(.all)
-                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .edgesIgnoringSafeArea(.all)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -113,16 +125,14 @@ public struct InAppPurchaseView<Content: View>: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(visionOS)
-            redeemToolbarItem
-            #endif
-
             #if os(iOS) || os(visionOS) || os(watchOS)
             doneToolbarItem
             #endif
         }
+        .onAppear {
+            configureInitialTier()
+        }
         #if os(iOS) || os(visionOS)
-        .offerCodeRedemption(isPresented: $showingRedeemSheet)
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
         .onChange(of: inAppPurchase.purchaseState) { _, purchaseState in
@@ -154,7 +164,7 @@ public struct InAppPurchaseView<Content: View>: View {
         #endif
     }
 
-    private var purchaseOptionsView: some View {
+    private var tiersView: some View {
         Group {
             if inAppPurchase.purchased {
                 #if os(iOS) || os(visionOS)
@@ -183,23 +193,46 @@ public struct InAppPurchaseView<Content: View>: View {
                 #endif
 
             } else {
-                PurchaseView(configuration: inAppPurchase.configuration)
+                TiersView(
+                    selectedTier: $selectedTier,
+                    configuration: inAppPurchase.configuration
+                )
+
             }
         }
+        .frame(maxWidth: mainWidth)
         .animation(.easeInOut(duration: 0.5), value: inAppPurchase.purchased)
     }
 
-    #if os(iOS) || os(visionOS)
-    private var redeemToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            if inAppPurchase.purchased == false {
-                Button("Redeem") {
-                    showingRedeemSheet.toggle()
-                }
-            }
+
+    // MARK: - Configuration
+
+    private func configureInitialTier() {
+        guard selectedTier == nil else { return }
+
+        let configuration = inAppPurchase.configuration
+
+        if configuration.tiers.count == 1 {
+            selectedTier = configuration.tiers.first
+        } else if let tier = configuration.tiers.first(where: {
+            $0.alwaysVisible
+        }) {
+            selectedTier = tier
+        } else if let tier = configuration.tiers.first {
+            selectedTier = tier
         }
     }
-    #endif
+
+    private var mainWidth: CGFloat {
+        #if os(tvOS)
+        return 800
+        #else
+        return 400
+        #endif
+    }
+
+
+    // MARK: - Toolbar
 
     private var doneToolbarItem: some ToolbarContent {
         ToolbarItem(placement: doneButtonPlacement) {
@@ -246,14 +279,14 @@ extension InAppPurchaseView where Content == EmptyView {
 }
 #endif
 
-//#Preview {
-//    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//        InAppPurchaseKit.configure(with: .preview)
-//    }
-//
-//    return Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            InAppPurchaseView()
-//        }
-//    }
-//}
+#Preview {
+    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+        InAppPurchaseKit.configure(with: .preview)
+    }
+
+    return Group {
+        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+            InAppPurchaseView()
+        }
+    }
+}

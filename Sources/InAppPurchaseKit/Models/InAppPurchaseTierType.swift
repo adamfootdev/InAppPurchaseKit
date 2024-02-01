@@ -17,6 +17,21 @@ public enum InAppPurchaseTierType {
     var title: String {
         switch self {
         case .weekly:
+            return String(localized: "Weekly")
+        case .monthly:
+            return String(localized: "Monthly")
+        case .yearly:
+            return String(localized: "Yearly")
+        case .lifetime:
+            return String(localized: "Lifetime")
+        case .lifetimeExisting:
+            return String(localized: "Lifetime")
+        }
+    }
+
+    var paymentTimeTitle: String {
+        switch self {
+        case .weekly:
             return String(localized: "Week")
         case .monthly:
             return String(localized: "Month")
