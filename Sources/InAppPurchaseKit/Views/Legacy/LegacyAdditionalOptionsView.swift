@@ -1,5 +1,5 @@
 //
-//  AdditionalOptionsView.swift
+//  LegacyAdditionalOptionsView.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 31/01/2024.
@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
-struct AdditionalOptionsView: View {
+struct LegacyAdditionalOptionsView: View {
     private let configuration: InAppPurchaseKitConfiguration
     private let purchased: Bool
 
@@ -58,7 +57,7 @@ struct AdditionalOptionsView: View {
         Group {
             #if !os(tvOS)
             if purchased == false {
-                RestoreButton()
+                LegacyRestoreButton()
 
                 if useDivider {
                     Divider()
@@ -88,11 +87,7 @@ struct AdditionalOptionsView: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            AdditionalOptionsView(configuration: .preview, purchased: false)
-//                .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    LegacyAdditionalOptionsView(configuration: .preview, purchased: false)
+        .environmentObject(LegacyInAppPurchaseKit.preview)
+}

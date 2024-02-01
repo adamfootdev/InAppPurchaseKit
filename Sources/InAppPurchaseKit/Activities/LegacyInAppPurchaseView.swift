@@ -12,15 +12,42 @@ import StoreKit
 import HapticsKit
 #endif
 
-struct LegacyInAppPurchaseView: View {
+public struct LegacyInAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
+    private let embedInNavigationStack: Bool
+    @ViewBuilder private let doneButton: (() -> Content)?
+    private let doneButtonPlacement: ToolbarItemPlacement
+
     @State private var showingRedeemSheet: Bool = false
     @State private var showingManageSubscriptionSheet: Bool = false
 
-    var body: some View {
+    #if os(watchOS)
+    public init(
+        embedInNavigationStack: Bool = true,
+        doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
+        doneButton: (() -> Content)? = nil
+    ) {
+        self.embedInNavigationStack = embedInNavigationStack
+        self.doneButton = doneButton
+        self.doneButtonPlacement = doneButtonPlacement
+    }
+
+    #else
+    init(
+        embedInNavigationStack: Bool = true,
+        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
+        doneButton: (() -> Content)? = nil
+    ) {
+        self.embedInNavigationStack = embedInNavigationStack
+        self.doneButton = doneButton
+        self.doneButtonPlacement = doneButtonPlacement
+    }
+    #endif
+
+    public var body: some View {
         Group {
             #if os(macOS) || os(tvOS)
             subscriptionView
@@ -39,12 +66,13 @@ struct LegacyInAppPurchaseView: View {
                 AboutInAppPurchaseView(
                     configuration: inAppPurchase.configuration
                 )
+                .environmentObject(inAppPurchase)
 
                 #if os(macOS) || os(watchOS)
                 purchaseOptionsView
                 #endif
 
-                AdditionalOptionsView(
+                LegacyAdditionalOptionsView(
                     configuration: inAppPurchase.configuration,
                     purchased: inAppPurchase.purchased
                 )
@@ -151,11 +179,7 @@ struct LegacyInAppPurchaseView: View {
                 #endif
                 
             } else {
-                if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-                    PurchaseView(configuration: inAppPurchase.configuration)
-                } else {
-                    LegacyPurchaseView(configuration: inAppPurchase.configuration)
-                }
+                LegacyPurchaseView(configuration: inAppPurchase.configuration)
             }
         }
         .animation(.easeInOut(duration: 0.5), value: inAppPurchase.purchased)
@@ -192,6 +216,31 @@ struct LegacyInAppPurchaseView: View {
         #endif
     }
 }
+
+#if os(watchOS)
+extension LegacyInAppPurchaseView where Content == EmptyView {
+    public init(
+        embedInNavigationStack: Bool = true,
+        doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
+    ) {
+        self.embedInNavigationStack = embedInNavigationStack
+        self.doneButton = nil
+        self.doneButtonPlacement = doneButtonPlacement
+    }
+}
+
+#else
+extension LegacyInAppPurchaseView where Content == EmptyView {
+    public init(
+        embedInNavigationStack: Bool = true,
+        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
+    ) {
+        self.embedInNavigationStack = embedInNavigationStack
+        self.doneButton = nil
+        self.doneButtonPlacement = doneButtonPlacement
+    }
+}
+#endif
 
 #Preview {
     LegacyInAppPurchaseKit.configure(with: .preview)

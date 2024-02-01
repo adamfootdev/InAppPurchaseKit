@@ -13,7 +13,7 @@ import HapticsKit
 #endif
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
-struct InAppPurchaseView<Content: View>: View {
+public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var inAppPurchase: InAppPurchaseKit = .shared
@@ -26,7 +26,7 @@ struct InAppPurchaseView<Content: View>: View {
     @State private var showingManageSubscriptionSheet: Bool = false
 
     #if os(watchOS)
-    init(
+    public init(
         embedInNavigationStack: Bool = true,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
@@ -48,7 +48,7 @@ struct InAppPurchaseView<Content: View>: View {
     }
     #endif
 
-    var body: some View {
+    public var body: some View {
         Group {
             #if os(macOS) || os(tvOS)
             subscriptionView
@@ -222,7 +222,7 @@ struct InAppPurchaseView<Content: View>: View {
 
 #if os(watchOS)
 extension InAppPurchaseView where Content == EmptyView {
-    init(
+    public init(
         embedInNavigationStack: Bool = true,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
@@ -235,7 +235,7 @@ extension InAppPurchaseView where Content == EmptyView {
 #else
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
 extension InAppPurchaseView where Content == EmptyView {
-    init(
+    public init(
         embedInNavigationStack: Bool = true,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
