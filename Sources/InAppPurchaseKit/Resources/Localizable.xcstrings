@@ -1,35 +1,29 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    " / %@" : {
-
-    },
-    "%@ / %@" : {
+    "%@: %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%1$@ / %2$@"
+            "value" : "%1$@: %2$@"
           }
         }
       }
     },
-    "%lld Days Free" : {
+    "%lld Days Free, then " : {
 
     },
-    "%lld Months Free" : {
+    "%lld Months Free, then " : {
 
     },
-    "%lld Weeks Free" : {
+    "%lld Weeks Free, then " : {
 
     },
     "An unknown error occurred." : {
 
     },
     "Done" : {
-
-    },
-    "Hide All Options" : {
 
     },
     "Lifetime" : {
@@ -44,7 +38,10 @@
     "Month" : {
 
     },
-    "One-time payment." : {
+    "Monthly" : {
+
+    },
+    "One-time payment, " : {
 
     },
     "Privacy Policy" : {
@@ -53,10 +50,7 @@
     "Purchase" : {
 
     },
-    "Purchase - %@" : {
-
-    },
-    "Redeem" : {
+    "Redeem Code" : {
 
     },
     "Redeem Free Trial" : {
@@ -68,21 +62,8 @@
     "Save %lld%%" : {
 
     },
-    "Show All Options" : {
-
-    },
     "Subscribe" : {
 
-    },
-    "Subscribe - %@ / %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Subscribe - %1$@ / %2$@"
-          }
-        }
-      }
     },
     "Subscribed - Thank You!" : {
 
@@ -93,13 +74,19 @@
     "There was an error verifying your request. Please try again." : {
 
     },
-    "Upgrade to %@" : {
+    "View Features" : {
 
     },
     "Week" : {
 
     },
+    "Weekly" : {
+
+    },
     "Year" : {
+
+    },
+    "Yearly" : {
 
     }
   },

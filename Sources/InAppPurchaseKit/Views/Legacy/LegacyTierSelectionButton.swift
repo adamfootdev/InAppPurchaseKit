@@ -32,23 +32,8 @@ struct LegacyTierSelectionButton: View {
     }
 
     var body: some View {
-        #if os(tvOS)
-        HStack(spacing: 24) {
-            tierDetailsView
-            Spacer()
-
-            if inAppPurchase.purchaseState == .purchasing {
-                ProgressView()
-            } else {
-                LegacyPurchaseButton(
-                    for: $selectedTier,
-                    configuration: configuration
-                )
-            }
-        }
-
-        #elseif os(watchOS)
-        VStack(spacing: 4) {
+        #if os(watchOS)
+        VStack(spacing: 8) {
             tierDetailsView
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -88,56 +73,101 @@ struct LegacyTierSelectionButton: View {
             }
 
         } label: {
-            HStack(spacing: 16) {
-                checkmarkView
-                tierDetailsView
-                Spacer()
+            HStack(alignment: .top, spacing: 16) {
+                VStack(alignment: .leading) {
+                    HStack(spacing: 12) {
+                        Text(tier.type.title)
+                            .font(titleFont)
+                            .foregroundStyle(Color.primary)
 
-                if let accessoryType {
-                    Text(accessoryType.title)
-                        .font(.footnote.bold())
-                        .lineLimit(1)
-                        .foregroundStyle(.white)
-                        .padding(.vertical, 4)
-                        .padding(.horizontal, 8)
-                        .background {
-                            RoundedRectangle(cornerRadius: 4, style: .continuous)
-                                .foregroundStyle(accessoryType.tintColor)
+                        if let accessoryType {
+                            Text(accessoryType.title)
+                                .font(.footnote.bold())
+                                .lineLimit(1)
+                                .foregroundStyle(.white)
+                                .padding(.vertical, 4)
+                                .padding(.horizontal, 8)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                                        .foregroundStyle(accessoryType.tintColor)
+                                }
                         }
+                    }
+
+                    tierDetailsView
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                #if !os(tvOS)
+                checkmarkView
+                #endif
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             #if os(iOS) || os(macOS)
-            .padding(.horizontal)
-            .padding(.vertical, 12)
+            .padding(backgroundPadding)
             .background {
-                if selected {
-                    RoundedRectangle(
-                        cornerRadius: backgroundCornerRadius,
-                        style: .continuous
-                    )
-                    .foregroundStyle(backgroundColor)
-                }
+                backgroundView
             }
+            #elseif os(tvOS)
+            .padding(.vertical, 8)
             #endif
         }
         #if os(macOS)
         .buttonStyle(.plain)
+        #elseif os(visionOS)
+        .buttonBorderShape(.roundedRectangle)
         #endif
         .disabled(inAppPurchase.purchaseState != .pending)
-        .overlay {
-            if inAppPurchase.purchaseState == .purchasing {
-                ProgressView()
-                    #if os(macOS)
-                    .controlSize(.small)
-                    #endif
-            }
-        }
     }
+
+
+    // MARK: - Details
 
     private var selected: Bool {
         selectedTier == tier
     }
+
+    private var titleFont: Font {
+        #if os(visionOS)
+        return Font.title3
+        #elseif os(tvOS)
+        return Font.headline.bold()
+        #else
+        return Font.title3.bold()
+        #endif
+    }
+
+    @ViewBuilder private var tierDetailsView: some View {
+        Group {
+            if inAppPurchase.fetchProduct(for: tier) == nil {
+                HStack {
+                    ProgressView()
+                        #if !os(tvOS)
+                        .controlSize(.small)
+                        #endif
+                }
+            } else {
+                Text(inAppPurchase.fetchTierSubtitle(for: tier))
+                    .font(subtitleFont)
+                    .multilineTextAlignment(.leading)
+                    #if !os(watchOS)
+                    .foregroundStyle(Color.secondary)
+                    #endif
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var subtitleFont: Font {
+        #if os(tvOS)
+        return Font.subheadline
+        #else
+        return Font.footnote
+        #endif
+    }
+
+
+    // MARK: - Checkmark
 
     private var checkmarkView: some View {
         Group {
@@ -152,82 +182,57 @@ struct LegacyTierSelectionButton: View {
         #if os(visionOS)
         .foregroundStyle(.white)
         #else
-        .foregroundStyle(Color.accentColor)
+        .foregroundStyle(selected ? Color.accentColor : Color.secondary)
         #endif
     }
 
-    private var tierDetailsView: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Group {
-                if let product = inAppPurchase.fetchProduct(for: tier) {
-                    Text("\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())")
-                } else {
-                    HStack(spacing: 4) {
-                        ProgressView()
-                            #if os(macOS) || os(visionOS)
-                            .controlSize(.small)
-                            #elseif os(watchOS)
-                            .frame(maxWidth: 40)
-                            #endif
 
-                        Text("/\(tier.type.paymentTimeTitle.lowercased())")
-                    }
+    // MARK: - Background
+
+    private var backgroundPadding: CGFloat {
+        #if os(macOS)
+        return 10
+        #else
+        return 16
+        #endif
+    }
+
+    private var backgroundView: some View {
+        backgroundColor
+            .clipShape(RoundedRectangle(
+                cornerRadius: backgroundCornerRadius,
+                style: .continuous
+            ))
+            .overlay {
+                if selected {
+                    RoundedRectangle(
+                        cornerRadius: backgroundCornerRadius,
+                        style: .continuous
+                    )
+                    .stroke(
+                        Color.accentColor,
+                        lineWidth: 2
+                    )
                 }
             }
-            #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
-            .bold()
-            #endif
-            .foregroundStyle(Color.primary)
-
-            if let priceDetails {
-                Text(priceDetails)
-                    .font(.footnote)
-                    .foregroundStyle(Color.secondary)
-            }
-        }
-        .multilineTextAlignment(.leading)
     }
 
     private var backgroundCornerRadius: CGFloat {
         #if os(macOS)
-        return 8
+        return 6
         #else
         return 12
         #endif
     }
 
     private var backgroundColor: Color {
-        #if os(macOS)
+        #if os(iOS)
+        return Color(.secondarySystemBackground)
+        #elseif os(macOS)
         return Color(.controlBackgroundColor)
-        #elseif os(iOS)
-        return Color(.systemBackground)
         #else
         return Color.gray
         #endif
-    }
-
-    private var priceDetails: String? {
-        switch tier.type {
-        case .weekly, .monthly, .yearly:
-            guard let product = inAppPurchase.fetchProduct(for: tier),
-                  let introOffer = inAppPurchase.introOffer(for: product) else {
-                return nil
-            }
-
-            switch introOffer.period.unit {
-            case .day:
-                return String(localized: "\(introOffer.period.value) Days Free")
-            case .week:
-                return String(localized: "\(introOffer.period.value) Weeks Free")
-            case .month:
-                return String(localized: "\(introOffer.period.value) Months Free")
-            default:
-                return nil
-            }
-
-        case .lifetime, .lifetimeExisting:
-            return String(localized: "One-time payment.")
-        }
     }
 }
 

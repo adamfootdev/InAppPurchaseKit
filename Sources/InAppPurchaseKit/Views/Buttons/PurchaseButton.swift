@@ -89,28 +89,15 @@ struct PurchaseButton: View {
             case .pending:
                 switch tier.type {
                 case .weekly, .monthly, .yearly:
-                    if let product = inAppPurchase.fetchProduct(for: tier) {
-                        if inAppPurchase.introOffer(for: product) == nil {
-                            return String(localized: "Redeem Free Trial")
-                        } else {
-                            if (configuration.tiers.count == 1 && configuration.enableSinglePurchaseMode) {
-                                return String(localized: "Subscribe - \(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())")
-                            } else {
-                                return String(localized: "Subscribe")
-                            }
-                        }
-
+                    if let product = inAppPurchase.fetchProduct(for: tier),
+                       inAppPurchase.introOffer(for: product) == nil {
+                        return String(localized: "Redeem Free Trial")
                     } else {
                         return String(localized: "Subscribe")
                     }
 
                 case .lifetime, .lifetimeExisting:
-                    if (configuration.tiers.count == 1 && configuration.enableSinglePurchaseMode),
-                       let product = inAppPurchase.fetchProduct(for: tier) {
-                        return String(localized: "Purchase - \(product.displayPrice)")
-                    } else {
-                        return String(localized: "Purchase")
-                    }
+                    return String(localized: "Purchase")
                 }
             default:
                 return String(localized: "Purchase")
@@ -122,6 +109,10 @@ struct PurchaseButton: View {
 }
 
 //#Preview {
-//    PurchaseButton(for: .constant(.example), configuration: .preview)
-//        .environment(InAppPurchaseKit.preview)
+//    Group {
+//        if #available(tvOS 17.0, *) {
+//            PurchaseButton(for: .constant(.example), configuration: .preview)
+//                .environment(InAppPurchaseKit.preview)
+//        }
+//    }
 //}

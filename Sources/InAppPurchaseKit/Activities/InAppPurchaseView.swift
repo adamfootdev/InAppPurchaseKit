@@ -23,7 +23,6 @@ public struct InAppPurchaseView<Content: View>: View {
     private let doneButtonPlacement: ToolbarItemPlacement
 
     @State private var selectedTier: InAppPurchaseTier?
-
     @State private var showingManageSubscriptionSheet: Bool = false
 
     #if os(watchOS)
@@ -84,9 +83,14 @@ public struct InAppPurchaseView<Content: View>: View {
                 }
                 #endif
 
-                AdditionalOptionsView(
-                    configuration: inAppPurchase.configuration
-                )
+                VStack(spacing: mainSpacing / 2) {
+                    Divider()
+                        .frame(maxWidth: mainWidth)
+
+                    AdditionalOptionsView(
+                        configuration: inAppPurchase.configuration
+                    )
+                }
             }
             .frame(maxWidth: .infinity)
             #if os(iOS) || os(visionOS)
@@ -197,7 +201,6 @@ public struct InAppPurchaseView<Content: View>: View {
                     selectedTier: $selectedTier,
                     configuration: inAppPurchase.configuration
                 )
-
             }
         }
         .frame(maxWidth: mainWidth)

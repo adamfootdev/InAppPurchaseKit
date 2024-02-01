@@ -119,7 +119,7 @@ struct AdditionalOptionsView: View {
 //#Preview {
 //    Group {
 //        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            AdditionalOptionsView(configuration: .preview, purchased: false)
+//            AdditionalOptionsView(configuration: .preview)
 //                .environment(InAppPurchaseKit.preview)
 //        }
 //    }

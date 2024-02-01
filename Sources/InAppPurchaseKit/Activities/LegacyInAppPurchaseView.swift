@@ -21,7 +21,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
-    @State private var showingRedeemSheet: Bool = false
+    @State private var selectedTier: InAppPurchaseTier?
     @State private var showingManageSubscriptionSheet: Bool = false
 
     #if os(watchOS)
@@ -52,7 +52,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             #if os(macOS) || os(tvOS)
             subscriptionView
             #else
-            NavigationStack {
+            if embedInNavigationStack {
+                NavigationStack {
+                    subscriptionView
+                }
+            } else {
                 subscriptionView
             }
             #endif
@@ -66,16 +70,26 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                 AboutInAppPurchaseView(
                     configuration: inAppPurchase.configuration
                 )
-                .environmentObject(inAppPurchase)
 
-                #if os(macOS) || os(watchOS)
-                purchaseOptionsView
+                tiersView
+
+                #if !os(iOS) && !os(visionOS)
+                if inAppPurchase.purchased == false {
+                    LegacyPurchaseView(
+                        selectedTier: $selectedTier,
+                        configuration: inAppPurchase.configuration
+                    )
+                }
                 #endif
 
-                LegacyAdditionalOptionsView(
-                    configuration: inAppPurchase.configuration,
-                    purchased: inAppPurchase.purchased
-                )
+                VStack(spacing: mainSpacing / 2) {
+                    Divider()
+                        .frame(maxWidth: mainWidth)
+
+                    LegacyAdditionalOptionsView(
+                        configuration: inAppPurchase.configuration
+                    )
+                }
             }
             .frame(maxWidth: .infinity)
             #if os(iOS) || os(visionOS)
@@ -89,17 +103,22 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         }
         #if os(iOS) || os(visionOS)
         .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 16) {
-                Divider()
+            if inAppPurchase.purchased == false {
+                VStack(spacing: 16) {
+                    Divider()
 
-                purchaseOptionsView
+                    LegacyPurchaseView(
+                        selectedTier: $selectedTier,
+                        configuration: inAppPurchase.configuration
+                    )
                     .padding([.horizontal, .bottom])
-            }
-            .background {
-                Rectangle()
-                    .fill(.ultraThinMaterial)
-                    .edgesIgnoringSafeArea(.all)
-                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
+                .background {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .edgesIgnoringSafeArea(.all)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -109,19 +128,17 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(visionOS)
-            redeemToolbarItem
-            #endif
-
             #if os(iOS) || os(visionOS) || os(watchOS)
             doneToolbarItem
             #endif
         }
+        .onAppear {
+            configureInitialTier()
+        }
         #if os(iOS) || os(visionOS)
-        .offerCodeRedemption(isPresented: $showingRedeemSheet)
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
-        .compatibleOnChange(of: inAppPurchase.purchaseState) { _, purchaseState in
+        .onChange(of: inAppPurchase.purchaseState) { purchaseState in
             if purchaseState == .purchased {
                 #if canImport(HapticsKit)
                 if inAppPurchase.configuration.enableHapticFeedback {
@@ -150,7 +167,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #endif
     }
 
-    private var purchaseOptionsView: some View {
+    private var tiersView: some View {
         Group {
             if inAppPurchase.purchased {
                 #if os(iOS) || os(visionOS)
@@ -177,43 +194,64 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                 #else
                 SubscribedFooterView()
                 #endif
-                
+
             } else {
-                LegacyPurchaseView(configuration: inAppPurchase.configuration)
+                LegacyTiersView(
+                    selectedTier: $selectedTier,
+                    configuration: inAppPurchase.configuration
+                )
             }
         }
+        .frame(maxWidth: mainWidth)
         .animation(.easeInOut(duration: 0.5), value: inAppPurchase.purchased)
     }
 
-    #if os(iOS) || os(visionOS)
-    private var redeemToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: .topBarLeading) {
-            if inAppPurchase.purchased == false {
-                Button("Redeem") {
-                    showingRedeemSheet.toggle()
+
+    // MARK: - Configuration
+
+    private func configureInitialTier() {
+        guard selectedTier == nil else { return }
+
+        let configuration = inAppPurchase.configuration
+
+        if configuration.tiers.count == 1 {
+            selectedTier = configuration.tiers.first
+        } else if let tier = configuration.tiers.first(where: {
+            $0.alwaysVisible
+        }) {
+            selectedTier = tier
+        } else if let tier = configuration.tiers.first {
+            selectedTier = tier
+        }
+    }
+
+    private var mainWidth: CGFloat {
+        #if os(tvOS)
+        return 800
+        #else
+        return 400
+        #endif
+    }
+
+
+    // MARK: - Toolbar
+
+    private var doneToolbarItem: some ToolbarContent {
+        ToolbarItem(placement: doneButtonPlacement) {
+            if let doneButton {
+                doneButton()
+            } else {
+                Button {
+                    dismiss()
+                } label: {
+                    #if os(watchOS)
+                    Label("Done", systemImage: "xmark")
+                    #else
+                    Text("Done")
+                    #endif
                 }
             }
         }
-    }
-    #endif
-
-    private var doneToolbarItem: some ToolbarContent {
-        #if os(watchOS)
-        ToolbarItem(placement: .cancellationAction) {
-            Button {
-                dismiss()
-            } label: {
-                Label("Done", systemImage: "xmark")
-            }
-        }
-
-        #else
-        ToolbarItem(placement: .confirmationAction) {
-            Button("Done") {
-                dismiss()
-            }
-        }
-        #endif
     }
 }
 

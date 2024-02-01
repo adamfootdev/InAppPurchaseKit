@@ -1,9 +1,11 @@
 //
-//  LegacyPurchaseView.swift
+//  LegacyTiersView.swift
 //  InAppPurchaseKit
 //
-//  Created by Adam Foot on 31/01/2024.
+//  Created by Adam Foot on 01/02/2024.
 //
+
+import SwiftUI
 
 import SwiftUI
 
@@ -11,7 +13,7 @@ import SwiftUI
 import HapticsKit
 #endif
 
-struct LegacyPurchaseView: View {
+struct LegacyTiersView: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
     private let configuration: InAppPurchaseKitConfiguration
@@ -27,47 +29,24 @@ struct LegacyPurchaseView: View {
     }
 
     var body: some View {
-        if (configuration.tiers.count == 1 && configuration.enableSinglePurchaseMode) {
-            singleTierView
-
-        } else {
-            #if os(iOS) || os(macOS) || os(visionOS)
-            LegacyPurchaseButton(
-                for: $selectedTier,
-                configuration: configuration
-            )
-            #endif
+        VStack(spacing: 12) {
+            VStack(alignment: .trailing, spacing: 48) {
+                VStack(alignment: .trailing, spacing: tierSpacing) {
+                    ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
+                        tierButton(for: tier)
+                    }
+                }
+            }
         }
     }
 
     private var tierSpacing: CGFloat {
-        #if os(tvOS)
+        #if os(macOS)
+        return 8
+        #elseif os(tvOS)
         return 32
-        #elseif os(visionOS)
-        return 12
-        #elseif os(watchOS)
+        #else
         return 16
-        #else
-        return 4
-        #endif
-    }
-
-    private var singleTierView: some View {
-        #if os(tvOS)
-        HStack(spacing: 100) {
-            LegacyPurchaseButton(
-                for: $selectedTier,
-                configuration: configuration
-            )
-
-            LegacyRestoreButton()
-        }
-
-        #else
-        LegacyPurchaseButton(
-            for: $selectedTier,
-            configuration: configuration
-        )
         #endif
     }
 
@@ -101,6 +80,9 @@ struct LegacyPurchaseView: View {
 }
 
 #Preview {
-    LegacyPurchaseView(selectedTier: .constant(.example), configuration: .preview)
-        .environmentObject(LegacyInAppPurchaseKit.preview)
+    LegacyTiersView(
+        selectedTier: .constant(.example),
+        configuration: .preview
+    )
+    .environmentObject(LegacyInAppPurchaseKit.preview)
 }
