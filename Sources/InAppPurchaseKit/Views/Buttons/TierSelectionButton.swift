@@ -177,17 +177,22 @@ struct TierSelectionButton: View {
         Group {
             if selected {
                 Image(systemName: "checkmark.circle.fill")
+                    #if os(visionOS)
+                    .foregroundStyle(Color.white)
+                    #else
+                    .foregroundStyle(Color.white, Color.accentColor)
+                    #endif
             } else {
                 Image(systemName: "circle")
+                    #if os(visionOS)
+                    .foregroundStyle(Color.white)
+                    #else
+                    .foregroundStyle(Color.secondary)
+                    #endif
             }
         }
         .imageScale(.large)
         .font(.headline)
-        #if os(visionOS)
-        .foregroundStyle(.white)
-        #else
-        .foregroundStyle(selected ? Color.accentColor : Color.secondary)
-        #endif
     }
 
 

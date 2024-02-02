@@ -29,13 +29,9 @@ struct LegacyTiersView: View {
     }
 
     var body: some View {
-        VStack(spacing: 12) {
-            VStack(alignment: .trailing, spacing: 48) {
-                VStack(alignment: .trailing, spacing: tierSpacing) {
-                    ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
-                        tierButton(for: tier)
-                    }
-                }
+        VStack(alignment: .trailing, spacing: tierSpacing) {
+            ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
+                tierButton(for: tier)
             }
         }
     }
@@ -44,9 +40,9 @@ struct LegacyTiersView: View {
         #if os(macOS)
         return 8
         #elseif os(tvOS)
-        return 32
+        return 24
         #else
-        return 16
+        return 12
         #endif
     }
 

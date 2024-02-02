@@ -158,11 +158,11 @@ public struct InAppPurchaseView<Content: View>: View {
 
     private var mainSpacing: CGFloat {
         #if os(macOS) || os(watchOS)
-        return 28
+        return 20
         #elseif os(tvOS)
-        return 60
-        #else
         return 40
+        #else
+        return 32
         #endif
     }
 
