@@ -17,30 +17,60 @@ public enum InAppPurchaseTierType {
     var title: String {
         switch self {
         case .weekly:
-            return String(localized: "Weekly")
+            return String(
+                localized: "Weekly",
+                bundle: .module
+            )
         case .monthly:
-            return String(localized: "Monthly")
+            return String(
+                localized: "Monthly",
+                bundle: .module
+            )
         case .yearly:
-            return String(localized: "Yearly")
+            return String(
+                localized: "Yearly",
+                bundle: .module
+            )
         case .lifetime:
-            return String(localized: "Lifetime")
+            return String(
+                localized: "Lifetime",
+                bundle: .module
+            )
         case .lifetimeExisting:
-            return String(localized: "Lifetime")
+            return String(
+                localized: "Lifetime",
+                bundle: .module
+            )
         }
     }
 
     var paymentTimeTitle: String {
         switch self {
         case .weekly:
-            return String(localized: "Week")
+            return String(
+                localized: "Week",
+                bundle: .module
+            )
         case .monthly:
-            return String(localized: "Month")
+            return String(
+                localized: "Month",
+                bundle: .module
+            )
         case .yearly:
-            return String(localized: "Year")
+            return String(
+                localized: "Year",
+                bundle: .module
+            )
         case .lifetime:
-            return String(localized: "Lifetime")
+            return String(
+                localized: "Lifetime",
+                bundle: .module
+            )
         case .lifetimeExisting:
-            return String(localized: "Lifetime")
+            return String(
+                localized: "Lifetime",
+                bundle: .module
+            )
         }
     }
 }

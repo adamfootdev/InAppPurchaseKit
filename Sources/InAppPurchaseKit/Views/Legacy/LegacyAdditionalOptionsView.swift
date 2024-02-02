@@ -26,7 +26,7 @@ struct LegacyAdditionalOptionsView: View {
                 Button {
                     showingRedeemSheet.toggle()
                 } label: {
-                    Text("Redeem Code")
+                    Text("Redeem Code", bundle: .module)
                         #if os(iOS)
                         .font(.headline)
                         #endif
@@ -95,7 +95,7 @@ struct LegacyAdditionalOptionsView: View {
             #endif
 
             TermsPrivacyButton(
-                String(localized: "Terms"),
+                String(localized: "Terms", bundle: .module),
                 url: configuration.termsOfUseURL
             )
 
@@ -104,7 +104,7 @@ struct LegacyAdditionalOptionsView: View {
             }
 
             TermsPrivacyButton(
-                String(localized: "Privacy Policy"),
+                String(localized: "Privacy Policy", bundle: .module),
                 url: configuration.privacyPolicyURL
             )
         }

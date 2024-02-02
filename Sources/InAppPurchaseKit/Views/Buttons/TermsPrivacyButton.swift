@@ -20,7 +20,7 @@ struct TermsPrivacyButton: View {
 
     var body: some View {
         #if os(tvOS)
-        Text("\(title): \(url.absoluteString)")
+        Text("\(title): \(url.absoluteString)", bundle: .module)
 
         #elseif os(watchOS)
         VStack(alignment: .leading, spacing: 2) {
@@ -44,5 +44,8 @@ struct TermsPrivacyButton: View {
 }
 
 #Preview {
-    TermsPrivacyButton("Terms", url: URL(string: "https://adamfoot.dev")!)
+    TermsPrivacyButton(
+        "Terms",
+        url: URL(string: "https://adamfoot.dev")!
+    )
 }

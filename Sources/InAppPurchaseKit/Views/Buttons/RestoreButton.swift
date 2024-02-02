@@ -12,10 +12,12 @@ struct RestoreButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     var body: some View {
-        Button("Restore") {
+        Button {
             Task {
                 await inAppPurchase.restorePurchases()
             }
+        } label: {
+            Text("Restore", bundle: .module)
         }
     }
 }

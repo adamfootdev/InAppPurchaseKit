@@ -14,9 +14,15 @@ enum InAppPurchaseTierAccessoryType {
     var title: String {
         switch self {
         case .saving(let value):
-            return String(localized: "Save \(value)%")
+            return String(
+                localized: "Save \(value)%",
+                bundle: .module
+            )
         case .loyalty:
-            return String(localized: "Loyalty")
+            return String(
+                localized: "Loyalty",
+                bundle: .module
+            )
         }
     }
 

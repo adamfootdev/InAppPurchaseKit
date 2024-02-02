@@ -27,7 +27,7 @@ struct AdditionalOptionsView: View {
                 Button {
                     showingRedeemSheet.toggle()
                 } label: {
-                    Text("Redeem Code")
+                    Text("Redeem Code", bundle: .module)
                         #if os(iOS)
                         .font(.headline)
                         #endif
@@ -96,7 +96,7 @@ struct AdditionalOptionsView: View {
             #endif
 
             TermsPrivacyButton(
-                String(localized: "Terms"),
+                String(localized: "Terms", bundle: .module),
                 url: configuration.termsOfUseURL
             )
 
@@ -105,7 +105,7 @@ struct AdditionalOptionsView: View {
             }
 
             TermsPrivacyButton(
-                String(localized: "Privacy Policy"),
+                String(localized: "Privacy Policy", bundle: .module),
                 url: configuration.privacyPolicyURL
             )
         }

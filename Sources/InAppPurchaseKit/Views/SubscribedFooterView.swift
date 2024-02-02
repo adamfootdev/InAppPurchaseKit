@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SubscribedFooterView: View {
     var body: some View {
-        Text("Subscribed - Thank You!")
+        Text("Subscribed - Thank You!", bundle: .module)
             .font(.headline)
             .multilineTextAlignment(.center)
             .foregroundStyle(Color.secondary)

@@ -96,19 +96,34 @@ struct PurchaseButton: View {
                 case .weekly, .monthly, .yearly:
                     if let product = inAppPurchase.fetchProduct(for: tier),
                        inAppPurchase.introOffer(for: product) == nil {
-                        return String(localized: "Redeem Free Trial")
+                        return String(
+                            localized: "Redeem Free Trial",
+                            bundle: .module
+                        )
                     } else {
-                        return String(localized: "Subscribe")
+                        return String(
+                            localized: "Subscribe",
+                            bundle: .module
+                        )
                     }
 
                 case .lifetime, .lifetimeExisting:
-                    return String(localized: "Purchase")
+                    return String(
+                        localized: "Purchase",
+                        bundle: .module
+                    )
                 }
             default:
-                return String(localized: "Purchase")
+                return String(
+                    localized: "Purchase",
+                    bundle: .module
+                )
             }
         } else {
-            return String(localized: "Purchase")
+            return String(
+                localized: "Purchase",
+                bundle: .module
+            )
         }
     }
 }

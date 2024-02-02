@@ -11,10 +11,12 @@ struct LegacyRestoreButton: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
     var body: some View {
-        Button("Restore") {
+        Button {
             Task {
                 await inAppPurchase.restorePurchases()
             }
+        } label: {
+            Text("Restore", bundle: .module)
         }
     }
 }

@@ -12,13 +12,70 @@
       }
     },
     "%lld Days Free, then " : {
-
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Day Free, then "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Days Free, then "
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld Months Free, then " : {
-
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Month Free, then "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Months Free, then "
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "%lld Weeks Free, then " : {
-
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Week Free, then "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Weeks Free, then "
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "An unknown error occurred." : {
 

@@ -21,7 +21,7 @@ struct AboutInAppPurchaseView: View {
             Button {
 
             } label: {
-                Text("View Features")
+                Text("View Features", bundle: .module)
                     .font(titleFont)
             }
             #if !os(macOS) && !os(tvOS)

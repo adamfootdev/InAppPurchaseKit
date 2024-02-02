@@ -13,7 +13,10 @@ enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringResource
     var errorDescription: String? {
         switch self {
         case .failedStoreVerification:
-            return String(localized: "There was an error verifying your request. Please try again.")
+            return String(
+                localized: "There was an error verifying your request. Please try again.",
+                bundle: .module
+            )
         }
     }
 

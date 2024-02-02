@@ -267,18 +267,30 @@ public final class InAppPurchaseKit: NSObject {
             if let introOffer = introOffer(for: product) {
                 switch introOffer.period.unit {
                 case .day:
-                    message += String(localized: "\(introOffer.period.value) Days Free, then ")
+                    message += String(
+                        localized: "\(introOffer.period.value) Days Free, then ",
+                        bundle: .module
+                    )
                 case .week:
-                    message += String(localized: "\(introOffer.period.value) Weeks Free, then ")
+                    message += String(
+                        localized: "\(introOffer.period.value) Weeks Free, then ",
+                        bundle: .module
+                    )
                 case .month:
-                    message += String(localized: "\(introOffer.period.value) Months Free, then ")
+                    message += String(
+                        localized: "\(introOffer.period.value) Months Free, then ",
+                        bundle: .module
+                    )
                 default:
                     message += ""
                 }
             }
 
         case .lifetime, .lifetimeExisting:
-            message += String(localized: "One-time payment, ")
+            message += String(
+                localized: "One-time payment, ",
+                bundle: .module
+            )
         }
 
         message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"

@@ -171,7 +171,7 @@ public struct InAppPurchaseView<Content: View>: View {
                         Button {
                             showingManageSubscriptionSheet.toggle()
                         } label: {
-                            Text("Manage Subscription")
+                            Text("Manage Subscription", bundle: .module)
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
                         }
@@ -252,9 +252,13 @@ public struct InAppPurchaseView<Content: View>: View {
                     dismiss()
                 } label: {
                     #if os(watchOS)
-                    Label("Done", systemImage: "xmark")
+                    Label {
+                        Text("Done", bundle: .module)
+                    } icon: {
+                        Image(systemName: "xmark")
+                    }
                     #else
-                    Text("Done")
+                    Text("Done", bundle: .module)
                     #endif
                 }
             }
