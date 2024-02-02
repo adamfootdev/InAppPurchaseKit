@@ -57,10 +57,10 @@ struct InAppPurchaseHeaderView: View {
     }
 
     private var subtitleFont: Font {
-        #if os(macOS)
-        return Font.subheadline
-        #else
+        #if os(watchOS)
         return Font.footnote
+        #else
+        return Font.subheadline
         #endif
     }
 

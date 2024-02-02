@@ -83,6 +83,9 @@
     "Done" : {
 
     },
+    "Done, bundle: .module" : {
+
+    },
     "Lifetime" : {
 
     },
@@ -131,13 +134,13 @@
     "There was an error verifying your request. Please try again." : {
 
     },
-    "View Features" : {
-
-    },
     "Week" : {
 
     },
     "Weekly" : {
+
+    },
+    "Whatʼs Included" : {
 
     },
     "Year" : {

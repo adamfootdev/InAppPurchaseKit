@@ -68,13 +68,20 @@ public struct InAppPurchaseView<Content: View>: View {
     private var subscriptionView: some View {
         ScrollView {
             VStack(spacing: mainSpacing) {
-                AboutInAppPurchaseView(
+                InAppPurchaseHeaderView(
                     configuration: inAppPurchase.configuration
                 )
+                .frame(maxWidth: .infinity)
 
                 tiersView
 
                 VStack(spacing: mainSpacing / 2) {
+                    Divider()
+                        .frame(maxWidth: mainWidth)
+
+                    featuresView
+                        .frame(maxWidth: mainWidth)
+
                     Divider()
                         .frame(maxWidth: mainWidth)
 
@@ -211,6 +218,28 @@ public struct InAppPurchaseView<Content: View>: View {
         }
         .frame(maxWidth: mainWidth)
         .animation(.easeInOut(duration: 0.5), value: inAppPurchase.purchased)
+    }
+
+
+    // MARK: - Features
+
+    private var featuresView: some View {
+        VStack(spacing: mainSpacing / 2) {
+            Text("Whatʼs Included", bundle: .module)
+                .font(featuresTitleFont)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            FeaturesListView(inAppPurchase.configuration.features)
+        }
+        .padding(.vertical, 8)
+    }
+
+    private var featuresTitleFont: Font {
+        #if os(visionOS)
+        return Font.title3
+        #else
+        return Font.title3.bold()
+        #endif
     }
 
 

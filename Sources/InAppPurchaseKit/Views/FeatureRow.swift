@@ -58,22 +58,18 @@ struct FeatureRow: View {
     }
 
     private var titleFont: Font {
-        #if os(macOS) || os(tvOS)
-        return Font.headline
-        #elseif os(watchOS)
+        #if os(watchOS)
         return Font.system(.footnote, weight: .medium)
         #else
-        return Font.subheadline.bold()
+        return Font.headline
         #endif
     }
 
     private var descriptionFont: Font {
-        #if os(macOS)
-        return Font.footnote
-        #elseif os(tvOS)
-        return Font.subheadline
-        #else
+        #if os(watchOS)
         return Font.caption
+        #else
+        return Font.subheadline
         #endif
     }
 

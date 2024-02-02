@@ -36,7 +36,6 @@ struct TierSelectionButton: View {
         #if os(watchOS)
         VStack(spacing: 8) {
             tierDetailsView
-                .frame(maxWidth: .infinity, alignment: .leading)
 
             if inAppPurchase.purchaseState == .purchasing {
                 ProgressView()
@@ -129,9 +128,11 @@ struct TierSelectionButton: View {
     }
 
     private var titleFont: Font {
-        #if os(visionOS)
+        #if os(tvOS)
+        return Font.headline.bold()
+        #elseif os(visionOS)
         return Font.title3
-        #elseif os(tvOS)
+        #elseif os(watchOS)
         return Font.headline.bold()
         #else
         return Font.title3.bold()
@@ -141,31 +142,28 @@ struct TierSelectionButton: View {
     @ViewBuilder private var tierDetailsView: some View {
         Group {
             if inAppPurchase.fetchProduct(for: tier) == nil {
-                HStack {
-                    ProgressView()
-                        #if !os(tvOS)
-                        .controlSize(.small)
-                        #endif
-                }
-            } else {
-                Text(inAppPurchase.fetchTierSubtitle(for: tier))
-                    .font(subtitleFont)
-                    #if os(watchOS)
-                    .multilineTextAlignment(.center)
-                    #else
-                    .foregroundStyle(Color.secondary)
+                ProgressView()
+                    #if !os(tvOS)
+                    .controlSize(.small)
                     #endif
+            } else {
+                VStack(alignment: .leading, spacing: 4) {
+                    #if os(watchOS)
+                    Text(tier.type.title)
+                        .font(titleFont)
+                    #endif
+
+                    Text(inAppPurchase.fetchTierSubtitle(for: tier))
+                        .font(subtitleFont)
+                        .foregroundStyle(Color.secondary)
+                }
             }
         }
-        #if os(watchOS)
-        .frame(maxWidth: .infinity)
-        #else
         .frame(maxWidth: .infinity, alignment: .leading)
-        #endif
     }
 
     private var subtitleFont: Font {
-        #if os(tvOS) || os(watchOS)
+        #if os(tvOS)
         return Font.subheadline
         #else
         return Font.footnote
