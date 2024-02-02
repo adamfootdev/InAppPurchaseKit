@@ -150,17 +150,22 @@ struct TierSelectionButton: View {
             } else {
                 Text(inAppPurchase.fetchTierSubtitle(for: tier))
                     .font(subtitleFont)
-                    .multilineTextAlignment(.leading)
-                    #if !os(watchOS)
+                    #if os(watchOS)
+                    .multilineTextAlignment(.center)
+                    #else
                     .foregroundStyle(Color.secondary)
                     #endif
             }
         }
+        #if os(watchOS)
+        .frame(maxWidth: .infinity)
+        #else
         .frame(maxWidth: .infinity, alignment: .leading)
+        #endif
     }
 
     private var subtitleFont: Font {
-        #if os(tvOS)
+        #if os(tvOS) || os(watchOS)
         return Font.subheadline
         #else
         return Font.footnote

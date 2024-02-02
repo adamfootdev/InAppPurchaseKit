@@ -73,15 +73,6 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
                 tiersView
 
-                #if !os(iOS) && !os(visionOS)
-                if inAppPurchase.purchased == false {
-                    LegacyPurchaseButton(
-                        for: $selectedTier,
-                        configuration: inAppPurchase.configuration
-                    )
-                }
-                #endif
-
                 VStack(spacing: mainSpacing / 2) {
                     Divider()
                         .frame(maxWidth: mainWidth)
@@ -101,9 +92,9 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             .padding()
             #endif
         }
-        #if os(iOS) || os(visionOS)
+        #if os(iOS)
         .safeAreaInset(edge: .bottom) {
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchased == false && inAppPurchase.configuration.showSinglePurchaseMode == false {
                 VStack(spacing: 16) {
                     Divider()
 
@@ -196,10 +187,25 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                 #endif
 
             } else {
-                LegacyTiersView(
-                    selectedTier: $selectedTier,
-                    configuration: inAppPurchase.configuration
-                )
+                if inAppPurchase.configuration.showSinglePurchaseMode {
+                    LegacySinglePurchaseButton(
+                        configuration: inAppPurchase.configuration
+                    )
+                } else {
+                    LegacyTiersView(
+                        selectedTier: $selectedTier,
+                        configuration: inAppPurchase.configuration
+                    )
+
+                    #if os(macOS) || os(visionOS)
+                    if inAppPurchase.purchased == false {
+                        LegacyPurchaseButton(
+                            for: $selectedTier,
+                            configuration: inAppPurchase.configuration
+                        )
+                    }
+                    #endif
+                }
             }
         }
         .frame(maxWidth: mainWidth)

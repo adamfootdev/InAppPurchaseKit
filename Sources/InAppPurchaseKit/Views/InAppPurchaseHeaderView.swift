@@ -31,7 +31,7 @@ struct InAppPurchaseHeaderView: View {
                     .fixedSize(horizontal: false, vertical: true)
 
                 Text(configuration.subtitle)
-                    .font(.footnote)
+                    .font(subtitleFont)
                     .foregroundStyle(.secondary)
             }
             .multilineTextAlignment(.center)
@@ -53,6 +53,14 @@ struct InAppPurchaseHeaderView: View {
         return Font.headline
         #else
         return Font.title2.bold()
+        #endif
+    }
+
+    private var subtitleFont: Font {
+        #if os(macOS)
+        return Font.subheadline
+        #else
+        return Font.footnote
         #endif
     }
 
