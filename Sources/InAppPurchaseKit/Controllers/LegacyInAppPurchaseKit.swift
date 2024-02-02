@@ -214,10 +214,15 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
 
-                await updatePurchasedIdentifiers(transaction)
+                await updatePurchasedTiers(transaction)
                 await transaction.finish()
 
                 purchaseState = .purchased
+
+                if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
+                    purchaseCompletionBlock(product)
+                }
+
                 return transaction
 
             case .userCancelled, .pending:
@@ -306,7 +311,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             for await result in Transaction.updates {
                 do {
                     let transaction = try self.checkVerified(result)
-                    await self.updatePurchasedIdentifiers(transaction)
+                    await self.updatePurchasedTiers(transaction)
                     await transaction.finish()
 
                     await MainActor.run {
@@ -330,6 +335,10 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 print("Transaction failed verification")
             }
         }
+
+        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
+            updatedPurchasesCompletionBlock()
+        }
     }
 
     private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
@@ -341,7 +350,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor func updatePurchasedIdentifiers(_ transaction: Transaction) async {
+    @MainActor func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.first(where: {
                 $0.id == transaction.productID
@@ -356,6 +365,10 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             for tier in tiers {
                 purchasedTiers.remove(tier)
             }
+        }
+
+        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
+            updatedPurchasesCompletionBlock()
         }
     }
 

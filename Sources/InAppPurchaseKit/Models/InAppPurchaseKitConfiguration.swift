@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 public struct InAppPurchaseKitConfiguration {
     public let title: String
@@ -20,6 +21,8 @@ public struct InAppPurchaseKitConfiguration {
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
     public let enableHapticFeedback: Bool
+    public let purchaseCompletionBlock: ((_ product: Product) -> Void)?
+    public let updatedPurchasesCompletionBlock: (() -> Void)?
 
     public init(
         _ title: String,
@@ -33,7 +36,9 @@ public struct InAppPurchaseKitConfiguration {
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
-        enableHapticFeedback: Bool = true
+        enableHapticFeedback: Bool = true,
+        purchaseCompletionBlock: ((_ product: Product) -> Void)? = nil,
+        updatedPurchasesCompletionBlock: (() -> Void)? = nil
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -47,6 +52,8 @@ public struct InAppPurchaseKitConfiguration {
         self.sharedUserDefaults = sharedUserDefaults
         self.overridePurchased = overridePurchased
         self.enableHapticFeedback = enableHapticFeedback
+        self.purchaseCompletionBlock = purchaseCompletionBlock
+        self.updatedPurchasesCompletionBlock = updatedPurchasesCompletionBlock
     }
 
     var tierIDs: [String] {
@@ -73,7 +80,11 @@ public struct InAppPurchaseKitConfiguration {
             fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil
-        )
+        ) { product in
+            print("Purchased \(product.displayName)")
+        } updatedPurchasesCompletionBlock: {
+            print("Updated Purchases")
+        }
 
         return configuration
     }()
