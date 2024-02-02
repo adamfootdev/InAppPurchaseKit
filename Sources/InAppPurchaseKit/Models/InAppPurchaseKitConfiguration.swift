@@ -53,6 +53,10 @@ public struct InAppPurchaseKitConfiguration {
         tiers.map { $0.id }
     }
 
+    var showSinglePurchaseMode: Bool {
+        tiers.count == 1 && enableSinglePurchaseMode
+    }
+
 
     // MARK: - Previews
 

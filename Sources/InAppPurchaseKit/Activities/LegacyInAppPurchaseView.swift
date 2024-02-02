@@ -75,8 +75,8 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
                 #if !os(iOS) && !os(visionOS)
                 if inAppPurchase.purchased == false {
-                    LegacyPurchaseView(
-                        selectedTier: $selectedTier,
+                    LegacyPurchaseButton(
+                        for: $selectedTier,
                         configuration: inAppPurchase.configuration
                     )
                 }
@@ -107,8 +107,8 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                 VStack(spacing: 16) {
                     Divider()
 
-                    LegacyPurchaseView(
-                        selectedTier: $selectedTier,
+                    LegacyPurchaseButton(
+                        for: $selectedTier,
                         configuration: inAppPurchase.configuration
                     )
                     .padding([.horizontal, .bottom])

@@ -76,8 +76,8 @@ public struct InAppPurchaseView<Content: View>: View {
 
                 #if !os(iOS) && !os(visionOS)
                 if inAppPurchase.purchased == false {
-                    PurchaseView(
-                        selectedTier: $selectedTier,
+                    PurchaseButton(
+                        for: $selectedTier,
                         configuration: inAppPurchase.configuration
                     )
                 }
@@ -108,8 +108,8 @@ public struct InAppPurchaseView<Content: View>: View {
                 VStack(spacing: 16) {
                     Divider()
 
-                    PurchaseView(
-                        selectedTier: $selectedTier,
+                    PurchaseButton(
+                        for: $selectedTier,
                         configuration: inAppPurchase.configuration
                     )
                     .padding([.horizontal, .bottom])
