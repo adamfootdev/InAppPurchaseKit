@@ -23,7 +23,7 @@ struct AdditionalOptionsView: View {
     var body: some View {
         #if os(iOS) || os(visionOS)
         VStack(spacing: 16) {
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased {
                 Button {
                     showingRedeemSheet.toggle()
                 } label: {
@@ -65,7 +65,7 @@ struct AdditionalOptionsView: View {
 
         #elseif os(tvOS)
         HStack(spacing: 64) {
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased {
                 RestoreButton()
             }
 
@@ -86,7 +86,7 @@ struct AdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if !os(tvOS)
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased {
                 RestoreButton()
 
                 if useDivider {

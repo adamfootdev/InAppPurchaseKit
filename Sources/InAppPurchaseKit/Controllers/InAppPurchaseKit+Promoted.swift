@@ -34,23 +34,23 @@ extension InAppPurchaseKit: SKPaymentTransactionObserver {
         for transaction in transactions {
             switch transaction.transactionState {
             case .purchasing:
-                purchaseState = .purchasing
+                transactionState = .purchasing
 
             case .purchased:
                 queue.finishTransaction(transaction)
-                purchaseState = .purchased
+                transactionState = .purchased
 
             case .restored:
                 queue.finishTransaction(transaction)
-                purchaseState = .purchased
+                transactionState = .purchased
 
             case .failed, .deferred:
                 queue.finishTransaction(transaction)
-                purchaseState = .pending
+                transactionState = .pending
 
             default:
                 queue.finishTransaction(transaction)
-                purchaseState = .pending
+                transactionState = .pending
             }
         }
 

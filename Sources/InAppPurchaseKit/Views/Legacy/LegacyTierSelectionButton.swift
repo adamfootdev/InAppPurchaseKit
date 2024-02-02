@@ -36,7 +36,7 @@ struct LegacyTierSelectionButton: View {
         VStack(spacing: 8) {
             tierDetailsView
 
-            if inAppPurchase.purchaseState == .purchasing {
+            if inAppPurchase.transactionState == .purchasing {
                 ProgressView()
             } else {
                 LegacyPurchaseButton(
@@ -116,7 +116,7 @@ struct LegacyTierSelectionButton: View {
         #elseif os(visionOS)
         .buttonBorderShape(.roundedRectangle)
         #endif
-        .disabled(inAppPurchase.purchaseState != .pending)
+        .disabled(inAppPurchase.transactionState != .pending)
     }
 
 

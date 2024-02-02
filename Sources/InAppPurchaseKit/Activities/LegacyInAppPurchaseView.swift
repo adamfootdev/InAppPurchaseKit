@@ -101,7 +101,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         }
         #if os(iOS)
         .safeAreaInset(edge: .bottom) {
-            if inAppPurchase.purchased == false && inAppPurchase.configuration.showSinglePurchaseMode == false {
+            if inAppPurchase.purchaseState != .purchased && inAppPurchase.configuration.showSinglePurchaseMode == false {
                 VStack(spacing: 16) {
                     Divider()
 
@@ -136,8 +136,8 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #if os(iOS) || os(visionOS)
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
-        .onChange(of: inAppPurchase.purchaseState) { purchaseState in
-            if purchaseState == .purchased {
+        .onChange(of: inAppPurchase.transactionState) { transactionState in
+            if transactionState == .purchased {
                 #if canImport(HapticsKit)
                 if inAppPurchase.configuration.enableHapticFeedback {
                     #if os(iOS)
@@ -167,7 +167,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     private var tiersView: some View {
         Group {
-            if inAppPurchase.purchased {
+            if inAppPurchase.purchaseState == .purchased {
                 #if os(iOS) || os(visionOS)
                 VStack(spacing: 20) {
                     SubscribedFooterView()
@@ -205,7 +205,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     )
 
                     #if os(macOS) || os(visionOS)
-                    if inAppPurchase.purchased == false {
+                    if inAppPurchase.purchaseState != .purchased {
                         LegacyPurchaseButton(
                             for: $selectedTier,
                             configuration: inAppPurchase.configuration
@@ -216,7 +216,10 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             }
         }
         .frame(maxWidth: mainWidth)
-        .animation(.easeInOut(duration: 0.5), value: inAppPurchase.purchased)
+        .animation(
+            .easeInOut(duration: 0.5),
+            value: inAppPurchase.purchaseState
+        )
     }
 
 

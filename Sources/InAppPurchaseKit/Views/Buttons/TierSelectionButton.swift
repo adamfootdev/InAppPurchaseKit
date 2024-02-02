@@ -37,7 +37,7 @@ struct TierSelectionButton: View {
         VStack(spacing: 8) {
             tierDetailsView
 
-            if inAppPurchase.purchaseState == .purchasing {
+            if inAppPurchase.transactionState == .purchasing {
                 ProgressView()
             } else {
                 PurchaseButton(
@@ -117,7 +117,7 @@ struct TierSelectionButton: View {
         #elseif os(visionOS)
         .buttonBorderShape(.roundedRectangle)
         #endif
-        .disabled(inAppPurchase.purchaseState != .pending)
+        .disabled(inAppPurchase.transactionState != .pending)
     }
 
 

@@ -25,17 +25,18 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     @Published private(set) var availableProducts: [Product] = []
     @Published private(set) var productsWithIntroOffer: [Product: Product.SubscriptionOffer] = [:]
     @Published private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
+    @Published private(set) var hasLoaded: Bool = false
 
-    @Published var purchaseState: PurchaseState = .pending {
+    @Published var transactionState: TransactionState = .pending {
         didSet {
             objectWillChange.send()
 
-            if purchaseState == .purchased {
+            if transactionState == .purchased {
                 Task {
                     try? await Task.sleep(for: .seconds(2))
 
                     await MainActor.run {
-                        purchaseState = .pending
+                        transactionState = .pending
                     }
                 }
             }
@@ -81,6 +82,10 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
 
         await verifyExistingTransactions()
+
+        await MainActor.run {
+            hasLoaded = true
+        }
     }
 
 
@@ -92,17 +97,21 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         })
     }
 
-    public var purchased: Bool {
+    public var purchaseState: PurchaseState {
         if let overridePurchased = configuration.overridePurchased {
-            return overridePurchased
+            return overridePurchased ? .purchased : .notPurchased
         } else if Bundle.main.bundlePath.hasSuffix(".appex") || configuration.fromAppExtension {
             let purchased = configuration.sharedUserDefaults.bool(
                 forKey: StorageKey.extensionSubscribed
             )
 
-            return purchased
+            return purchased ? .purchased : .notPurchased
 
         } else {
+            guard hasLoaded else {
+                return .pending
+            }
+
             let purchased = activeTier != nil
 
             configuration.sharedUserDefaults.set(
@@ -110,7 +119,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 forKey: StorageKey.extensionSubscribed
             )
 
-            return purchased
+            return purchased ? .purchased : .notPurchased
         }
     }
 
@@ -132,7 +141,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    func fetchPurchaseState(for productIdentifier: String) async throws -> Bool {
+    func fetchTransactionState(for productIdentifier: String) async throws -> Bool {
         guard let result = await Transaction.latest(for: productIdentifier) else {
             return false
         }
@@ -197,7 +206,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     @MainActor func purchase(
         _ product: Product
     ) async -> Transaction? {
-        purchaseState = .purchasing
+        transactionState = .purchasing
 
         do {
             #if os(visionOS)
@@ -217,7 +226,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 await updatePurchasedTiers(transaction)
                 await transaction.finish()
 
-                purchaseState = .purchased
+                transactionState = .purchased
 
                 if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
                     purchaseCompletionBlock(product)
@@ -226,16 +235,16 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 return transaction
 
             case .userCancelled, .pending:
-                purchaseState = .pending
+                transactionState = .pending
                 return nil
 
             default:
-                purchaseState = .pending
+                transactionState = .pending
                 return nil
             }
 
         } catch {
-            purchaseState = .pending
+            transactionState = .pending
             return nil
         }
     }
@@ -315,7 +324,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                     await transaction.finish()
 
                     await MainActor.run {
-                        self.purchaseState = .purchased
+                        self.transactionState = .purchased
                     }
 
                 } catch {
@@ -328,7 +337,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     @MainActor func verifyExistingTransactions() async {
         for tier in configuration.tiers {
             do {
-                if try await fetchPurchaseState(for: tier.id) {
+                if try await fetchTransactionState(for: tier.id) {
                     purchasedTiers.insert(tier)
                 }
             } catch {

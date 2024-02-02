@@ -28,7 +28,7 @@ struct PurchaseButton: View {
 
     var body: some View {
         #if os(tvOS) || os(watchOS)
-        if inAppPurchase.purchaseState == .purchasing {
+        if inAppPurchase.transactionState == .purchasing {
             ProgressView()
         } else {
             purchaseButton
@@ -77,9 +77,9 @@ struct PurchaseButton: View {
         #elseif os(watchOS)
         .tint(.accentColor)
         #endif
-        .disabled(inAppPurchase.purchaseState != .pending)
+        .disabled(inAppPurchase.transactionState != .pending)
         .overlay {
-            if inAppPurchase.purchaseState == .purchasing {
+            if inAppPurchase.transactionState == .purchasing {
                 ProgressView()
                     #if os(macOS)
                     .controlSize(.small)
@@ -90,7 +90,7 @@ struct PurchaseButton: View {
 
     private var title: String {
         if let tier {
-            switch inAppPurchase.purchaseState {
+            switch inAppPurchase.transactionState {
             case .pending:
                 switch tier.type {
                 case .weekly, .monthly, .yearly:

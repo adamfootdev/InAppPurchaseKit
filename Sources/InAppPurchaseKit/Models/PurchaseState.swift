@@ -2,13 +2,13 @@
 //  PurchaseState.swift
 //  InAppPurchaseKit
 //
-//  Created by Adam Foot on 30/01/2024.
+//  Created by Adam Foot on 02/02/2024.
 //
 
 import Foundation
 
-enum PurchaseState {
+public enum PurchaseState {
     case pending
-    case purchasing
+    case notPurchased
     case purchased
 }

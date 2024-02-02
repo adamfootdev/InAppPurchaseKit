@@ -22,7 +22,7 @@ struct LegacyAdditionalOptionsView: View {
     var body: some View {
         #if os(iOS) || os(visionOS)
         VStack(spacing: 16) {
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased{
                 Button {
                     showingRedeemSheet.toggle()
                 } label: {
@@ -64,7 +64,7 @@ struct LegacyAdditionalOptionsView: View {
 
         #elseif os(tvOS)
         HStack(spacing: 64) {
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased {
                 LegacyRestoreButton()
             }
 
@@ -85,7 +85,7 @@ struct LegacyAdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if !os(tvOS)
-            if inAppPurchase.purchased == false {
+            if inAppPurchase.purchaseState != .purchased {
                 LegacyRestoreButton()
 
                 if useDivider {
