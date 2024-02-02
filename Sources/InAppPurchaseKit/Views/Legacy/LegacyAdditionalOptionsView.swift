@@ -27,15 +27,16 @@ struct LegacyAdditionalOptionsView: View {
                     showingRedeemSheet.toggle()
                 } label: {
                     Text("Redeem Code")
+                        #if os(iOS)
                         .font(.headline)
-                        .frame(maxWidth: .infinity)
+                        #endif
+                        .frame(maxWidth: 280)
                 }
+                #if os(iOS)
                 .buttonStyle(.bordered)
                 .controlSize(.large)
-                #if os(iOS)
                 .tint(.accentColor)
                 #endif
-                .frame(maxWidth: 400)
             }
 
             ViewThatFits {

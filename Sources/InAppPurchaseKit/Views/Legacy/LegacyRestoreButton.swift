@@ -16,9 +16,6 @@ struct LegacyRestoreButton: View {
                 await inAppPurchase.restorePurchases()
             }
         }
-        #if os(visionOS)
-        .font(.footnote.bold())
-        #endif
     }
 }
 
