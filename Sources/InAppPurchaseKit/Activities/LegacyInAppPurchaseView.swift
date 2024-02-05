@@ -293,18 +293,38 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             if let doneButton {
                 doneButton()
             } else {
-                Button {
-                    dismiss()
-                } label: {
-                    #if os(watchOS)
-                    Label {
-                        Text("Done, bundle: .module")
-                    } icon: {
-                        Image(systemName: "xmark")
+                Group {
+                    #if os(iOS)
+                    DismissButton {
+                        dismiss()
                     }
                     #else
-                    Text("Done", bundle: .module)
+                    Button {
+                        dismiss()
+                    } label: {
+                        #if os(visionOS) || os(watchOS)
+                        Label {
+                            Text("Done", bundle: .module)
+                        } icon: {
+                            Image(systemName: "xmark")
+                        }
+                        #else
+                        Text("Done", bundle: .module)
+                        #endif
+                    }
+                    #if os(visionOS)
+                    .buttonBorderShape(.circle)
                     #endif
+                    #endif
+                }
+                .background {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Close", bundle: .module)
+                    }
+                    .hidden()
+                    .keyboardShortcut(.cancelAction)
                 }
             }
         }
