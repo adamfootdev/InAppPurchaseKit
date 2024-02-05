@@ -132,8 +132,10 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(visionOS) || os(watchOS)
-            doneToolbarItem
+            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
+            if embedInNavigationStack {
+                doneToolbarItem
+            }
             #endif
         }
         .onAppear {
