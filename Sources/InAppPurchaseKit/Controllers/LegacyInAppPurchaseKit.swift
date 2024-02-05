@@ -189,7 +189,9 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 tiers.yearlyTier,
                 tiers.legacyUserLifetimeTier
             ]
+
             return availableTiers.compactMap { $0 }
+            
         } else {
             let availableTiers = [
                 tiers.weeklyTier,
@@ -197,6 +199,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 tiers.yearlyTier,
                 tiers.lifetimeTier
             ]
+
             return availableTiers.compactMap { $0 }
         }
     }
