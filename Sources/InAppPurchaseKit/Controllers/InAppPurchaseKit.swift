@@ -47,7 +47,7 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Init
 
-    public init(configuration: InAppPurchaseKitConfiguration) {
+    private init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
 
         super.init()

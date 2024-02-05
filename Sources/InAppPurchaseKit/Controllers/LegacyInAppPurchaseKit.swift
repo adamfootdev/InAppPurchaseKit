@@ -47,7 +47,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Init
 
-    public init(configuration: InAppPurchaseKitConfiguration) {
+    private init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
 
         super.init()

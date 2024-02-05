@@ -50,17 +50,22 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     public var body: some View {
         Group {
-            #if os(macOS) || os(tvOS)
-            subscriptionView
-            #else
             if embedInNavigationStack {
                 NavigationStack {
+                    #if os(macOS)
+                    if embedInNavigationStack {
+                        subscriptionView
+                            .frame(width: 650, height: 500)
+                    } else {
+                        subscriptionView
+                    }
+                    #else
                     subscriptionView
+                    #endif
                 }
             } else {
                 subscriptionView
             }
-            #endif
         }
         .environmentObject(inAppPurchase)
     }
