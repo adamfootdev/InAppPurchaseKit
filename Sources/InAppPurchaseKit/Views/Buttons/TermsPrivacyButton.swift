@@ -20,7 +20,7 @@ struct TermsPrivacyButton: View {
 
     var body: some View {
         #if os(tvOS)
-        Text("\(title): \(url.absoluteString)", bundle: .module)
+        Text(verbatim: "\(title): \(url.absoluteString)")
 
         #elseif os(watchOS)
         VStack(alignment: .leading, spacing: 2) {
