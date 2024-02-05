@@ -105,7 +105,7 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     private var titleColor: Color {
-        #if os(macOS)
+        #if os(macOS) || os(tvOS)
         return Color.primary
         #else
         return Color.white
@@ -113,7 +113,7 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     private var subtitleColor: Color {
-        #if os(macOS)
+        #if os(macOS) || os(tvOS)
         return Color.secondary
         #else
         return Color.white.opacity(0.7)
@@ -160,20 +160,20 @@ public struct InAppPurchaseSettingsRow: View {
     }
 }
 
-#Preview {
-    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-        InAppPurchaseKit.configure(with: .preview)
-    }
-
-    return NavigationStack {
-        Form {
-            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-                InAppPurchaseSettingsRow()
-            }
-        }
-        #if os(macOS)
-        .formStyle(.grouped)
-        #endif
-        .navigationTitle("Settings")
-    }
-}
+//#Preview {
+//    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//        InAppPurchaseKit.configure(with: .preview)
+//    }
+//
+//    return NavigationStack {
+//        Form {
+//            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//                InAppPurchaseSettingsRow()
+//            }
+//        }
+//        #if os(macOS)
+//        .formStyle(.grouped)
+//        #endif
+//        .navigationTitle("Settings")
+//    }
+//}

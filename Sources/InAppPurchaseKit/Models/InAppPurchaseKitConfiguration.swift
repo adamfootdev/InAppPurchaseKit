@@ -19,6 +19,7 @@ public struct InAppPurchaseKitConfiguration {
     public let privacyPolicyURL: URL
     public let loadProducts: Bool
     public let enableSinglePurchaseMode: Bool
+    public let showPrimaryTierOnly: Bool
     public let legacyUserThreshold: Int?
     public let fromAppExtension: Bool
     public let sharedUserDefaults: UserDefaults
@@ -38,6 +39,7 @@ public struct InAppPurchaseKitConfiguration {
         privacyPolicyURL: URL,
         loadProducts: Bool = true,
         enableSinglePurchaseMode: Bool = true,
+        showPrimaryTierOnly: Bool = true,
         legacyUserThreshold: Int? = nil,
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
@@ -56,6 +58,7 @@ public struct InAppPurchaseKitConfiguration {
         self.privacyPolicyURL = privacyPolicyURL
         self.loadProducts = loadProducts
         self.enableSinglePurchaseMode = enableSinglePurchaseMode
+        self.showPrimaryTierOnly = showPrimaryTierOnly
         self.legacyUserThreshold = legacyUserThreshold
         self.fromAppExtension = fromAppExtension
         self.sharedUserDefaults = sharedUserDefaults
@@ -84,6 +87,7 @@ public struct InAppPurchaseKitConfiguration {
             privacyPolicyURL: URL(string: "https://adamfoot.dev")!,
             loadProducts: true,
             enableSinglePurchaseMode: true,
+            showPrimaryTierOnly: true,
             legacyUserThreshold: nil,
             fromAppExtension: false,
             sharedUserDefaults: .standard,

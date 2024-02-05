@@ -9,5 +9,4 @@ import Foundation
 
 enum StorageKey {
     static let extensionSubscribed = "ExtensionSubscribed"
-    static let originalVersion = "OriginalVersion"
 }

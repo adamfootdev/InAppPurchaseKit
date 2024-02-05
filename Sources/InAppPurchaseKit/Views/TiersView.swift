@@ -18,12 +18,15 @@ struct TiersView: View {
     private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
+    @Binding private var showingAllTiers: Bool
 
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
+        showingAllTiers: Binding<Bool>,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _selectedTier = selectedTier
+        _showingAllTiers = showingAllTiers
         self.configuration = configuration
     }
 
@@ -33,7 +36,13 @@ struct TiersView: View {
                 Array(inAppPurchase.availableTiers.enumerated()),
                 id: \.0
             ) { _, tier in
+                #if os(tvOS) || os(watchOS)
                 tierButton(for: tier)
+                #else
+                if showingAllTiers || inAppPurchase.primaryTier == tier || configuration.showPrimaryTierOnly == false {
+                    tierButton(for: tier)
+                }
+                #endif
             }
         }
     }
@@ -82,6 +91,7 @@ struct TiersView: View {
 //        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
 //            TiersView(
 //                selectedTier: .constant(.example),
+//                showingAllTiers: .constant(true),
 //                configuration: .preview
 //            )
 //            .environment(InAppPurchaseKit.preview)

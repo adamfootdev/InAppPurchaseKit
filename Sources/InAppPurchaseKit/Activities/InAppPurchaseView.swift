@@ -23,6 +23,7 @@ public struct InAppPurchaseView<Content: View>: View {
     private let doneButtonPlacement: ToolbarItemPlacement
 
     @State private var selectedTier: InAppPurchaseTier?
+    @State private var showingAllTiers: Bool = false
     @State private var showingManageSubscriptionSheet: Bool = false
 
     #if os(watchOS)
@@ -207,10 +208,33 @@ public struct InAppPurchaseView<Content: View>: View {
                         configuration: inAppPurchase.configuration
                     )
                 } else {
-                    TiersView(
-                        selectedTier: $selectedTier,
-                        configuration: inAppPurchase.configuration
-                    )
+                    VStack(spacing: 12) {
+                        TiersView(
+                            selectedTier: $selectedTier,
+                            showingAllTiers: $showingAllTiers,
+                            configuration: inAppPurchase.configuration
+                        )
+
+                        #if !os(tvOS) && !os(watchOS)
+                        if inAppPurchase.availableTiers.count > 1 && inAppPurchase.configuration.showPrimaryTierOnly {
+                            Button {
+                                withAnimation {
+                                    showingAllTiers.toggle()
+                                    selectedTier = inAppPurchase.primaryTier
+                                }
+                            } label: {
+                                Group {
+                                    if showingAllTiers {
+                                        Text("Hide Options")
+                                    } else {
+                                        Text("Show All Options")
+                                    }
+                                }
+                                .font(.subheadline)
+                            }
+                        }
+                        #endif
+                    }
 
                     #if os(macOS) || os(visionOS)
                     if inAppPurchase.purchaseState != .purchased {

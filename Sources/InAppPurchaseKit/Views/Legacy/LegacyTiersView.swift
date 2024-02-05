@@ -19,12 +19,15 @@ struct LegacyTiersView: View {
     private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
+    @Binding private var showingAllTiers: Bool
 
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
+        showingAllTiers: Binding<Bool>,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _selectedTier = selectedTier
+        _showingAllTiers = showingAllTiers
         self.configuration = configuration
     }
 
@@ -34,7 +37,13 @@ struct LegacyTiersView: View {
                 Array(inAppPurchase.availableTiers.enumerated()),
                 id: \.0
             ) { _, tier in
+                #if os(tvOS) || os(watchOS)
                 tierButton(for: tier)
+                #else
+                if showingAllTiers || inAppPurchase.primaryTier == tier || configuration.showPrimaryTierOnly == false {
+                    tierButton(for: tier)
+                }
+                #endif
             }
         }
     }
@@ -81,6 +90,7 @@ struct LegacyTiersView: View {
 #Preview {
     LegacyTiersView(
         selectedTier: .constant(.example),
+        showingAllTiers: .constant(true),
         configuration: .preview
     )
     .environmentObject(LegacyInAppPurchaseKit.preview)

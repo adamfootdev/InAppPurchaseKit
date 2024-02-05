@@ -104,7 +104,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
     }
 
     private var titleColor: Color {
-        #if os(macOS)
+        #if os(macOS) || os(tvOS)
         return Color.primary
         #else
         return Color.white
@@ -112,7 +112,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
     }
 
     private var subtitleColor: Color {
-        #if os(macOS)
+        #if os(macOS) || os(tvOS)
         return Color.secondary
         #else
         return Color.white.opacity(0.7)
