@@ -19,7 +19,7 @@ extension LegacyInAppPurchaseKit: SKPaymentTransactionObserver {
         shouldAddStorePayment payment: SKPayment,
         for product: SKProduct
     ) -> Bool {
-        guard purchased == false else {
+        guard purchaseState != .purchased else {
             return false
         }
 
