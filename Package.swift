@@ -21,14 +21,19 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.0.0"),
+        .package(url: "https://github.com/adamfootdev/TPInAppReceipt", from: "3.4.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "InAppPurchaseKit",
-            dependencies: [.product(name: "HapticsKit", package: "hapticskit")],
-            resources: [.process("Resources")]),
+            dependencies: [
+                .product(name: "HapticsKit", package: "hapticskit"),
+                .product(name: "TPInAppReceipt", package: "tpinappreceipt")
+            ],
+            resources: [.process("Resources")]
+        ),
         .testTarget(
             name: "InAppPurchaseKitTests",
             dependencies: ["InAppPurchaseKit"]),

@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import TPInAppReceipt
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
 @Observable
@@ -82,7 +83,6 @@ public final class InAppPurchaseKit: NSObject {
         }
 
         await verifyExistingTransactions()
-        await updateOriginalVersion()
 
         await MainActor.run {
             hasLoaded = true
@@ -128,42 +128,22 @@ public final class InAppPurchaseKit: NSObject {
     // MARK: - Legacy Users
 
     public var legacyUser: Bool {
-        guard configuration.sharedUserDefaults.object(
-            forKey: StorageKey.originalVersion
-        ) != nil else { return false }
+        guard let receipt = try? InAppReceipt.localReceipt() else {
+            return false
+        }
 
         guard let legacyUserThreshold = configuration.legacyUserThreshold else {
             return false
         }
 
-        let originalVersion = configuration.sharedUserDefaults.integer(
-            forKey: StorageKey.originalVersion
-        )
+        let originalVersion = receipt.originalAppVersion
+
+        guard originalVersion != "1.0",
+              let originalVersion = Int(originalVersion) else {
+            return false
+        }
 
         return originalVersion < legacyUserThreshold
-    }
-
-    private func updateOriginalVersion() async {
-        guard let shared = try? await AppTransaction.shared else {
-            return
-        }
-
-        if case .verified(let appTransaction) = shared {
-            let originalVersion = appTransaction.originalAppVersion
-
-            guard originalVersion != "1.0" else {
-                return
-            }
-
-            guard let version = Int(originalVersion) else {
-                return
-            }
-
-            configuration.sharedUserDefaults.set(
-                version,
-                forKey: StorageKey.originalVersion
-            )
-        }
     }
 
 
