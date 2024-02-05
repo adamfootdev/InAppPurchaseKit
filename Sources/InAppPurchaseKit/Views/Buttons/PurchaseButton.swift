@@ -107,7 +107,7 @@ struct PurchaseButton: View {
                         )
                     }
 
-                case .lifetime, .lifetimeExisting:
+                case .lifetime, .legacyUserLifetime:
                     return String(
                         localized: "Purchase",
                         bundle: .module
@@ -128,11 +128,11 @@ struct PurchaseButton: View {
     }
 }
 
-#Preview {
-    Group {
-        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-            PurchaseButton(for: .constant(.example), configuration: .preview)
-                .environment(InAppPurchaseKit.preview)
-        }
-    }
-}
+//#Preview {
+//    Group {
+//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//            PurchaseButton(for: .constant(.example), configuration: .preview)
+//                .environment(InAppPurchaseKit.preview)
+//        }
+//    }
+//}

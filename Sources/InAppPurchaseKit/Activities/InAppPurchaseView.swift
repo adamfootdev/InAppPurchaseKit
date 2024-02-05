@@ -257,18 +257,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
     private func configureInitialTier() {
         guard selectedTier == nil else { return }
-
-        let configuration = inAppPurchase.configuration
-
-        if configuration.tiers.count == 1 {
-            selectedTier = configuration.tiers.first
-        } else if let tier = configuration.tiers.first(where: {
-            $0.alwaysVisible
-        }) {
-            selectedTier = tier
-        } else if let tier = configuration.tiers.first {
-            selectedTier = tier
-        }
+        selectedTier = inAppPurchase.primaryTier
     }
 
     private var mainWidth: CGFloat {
@@ -351,14 +340,14 @@ extension InAppPurchaseView where Content == EmptyView {
 }
 #endif
 
-#Preview {
-    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-        InAppPurchaseKit.configure(with: .preview)
-    }
-
-    return Group {
-        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-            InAppPurchaseView()
-        }
-    }
-}
+//#Preview {
+//    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//        InAppPurchaseKit.configure(with: .preview)
+//    }
+//
+//    return Group {
+//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//            InAppPurchaseView()
+//        }
+//    }
+//}

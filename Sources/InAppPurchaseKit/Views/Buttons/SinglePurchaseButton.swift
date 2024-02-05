@@ -49,7 +49,7 @@ struct SinglePurchaseButton: View {
     // MARK: - Details
 
     var tier: InAppPurchaseTier? {
-        configuration.tiers.first
+        inAppPurchase.primaryTier
     }
 
     @ViewBuilder private var tierDetailsView: some View {
@@ -82,11 +82,11 @@ struct SinglePurchaseButton: View {
     }
 }
 
-#Preview {
-    Group {
-        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-            SinglePurchaseButton(configuration: .preview)
-                .environment(InAppPurchaseKit.preview)
-        }
-    }
-}
+//#Preview {
+//    Group {
+//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//            SinglePurchaseButton(configuration: .preview)
+//                .environment(InAppPurchaseKit.preview)
+//        }
+//    }
+//}

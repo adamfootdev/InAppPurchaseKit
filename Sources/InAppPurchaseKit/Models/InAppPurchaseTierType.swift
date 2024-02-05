@@ -12,7 +12,7 @@ public enum InAppPurchaseTierType {
     case monthly
     case yearly
     case lifetime
-    case lifetimeExisting
+    case legacyUserLifetime
 
     var title: String {
         switch self {
@@ -36,7 +36,7 @@ public enum InAppPurchaseTierType {
                 localized: "Lifetime",
                 bundle: .module
             )
-        case .lifetimeExisting:
+        case .legacyUserLifetime:
             return String(
                 localized: "Lifetime",
                 bundle: .module
@@ -66,7 +66,7 @@ public enum InAppPurchaseTierType {
                 localized: "Lifetime",
                 bundle: .module
             )
-        case .lifetimeExisting:
+        case .legacyUserLifetime:
             return String(
                 localized: "Lifetime",
                 bundle: .module

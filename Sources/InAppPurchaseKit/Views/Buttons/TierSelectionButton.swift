@@ -245,16 +245,16 @@ struct TierSelectionButton: View {
     }
 }
 
-#Preview {
-    Group {
-        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-            TierSelectionButton(
-                tier: .example,
-                selectedTier: .constant(.example),
-                accessoryType: .saving(value: 20),
-                configuration: .preview
-            )
-            .environment(InAppPurchaseKit.preview)
-        }
-    }
-}
+//#Preview {
+//    Group {
+//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//            TierSelectionButton(
+//                tier: .example,
+//                selectedTier: .constant(.example),
+//                accessoryType: .saving(value: 20),
+//                configuration: .preview
+//            )
+//            .environment(InAppPurchaseKit.preview)
+//        }
+//    }
+//}

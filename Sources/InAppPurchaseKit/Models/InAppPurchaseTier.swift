@@ -10,16 +10,13 @@ import Foundation
 public struct InAppPurchaseTier: Identifiable, Hashable {
     public let id: String
     public let type: InAppPurchaseTierType
-    public let alwaysVisible: Bool
 
-    public init(
+    init(
         id: String,
-        type: InAppPurchaseTierType,
-        alwaysVisible: Bool = true
+        type: InAppPurchaseTierType
     ) {
         self.id = id
         self.type = type
-        self.alwaysVisible = alwaysVisible
     }
 
 
@@ -28,8 +25,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
     public static var example: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Yearly",
-            type: .yearly,
-            alwaysVisible: true
+            type: .yearly
         )
 
         return tier
@@ -38,8 +34,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
     public static var yearlyExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Yearly",
-            type: .yearly,
-            alwaysVisible: true
+            type: .yearly
         )
 
         return tier
@@ -48,8 +43,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
     public static var monthlyExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Monthly",
-            type: .monthly,
-            alwaysVisible: false
+            type: .monthly
         )
 
         return tier
@@ -58,8 +52,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
     public static var lifetimeExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Lifetime",
-            type: .lifetime,
-            alwaysVisible: false
+            type: .lifetime
         )
 
         return tier

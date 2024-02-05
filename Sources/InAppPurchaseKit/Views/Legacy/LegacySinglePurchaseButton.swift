@@ -48,7 +48,7 @@ struct LegacySinglePurchaseButton: View {
     // MARK: - Details
 
     var tier: InAppPurchaseTier? {
-        configuration.tiers.first
+        inAppPurchase.primaryTier
     }
 
     @ViewBuilder private var tierDetailsView: some View {

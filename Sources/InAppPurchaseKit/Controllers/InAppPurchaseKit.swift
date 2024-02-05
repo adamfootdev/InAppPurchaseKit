@@ -58,7 +58,7 @@ public final class InAppPurchaseKit: NSObject {
         updateListenerTask = listenForTransactions()
 
         Task {
-            await fetchTransactionDetails()
+            await configurePurchases()
         }
     }
 
@@ -76,12 +76,13 @@ public final class InAppPurchaseKit: NSObject {
         initializedInAppPurchaseKit = InAppPurchaseKit(configuration: configuration)
     }
 
-    @MainActor private func fetchTransactionDetails() async {
+    @MainActor private func configurePurchases() async {
         if configuration.loadProducts {
             await requestProducts()
         }
 
         await verifyExistingTransactions()
+        await updateOriginalVersion()
 
         await MainActor.run {
             hasLoaded = true
@@ -92,7 +93,7 @@ public final class InAppPurchaseKit: NSObject {
     // MARK: - Purchase Status
 
     public var activeTier: InAppPurchaseTier? {
-        return configuration.tiers.first(where: {
+        return configuration.tiers.allTiers.first(where: {
             purchasedTiers.contains($0)
         })
     }
@@ -124,11 +125,131 @@ public final class InAppPurchaseKit: NSObject {
     }
 
 
+    // MARK: - Legacy Users
+
+    public var legacyUser: Bool {
+        guard configuration.sharedUserDefaults.object(
+            forKey: StorageKey.originalVersion
+        ) != nil else { return false }
+
+        guard let legacyUserThreshold = configuration.legacyUserThreshold else {
+            return false
+        }
+
+        let originalVersion = configuration.sharedUserDefaults.integer(
+            forKey: StorageKey.originalVersion
+        )
+
+        return originalVersion < legacyUserThreshold
+    }
+
+    private func updateOriginalVersion() async {
+        guard let shared = try? await AppTransaction.shared else {
+            return
+        }
+
+        if case .verified(let appTransaction) = shared {
+            let originalVersion = appTransaction.originalAppVersion
+
+            guard originalVersion != "1.0" else {
+                return
+            }
+
+            guard let version = Int(originalVersion) else {
+                return
+            }
+
+            configuration.sharedUserDefaults.set(
+                version,
+                forKey: StorageKey.originalVersion
+            )
+        }
+    }
+
+
+    // MARK: - Tiers
+
+    var primaryTier: InAppPurchaseTier? {
+        let tiers = configuration.tiers
+
+        if legacyUser {
+            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier
+        } else {
+            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier ?? tiers.legacyUserLifetimeTier
+        }
+    }
+
+    var availableTiers: [InAppPurchaseTier] {
+        let tiers = configuration.tiers
+
+        if legacyUser {
+            let availableTiers = [
+                tiers.weeklyTier,
+                tiers.monthlyTier,
+                tiers.yearlyTier,
+                tiers.legacyUserLifetimeTier
+            ]
+            return availableTiers.compactMap { $0 }
+        } else {
+            let availableTiers = [
+                tiers.weeklyTier,
+                tiers.monthlyTier,
+                tiers.yearlyTier,
+                tiers.lifetimeTier
+            ]
+            return availableTiers.compactMap { $0 }
+        }
+    }
+
+    func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
+        guard let product = fetchProduct(for: tier) else {
+            return ""
+        }
+
+        var message: String = ""
+
+        switch tier.type {
+        case .weekly, .monthly, .yearly:
+            if let introOffer = introOffer(for: product) {
+                switch introOffer.period.unit {
+                case .day:
+                    message += String(
+                        localized: "\(introOffer.period.value) Days Free, then ",
+                        bundle: .module
+                    )
+                case .week:
+                    message += String(
+                        localized: "\(introOffer.period.value) Weeks Free, then ",
+                        bundle: .module
+                    )
+                case .month:
+                    message += String(
+                        localized: "\(introOffer.period.value) Months Free, then ",
+                        bundle: .module
+                    )
+                default:
+                    message += ""
+                }
+            }
+
+        case .lifetime, .legacyUserLifetime:
+            message += String(
+                localized: "One-time payment, ",
+                bundle: .module
+            )
+        }
+
+        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"
+
+        return message
+    }
+
+
     // MARK: - Products
 
     @MainActor func requestProducts() async {
         do {
-            availableProducts = try await Product.products(for: configuration.tierIDs)
+            availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
 
             for product in availableProducts {
                 if let introOffer = await fetchIntroOffer(for: product) {
@@ -165,17 +286,8 @@ public final class InAppPurchaseKit: NSObject {
     }
 
     var yearlySaving: Int? {
-        guard (configuration.tiers.filter {
-            $0.type == .monthly || $0.type == .yearly
-        }.count == 2) else {
-            return nil
-        }
-
-        guard let monthlyTier = configuration.tiers.first(where: {
-            $0.type == .monthly
-        }), let yearlyTier = configuration.tiers.first(where: {
-            $0.type == .yearly
-        }) else {
+        guard let monthlyTier = configuration.tiers.monthlyTier,
+                let yearlyTier = configuration.tiers.yearlyTier else {
             return nil
         }
 
@@ -198,6 +310,25 @@ public final class InAppPurchaseKit: NSObject {
         let discountPercentage = discountDecimal * 100
 
         return Int(String(format: "%.0f", discountPercentage))
+    }
+
+
+    // MARK: - Intro Offers
+
+    private func fetchIntroOffer(for product: Product) async -> Product.SubscriptionOffer? {
+        guard let renewableSubscription = product.subscription else {
+            return nil
+        }
+
+        if await renewableSubscription.isEligibleForIntroOffer {
+            return renewableSubscription.introductoryOffer
+        }
+
+        return nil
+    }
+
+    func introOffer(for product: Product) -> Product.SubscriptionOffer? {
+        productsWithIntroOffer[product]
     }
 
 
@@ -253,65 +384,6 @@ public final class InAppPurchaseKit: NSObject {
         try? await AppStore.sync()
     }
 
-    private func fetchIntroOffer(for product: Product) async -> Product.SubscriptionOffer? {
-        guard let renewableSubscription = product.subscription else {
-            return nil
-        }
-
-        if await renewableSubscription.isEligibleForIntroOffer {
-            return renewableSubscription.introductoryOffer
-        }
-
-        return nil
-    }
-
-    func introOffer(for product: Product) -> Product.SubscriptionOffer? {
-        productsWithIntroOffer[product]
-    }
-
-    func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
-        guard let product = fetchProduct(for: tier) else {
-            return ""
-        }
-
-        var message: String = ""
-
-        switch tier.type {
-        case .weekly, .monthly, .yearly:
-            if let introOffer = introOffer(for: product) {
-                switch introOffer.period.unit {
-                case .day:
-                    message += String(
-                        localized: "\(introOffer.period.value) Days Free, then ",
-                        bundle: .module
-                    )
-                case .week:
-                    message += String(
-                        localized: "\(introOffer.period.value) Weeks Free, then ",
-                        bundle: .module
-                    )
-                case .month:
-                    message += String(
-                        localized: "\(introOffer.period.value) Months Free, then ",
-                        bundle: .module
-                    )
-                default:
-                    message += ""
-                }
-            }
-
-        case .lifetime, .lifetimeExisting:
-            message += String(
-                localized: "One-time payment, ",
-                bundle: .module
-            )
-        }
-
-        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"
-
-        return message
-    }
-
 
     // MARK: - Transactions
 
@@ -335,7 +407,7 @@ public final class InAppPurchaseKit: NSObject {
     }
 
     @MainActor func verifyExistingTransactions() async {
-        for tier in configuration.tiers {
+        for tier in configuration.tiers.allTiers {
             do {
                 if try await fetchTransactionState(for: tier.id) {
                     purchasedTiers.insert(tier)
@@ -361,7 +433,7 @@ public final class InAppPurchaseKit: NSObject {
 
     @MainActor func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
-            if let tier = configuration.tiers.first(where: {
+            if let tier = configuration.tiers.allTiers.first(where: {
                 $0.id == transaction.productID
             }) {
                 purchasedTiers.insert(tier)

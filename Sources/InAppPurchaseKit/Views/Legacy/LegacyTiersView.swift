@@ -30,7 +30,10 @@ struct LegacyTiersView: View {
 
     var body: some View {
         VStack(alignment: .trailing, spacing: tierSpacing) {
-            ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
+            ForEach(
+                Array(inAppPurchase.availableTiers.enumerated()),
+                id: \.0
+            ) { _, tier in
                 tierButton(for: tier)
             }
         }
@@ -67,7 +70,7 @@ struct LegacyTiersView: View {
             } else {
                 return nil
             }
-        case .lifetimeExisting:
+        case .legacyUserLifetime:
             return .loyalty
         default:
             return nil

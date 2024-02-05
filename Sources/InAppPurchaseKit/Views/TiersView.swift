@@ -29,7 +29,10 @@ struct TiersView: View {
 
     var body: some View {
         VStack(alignment: .trailing, spacing: tierSpacing) {
-            ForEach(Array(configuration.tiers.enumerated()), id: \.0) { _, tier in
+            ForEach(
+                Array(inAppPurchase.availableTiers.enumerated()),
+                id: \.0
+            ) { _, tier in
                 tierButton(for: tier)
             }
         }
@@ -66,7 +69,7 @@ struct TiersView: View {
             } else {
                 return nil
             }
-        case .lifetimeExisting:
+        case .legacyUserLifetime:
             return .loyalty
         default:
             return nil
@@ -74,14 +77,14 @@ struct TiersView: View {
     }
 }
 
-#Preview {
-    Group {
-        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-            TiersView(
-                selectedTier: .constant(.example),
-                configuration: .preview
-            )
-            .environment(InAppPurchaseKit.preview)
-        }
-    }
-}
+//#Preview {
+//    Group {
+//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+//            TiersView(
+//                selectedTier: .constant(.example),
+//                configuration: .preview
+//            )
+//            .environment(InAppPurchaseKit.preview)
+//        }
+//    }
+//}

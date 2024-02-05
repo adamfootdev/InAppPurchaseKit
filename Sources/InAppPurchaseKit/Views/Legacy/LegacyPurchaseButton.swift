@@ -106,7 +106,7 @@ struct LegacyPurchaseButton: View {
                         )
                     }
 
-                case .lifetime, .lifetimeExisting:
+                case .lifetime, .legacyUserLifetime:
                     return String(
                         localized: "Purchase",
                         bundle: .module

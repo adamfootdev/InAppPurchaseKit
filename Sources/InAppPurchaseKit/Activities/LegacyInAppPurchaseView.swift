@@ -241,18 +241,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     private func configureInitialTier() {
         guard selectedTier == nil else { return }
-
-        let configuration = inAppPurchase.configuration
-
-        if configuration.tiers.count == 1 {
-            selectedTier = configuration.tiers.first
-        } else if let tier = configuration.tiers.first(where: {
-            $0.alwaysVisible
-        }) {
-            selectedTier = tier
-        } else if let tier = configuration.tiers.first {
-            selectedTier = tier
-        }
+        selectedTier = inAppPurchase.primaryTier
     }
 
     private var mainWidth: CGFloat {

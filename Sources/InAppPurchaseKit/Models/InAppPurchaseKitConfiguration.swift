@@ -12,12 +12,13 @@ public struct InAppPurchaseKitConfiguration {
     public let title: String
     public let subtitle: String
     public let image: PlatformImage
-    public let tiers: [InAppPurchaseTier]
+    public let tiers: InAppPurchaseTiers
     public let features: [InAppPurchaseFeature]
     public let termsOfUseURL: URL
     public let privacyPolicyURL: URL
     public let loadProducts: Bool
     public let enableSinglePurchaseMode: Bool
+    public let legacyUserThreshold: Int?
     public let fromAppExtension: Bool
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
@@ -29,12 +30,13 @@ public struct InAppPurchaseKitConfiguration {
         _ title: String,
         subtitle: String,
         image: PlatformImage,
-        tiers: [InAppPurchaseTier],
+        tiers: InAppPurchaseTiers,
         features: [InAppPurchaseFeature],
         termsOfUseURL: URL,
         privacyPolicyURL: URL,
         loadProducts: Bool = true,
         enableSinglePurchaseMode: Bool = true,
+        legacyUserThreshold: Int? = nil,
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
@@ -51,6 +53,7 @@ public struct InAppPurchaseKitConfiguration {
         self.privacyPolicyURL = privacyPolicyURL
         self.loadProducts = loadProducts
         self.enableSinglePurchaseMode = enableSinglePurchaseMode
+        self.legacyUserThreshold = legacyUserThreshold
         self.fromAppExtension = fromAppExtension
         self.sharedUserDefaults = sharedUserDefaults
         self.overridePurchased = overridePurchased
@@ -59,12 +62,8 @@ public struct InAppPurchaseKitConfiguration {
         self.updatedPurchasesCompletionBlock = updatedPurchasesCompletionBlock
     }
 
-    var tierIDs: [String] {
-        tiers.map { $0.id }
-    }
-
     var showSinglePurchaseMode: Bool {
-        tiers.count == 1 && enableSinglePurchaseMode
+        tiers.allTiers.count == 1 && enableSinglePurchaseMode
     }
 
 
@@ -75,12 +74,13 @@ public struct InAppPurchaseKitConfiguration {
             "Upgrade to My App Pro",
             subtitle: "Unlock all features.",
             image: previewImage,
-            tiers: [.monthlyExample, .yearlyExample, .lifetimeExample],
+            tiers:.example,
             features: [.example, .example, .example],
             termsOfUseURL: URL(string: "https://adamfoot.dev")!,
             privacyPolicyURL: URL(string: "https://adamfoot.dev")!,
             loadProducts: true,
             enableSinglePurchaseMode: true,
+            legacyUserThreshold: nil,
             fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil
