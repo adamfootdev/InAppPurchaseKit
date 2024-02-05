@@ -50,17 +50,22 @@ public struct InAppPurchaseView<Content: View>: View {
 
     public var body: some View {
         Group {
-            #if os(macOS) || os(tvOS)
-            subscriptionView
-            #else
             if embedInNavigationStack {
                 NavigationStack {
+                    #if os(macOS)
+                    if embedInNavigationStack {
+                        subscriptionView
+                            .frame(width: 650, height: 500)
+                    } else {
+                        subscriptionView
+                    }
+                    #else
                     subscriptionView
+                    #endif
                 }
             } else {
                 subscriptionView
             }
-            #endif
         }
         .environment(inAppPurchase)
     }
@@ -127,8 +132,10 @@ public struct InAppPurchaseView<Content: View>: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(visionOS) || os(watchOS)
-            doneToolbarItem
+            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
+            if embedInNavigationStack {
+                doneToolbarItem
+            }
             #endif
         }
         .onAppear {
