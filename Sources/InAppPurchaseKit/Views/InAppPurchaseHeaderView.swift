@@ -48,6 +48,8 @@ struct InAppPurchaseHeaderView: View {
                     .foregroundStyle(.secondary)
             }
             .multilineTextAlignment(.center)
+            .accessibilityElement(children: .combine)
+            .accessibilityAddTraits(.isHeader)
         }
     }
 

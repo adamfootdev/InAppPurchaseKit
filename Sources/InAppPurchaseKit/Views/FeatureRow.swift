@@ -38,6 +38,7 @@ struct FeatureRow: View {
                     .font(descriptionFont)
                     .foregroundStyle(Color.secondary)
             }
+            .accessibilityElement(children: .combine)
         }
     }
 

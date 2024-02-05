@@ -94,9 +94,10 @@ struct TierSelectionButton: View {
                         }
                     }
 
-                    tierDetailsView
+//                    tierDetailsView
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityElement(children: .combine)
 
                 #if !os(tvOS)
                 checkmarkView
@@ -118,6 +119,9 @@ struct TierSelectionButton: View {
         .buttonBorderShape(.roundedRectangle)
         #endif
         .disabled(inAppPurchase.transactionState != .pending)
+        #if os(iOS) || os(macOS) || os(visionOS)
+        .accessibilityAddTraits(selected ? [.isSelected] : [])
+        #endif
     }
 
 

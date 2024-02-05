@@ -222,6 +222,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             Text("Whatʼs Included", bundle: .module)
                 .font(featuresTitleFont)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .accessibilityAddTraits(.isHeader)
 
             FeaturesListView(inAppPurchase.configuration.features)
         }
