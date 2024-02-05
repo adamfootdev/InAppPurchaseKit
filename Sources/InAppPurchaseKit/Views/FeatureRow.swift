@@ -19,30 +19,24 @@ struct FeatureRow: View {
             Image(systemName: feature.systemImage)
                 .resizable()
                 .scaledToFit()
-                #if !os(watchOS)
                 .font(imageFont)
-                #endif
                 .foregroundStyle(feature.systemColor)
                 .frame(width: imageWidth, height: imageHeight)
-                #if !os(watchOS)
                 .padding(imagePadding)
                 .background {
                     Circle()
                         .foregroundStyle(feature.systemColor.opacity(0.2))
                 }
-                #endif
                 .accessibilityHidden(true)
 
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: textSpacing) {
                 Text(feature.title)
-                    .font(titleFont)
+                    .font(.headline)
                     .fixedSize(horizontal: false, vertical: true)
 
-                #if !os(watchOS)
                 Text(feature.description)
                     .font(descriptionFont)
                     .foregroundStyle(Color.secondary)
-                #endif
             }
         }
     }
@@ -50,24 +44,22 @@ struct FeatureRow: View {
     private var mainSpacing: CGFloat {
         #if os(tvOS)
         return 20
-        #elseif os(watchOS)
-        return 10
         #else
         return 12
         #endif
     }
 
-    private var titleFont: Font {
+    private var textSpacing: CGFloat {
         #if os(watchOS)
-        return Font.system(.footnote, weight: .medium)
+        return 0
         #else
-        return Font.headline
+        return 4
         #endif
     }
 
     private var descriptionFont: Font {
         #if os(watchOS)
-        return Font.caption
+        return Font.footnote
         #else
         return Font.subheadline
         #endif
@@ -75,6 +67,8 @@ struct FeatureRow: View {
 
     private var imageFont: Font {
         #if os(macOS) || os(tvOS)
+        return Font.headline
+        #elseif os(watchOS)
         return Font.headline
         #else
         return Font.callout.bold()
@@ -84,8 +78,6 @@ struct FeatureRow: View {
     private var imageWidth: CGFloat {
         #if os(tvOS)
         return 36
-        #elseif os(watchOS)
-        return 20
         #else
         return 18
         #endif
@@ -94,8 +86,6 @@ struct FeatureRow: View {
     private var imageHeight: CGFloat {
         #if os(tvOS)
         return 28
-        #elseif os(watchOS)
-        return 16
         #else
         return 14
         #endif

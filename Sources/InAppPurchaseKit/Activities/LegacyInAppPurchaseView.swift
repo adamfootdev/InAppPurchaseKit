@@ -307,6 +307,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     #endif
                 }
                 .background {
+                    #if os(iOS) || os(macOS) || os(visionOS)
                     Button {
                         dismiss()
                     } label: {
@@ -314,6 +315,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     }
                     .hidden()
                     .keyboardShortcut(.cancelAction)
+                    #endif
                 }
             }
         }
