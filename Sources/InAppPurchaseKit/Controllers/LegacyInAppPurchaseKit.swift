@@ -10,7 +10,7 @@ import StoreKit
 import TPInAppReceipt
 
 public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
-    private static var initializedInAppPurchaseKit: LegacyInAppPurchaseKit?
+    public static var initializedInAppPurchaseKit: LegacyInAppPurchaseKit?
 
     public static var shared: LegacyInAppPurchaseKit {
         if let initializedInAppPurchaseKit {
@@ -47,7 +47,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Init
 
-    private init(configuration: InAppPurchaseKitConfiguration) {
+    public init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
 
         super.init()
