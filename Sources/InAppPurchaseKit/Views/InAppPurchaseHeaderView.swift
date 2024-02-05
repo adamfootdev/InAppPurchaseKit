@@ -38,10 +38,13 @@ struct InAppPurchaseHeaderView: View {
             .accessibilityHidden(true)
 
             VStack(spacing: 6) {
-                Text(configuration.title)
-                    .font(titleFont)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+                Text(
+                    "Upgrade to \(configuration.title)",
+                    bundle: .module
+                )
+                .font(titleFont)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
 
                 Text(configuration.subtitle)
                     .font(subtitleFont)

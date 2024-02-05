@@ -122,7 +122,13 @@
     "Save %lld%%" : {
 
     },
+    "Settings" : {
+
+    },
     "Subscribe" : {
+
+    },
+    "Subscribed" : {
 
     },
     "Subscribed - Thank You!" : {
@@ -132,6 +138,12 @@
 
     },
     "There was an error verifying your request. Please try again." : {
+
+    },
+    "Upgrade to %@" : {
+
+    },
+    "View" : {
 
     },
     "Week" : {

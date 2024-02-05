@@ -93,7 +93,7 @@ struct LegacyTierSelectionButton: View {
                         }
                     }
 
-//                    tierDetailsView
+                    tierDetailsView
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityElement(children: .combine)

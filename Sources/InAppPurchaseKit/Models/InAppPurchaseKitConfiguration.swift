@@ -12,6 +12,7 @@ public struct InAppPurchaseKitConfiguration {
     public let title: String
     public let subtitle: String
     public let image: PlatformImage
+    public let systemImage: String
     public let tiers: InAppPurchaseTiers
     public let features: [InAppPurchaseFeature]
     public let termsOfUseURL: URL
@@ -30,6 +31,7 @@ public struct InAppPurchaseKitConfiguration {
         _ title: String,
         subtitle: String,
         image: PlatformImage,
+        systemImage: String = "plus.app",
         tiers: InAppPurchaseTiers,
         features: [InAppPurchaseFeature],
         termsOfUseURL: URL,
@@ -47,6 +49,7 @@ public struct InAppPurchaseKitConfiguration {
         self.title = title
         self.subtitle = subtitle
         self.image = image
+        self.systemImage = systemImage
         self.tiers = tiers
         self.features = features
         self.termsOfUseURL = termsOfUseURL
@@ -71,10 +74,11 @@ public struct InAppPurchaseKitConfiguration {
 
     public static var preview: InAppPurchaseKitConfiguration = {
         let configuration = InAppPurchaseKitConfiguration(
-            "Upgrade to My App Pro",
+            "My App Pro",
             subtitle: "Unlock all features.",
             image: previewImage,
-            tiers:.example,
+            systemImage: "plus.app",
+            tiers: .example,
             features: [.example, .example, .example],
             termsOfUseURL: URL(string: "https://adamfoot.dev")!,
             privacyPolicyURL: URL(string: "https://adamfoot.dev")!,
