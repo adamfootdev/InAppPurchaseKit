@@ -232,7 +232,7 @@ struct LegacyTierSelectionButton: View {
         #if os(iOS)
         return Color(.secondarySystemBackground)
         #elseif os(macOS)
-        return Color(.controlBackgroundColor)
+        return Color(.windowBackgroundColor)
         #else
         return Color.gray
         #endif
