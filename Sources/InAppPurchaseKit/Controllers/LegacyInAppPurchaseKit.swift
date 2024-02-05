@@ -439,7 +439,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Previews
 
-    static var preview: LegacyInAppPurchaseKit = {
+    public static var preview: LegacyInAppPurchaseKit = {
         LegacyInAppPurchaseKit.configure(with: .preview)
         return LegacyInAppPurchaseKit.shared
     }()
