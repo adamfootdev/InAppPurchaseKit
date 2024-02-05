@@ -136,23 +136,15 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #if os(iOS) || os(visionOS)
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
+        #if os(iOS) || os(macOS) || os(tvOS)
         .onChange(of: inAppPurchase.transactionState) { transactionState in
-            if transactionState == .purchased {
-                #if canImport(HapticsKit)
-                if inAppPurchase.configuration.enableHapticFeedback {
-                    #if os(iOS)
-                    HapticsKit.performNotification(.success)
-                    #elseif os(watchOS)
-                    HapticsKit.perform(.success)
-                    #endif
-                }
-                #endif
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    dismiss()
-                }
-            }
+            transactionStateUpdated(to: transactionState)
         }
+        #else
+        .onChange(of: inAppPurchase.transactionState) { _, transactionState in
+            transactionStateUpdated(to: transactionState)
+        }
+        #endif
     }
 
     private var mainSpacing: CGFloat {
@@ -269,6 +261,28 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #else
         return 400
         #endif
+    }
+
+    // MARK: - Update
+
+    private func transactionStateUpdated(to transactionState: TransactionState) {
+        guard transactionState == .purchased else {
+            return
+        }
+
+        #if canImport(HapticsKit)
+        if inAppPurchase.configuration.enableHapticFeedback {
+            #if os(iOS)
+            HapticsKit.performNotification(.success)
+            #elseif os(watchOS)
+            HapticsKit.perform(.success)
+            #endif
+        }
+        #endif
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            dismiss()
+        }
     }
 
 

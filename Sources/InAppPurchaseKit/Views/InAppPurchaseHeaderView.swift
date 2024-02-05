@@ -16,11 +16,24 @@ struct InAppPurchaseHeaderView: View {
 
     var body: some View {
         VStack(spacing: mainSpacing) {
-            RoundedRectangle(
+            Group {
+                #if os(macOS)
+                Image(nsImage: configuration.image)
+                    .resizable()
+                #else
+                Image(uiImage: configuration.image)
+                    .resizable()
+                #endif
+            }
+            .scaledToFill()
+            #if os(iOS) || os(macOS) || os(tvOS)
+            .clipShape(RoundedRectangle(
                 cornerRadius: imageCornerRadius,
                 style: .continuous
-            )
-            .foregroundStyle(.blue)
+            ))
+            #elseif os(visionOS) || os(watchOS)
+            .clipShape(Circle())
+            #endif
             .frame(width: imageWidth, height: imageHeight)
             .accessibilityHidden(true)
 
@@ -74,7 +87,7 @@ struct InAppPurchaseHeaderView: View {
 
     private var imageWidth: CGFloat {
         #if os(tvOS)
-        return 160
+        return 267
         #else
         return 72
         #endif
