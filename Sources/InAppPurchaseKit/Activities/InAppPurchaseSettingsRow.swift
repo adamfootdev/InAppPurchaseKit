@@ -12,12 +12,17 @@ public struct InAppPurchaseSettingsRow: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
     private let useNavigationLink: Bool
+    private let purchaseMetadata: [String: Any]?
 
     @State private var showingPurchaseSheet: Bool = false
     @State private var showingPurchaseNavigationView: Bool = false
 
-    public init(useNavigationLink: Bool = false) {
+    public init(
+        useNavigationLink: Bool = false,
+        purchaseMetadata: [String: Any] = nil
+    ) {
         self.useNavigationLink = useNavigationLink
+        self.purchaseMetadata = purchaseMetadata
     }
 
     public var body: some View {
@@ -45,10 +50,13 @@ public struct InAppPurchaseSettingsRow: View {
             #endif
         }
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            LegacyInAppPurchaseView(embedInNavigationStack: false)
+            InAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            InAppPurchaseView()
+            InAppPurchaseView(purchaseMetadata: purchaseMetadata)
         }
     }
 
@@ -74,7 +82,10 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var subscribedNavigationLink: some View {
         NavigationLink {
-            InAppPurchaseView(embedInNavigationStack: false)
+            InAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         } label: {
             subscribedView
         }
@@ -141,7 +152,10 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var purchaseNavigationLink: some View {
         NavigationLink {
-            InAppPurchaseView(embedInNavigationStack: false)
+            InAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         } label: {
             purchaseView
         }

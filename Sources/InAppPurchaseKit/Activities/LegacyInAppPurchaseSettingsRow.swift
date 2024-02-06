@@ -11,12 +11,17 @@ public struct LegacyInAppPurchaseSettingsRow: View {
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
     private let useNavigationLink: Bool
+    private let purchaseMetadata: [String: Any]?
 
     @State private var showingPurchaseSheet: Bool = false
     @State private var showingPurchaseNavigationView: Bool = false
 
-    public init(useNavigationLink: Bool = false) {
+    public init(
+        useNavigationLink: Bool = false,
+        purchaseMetadata: [String: Any] = nil
+    ) {
         self.useNavigationLink = useNavigationLink
+        self.purchaseMetadata = purchaseMetadata
     }
 
     public var body: some View {
@@ -44,10 +49,13 @@ public struct LegacyInAppPurchaseSettingsRow: View {
             #endif
         }
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            LegacyInAppPurchaseView(embedInNavigationStack: false)
+            LegacyInAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            LegacyInAppPurchaseView()
+            LegacyInAppPurchaseView(purchaseMetadata: purchaseMetadata)
         }
     }
 
@@ -73,7 +81,10 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var subscribedNavigationLink: some View {
         NavigationLink {
-            LegacyInAppPurchaseView(embedInNavigationStack: false)
+            LegacyInAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         } label: {
             subscribedView
         }
@@ -140,7 +151,10 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var purchaseNavigationLink: some View {
         NavigationLink {
-            LegacyInAppPurchaseView(embedInNavigationStack: false)
+            LegacyInAppPurchaseView(
+                embedInNavigationStack: false,
+                purchaseMetadata: purchaseMetadata
+            )
         } label: {
             purchaseView
         }

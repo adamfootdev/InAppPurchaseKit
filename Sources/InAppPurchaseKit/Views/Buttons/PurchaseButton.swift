@@ -16,13 +16,16 @@ struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     @Binding private var tier: InAppPurchaseTier?
+    private let purchaseMetadata: [String: Any]?
     private let configuration: InAppPurchaseKitConfiguration
 
     init(
         for tier: Binding<InAppPurchaseTier?>,
+        purchaseMetadata: [String: Any]? = nil,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _tier = tier
+        self.purchaseMetadata = purchaseMetadata
         self.configuration = configuration
     }
 
@@ -53,7 +56,10 @@ struct PurchaseButton: View {
 
             if let tier, let product = inAppPurchase.fetchProduct(for: tier) {
                 Task {
-                    await inAppPurchase.purchase(product)
+                    await inAppPurchase.purchase(
+                        product,
+                        with: purchaseMetadata
+                    )
                 }
             }
         } label: {

@@ -326,7 +326,8 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     // MARK: - Purchase
 
     @MainActor func purchase(
-        _ product: Product
+        _ product: Product,
+        with metadata: [String: Any]?
     ) async -> Transaction? {
         transactionState = .purchasing
 
@@ -351,7 +352,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 transactionState = .purchased
 
                 if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
-                    purchaseCompletionBlock(product)
+                    purchaseCompletionBlock(product, metadata)
                 }
 
                 return transaction

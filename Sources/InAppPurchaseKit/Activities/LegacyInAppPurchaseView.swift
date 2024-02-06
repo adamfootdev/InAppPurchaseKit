@@ -18,6 +18,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
     private let embedInNavigationStack: Bool
+    private let purchaseMetadata: [String: Any]?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
@@ -28,21 +29,25 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     #if os(watchOS)
     public init(
         embedInNavigationStack: Bool = true,
+        purchaseMetadata: [String: Any]? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
+        self.purchaseMetadata = purchaseMetadata
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
 
     #else
-    init(
+    public init(
         embedInNavigationStack: Bool = true,
+        purchaseMetadata: [String: Any]? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
+        self.purchaseMetadata = purchaseMetadata
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -358,9 +363,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
+        purchaseMetadata: [String: Any]? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
+        self.purchaseMetadata = purchaseMetadata
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -370,9 +377,11 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
 extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
+        purchaseMetadata: [String: Any]? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
+        self.purchaseMetadata = purchaseMetadata
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }

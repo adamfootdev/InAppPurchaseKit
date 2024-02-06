@@ -17,17 +17,20 @@ struct LegacyTierSelectionButton: View {
     private let tier: InAppPurchaseTier
     @Binding private var selectedTier: InAppPurchaseTier?
     private let accessoryType: InAppPurchaseTierAccessoryType?
+    private let purchaseMetadata: [String: Any]?
     private let configuration: InAppPurchaseKitConfiguration
 
     init(
         tier: InAppPurchaseTier,
         selectedTier: Binding<InAppPurchaseTier?>,
         accessoryType: InAppPurchaseTierAccessoryType? = nil,
+        purchaseMetadata: [String: Any]? = nil,
         configuration: InAppPurchaseKitConfiguration
     ) {
         self.tier = tier
         _selectedTier = selectedTier
         self.accessoryType = accessoryType
+        self.purchaseMetadata = purchaseMetadata
         self.configuration = configuration
     }
 
@@ -67,7 +70,10 @@ struct LegacyTierSelectionButton: View {
 
             if let product = inAppPurchase.fetchProduct(for: tier) {
                 Task {
-                    await inAppPurchase.purchase(product)
+                    await inAppPurchase.purchase(
+                        product,
+                        with: purchaseMetadata
+                    )
                 }
             }
 

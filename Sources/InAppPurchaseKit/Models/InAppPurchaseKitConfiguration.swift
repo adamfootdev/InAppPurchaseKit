@@ -26,7 +26,7 @@ public struct InAppPurchaseKitConfiguration {
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
     public let enableHapticFeedback: Bool
-    public let purchaseCompletionBlock: ((_ product: Product) -> Void)?
+    public let purchaseCompletionBlock: ((_ product: Product, _ metadata: [String: Any]?) -> Void)?
     public let updatedPurchasesCompletionBlock: (() -> Void)?
 
     public init(
@@ -47,7 +47,7 @@ public struct InAppPurchaseKitConfiguration {
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
         enableHapticFeedback: Bool = true,
-        purchaseCompletionBlock: ((_ product: Product) -> Void)? = nil,
+        purchaseCompletionBlock: ((_ product: Product, _ metadata: [String: Any]?) -> Void)? = nil,
         updatedPurchasesCompletionBlock: (() -> Void)? = nil
     ) {
         self.title = title
@@ -96,8 +96,8 @@ public struct InAppPurchaseKitConfiguration {
             fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil
-        ) { product in
-            print("Purchased \(product.displayName)")
+        ) { product, metadata in
+            print("Purchased \(product.displayName) with \(metadata ?? [:])")
         } updatedPurchasesCompletionBlock: {
             print("Updated Purchases")
         }
