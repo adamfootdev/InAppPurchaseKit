@@ -104,12 +104,4 @@ public struct InAppPurchaseKitConfiguration {
 
         return configuration
     }()
-
-    private static var previewImage: PlatformImage = {
-        #if os(macOS)
-        return NSImage()
-        #else
-        return UIImage()
-        #endif
-    }()
 }
