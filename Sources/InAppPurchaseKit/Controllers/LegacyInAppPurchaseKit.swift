@@ -20,15 +20,15 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    let configuration: InAppPurchaseKitConfiguration
+    public let configuration: InAppPurchaseKitConfiguration
     private var updateListenerTask: Task<Void, Error>? = nil
 
-    @Published private(set) var availableProducts: [Product] = []
-    @Published private(set) var productsWithIntroOffer: [Product: Product.SubscriptionOffer] = [:]
-    @Published private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
-    @Published private(set) var hasLoaded: Bool = false
+    @Published public private(set) var availableProducts: [Product] = []
+    @Published public private(set) var productsWithIntroOffer: [Product: Product.SubscriptionOffer] = [:]
+    @Published public private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
+    @Published public private(set) var hasLoaded: Bool = false
 
-    var transactionState: TransactionState = .pending {
+    public var transactionState: TransactionState = .pending {
         didSet {
             objectWillChange.send()
 
@@ -157,7 +157,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Tiers
 
-    var primaryTier: InAppPurchaseTier? {
+    public var primaryTier: InAppPurchaseTier? {
         let tiers = configuration.tiers
 
         if configuration.showLegacyTier && legacyUser {
@@ -167,7 +167,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    var availableTiers: [InAppPurchaseTier] {
+    public var availableTiers: [InAppPurchaseTier] {
         let tiers = configuration.tiers
 
         if configuration.showLegacyTier && legacyUser {
@@ -192,7 +192,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
+    public func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
         guard let product = fetchProduct(for: tier) else {
             return ""
         }
@@ -238,7 +238,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Products
 
-    @MainActor func requestProducts() async {
+    @MainActor private func requestProducts() async {
         do {
             availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
 
@@ -253,7 +253,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    func fetchTransactionState(for productIdentifier: String) async throws -> Bool {
+    private func fetchTransactionState(for productIdentifier: String) async throws -> Bool {
         guard let result = await Transaction.latest(for: productIdentifier) else {
             return false
         }
@@ -268,7 +268,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
+    public func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
         availableProducts.first(where: { $0.id == tier.id })
     }
 
@@ -276,7 +276,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         availableProducts.isEmpty == false
     }
 
-    var yearlySaving: Int? {
+    public var yearlySaving: Int? {
         guard let monthlyTier = configuration.tiers.monthlyTier,
               let yearlyTier = configuration.tiers.yearlyTier else {
             return nil
@@ -318,14 +318,14 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         return nil
     }
 
-    func introOffer(for product: Product) -> Product.SubscriptionOffer? {
+    public func introOffer(for product: Product) -> Product.SubscriptionOffer? {
         productsWithIntroOffer[product]
     }
 
 
     // MARK: - Purchase
 
-    @MainActor func purchase(
+    @MainActor public func purchase(
         _ product: Product,
         with metadata: [String: Any]?
     ) async -> Transaction? {
@@ -372,7 +372,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor func restorePurchases() async {
+    @MainActor public func restorePurchases() async {
         try? await AppStore.sync()
     }
 
@@ -398,7 +398,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor func verifyExistingTransactions() async {
+    @MainActor private func verifyExistingTransactions() async {
         for tier in configuration.tiers.allTiers {
             do {
                 if try await fetchTransactionState(for: tier.id) {
@@ -423,7 +423,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor func updatePurchasedTiers(_ transaction: Transaction) async {
+    @MainActor private func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.allTiers.first(where: {
                 $0.id == transaction.productID
