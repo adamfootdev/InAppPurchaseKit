@@ -14,7 +14,7 @@ public enum InAppPurchaseTierType {
     case lifetime
     case legacyUserLifetime
 
-    var title: String {
+    public var title: String {
         switch self {
         case .weekly:
             return String(
@@ -44,7 +44,7 @@ public enum InAppPurchaseTierType {
         }
     }
 
-    var paymentTimeTitle: String {
+    public var paymentTimeTitle: String {
         switch self {
         case .weekly:
             return String(

@@ -8,11 +8,11 @@
 import Foundation
 
 public struct InAppPurchaseTiers {
-    let weeklyTier: InAppPurchaseTier?
-    let monthlyTier: InAppPurchaseTier?
-    let yearlyTier: InAppPurchaseTier?
-    let lifetimeTier: InAppPurchaseTier?
-    let legacyUserLifetimeTier: InAppPurchaseTier?
+    public let weeklyTier: InAppPurchaseTier?
+    public let monthlyTier: InAppPurchaseTier?
+    public let yearlyTier: InAppPurchaseTier?
+    public let lifetimeTier: InAppPurchaseTier?
+    public let legacyUserLifetimeTier: InAppPurchaseTier?
 
     public init(
         weeklyTier: String? = nil,
@@ -55,7 +55,7 @@ public struct InAppPurchaseTiers {
         }
     }
 
-    var allTiers: [InAppPurchaseTier] {
+    public var allTiers: [InAppPurchaseTier] {
         let tiers = [weeklyTier, monthlyTier, yearlyTier, lifetimeTier, legacyUserLifetimeTier]
         return tiers.compactMap { $0 }
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TransactionState {
+public enum TransactionState {
     case pending
     case purchasing
     case purchased

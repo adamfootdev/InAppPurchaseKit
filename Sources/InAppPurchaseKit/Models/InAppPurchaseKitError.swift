@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringResourceConvertible {
+public enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringResourceConvertible {
     case failedStoreVerification
 
     var errorDescription: String? {

@@ -11,7 +11,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
     public let id: String
     public let type: InAppPurchaseTierType
 
-    init(
+    public init(
         id: String,
         type: InAppPurchaseTierType
     ) {
