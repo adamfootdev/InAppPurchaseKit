@@ -140,7 +140,7 @@ public struct InAppPurchaseView<Content: View>: View {
         #endif
         .toolbar {
             #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
-            if embedInNavigationStack {
+            if embedInNavigationStack || doneButton != nil {
                 doneToolbarItem
             }
             #endif
