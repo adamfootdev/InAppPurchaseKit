@@ -15,6 +15,7 @@ import HapticsKit
 struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
+    private let purchaseMetadata: [String: Any]?
     private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
@@ -23,10 +24,12 @@ struct TiersView: View {
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
         showingAllTiers: Binding<Bool>,
+        purchaseMetadata: [String: Any]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _selectedTier = selectedTier
         _showingAllTiers = showingAllTiers
+        self.purchaseMetadata = purchaseMetadata
         self.configuration = configuration
     }
 
@@ -64,6 +67,7 @@ struct TiersView: View {
             tier: tier,
             selectedTier: $selectedTier,
             accessoryType: accessoryType(for: tier),
+            purchaseMetadata: purchaseMetadata,
             configuration: configuration
         )
     }
@@ -92,6 +96,7 @@ struct TiersView: View {
 //            TiersView(
 //                selectedTier: .constant(.example),
 //                showingAllTiers: .constant(true),
+//                purchaseMetadata: nil,
 //                configuration: .preview
 //            )
 //            .environment(InAppPurchaseKit.preview)

@@ -25,7 +25,7 @@ struct TierSelectionButton: View {
         tier: InAppPurchaseTier,
         selectedTier: Binding<InAppPurchaseTier?>,
         accessoryType: InAppPurchaseTierAccessoryType? = nil,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: Any]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         self.tier = tier
@@ -45,6 +45,7 @@ struct TierSelectionButton: View {
             } else {
                 PurchaseButton(
                     for: $selectedTier,
+                    purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )
             }
@@ -262,6 +263,7 @@ struct TierSelectionButton: View {
 //                tier: .example,
 //                selectedTier: .constant(.example),
 //                accessoryType: .saving(value: 20),
+//                purchaseMetadata: nil,
 //                configuration: .preview
 //            )
 //            .environment(InAppPurchaseKit.preview)

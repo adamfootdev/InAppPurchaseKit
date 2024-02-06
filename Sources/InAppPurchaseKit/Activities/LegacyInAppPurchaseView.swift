@@ -118,6 +118,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
                     LegacyPurchaseButton(
                         for: $selectedTier,
+                        purchaseMetadata: purchaseMetadata,
                         configuration: inAppPurchase.configuration
                     )
                     .padding([.horizontal, .bottom])
@@ -201,6 +202,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             } else {
                 if inAppPurchase.configuration.showSinglePurchaseMode {
                     LegacySinglePurchaseButton(
+                        purchaseMetadata: purchaseMetadata,
                         configuration: inAppPurchase.configuration
                     )
                 } else {
@@ -208,6 +210,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                         LegacyTiersView(
                             selectedTier: $selectedTier,
                             showingAllTiers: $showingAllTiers,
+                            purchaseMetadata: purchaseMetadata,
                             configuration: inAppPurchase.configuration
                         )
 
@@ -236,6 +239,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     if inAppPurchase.purchaseState != .purchased {
                         LegacyPurchaseButton(
                             for: $selectedTier,
+                            purchaseMetadata: purchaseMetadata,
                             configuration: inAppPurchase.configuration
                         )
                     }

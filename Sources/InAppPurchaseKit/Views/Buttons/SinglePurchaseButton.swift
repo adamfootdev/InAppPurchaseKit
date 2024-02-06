@@ -15,9 +15,14 @@ import HapticsKit
 struct SinglePurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
+    private let purchaseMetadata: [String: Any]?
     private let configuration: InAppPurchaseKitConfiguration
 
-    init(configuration: InAppPurchaseKitConfiguration) {
+    init(
+        purchaseMetadata: [String: Any]?,
+        configuration: InAppPurchaseKitConfiguration
+    ) {
+        self.purchaseMetadata = purchaseMetadata
         self.configuration = configuration
     }
 
@@ -29,6 +34,7 @@ struct SinglePurchaseButton: View {
             if let tier {
                 PurchaseButton(
                     for: .constant(tier),
+                    purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )
             }
@@ -85,8 +91,11 @@ struct SinglePurchaseButton: View {
 //#Preview {
 //    Group {
 //        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            SinglePurchaseButton(configuration: .preview)
-//                .environment(InAppPurchaseKit.preview)
+//            SinglePurchaseButton(
+//                purchaseMetadata: nil,
+//                configuration: .preview
+//            )
+//            .environment(InAppPurchaseKit.preview)
 //        }
 //    }
 //}

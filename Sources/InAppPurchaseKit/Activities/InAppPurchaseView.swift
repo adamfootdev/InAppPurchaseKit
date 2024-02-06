@@ -119,6 +119,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
                     PurchaseButton(
                         for: $selectedTier,
+                        purchaseMetadata: purchaseMetadata,
                         configuration: inAppPurchase.configuration
                     )
                     .padding([.horizontal, .bottom])
@@ -210,6 +211,7 @@ public struct InAppPurchaseView<Content: View>: View {
             } else {
                 if inAppPurchase.configuration.showSinglePurchaseMode {
                     SinglePurchaseButton(
+                        purchaseMetadata: purchaseMetadata,
                         configuration: inAppPurchase.configuration
                     )
                 } else {
@@ -217,6 +219,7 @@ public struct InAppPurchaseView<Content: View>: View {
                         TiersView(
                             selectedTier: $selectedTier,
                             showingAllTiers: $showingAllTiers,
+                            purchaseMetadata: purchaseMetadata,
                             configuration: inAppPurchase.configuration
                         )
 
@@ -245,6 +248,7 @@ public struct InAppPurchaseView<Content: View>: View {
                     if inAppPurchase.purchaseState != .purchased {
                         PurchaseButton(
                             for: $selectedTier,
+                            purchaseMetadata: purchaseMetadata,
                             configuration: inAppPurchase.configuration
                         )
                     }

@@ -20,7 +20,7 @@ struct LegacyPurchaseButton: View {
 
     init(
         for tier: Binding<InAppPurchaseTier?>,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: Any]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _tier = tier
@@ -134,6 +134,10 @@ struct LegacyPurchaseButton: View {
 }
 
 #Preview {
-    LegacyPurchaseButton(for: .constant(.example), configuration: .preview)
-        .environmentObject(LegacyInAppPurchaseKit.preview)
+    LegacyPurchaseButton(
+        for: .constant(.example),
+        purchaseMetadata: nil,
+        configuration: .preview
+    )
+    .environmentObject(LegacyInAppPurchaseKit.preview)
 }

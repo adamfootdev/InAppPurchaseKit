@@ -21,7 +21,7 @@ struct PurchaseButton: View {
 
     init(
         for tier: Binding<InAppPurchaseTier?>,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: Any]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _tier = tier
@@ -137,8 +137,12 @@ struct PurchaseButton: View {
 //#Preview {
 //    Group {
 //        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            PurchaseButton(for: .constant(.example), configuration: .preview)
-//                .environment(InAppPurchaseKit.preview)
+//            PurchaseButton(
+//                for: .constant(.example),
+//                purchaseMetadata: nil,
+//                configuration: .preview
+//            )
+//            .environment(InAppPurchaseKit.preview)
 //        }
 //    }
 //}

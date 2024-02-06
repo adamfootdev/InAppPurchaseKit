@@ -14,9 +14,14 @@ import HapticsKit
 struct LegacySinglePurchaseButton: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
+    private let purchaseMetadata: [String: Any]?
     private let configuration: InAppPurchaseKitConfiguration
 
-    init(configuration: InAppPurchaseKitConfiguration) {
+    init(
+        purchaseMetadata: [String: Any]?,
+        configuration: InAppPurchaseKitConfiguration
+    ) {
+        self.purchaseMetadata = purchaseMetadata
         self.configuration = configuration
     }
 
@@ -28,6 +33,7 @@ struct LegacySinglePurchaseButton: View {
             if let tier {
                 LegacyPurchaseButton(
                     for: .constant(tier),
+                    purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )
             }
@@ -82,6 +88,9 @@ struct LegacySinglePurchaseButton: View {
 }
 
 #Preview {
-    LegacySinglePurchaseButton(configuration: .preview)
-        .environmentObject(LegacyInAppPurchaseKit.preview)
+    LegacySinglePurchaseButton(
+        purchaseMetadata: nil,
+        configuration: .preview
+    )
+    .environmentObject(LegacyInAppPurchaseKit.preview)
 }

@@ -24,7 +24,7 @@ struct LegacyTierSelectionButton: View {
         tier: InAppPurchaseTier,
         selectedTier: Binding<InAppPurchaseTier?>,
         accessoryType: InAppPurchaseTierAccessoryType? = nil,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: Any]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         self.tier = tier
@@ -44,6 +44,7 @@ struct LegacyTierSelectionButton: View {
             } else {
                 LegacyPurchaseButton(
                     for: $selectedTier,
+                    purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )
             }
@@ -259,6 +260,7 @@ struct LegacyTierSelectionButton: View {
         tier: .example,
         selectedTier: .constant(.example),
         accessoryType: .saving(value: 20),
+        purchaseMetadata: nil,
         configuration: .preview
     )
     .environmentObject(LegacyInAppPurchaseKit.preview)
