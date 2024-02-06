@@ -73,8 +73,12 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Configuration
 
-    public static func configure(with configuration: InAppPurchaseKitConfiguration) {
-        initializedInAppPurchaseKit = InAppPurchaseKit(configuration: configuration)
+    public static func configure(
+        with configuration: InAppPurchaseKitConfiguration
+    ) -> InAppPurchaseKit {
+        let object = InAppPurchaseKit(configuration: configuration)
+        initializedInAppPurchaseKit = object
+        return object
     }
 
     @MainActor private func configurePurchases() async {

@@ -73,8 +73,12 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Configuration
 
-    public static func configure(with configuration: InAppPurchaseKitConfiguration) {
-        initializedInAppPurchaseKit = LegacyInAppPurchaseKit(configuration: configuration)
+    public static func configure(
+        with configuration: InAppPurchaseKitConfiguration
+    ) -> LegacyInAppPurchaseKit {
+        let object = LegacyInAppPurchaseKit(configuration: configuration)
+        initializedInAppPurchaseKit = object
+        return object
     }
 
     @MainActor private func configurePurchases() async {
