@@ -19,7 +19,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     public init(
         useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any] = nil
+        purchaseMetadata: [String: Any]? = nil
     ) {
         self.useNavigationLink = useNavigationLink
         self.purchaseMetadata = purchaseMetadata
