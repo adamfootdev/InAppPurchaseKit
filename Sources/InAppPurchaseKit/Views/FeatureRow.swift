@@ -15,6 +15,18 @@ struct FeatureRow: View {
     }
 
     var body: some View {
+        #if os(tvOS)
+        Button {} label: {
+            rowView
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .buttonStyle(.plain)
+        #else
+        rowView
+        #endif
+    }
+
+    private var rowView: some View {
         HStack(spacing: mainSpacing) {
             Image(systemName: feature.systemImage)
                 .resizable()
