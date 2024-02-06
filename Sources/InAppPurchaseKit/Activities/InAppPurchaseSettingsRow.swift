@@ -13,16 +13,19 @@ public struct InAppPurchaseSettingsRow: View {
 
     private let useNavigationLink: Bool
     private let purchaseMetadata: [String: Any]?
+    private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
     @State private var showingPurchaseNavigationView: Bool = false
 
     public init(
         useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any]? = nil
+        purchaseMetadata: [String: Any]? = nil,
+        tint: Color? = nil
     ) {
         self.useNavigationLink = useNavigationLink
         self.purchaseMetadata = purchaseMetadata
+        self.tint = tint
     }
 
     public var body: some View {
@@ -54,9 +57,13 @@ public struct InAppPurchaseSettingsRow: View {
                 embedInNavigationStack: false,
                 purchaseMetadata: purchaseMetadata
             )
+            .accentColor(tint)
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            InAppPurchaseView(purchaseMetadata: purchaseMetadata)
+            InAppPurchaseView(
+                purchaseMetadata: purchaseMetadata
+            )
+            .accentColor(tint)
         }
     }
 

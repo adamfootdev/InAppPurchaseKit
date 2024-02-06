@@ -12,16 +12,19 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private let useNavigationLink: Bool
     private let purchaseMetadata: [String: Any]?
+    private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
     @State private var showingPurchaseNavigationView: Bool = false
 
     public init(
         useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any]? = nil
+        purchaseMetadata: [String: Any]? = nil,
+        tint: Color? = nil
     ) {
         self.useNavigationLink = useNavigationLink
         self.purchaseMetadata = purchaseMetadata
+        self.tint = tint
     }
 
     public var body: some View {
@@ -53,9 +56,13 @@ public struct LegacyInAppPurchaseSettingsRow: View {
                 embedInNavigationStack: false,
                 purchaseMetadata: purchaseMetadata
             )
+            .accentColor(tint)
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            LegacyInAppPurchaseView(purchaseMetadata: purchaseMetadata)
+            LegacyInAppPurchaseView(
+                purchaseMetadata: purchaseMetadata
+            )
+            .accentColor(tint)
         }
     }
 
