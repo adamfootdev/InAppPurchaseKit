@@ -10,17 +10,41 @@ import SwiftUI
 public struct LegacyInAppPurchaseSettingsRow: View {
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
-    @State private var showingPurchaseSheet: Bool = false
+    private let useNavigationLink: Bool
 
-    public init() {}
+    @State private var showingPurchaseSheet: Bool = false
+    @State private var showingPurchaseNavigationView: Bool = false
+
+    public init(useNavigationLink: Bool = false) {
+        self.useNavigationLink = useNavigationLink
+    }
 
     public var body: some View {
         Group {
-            if inAppPurchase.purchaseState == .purchased {
+            #if os(tvOS)
+            switch (inAppPurchase.purchaseState == .purchased, useNavigationLink) {
+            case (true, true):
+                subscribedNavigationLink
+            case (true, false):
                 subscribedButton
-            } else {
+            case (false, true):
+                purchaseNavigationLink
+            case (false, false):
                 purchaseButton
             }
+            
+            #else
+            Group {
+                if inAppPurchase.purchaseState == .purchased {
+                    subscribedButton
+                } else {
+                    purchaseButton
+                }
+            }
+            #endif
+        }
+        .navigationDestination(isPresented: $showingPurchaseNavigationView) {
+            LegacyInAppPurchaseView(embedInNavigationStack: false)
         }
         .sheet(isPresented: $showingPurchaseSheet) {
             LegacyInAppPurchaseView()
@@ -32,24 +56,13 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var subscribedButton: some View {
         Button {
-            showingPurchaseSheet.toggle()
-        } label: {
-            LabeledContent {
-                Text("Subscribed", bundle: .module)
-            } label: {
-                #if os(macOS) || os(tvOS)
-                Text(inAppPurchase.configuration.title)
-                    .foregroundStyle(Color.primary)
-
-                #else
-                Label {
-                    Text(inAppPurchase.configuration.title)
-                        .foregroundStyle(Color.primary)
-                } icon: {
-                    Image(systemName: inAppPurchase.configuration.systemImage)
-                }
-                #endif
+            if useNavigationLink {
+                showingPurchaseNavigationView.toggle()
+            } else {
+                showingPurchaseSheet.toggle()
             }
+        } label: {
+            subscribedView
         }
         #if os(macOS)
         .buttonStyle(.plain)
@@ -58,31 +71,61 @@ public struct LegacyInAppPurchaseSettingsRow: View {
         .accessibilityValue(String(localized: "Subscribed", bundle: .module))
     }
 
+    private var subscribedNavigationLink: some View {
+        NavigationLink {
+            LegacyInAppPurchaseView(embedInNavigationStack: false)
+        } label: {
+            subscribedView
+        }
+        #if os(macOS)
+        .buttonStyle(.plain)
+        #endif
+        .accessibilityLabel(inAppPurchase.configuration.title)
+        .accessibilityValue(String(localized: "Subscribed", bundle: .module))
+    }
+
+    private var subscribedView: some View {
+        #if os(watchOS)
+        VStack(alignment: .leading) {
+            Text(inAppPurchase.configuration.title)
+
+            Text("Subscribed")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+        }
+
+        #else
+        LabeledContent {
+            Text("Subscribed", bundle: .module)
+        } label: {
+            #if os(macOS) || os(tvOS)
+            Text(inAppPurchase.configuration.title)
+                .foregroundStyle(Color.primary)
+
+            #else
+            Label {
+                Text(inAppPurchase.configuration.title)
+                    .foregroundStyle(Color.primary)
+            } icon: {
+                Image(systemName: inAppPurchase.configuration.systemImage)
+            }
+            #endif
+        }
+        #endif
+    }
+
 
     // MARK: - Purchase Button
 
     private var purchaseButton: some View {
         Button {
-            showingPurchaseSheet.toggle()
-        } label: {
-            HStack(spacing: 8) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(inAppPurchase.configuration.title)
-                        .font(titleFont)
-                        .foregroundStyle(titleColor)
-
-                    Text(inAppPurchase.configuration.subtitle)
-                        .font(subtitleFont)
-                        .foregroundStyle(subtitleColor)
-                }
-                .minimumScaleFactor(0.6)
-
-                #if os(iOS) || os(macOS) || os(visionOS)
-                Spacer()
-                viewButton
-                #endif
+            if useNavigationLink {
+                showingPurchaseNavigationView.toggle()
+            } else {
+                showingPurchaseSheet.toggle()
             }
-            .padding(.vertical, 8)
+        } label: {
+            purchaseView
         }
         #if os(iOS) || os(macOS)
         .buttonStyle(.plain)
@@ -95,8 +138,54 @@ public struct LegacyInAppPurchaseSettingsRow: View {
         .accessibilityLabel(inAppPurchase.configuration.title)
     }
 
+    private var purchaseNavigationLink: some View {
+        NavigationLink {
+            LegacyInAppPurchaseView(embedInNavigationStack: false)
+        } label: {
+            purchaseView
+        }
+        #if os(iOS) || os(macOS)
+        .buttonStyle(.plain)
+        #endif
+        #if os(iOS) || os(visionOS)
+        .listRowBackground(purchasedBackground)
+        #elseif os(watchOS)
+        .listItemTint(.accentColor)
+        #endif
+        .accessibilityLabel(inAppPurchase.configuration.title)
+    }
+
+    private var purchaseView: some View {
+        HStack(spacing: 8) {
+            VStack(alignment: .leading, spacing: purchaseSpacing) {
+                Text(inAppPurchase.configuration.title)
+                    .font(titleFont)
+                    .foregroundStyle(titleColor)
+
+                Text(inAppPurchase.configuration.subtitle)
+                    .font(subtitleFont)
+                    .foregroundStyle(subtitleColor)
+            }
+            .minimumScaleFactor(0.6)
+
+            #if os(iOS) || os(macOS) || os(visionOS)
+            Spacer()
+            viewButton
+            #endif
+        }
+        .padding(.vertical, 8)
+    }
+
+    private var purchaseSpacing: CGFloat {
+        #if os(watchOS)
+        return 0
+        #else
+        return 4
+        #endif
+    }
+
     private var titleFont: Font {
-        #if os(tvOS)
+        #if os(tvOS) || os(watchOS)
         return Font.headline.bold()
         #elseif os(visionOS)
         return Font.title3
@@ -116,6 +205,8 @@ public struct LegacyInAppPurchaseSettingsRow: View {
     private var subtitleFont: Font {
         #if os(tvOS)
         return Font.subheadline
+        #elseif os(watchOS)
+        return Font.footnote
         #else
         return Font.subheadline.bold()
         #endif
@@ -131,7 +222,11 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var viewButton: some View {
         Button {
-            showingPurchaseSheet.toggle()
+            if useNavigationLink {
+                showingPurchaseNavigationView.toggle()
+            } else {
+                showingPurchaseSheet.toggle()
+            }
         } label: {
             #if os(macOS)
             Text("View…")
