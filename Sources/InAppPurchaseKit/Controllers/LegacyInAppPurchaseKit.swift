@@ -398,7 +398,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor private func verifyExistingTransactions() async {
+    @MainActor func verifyExistingTransactions() async {
         for tier in configuration.tiers.allTiers {
             do {
                 if try await fetchTransactionState(for: tier.id) {
