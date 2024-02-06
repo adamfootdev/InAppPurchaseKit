@@ -10,7 +10,7 @@ import Foundation
 public enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringResourceConvertible {
     case failedStoreVerification
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .failedStoreVerification:
             return String(
@@ -20,7 +20,7 @@ public enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringR
         }
     }
 
-    var localizedStringResource: LocalizedStringResource {
+    public var localizedStringResource: LocalizedStringResource {
         guard let errorDescription else {
             return "An unknown error occurred."
         }
