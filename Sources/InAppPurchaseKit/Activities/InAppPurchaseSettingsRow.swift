@@ -38,7 +38,7 @@ public struct InAppPurchaseSettingsRow: View {
             LabeledContent {
                 Text("Subscribed", bundle: .module)
             } label: {
-                #if os(macOS)
+                #if os(macOS) || os(tvOS)
                 Text(inAppPurchase.configuration.title)
                     .foregroundStyle(Color.primary)
 
@@ -73,7 +73,7 @@ public struct InAppPurchaseSettingsRow: View {
                         .foregroundStyle(titleColor)
 
                     Text(inAppPurchase.configuration.subtitle)
-                        .font(.subheadline.bold())
+                        .font(subtitleFont)
                         .foregroundStyle(subtitleColor)
                 }
                 .minimumScaleFactor(0.6)
@@ -97,7 +97,9 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     private var titleFont: Font {
-        #if os(visionOS)
+        #if os(tvOS)
+        return Font.headline.bold()
+        #elseif os(visionOS)
         return Font.title3
         #else
         return Font.title3.bold()
@@ -109,6 +111,14 @@ public struct InAppPurchaseSettingsRow: View {
         return Color.primary
         #else
         return Color.white
+        #endif
+    }
+
+    private var subtitleFont: Font {
+        #if os(tvOS)
+        return Font.subheadline
+        #else
+        return Font.subheadline.bold()
         #endif
     }
 
