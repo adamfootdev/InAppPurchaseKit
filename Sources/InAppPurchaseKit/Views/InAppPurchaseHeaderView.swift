@@ -16,15 +16,11 @@ struct InAppPurchaseHeaderView: View {
 
     var body: some View {
         VStack(spacing: mainSpacing) {
-            Group {
-                #if os(macOS)
-                Image(nsImage: configuration.image)
-                    .resizable()
-                #else
-                Image(uiImage: configuration.image)
-                    .resizable()
-                #endif
-            }
+            Image(
+                configuration.imageName,
+                bundle: .main
+            )
+            .resizable()
             .scaledToFill()
             #if os(iOS) || os(macOS) || os(tvOS)
             .clipShape(RoundedRectangle(

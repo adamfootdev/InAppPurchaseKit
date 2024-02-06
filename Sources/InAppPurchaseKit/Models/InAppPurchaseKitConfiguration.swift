@@ -11,7 +11,7 @@ import StoreKit
 public struct InAppPurchaseKitConfiguration {
     public let title: String
     public let subtitle: String
-    public let image: PlatformImage
+    public let imageName: String
     public let systemImage: String
     public let tiers: InAppPurchaseTiers
     public let features: [InAppPurchaseFeature]
@@ -32,7 +32,7 @@ public struct InAppPurchaseKitConfiguration {
     public init(
         _ title: String,
         subtitle: String,
-        image: PlatformImage,
+        imageName: String,
         systemImage: String = "plus.app",
         tiers: InAppPurchaseTiers,
         features: [InAppPurchaseFeature],
@@ -52,7 +52,7 @@ public struct InAppPurchaseKitConfiguration {
     ) {
         self.title = title
         self.subtitle = subtitle
-        self.image = image
+        self.imageName = imageName
         self.systemImage = systemImage
         self.tiers = tiers
         self.features = features
@@ -82,7 +82,7 @@ public struct InAppPurchaseKitConfiguration {
         let configuration = InAppPurchaseKitConfiguration(
             "My App Pro",
             subtitle: "Unlock all features.",
-            image: previewImage,
+            imageName: "",
             systemImage: "plus.app",
             tiers: .example,
             features: [.example, .example, .example],
