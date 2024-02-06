@@ -369,7 +369,7 @@ extension InAppPurchaseView where Content == EmptyView {
 
 //#Preview {
 //    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//        InAppPurchaseKit.configure(with: .preview)
+//        _ = InAppPurchaseKit.configure(with: .preview)
 //    }
 //
 //    return Group {

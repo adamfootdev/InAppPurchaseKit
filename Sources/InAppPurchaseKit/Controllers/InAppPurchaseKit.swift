@@ -444,7 +444,7 @@ public final class InAppPurchaseKit: NSObject {
     // MARK: - Previews
 
     public static var preview: InAppPurchaseKit = {
-        InAppPurchaseKit.configure(with: .preview)
-        return InAppPurchaseKit.shared
+        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+        return inAppPurchase
     }()
 }

@@ -265,7 +265,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 }
 
 #Preview {
-    LegacyInAppPurchaseKit.configure(with: .preview)
+    _ = LegacyInAppPurchaseKit.configure(with: .preview)
 
     return NavigationStack {
         Form {

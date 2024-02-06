@@ -444,7 +444,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     // MARK: - Previews
 
     public static var preview: LegacyInAppPurchaseKit = {
-        LegacyInAppPurchaseKit.configure(with: .preview)
-        return LegacyInAppPurchaseKit.shared
+        let inAppPurchase = LegacyInAppPurchaseKit.configure(with: .preview)
+        return inAppPurchase
     }()
 }

@@ -380,6 +380,6 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
 #endif
 
 #Preview {
-    LegacyInAppPurchaseKit.configure(with: .preview)
+    _ = LegacyInAppPurchaseKit.configure(with: .preview)
     return LegacyInAppPurchaseView()
 }
