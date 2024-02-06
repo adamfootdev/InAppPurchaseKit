@@ -30,27 +30,11 @@ public struct InAppPurchaseSettingsRow: View {
 
     public var body: some View {
         Group {
-            #if os(tvOS)
-            switch (inAppPurchase.purchaseState == .purchased, useNavigationLink) {
-            case (true, true):
-                subscribedNavigationLink
-            case (true, false):
+            if inAppPurchase.purchaseState == .purchased {
                 subscribedButton
-            case (false, true):
-                purchaseNavigationLink
-            case (false, false):
+            } else {
                 purchaseButton
             }
-
-            #else
-            Group {
-                if inAppPurchase.purchaseState == .purchased {
-                    subscribedButton
-                } else {
-                    purchaseButton
-                }
-            }
-            #endif
         }
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
             InAppPurchaseView(
@@ -77,22 +61,6 @@ public struct InAppPurchaseSettingsRow: View {
             } else {
                 showingPurchaseSheet.toggle()
             }
-        } label: {
-            subscribedView
-        }
-        #if os(macOS)
-        .buttonStyle(.plain)
-        #endif
-        .accessibilityLabel(inAppPurchase.configuration.title)
-        .accessibilityValue(String(localized: "Subscribed", bundle: .module))
-    }
-
-    private var subscribedNavigationLink: some View {
-        NavigationLink {
-            InAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
         } label: {
             subscribedView
         }
@@ -143,26 +111,6 @@ public struct InAppPurchaseSettingsRow: View {
             } else {
                 showingPurchaseSheet.toggle()
             }
-        } label: {
-            purchaseView
-        }
-        #if os(iOS) || os(macOS)
-        .buttonStyle(.plain)
-        #endif
-        #if os(iOS) || os(visionOS)
-        .listRowBackground(purchasedBackground)
-        #elseif os(watchOS)
-        .listItemTint(.accentColor)
-        #endif
-        .accessibilityLabel(inAppPurchase.configuration.title)
-    }
-
-    private var purchaseNavigationLink: some View {
-        NavigationLink {
-            InAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
         } label: {
             purchaseView
         }
