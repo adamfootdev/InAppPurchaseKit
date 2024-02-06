@@ -35,6 +35,18 @@ struct InAppPurchaseHeaderView: View {
             .clipShape(Circle())
             #endif
             .frame(width: imageWidth, height: imageHeight)
+            .overlay {
+                #if os(iOS) || os(tvOS)
+                RoundedRectangle(
+                    cornerRadius: imageCornerRadius,
+                    style: .continuous
+                )
+                .stroke(Color.appIconBorder, lineWidth: 1)
+                #elseif os(visionOS) || os(watchOS)
+                Circle()
+                    .stroke(Color.appIconBorder, lineWidth: 1)
+                #endif
+            }
             .accessibilityHidden(true)
 
             VStack(spacing: 6) {

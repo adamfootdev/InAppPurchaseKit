@@ -95,7 +95,7 @@ struct PurchaseButton: View {
                 switch tier.type {
                 case .weekly, .monthly, .yearly:
                     if let product = inAppPurchase.fetchProduct(for: tier),
-                       inAppPurchase.introOffer(for: product) == nil {
+                       inAppPurchase.introOffer(for: product) != nil {
                         return String(
                             localized: "Redeem Free Trial",
                             bundle: .module

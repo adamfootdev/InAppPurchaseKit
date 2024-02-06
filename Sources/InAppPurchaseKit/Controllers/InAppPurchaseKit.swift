@@ -226,7 +226,7 @@ public final class InAppPurchaseKit: NSObject {
             )
         }
 
-        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"
+        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle)"
 
         return message
     }

@@ -226,7 +226,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             )
         }
 
-        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle.lowercased())"
+        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle)"
 
         return message
     }
