@@ -12,7 +12,7 @@ import TPInAppReceipt
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
 @Observable
 public final class InAppPurchaseKit: NSObject {
-    public static var initializedInAppPurchaseKit: InAppPurchaseKit?
+    private static var initializedInAppPurchaseKit: InAppPurchaseKit?
 
     public static var shared: InAppPurchaseKit {
         if let initializedInAppPurchaseKit {
@@ -76,9 +76,13 @@ public final class InAppPurchaseKit: NSObject {
     public static func configure(
         with configuration: InAppPurchaseKitConfiguration
     ) -> InAppPurchaseKit {
-        let object = InAppPurchaseKit(configuration: configuration)
-        initializedInAppPurchaseKit = object
-        return object
+        if configuration.fromAppExtension, let initializedInAppPurchaseKit {
+            return initializedInAppPurchaseKit
+        } else {
+            let object = InAppPurchaseKit(configuration: configuration)
+            initializedInAppPurchaseKit = object
+            return object
+        }
     }
 
     @MainActor private func configurePurchases() async {

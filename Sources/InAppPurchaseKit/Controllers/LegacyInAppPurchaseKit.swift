@@ -10,7 +10,7 @@ import StoreKit
 import TPInAppReceipt
 
 public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
-    public static var initializedInAppPurchaseKit: LegacyInAppPurchaseKit?
+    private static var initializedInAppPurchaseKit: LegacyInAppPurchaseKit?
 
     public static var shared: LegacyInAppPurchaseKit {
         if let initializedInAppPurchaseKit {
@@ -76,9 +76,13 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     public static func configure(
         with configuration: InAppPurchaseKitConfiguration
     ) -> LegacyInAppPurchaseKit {
-        let object = LegacyInAppPurchaseKit(configuration: configuration)
-        initializedInAppPurchaseKit = object
-        return object
+        if configuration.fromAppExtension, let initializedInAppPurchaseKit {
+            return initializedInAppPurchaseKit
+        } else {
+            let object = LegacyInAppPurchaseKit(configuration: configuration)
+            initializedInAppPurchaseKit = object
+            return object
+        }
     }
 
     @MainActor private func configurePurchases() async {
