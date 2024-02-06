@@ -152,7 +152,7 @@ public final class InAppPurchaseKit: NSObject {
     var primaryTier: InAppPurchaseTier? {
         let tiers = configuration.tiers
 
-        if legacyUser {
+        if configuration.showLegacyTier && legacyUser {
             return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier
         } else {
             return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier ?? tiers.legacyUserLifetimeTier
@@ -162,7 +162,7 @@ public final class InAppPurchaseKit: NSObject {
     var availableTiers: [InAppPurchaseTier] {
         let tiers = configuration.tiers
 
-        if legacyUser {
+        if configuration.showLegacyTier && legacyUser {
             let availableTiers = [
                 tiers.weeklyTier,
                 tiers.monthlyTier,

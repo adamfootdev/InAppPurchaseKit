@@ -21,6 +21,7 @@ public struct InAppPurchaseKitConfiguration {
     public let enableSinglePurchaseMode: Bool
     public let showPrimaryTierOnly: Bool
     public let legacyUserThreshold: Int?
+    public let showLegacyTier: Bool
     public let fromAppExtension: Bool
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
@@ -41,6 +42,7 @@ public struct InAppPurchaseKitConfiguration {
         enableSinglePurchaseMode: Bool = true,
         showPrimaryTierOnly: Bool = true,
         legacyUserThreshold: Int? = nil,
+        showLegacyTier: Bool = true,
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
@@ -60,6 +62,7 @@ public struct InAppPurchaseKitConfiguration {
         self.enableSinglePurchaseMode = enableSinglePurchaseMode
         self.showPrimaryTierOnly = showPrimaryTierOnly
         self.legacyUserThreshold = legacyUserThreshold
+        self.showLegacyTier = showLegacyTier
         self.fromAppExtension = fromAppExtension
         self.sharedUserDefaults = sharedUserDefaults
         self.overridePurchased = overridePurchased
@@ -89,6 +92,7 @@ public struct InAppPurchaseKitConfiguration {
             enableSinglePurchaseMode: true,
             showPrimaryTierOnly: true,
             legacyUserThreshold: nil,
+            showLegacyTier: true,
             fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil
