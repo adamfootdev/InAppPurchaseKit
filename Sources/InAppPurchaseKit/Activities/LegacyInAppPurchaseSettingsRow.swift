@@ -52,17 +52,30 @@ public struct LegacyInAppPurchaseSettingsRow: View {
             #endif
         }
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            LegacyInAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
-            .accentColor(tint)
+            if let tint {
+                LegacyInAppPurchaseView(
+                    embedInNavigationStack: false,
+                    purchaseMetadata: purchaseMetadata
+                )
+                .accentColor(tint)
+            } else {
+                LegacyInAppPurchaseView(
+                    embedInNavigationStack: false,
+                    purchaseMetadata: purchaseMetadata
+                )
+            }
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            LegacyInAppPurchaseView(
-                purchaseMetadata: purchaseMetadata
-            )
-            .accentColor(tint)
+            if let tint {
+                LegacyInAppPurchaseView(
+                    purchaseMetadata: purchaseMetadata
+                )
+                .accentColor(tint)
+            } else {
+                LegacyInAppPurchaseView(
+                    purchaseMetadata: purchaseMetadata
+                )
+            }
         }
     }
 

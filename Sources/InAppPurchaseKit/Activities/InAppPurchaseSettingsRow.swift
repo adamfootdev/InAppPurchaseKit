@@ -37,17 +37,30 @@ public struct InAppPurchaseSettingsRow: View {
             }
         }
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            InAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
-            .accentColor(tint)
+            if let tint {
+                InAppPurchaseView(
+                    embedInNavigationStack: false,
+                    purchaseMetadata: purchaseMetadata
+                )
+                .accentColor(tint)
+            } else {
+                InAppPurchaseView(
+                    embedInNavigationStack: false,
+                    purchaseMetadata: purchaseMetadata
+                )
+            }
         }
         .sheet(isPresented: $showingPurchaseSheet) {
-            InAppPurchaseView(
-                purchaseMetadata: purchaseMetadata
-            )
-            .accentColor(tint)
+            if let tint {
+                InAppPurchaseView(
+                    purchaseMetadata: purchaseMetadata
+                )
+                .accentColor(tint)
+            } else {
+                InAppPurchaseView(
+                    purchaseMetadata: purchaseMetadata
+                )
+            }
         }
     }
 
