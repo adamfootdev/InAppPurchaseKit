@@ -44,7 +44,7 @@ struct TierSelectionButton: View {
                 ProgressView()
             } else {
                 PurchaseButton(
-                    for: $selectedTier,
+                    for: .constant(tier),
                     purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )

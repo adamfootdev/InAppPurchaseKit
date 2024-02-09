@@ -43,7 +43,7 @@ struct LegacyTierSelectionButton: View {
                 ProgressView()
             } else {
                 LegacyPurchaseButton(
-                    for: $selectedTier,
+                    for: .constant(tier),
                     purchaseMetadata: purchaseMetadata,
                     configuration: configuration
                 )
