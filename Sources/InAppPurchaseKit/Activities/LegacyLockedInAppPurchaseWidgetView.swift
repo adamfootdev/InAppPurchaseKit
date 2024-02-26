@@ -61,11 +61,15 @@ struct LegacyLockedInAppPurchaseWidgetView: View {
                     openURL(url)
                 } label: {
                     Text("Learn More")
+                        #if os(iOS)
                         .font(.footnote.bold())
+                        #endif
                         .padding(.horizontal, 4)
                 }
                 .buttonStyle(.bordered)
+                #if os(iOS)
                 .buttonBorderShape(.capsule)
+                #endif
                 .controlSize(.small)
                 .tint(tint ?? Color.accentColor)
             }
@@ -75,7 +79,9 @@ struct LegacyLockedInAppPurchaseWidgetView: View {
 }
 
 #Preview {
-    LegacyLockedInAppPurchaseWidgetView(
+    _ = LegacyInAppPurchaseKit.configure(with: .preview)
+
+    return LegacyLockedInAppPurchaseWidgetView(
         learnMoreURL: URL(string: "myapp://?function=subscribe")!,
         tint: nil
     )

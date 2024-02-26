@@ -37,7 +37,7 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     public var body: some View {
         VStack(spacing: 32) {
             InAppPurchaseHeaderView(
-                subtitle: "This feature requires access to \(inAppPurchase.configuration.title)",
+                subtitle: String(localized: "This feature requires access to \(inAppPurchase.configuration.title)"),
                 configuration: inAppPurchase.configuration
             )
             .frame(maxWidth: .infinity)
@@ -47,30 +47,42 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
                     purchaseMetadata: purchaseMetadata,
                     configuration: inAppPurchase.configuration
                 )
+                #if os(tvOS) || os(visionOS)
+                .buttonStyle(.borderedProminent)
+                #elseif os(watchOS)
+                .buttonStyle(.bordered)
+                #endif
 
-                Button("Learn More") {
+                Button {
                     if useNavigationLink {
                         showingPurchaseNavigationView.toggle()
                     } else {
                         showingPurchaseSheet.toggle()
                     }
+                } label: {
+                    Text("Learn More")
+                    #if os(visionOS)
+                        .padding(.horizontal, 8)
+                    #endif
                 }
+                #if os(tvOS)
+                .buttonStyle(.bordered)
+                .font(.subheadline)
+                .padding(.top, 12)
+                #elseif os(visionOS)
+                .buttonStyle(.bordered)
+                .font(.subheadline.bold())
+                .controlSize(.small)
+                #elseif os(watchOS)
+                .buttonStyle(.bordered)
+                #else
                 .buttonStyle(.plain)
                 .font(.subheadline)
                 .foregroundStyle(tint ?? Color.accentColor)
+                #endif
             }
         }
-        .padding(.vertical, containedInList ? 8 : 20)
-        .padding(.horizontal, containedInList ? 0 : 20)
-        .background {
-            if containedInList == false {
-                RoundedRectangle(
-                    cornerRadius: 12,
-                    style: .continuous
-                )
-                .fill(.secondary.opacity(0.3))
-            }
-        }
+        .padding(.vertical, containedInList ? verticalPadding : 0)
         .navigationDestination(isPresented: $showingPurchaseNavigationView) {
             if let tint {
                 LegacyInAppPurchaseView(
@@ -97,6 +109,16 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
                 )
             }
         }
+    }
+
+    private var verticalPadding: CGFloat {
+        #if os(tvOS)
+        return 40
+        #elseif os(watchOS)
+        return 16
+        #else
+        return 8
+        #endif
     }
 }
 

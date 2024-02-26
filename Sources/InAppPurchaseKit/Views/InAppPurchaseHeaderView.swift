@@ -56,12 +56,12 @@ struct InAppPurchaseHeaderView: View {
                     bundle: .module
                 )
                 .font(titleFont)
-                .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
 
                 Text(subtitle)
                     .font(subtitleFont)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .multilineTextAlignment(.center)
             .accessibilityElement(children: .combine)

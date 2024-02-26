@@ -62,11 +62,15 @@ struct LockedInAppPurchaseWidgetView: View {
                     openURL(url)
                 } label: {
                     Text("Learn More")
+                        #if os(iOS)
                         .font(.footnote.bold())
+                        #endif
                         .padding(.horizontal, 4)
                 }
                 .buttonStyle(.bordered)
+                #if os(iOS)
                 .buttonBorderShape(.capsule)
+                #endif
                 .controlSize(.small)
                 .tint(tint ?? Color.accentColor)
             }
