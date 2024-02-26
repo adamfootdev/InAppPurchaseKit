@@ -85,7 +85,8 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor private func configurePurchases() async {
+    @MainActor
+    private func configurePurchases() async {
         if configuration.loadProducts {
             await requestProducts()
         }
@@ -94,6 +95,15 @@ public final class InAppPurchaseKit: NSObject {
 
         await MainActor.run {
             hasLoaded = true
+        }
+    }
+
+    func waitUntilLoadedPurchases() async {
+        if hasLoaded {
+            return
+        } else {
+            try? await Task.sleep(for: .seconds(0.3))
+            await waitUntilLoadedPurchases()
         }
     }
 
@@ -238,7 +248,8 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Products
 
-    @MainActor private func requestProducts() async {
+    @MainActor
+    private func requestProducts() async {
         do {
             availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
 
@@ -325,7 +336,8 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Purchase
 
-    @MainActor public func purchase(
+    @MainActor
+    public func purchase(
         _ product: Product,
         with metadata: [String: Any]?
     ) async -> Transaction? {
@@ -372,7 +384,8 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor public func restorePurchases() async {
+    @MainActor
+    public func restorePurchases() async {
         try? await AppStore.sync()
     }
 
@@ -398,7 +411,8 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor func verifyExistingTransactions() async {
+    @MainActor
+    func verifyExistingTransactions() async {
         for tier in configuration.tiers.allTiers {
             do {
                 if try await fetchTransactionState(for: tier.id) {
@@ -423,7 +437,8 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor private func updatePurchasedTiers(_ transaction: Transaction) async {
+    @MainActor
+    private func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.allTiers.first(where: {
                 $0.id == transaction.productID
