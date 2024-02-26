@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ Required" : {
+
+    },
     "%lld Days Free, then " : {
       "localizations" : {
         "cs" : {
