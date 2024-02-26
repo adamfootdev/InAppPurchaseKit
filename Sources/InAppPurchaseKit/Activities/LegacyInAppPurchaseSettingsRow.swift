@@ -10,72 +10,17 @@ import SwiftUI
 public struct LegacyInAppPurchaseSettingsRow: View {
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
-    private let useNavigationLink: Bool
-    private let purchaseMetadata: [String: Any]?
-    private let tint: Color?
+    @Binding private var showingPurchaseView: Bool
 
-    @State private var showingPurchaseSheet: Bool = false
-    @State private var showingPurchaseNavigationView: Bool = false
-
-    public init(
-        useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any]? = nil,
-        tint: Color? = nil
-    ) {
-        self.useNavigationLink = useNavigationLink
-        self.purchaseMetadata = purchaseMetadata
-        self.tint = tint
+    public init(showingPurchaseView: Binding<Bool>) {
+        _showingPurchaseView = showingPurchaseView
     }
 
     public var body: some View {
-        Group {
-            #if os(tvOS)
-            switch (inAppPurchase.purchaseState == .purchased, useNavigationLink) {
-            case (true, true):
-                subscribedNavigationLink
-            case (true, false):
-                subscribedButton
-            case (false, true):
-                purchaseNavigationLink
-            case (false, false):
-                purchaseButton
-            }
-            
-            #else
-            Group {
-                if inAppPurchase.purchaseState == .purchased {
-                    subscribedButton
-                } else {
-                    purchaseButton
-                }
-            }
-            #endif
-        }
-        .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            if let tint {
-                LegacyInAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
-                )
-                .accentColor(tint)
-            } else {
-                LegacyInAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
-                )
-            }
-        }
-        .sheet(isPresented: $showingPurchaseSheet) {
-            if let tint {
-                LegacyInAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
-                )
-                .accentColor(tint)
-            } else {
-                LegacyInAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
-                )
-            }
+        if inAppPurchase.purchaseState == .purchased {
+            subscribedButton
+        } else {
+            purchaseButton
         }
     }
 
@@ -84,27 +29,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var subscribedButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
-        } label: {
-            subscribedView
-        }
-        #if os(macOS)
-        .buttonStyle(.plain)
-        #endif
-        .accessibilityLabel(inAppPurchase.configuration.title)
-        .accessibilityValue(String(localized: "Subscribed", bundle: .module))
-    }
-
-    private var subscribedNavigationLink: some View {
-        NavigationLink {
-            LegacyInAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
+            showingPurchaseView = true
         } label: {
             subscribedView
         }
@@ -150,31 +75,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var purchaseButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
-        } label: {
-            purchaseView
-        }
-        #if os(iOS) || os(macOS)
-        .buttonStyle(.plain)
-        #endif
-        #if os(iOS) || os(visionOS)
-        .listRowBackground(purchasedBackground)
-        #elseif os(watchOS)
-        .listItemTint(.accentColor)
-        #endif
-        .accessibilityLabel(inAppPurchase.configuration.title)
-    }
-
-    private var purchaseNavigationLink: some View {
-        NavigationLink {
-            LegacyInAppPurchaseView(
-                embedInNavigationStack: false,
-                purchaseMetadata: purchaseMetadata
-            )
+            showingPurchaseView = true
         } label: {
             purchaseView
         }
@@ -256,11 +157,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     private var viewButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
+            showingPurchaseView = true
         } label: {
             #if os(macOS)
             Text("View…")
@@ -303,7 +200,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
     return NavigationStack {
         Form {
-            LegacyInAppPurchaseSettingsRow()
+            LegacyInAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
         }
         #if os(macOS)
         .formStyle(.grouped)

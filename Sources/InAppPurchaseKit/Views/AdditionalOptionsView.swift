@@ -25,7 +25,7 @@ struct AdditionalOptionsView: View {
         VStack(spacing: 16) {
             if inAppPurchase.purchaseState != .purchased {
                 Button {
-                    showingRedeemSheet.toggle()
+                    showingRedeemSheet = true
                 } label: {
                     Text("Redeem Code", bundle: .module)
                         #if os(iOS)

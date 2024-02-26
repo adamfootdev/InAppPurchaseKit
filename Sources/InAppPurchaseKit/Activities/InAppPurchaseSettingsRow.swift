@@ -11,56 +11,17 @@ import SwiftUI
 public struct InAppPurchaseSettingsRow: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let useNavigationLink: Bool
-    private let purchaseMetadata: [String: Any]?
-    private let tint: Color?
+    @Binding private var showingPurchaseView: Bool
 
-    @State private var showingPurchaseSheet: Bool = false
-    @State private var showingPurchaseNavigationView: Bool = false
-
-    public init(
-        useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any]? = nil,
-        tint: Color? = nil
-    ) {
-        self.useNavigationLink = useNavigationLink
-        self.purchaseMetadata = purchaseMetadata
-        self.tint = tint
+    public init(showingPurchaseView: Binding<Bool>) {
+        _showingPurchaseView = showingPurchaseView
     }
 
     public var body: some View {
-        Group {
-            if inAppPurchase.purchaseState == .purchased {
-                subscribedButton
-            } else {
-                purchaseButton
-            }
-        }
-        .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            if let tint {
-                InAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
-                )
-                .accentColor(tint)
-            } else {
-                InAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
-                )
-            }
-        }
-        .sheet(isPresented: $showingPurchaseSheet) {
-            if let tint {
-                InAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
-                )
-                .accentColor(tint)
-            } else {
-                InAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
-                )
-            }
+        if inAppPurchase.purchaseState == .purchased {
+            subscribedButton
+        } else {
+            purchaseButton
         }
     }
 
@@ -69,11 +30,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var subscribedButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
+            showingPurchaseView = true
         } label: {
             subscribedView
         }
@@ -119,11 +76,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var purchaseButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
+            showingPurchaseView = true
         } label: {
             purchaseView
         }
@@ -205,11 +158,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var viewButton: some View {
         Button {
-            if useNavigationLink {
-                showingPurchaseNavigationView.toggle()
-            } else {
-                showingPurchaseSheet.toggle()
-            }
+            showingPurchaseView = true
         } label: {
             #if os(macOS)
             Text("View…")
@@ -255,7 +204,7 @@ public struct InAppPurchaseSettingsRow: View {
 //    return NavigationStack {
 //        Form {
 //            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//                InAppPurchaseSettingsRow()
+//                InAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
 //            }
 //        }
 //        #if os(macOS)

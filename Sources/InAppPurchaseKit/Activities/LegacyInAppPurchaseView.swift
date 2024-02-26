@@ -181,7 +181,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     switch inAppPurchase.activeTier?.type {
                     case .weekly, .monthly, .yearly:
                         Button {
-                            showingManageSubscriptionSheet.toggle()
+                            showingManageSubscriptionSheet = true
                         } label: {
                             Text("Manage Subscription", bundle: .module)
                                 .font(.headline)

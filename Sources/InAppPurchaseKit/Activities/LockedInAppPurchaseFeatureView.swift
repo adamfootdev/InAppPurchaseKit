@@ -38,7 +38,7 @@ public struct LockedInAppPurchaseFeatureView: View {
     public var body: some View {
         VStack(spacing: 32) {
             InAppPurchaseHeaderView(
-                subtitle: String(localized: "This feature requires access to \(inAppPurchase.configuration.title)"),
+                subtitle: String(localized: "This feature requires access to \(inAppPurchase.configuration.title)", bundle: .module),
                 configuration: inAppPurchase.configuration
             )
             .frame(maxWidth: .infinity)
@@ -56,9 +56,9 @@ public struct LockedInAppPurchaseFeatureView: View {
 
                 Button {
                     if useNavigationLink {
-                        showingPurchaseNavigationView.toggle()
+                        showingPurchaseNavigationView = true
                     } else {
-                        showingPurchaseSheet.toggle()
+                        showingPurchaseSheet = true
                     }
                 } label: {
                     Text("Learn More")
