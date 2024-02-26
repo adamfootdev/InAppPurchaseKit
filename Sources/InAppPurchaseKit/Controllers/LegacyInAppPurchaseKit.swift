@@ -98,7 +98,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    func waitUntilLoadedPurchases() async {
+    public func waitUntilLoadedPurchases() async {
         if hasLoaded {
             return
         } else {

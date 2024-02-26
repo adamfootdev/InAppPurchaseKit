@@ -98,7 +98,7 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    func waitUntilLoadedPurchases() async {
+    public func waitUntilLoadedPurchases() async {
         if hasLoaded {
             return
         } else {
