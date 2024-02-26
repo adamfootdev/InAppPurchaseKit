@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct InAppPurchaseHeaderView: View {
+    private let subtitle: String
     private let configuration: InAppPurchaseKitConfiguration
 
-    init(configuration: InAppPurchaseKitConfiguration) {
+    init(
+        subtitle: String? = nil,
+        configuration: InAppPurchaseKitConfiguration
+    ) {
+        self.subtitle = subtitle ?? configuration.subtitle
         self.configuration = configuration
     }
 
@@ -54,7 +59,7 @@ struct InAppPurchaseHeaderView: View {
                 .multilineTextAlignment(.center)
                 .fixedSize(horizontal: false, vertical: true)
 
-                Text(configuration.subtitle)
+                Text(subtitle)
                     .font(subtitleFont)
                     .foregroundStyle(.secondary)
             }
