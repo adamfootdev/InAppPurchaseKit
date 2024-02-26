@@ -9,7 +9,7 @@
 import SwiftUI
 import WidgetKit
 
-struct LegacyLockedInAppPurchaseWidgetView: View {
+public struct LegacyLockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.widgetFamily) private var widgetFamily
 
@@ -18,12 +18,12 @@ struct LegacyLockedInAppPurchaseWidgetView: View {
     private let url: URL
     private let tint: Color?
 
-    init(learnMoreURL url: URL, tint: Color? = nil) {
+    public init(learnMoreURL url: URL, tint: Color? = nil) {
         self.url = url
         self.tint = tint
     }
 
-    var body: some View {
+    public var body: some View {
         switch widgetFamily {
         case .accessoryCircular, .accessoryCorner:
             Image(systemName: "lock.fill")
