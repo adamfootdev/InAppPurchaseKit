@@ -96,30 +96,22 @@ struct PurchaseButton: View {
 
     private var title: String {
         if let tier {
-            switch inAppPurchase.transactionState {
-            case .pending:
-                switch tier.type {
-                case .weekly, .monthly, .yearly:
-                    if let product = inAppPurchase.fetchProduct(for: tier),
-                       inAppPurchase.introOffer(for: product) != nil {
-                        return String(
-                            localized: "Redeem Free Trial",
-                            bundle: .module
-                        )
-                    } else {
-                        return String(
-                            localized: "Subscribe",
-                            bundle: .module
-                        )
-                    }
-
-                case .lifetime, .legacyUserLifetime:
+            switch tier.type {
+            case .weekly, .monthly, .yearly:
+                if let product = inAppPurchase.fetchProduct(for: tier),
+                   inAppPurchase.introOffer(for: product) != nil {
                     return String(
-                        localized: "Purchase",
+                        localized: "Redeem Free Trial",
+                        bundle: .module
+                    )
+                } else {
+                    return String(
+                        localized: "Subscribe",
                         bundle: .module
                     )
                 }
-            default:
+
+            case .lifetime, .legacyUserLifetime:
                 return String(
                     localized: "Purchase",
                     bundle: .module
