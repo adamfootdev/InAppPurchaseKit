@@ -20,6 +20,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
     private let embedInNavigationStack: Bool
     private let purchaseMetadata: [String: Any]?
+    private let onPurchaseAction: (() -> Void)?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
@@ -31,11 +32,13 @@ public struct InAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -44,11 +47,13 @@ public struct InAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -152,20 +157,8 @@ public struct InAppPurchaseView<Content: View>: View {
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
         .onChange(of: inAppPurchase.transactionState) { _, transactionState in
-            if transactionState == .purchased {
-                #if canImport(HapticsKit)
-                if inAppPurchase.configuration.enableHapticFeedback {
-                    #if os(iOS)
-                    HapticsKit.performNotification(.success)
-                    #elseif os(watchOS)
-                    HapticsKit.perform(.success)
-                    #endif
-                }
-                #endif
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                    dismiss()
-                }
+            Task {
+                await transactionStateUpdated(to: transactionState)
             }
         }
     }
@@ -303,6 +296,34 @@ public struct InAppPurchaseView<Content: View>: View {
     }
 
 
+    // MARK: - Update
+
+    @MainActor
+    private func transactionStateUpdated(to transactionState: TransactionState) async {
+        guard transactionState == .purchased else {
+            return
+        }
+
+        #if canImport(HapticsKit)
+        if inAppPurchase.configuration.enableHapticFeedback {
+            #if os(iOS)
+            HapticsKit.performNotification(.success)
+            #elseif os(watchOS)
+            HapticsKit.perform(.success)
+            #endif
+        }
+        #endif
+
+        try? await Task.sleep(for: .seconds(1.0))
+
+        if let onPurchaseAction {
+            onPurchaseAction()
+        } else {
+            dismiss()
+        }
+    }
+
+
     // MARK: - Toolbar
 
     private var doneToolbarItem: some ToolbarContent {
@@ -355,10 +376,12 @@ extension InAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -370,10 +393,12 @@ extension InAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }

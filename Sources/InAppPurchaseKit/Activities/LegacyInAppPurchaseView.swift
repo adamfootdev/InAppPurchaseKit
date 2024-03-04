@@ -19,6 +19,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     private let embedInNavigationStack: Bool
     private let purchaseMetadata: [String: Any]?
+    private let onPurchaseAction: (() -> Void)?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
@@ -30,11 +31,13 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -43,11 +46,13 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -152,11 +157,15 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #endif
         #if os(iOS) || os(macOS) || os(tvOS)
         .onChange(of: inAppPurchase.transactionState) { transactionState in
-            transactionStateUpdated(to: transactionState)
+            Task {
+                await transactionStateUpdated(to: transactionState)
+            }
         }
         #else
         .onChange(of: inAppPurchase.transactionState) { _, transactionState in
-            transactionStateUpdated(to: transactionState)
+            Task {
+                await transactionStateUpdated(to: transactionState)
+            }
         }
         #endif
     }
@@ -293,9 +302,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         #endif
     }
 
+
     // MARK: - Update
 
-    private func transactionStateUpdated(to transactionState: TransactionState) {
+    @MainActor
+    private func transactionStateUpdated(to transactionState: TransactionState) async {
         guard transactionState == .purchased else {
             return
         }
@@ -310,7 +321,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         }
         #endif
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        try? await Task.sleep(for: .seconds(1.0))
+
+        if let onPurchaseAction {
+            onPurchaseAction()
+        } else {
             dismiss()
         }
     }
@@ -368,10 +383,12 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }
@@ -382,10 +399,12 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
     }

@@ -18,6 +18,7 @@ public struct LockedInAppPurchaseFeatureView: View {
     private let containedInList: Bool
     private let useNavigationLink: Bool
     private let purchaseMetadata: [String: Any]?
+    private let onPurchaseAction: (() -> Void)?
     private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
@@ -27,11 +28,13 @@ public struct LockedInAppPurchaseFeatureView: View {
         containedInList: Bool,
         useNavigationLink: Bool = false,
         purchaseMetadata: [String: Any]? = nil,
+        onPurchase onPurchaseAction: (() -> Void)? = nil,
         tint: Color? = nil
     ) {
         self.containedInList = containedInList
         self.useNavigationLink = useNavigationLink
         self.purchaseMetadata = purchaseMetadata
+        self.onPurchaseAction = onPurchaseAction
         self.tint = tint
     }
 
@@ -88,25 +91,29 @@ public struct LockedInAppPurchaseFeatureView: View {
             if let tint {
                 InAppPurchaseView(
                     embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
+                    purchaseMetadata: purchaseMetadata,
+                    onPurchase: onPurchaseAction
                 )
                 .accentColor(tint)
             } else {
                 InAppPurchaseView(
                     embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata
+                    purchaseMetadata: purchaseMetadata,
+                    onPurchase: onPurchaseAction
                 )
             }
         }
         .sheet(isPresented: $showingPurchaseSheet) {
             if let tint {
                 InAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
+                    purchaseMetadata: purchaseMetadata,
+                    onPurchase: onPurchaseAction
                 )
                 .accentColor(tint)
             } else {
                 InAppPurchaseView(
-                    purchaseMetadata: purchaseMetadata
+                    purchaseMetadata: purchaseMetadata,
+                    onPurchase: onPurchaseAction
                 )
             }
         }
