@@ -26,7 +26,10 @@ public struct InAppPurchaseView<Content: View>: View {
 
     @State private var selectedTier: InAppPurchaseTier?
     @State private var showingAllTiers: Bool = false
+    
     @State private var showingManageSubscriptionSheet: Bool = false
+    @State private var ignorePurchaseState: Bool = false
+    @State private var showingSwitchTierMessage: Bool = false
 
     #if os(watchOS)
     public init(
@@ -118,7 +121,7 @@ public struct InAppPurchaseView<Content: View>: View {
         }
         #if os(iOS)
         .safeAreaInset(edge: .bottom) {
-            if inAppPurchase.purchaseState != .purchased && inAppPurchase.configuration.showSinglePurchaseMode == false {
+            if (inAppPurchase.purchaseState != .purchased || ignorePurchaseState) && inAppPurchase.configuration.showSinglePurchaseMode == false {
                 VStack(spacing: 16) {
                     Divider()
 
@@ -156,6 +159,15 @@ public struct InAppPurchaseView<Content: View>: View {
         #if os(iOS) || os(visionOS)
         .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
         #endif
+        .alert(String(localized: "Switch Tier", bundle: .module), isPresented: $showingSwitchTierMessage) {
+            Button(String(localized: "Cancel", bundle: .module), role: .cancel) {}
+
+            Button(String(localized: "Switch", bundle: .module)) {
+                ignorePurchaseState = true
+            }
+        } message: {
+            Text("If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier.", bundle: .module)
+        }
         .onChange(of: inAppPurchase.transactionState) { _, transactionState in
             Task {
                 await transactionStateUpdated(to: transactionState)
@@ -175,22 +187,34 @@ public struct InAppPurchaseView<Content: View>: View {
 
     private var tiersView: some View {
         Group {
-            if inAppPurchase.purchaseState == .purchased {
+            if inAppPurchase.purchaseState == .purchased && ignorePurchaseState == false {
                 #if os(iOS) || os(visionOS)
                 VStack(spacing: 20) {
                     SubscribedFooterView()
 
                     switch inAppPurchase.activeTier?.type {
                     case .weekly, .monthly, .yearly:
-                        Button {
-                            showingManageSubscriptionSheet = true
-                        } label: {
-                            Text("Manage Subscription", bundle: .module)
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
+                        VStack(spacing: 8) {
+                            Button {
+                                showingManageSubscriptionSheet = true
+                            } label: {
+                                Text("Manage Subscription", bundle: .module)
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+
+                            Button {
+                                showingSwitchTierMessage = true
+                            } label: {
+                                Text("Switch Tier", bundle: .module)
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity)
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
                         }
-                        .buttonStyle(.bordered)
-                        .controlSize(.large)
 
                     default:
                         EmptyView()
@@ -198,7 +222,26 @@ public struct InAppPurchaseView<Content: View>: View {
                 }
 
                 #else
-                SubscribedFooterView()
+                VStack(spacing: 20) {
+                    SubscribedFooterView()
+
+                    switch inAppPurchase.activeTier?.type {
+                    case .weekly, .monthly, .yearly:
+                        Button {
+                            showingSwitchTierMessage = true
+                        } label: {
+                            Text("Switch Tier", bundle: .module)
+                                .font(.headline)
+                                .frame(maxWidth: .infinity)
+                        }
+                        #if os(watchOS)
+                        .tint(.accentColor)
+                        #endif
+
+                    default:
+                        EmptyView()
+                    }
+                }
                 #endif
 
             } else {
@@ -238,7 +281,7 @@ public struct InAppPurchaseView<Content: View>: View {
                     }
 
                     #if os(macOS) || os(visionOS)
-                    if inAppPurchase.purchaseState != .purchased {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         PurchaseButton(
                             for: $selectedTier,
                             purchaseMetadata: purchaseMetadata,
