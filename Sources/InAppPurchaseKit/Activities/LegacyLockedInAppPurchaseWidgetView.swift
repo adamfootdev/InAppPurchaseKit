@@ -51,7 +51,7 @@ public struct LegacyLockedInAppPurchaseWidgetView: View {
                 VStack(spacing: 10) {
                     Image(systemName: "lock.fill")
                         .font(.title)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(Color.secondary)
 
                     Text("\(inAppPurchase.configuration.title) Required")
                         .fixedSize(horizontal: false, vertical: true)

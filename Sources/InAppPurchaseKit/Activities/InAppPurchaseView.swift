@@ -307,6 +307,7 @@ public struct InAppPurchaseView<Content: View>: View {
         VStack(spacing: mainSpacing / 2) {
             Text("Whatʼs Included", bundle: .module)
                 .font(featuresTitleFont)
+                .foregroundStyle(Color.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .accessibilityAddTraits(.isHeader)
 

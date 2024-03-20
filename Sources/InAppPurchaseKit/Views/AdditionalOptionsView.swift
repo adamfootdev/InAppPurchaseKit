@@ -72,7 +72,7 @@ struct AdditionalOptionsView: View {
             VStack(alignment: .leading, spacing: 12) {
                 additionalOptionsContent(useDivider: false)
             }
-            .foregroundStyle(.secondary)
+            .foregroundStyle(Color.secondary)
         }
 
         #elseif os(watchOS)

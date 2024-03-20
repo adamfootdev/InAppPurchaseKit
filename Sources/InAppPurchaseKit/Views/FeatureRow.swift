@@ -44,6 +44,7 @@ struct FeatureRow: View {
             VStack(alignment: .leading, spacing: textSpacing) {
                 Text(feature.title)
                     .font(.headline)
+                    .foregroundStyle(Color.primary)
                     .fixedSize(horizontal: false, vertical: true)
 
                 Text(feature.description)

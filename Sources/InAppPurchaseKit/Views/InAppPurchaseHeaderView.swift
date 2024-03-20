@@ -56,11 +56,12 @@ struct InAppPurchaseHeaderView: View {
                     bundle: .module
                 )
                 .font(titleFont)
+                .foregroundStyle(Color.primary)
                 .fixedSize(horizontal: false, vertical: true)
 
                 Text(subtitle)
                     .font(subtitleFont)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(Color.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
             .multilineTextAlignment(.center)

@@ -48,7 +48,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
 
             Text("Subscribed")
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(Color.secondary)
         }
 
         #else

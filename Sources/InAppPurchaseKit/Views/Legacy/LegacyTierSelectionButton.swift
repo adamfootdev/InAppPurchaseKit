@@ -165,6 +165,7 @@ struct LegacyTierSelectionButton: View {
                     #if os(watchOS)
                     Text(tier.type.title)
                         .font(titleFont)
+                        .foregroundStyle(Color.primary)
                     #endif
 
                     Text(inAppPurchase.fetchTierSubtitle(for: tier))

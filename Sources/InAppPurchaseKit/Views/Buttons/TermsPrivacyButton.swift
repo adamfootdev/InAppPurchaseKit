@@ -21,6 +21,7 @@ struct TermsPrivacyButton: View {
     var body: some View {
         #if os(tvOS)
         Text(verbatim: "\(title): \(url.absoluteString)")
+            .foregroundStyle(Color.primary)
 
         #elseif os(watchOS)
         VStack(alignment: .leading, spacing: 2) {
@@ -29,6 +30,7 @@ struct TermsPrivacyButton: View {
                 .foregroundStyle(Color.secondary)
 
             Text(url.absoluteString)
+                .foregroundStyle(Color.primary)
         }
         .font(.footnote)
         .accessibilityElement(children: .ignore)
