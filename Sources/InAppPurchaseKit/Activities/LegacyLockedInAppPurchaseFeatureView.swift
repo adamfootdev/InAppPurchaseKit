@@ -21,7 +21,6 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
-    @State private var showingPurchaseNavigationView: Bool = false
 
     public init(
         containedInList: Bool,
@@ -38,30 +37,6 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     }
 
     public var body: some View {
-        if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
-            lockedView
-                .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-                    if let tint {
-                        LegacyInAppPurchaseView(
-                            embedInNavigationStack: false,
-                            purchaseMetadata: purchaseMetadata,
-                            onPurchase: onPurchaseAction
-                        )
-                        .accentColor(tint)
-                    } else {
-                        LegacyInAppPurchaseView(
-                            embedInNavigationStack: false,
-                            purchaseMetadata: purchaseMetadata,
-                            onPurchase: onPurchaseAction
-                        )
-                    }
-                }
-        } else {
-            lockedView
-        }
-    }
-
-    private var lockedView: some View {
         VStack(spacing: 32) {
             InAppPurchaseHeaderView(
                 subtitle: String(localized: "This feature requires access to \(inAppPurchase.configuration.title)", bundle: .module),
@@ -81,45 +56,31 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
                 #endif
 
                 Group {
-                    if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
-                        Button {
-                            if useNavigationLink {
-                                showingPurchaseNavigationView = true
+                    if useNavigationLink {
+                        NavigationLink("Learn More") {
+                            if let tint {
+                                LegacyInAppPurchaseView(
+                                    embedInNavigationStack: false,
+                                    purchaseMetadata: purchaseMetadata,
+                                    onPurchase: onPurchaseAction
+                                )
+                                .accentColor(tint)
                             } else {
-                                showingPurchaseSheet = true
+                                LegacyInAppPurchaseView(
+                                    embedInNavigationStack: false,
+                                    purchaseMetadata: purchaseMetadata,
+                                    onPurchase: onPurchaseAction
+                                )
                             }
+                        }
+                    } else {
+                        Button {
+                            showingPurchaseSheet = true
                         } label: {
                             Text("Learn More")
                                 #if os(visionOS)
                                 .padding(.horizontal, 8)
                                 #endif
-                        }
-                    } else {
-                        if useNavigationLink {
-                            NavigationLink("Learn More") {
-                                if let tint {
-                                    LegacyInAppPurchaseView(
-                                        embedInNavigationStack: false,
-                                        purchaseMetadata: purchaseMetadata,
-                                        onPurchase: onPurchaseAction
-                                    )
-                                    .accentColor(tint)
-                                } else {
-                                    LegacyInAppPurchaseView(
-                                        embedInNavigationStack: false,
-                                        purchaseMetadata: purchaseMetadata,
-                                        onPurchase: onPurchaseAction
-                                    )
-                                }
-                            }
-                        } else {
-                            Button("Learn More") {
-                                if useNavigationLink {
-                                    showingPurchaseNavigationView = true
-                                } else {
-                                    showingPurchaseSheet = true
-                                }
-                            }
                         }
                     }
                 }

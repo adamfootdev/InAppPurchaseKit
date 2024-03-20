@@ -22,7 +22,6 @@ public struct LockedInAppPurchaseFeatureView: View {
     private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
-    @State private var showingPurchaseNavigationView: Bool = false
 
     public init(
         containedInList: Bool,
@@ -57,17 +56,34 @@ public struct LockedInAppPurchaseFeatureView: View {
                 .buttonStyle(.bordered)
                 #endif
 
-                Button {
+                Group {
                     if useNavigationLink {
-                        showingPurchaseNavigationView = true
+                        NavigationLink("Learn More") {
+                            if let tint {
+                                InAppPurchaseView(
+                                    embedInNavigationStack: false,
+                                    purchaseMetadata: purchaseMetadata,
+                                    onPurchase: onPurchaseAction
+                                )
+                                .accentColor(tint)
+                            } else {
+                                InAppPurchaseView(
+                                    embedInNavigationStack: false,
+                                    purchaseMetadata: purchaseMetadata,
+                                    onPurchase: onPurchaseAction
+                                )
+                            }
+                        }
                     } else {
-                        showingPurchaseSheet = true
+                        Button {
+                            showingPurchaseSheet = true
+                        } label: {
+                            Text("Learn More")
+                                #if os(visionOS)
+                                .padding(.horizontal, 8)
+                                #endif
+                        }
                     }
-                } label: {
-                    Text("Learn More")
-                        #if os(visionOS)
-                        .padding(.horizontal, 8)
-                        #endif
                 }
                 #if os(tvOS)
                 .buttonStyle(.bordered)
@@ -87,22 +103,6 @@ public struct LockedInAppPurchaseFeatureView: View {
             }
         }
         .padding(.vertical, containedInList ? verticalPadding : 0)
-        .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            if let tint {
-                InAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata,
-                    onPurchase: onPurchaseAction
-                )
-                .accentColor(tint)
-            } else {
-                InAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata,
-                    onPurchase: onPurchaseAction
-                )
-            }
-        }
         .sheet(isPresented: $showingPurchaseSheet) {
             if let tint {
                 InAppPurchaseView(
