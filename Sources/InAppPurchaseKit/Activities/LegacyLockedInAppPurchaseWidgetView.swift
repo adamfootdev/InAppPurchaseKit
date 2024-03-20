@@ -9,6 +9,7 @@
 import SwiftUI
 import WidgetKit
 
+@available(watchOS 9.0, *)
 public struct LegacyLockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.widgetFamily) private var widgetFamily
@@ -78,12 +79,12 @@ public struct LegacyLockedInAppPurchaseWidgetView: View {
     }
 }
 
-#Preview {
-    _ = LegacyInAppPurchaseKit.configure(with: .preview)
-
-    return LegacyLockedInAppPurchaseWidgetView(
-        learnMoreURL: URL(string: "myapp://?function=subscribe")!,
-        tint: nil
-    )
-}
+//#Preview {
+//    _ = LegacyInAppPurchaseKit.configure(with: .preview)
+//
+//    return LegacyLockedInAppPurchaseWidgetView(
+//        learnMoreURL: URL(string: "myapp://?function=subscribe")!,
+//        tint: nil
+//    )
+//}
 #endif

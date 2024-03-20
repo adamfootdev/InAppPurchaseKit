@@ -7,11 +7,11 @@ let package = Package(
     name: "InAppPurchaseKit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v16),
+        .iOS(.v15),
         .macOS(.v13),
-        .tvOS(.v16),
+        .tvOS(.v15),
         .visionOS(.v1),
-        .watchOS(.v10)
+        .watchOS(.v8)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.

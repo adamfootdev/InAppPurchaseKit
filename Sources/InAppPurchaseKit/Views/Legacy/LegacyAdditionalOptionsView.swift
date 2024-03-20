@@ -21,35 +21,58 @@ struct LegacyAdditionalOptionsView: View {
 
     var body: some View {
         #if os(iOS) || os(visionOS)
+        if #available(iOS 16.0, *) {
+            additionalOptionsView
+                .offerCodeRedemption(isPresented: $showingRedeemSheet)
+        } else {
+            additionalOptionsView
+        }
+
+        #else
+        additionalOptionsView
+        #endif
+    }
+
+    @ViewBuilder
+    private var additionalOptionsView: some View {
+        #if os(iOS) || os(visionOS)
         VStack(spacing: 16) {
-            if inAppPurchase.purchaseState != .purchased{
-                Button {
-                    showingRedeemSheet = true
-                } label: {
-                    Text("Redeem Code", bundle: .module)
-                        #if os(iOS)
-                        .font(.headline)
-                        #endif
-                        .frame(maxWidth: 280)
+            if #available(iOS 16.0, *) {
+                if inAppPurchase.purchaseState != .purchased {
+                    Button {
+                        showingRedeemSheet = true
+                    } label: {
+                        Text("Redeem Code", bundle: .module)
+                            #if os(iOS)
+                            .font(.headline)
+                            #endif
+                            .frame(maxWidth: 280)
+                    }
+                    #if os(iOS)
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .tint(.accentColor)
+                    #endif
                 }
-                #if os(iOS)
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .tint(.accentColor)
-                #endif
             }
 
-            ViewThatFits {
+            if #available(iOS 16.0, *) {
+                ViewThatFits {
+                    HStack(spacing: 12) {
+                        additionalOptionsContent(useDivider: true)
+                    }
+
+                    VStack(spacing: 12) {
+                        additionalOptionsContent(useDivider: false)
+                    }
+                }
+
+            } else {
                 HStack(spacing: 12) {
                     additionalOptionsContent(useDivider: true)
                 }
-
-                VStack(spacing: 12) {
-                    additionalOptionsContent(useDivider: false)
-                }
             }
         }
-        .offerCodeRedemption(isPresented: $showingRedeemSheet)
 
         #elseif os(macOS)
         ViewThatFits {

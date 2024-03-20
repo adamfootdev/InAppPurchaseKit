@@ -20,6 +20,7 @@ public enum InAppPurchaseKitError: Error, LocalizedError, CustomLocalizedStringR
         }
     }
 
+    @available(iOS 16.0, tvOS 16.0, watchOS 9.0, *)
     public var localizedStringResource: LocalizedStringResource {
         guard let errorDescription else {
             return "An unknown error occurred."

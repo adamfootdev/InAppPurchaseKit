@@ -38,6 +38,30 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     }
 
     public var body: some View {
+        if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+            lockedView
+                .navigationDestination(isPresented: $showingPurchaseNavigationView) {
+                    if let tint {
+                        LegacyInAppPurchaseView(
+                            embedInNavigationStack: false,
+                            purchaseMetadata: purchaseMetadata,
+                            onPurchase: onPurchaseAction
+                        )
+                        .accentColor(tint)
+                    } else {
+                        LegacyInAppPurchaseView(
+                            embedInNavigationStack: false,
+                            purchaseMetadata: purchaseMetadata,
+                            onPurchase: onPurchaseAction
+                        )
+                    }
+                }
+        } else {
+            lockedView
+        }
+    }
+
+    private var lockedView: some View {
         VStack(spacing: 32) {
             InAppPurchaseHeaderView(
                 subtitle: String(localized: "This feature requires access to \(inAppPurchase.configuration.title)", bundle: .module),
@@ -56,17 +80,48 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
                 .buttonStyle(.bordered)
                 #endif
 
-                Button {
-                    if useNavigationLink {
-                        showingPurchaseNavigationView = true
+                Group {
+                    if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+                        Button {
+                            if useNavigationLink {
+                                showingPurchaseNavigationView = true
+                            } else {
+                                showingPurchaseSheet = true
+                            }
+                        } label: {
+                            Text("Learn More")
+                                #if os(visionOS)
+                                .padding(.horizontal, 8)
+                                #endif
+                        }
                     } else {
-                        showingPurchaseSheet = true
+                        if useNavigationLink {
+                            NavigationLink("Learn More") {
+                                if let tint {
+                                    LegacyInAppPurchaseView(
+                                        embedInNavigationStack: false,
+                                        purchaseMetadata: purchaseMetadata,
+                                        onPurchase: onPurchaseAction
+                                    )
+                                    .accentColor(tint)
+                                } else {
+                                    LegacyInAppPurchaseView(
+                                        embedInNavigationStack: false,
+                                        purchaseMetadata: purchaseMetadata,
+                                        onPurchase: onPurchaseAction
+                                    )
+                                }
+                            }
+                        } else {
+                            Button("Learn More") {
+                                if useNavigationLink {
+                                    showingPurchaseNavigationView = true
+                                } else {
+                                    showingPurchaseSheet = true
+                                }
+                            }
+                        }
                     }
-                } label: {
-                    Text("Learn More")
-                    #if os(visionOS)
-                        .padding(.horizontal, 8)
-                    #endif
                 }
                 #if os(tvOS)
                 .buttonStyle(.bordered)
@@ -86,22 +141,6 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
             }
         }
         .padding(.vertical, containedInList ? verticalPadding : 0)
-        .navigationDestination(isPresented: $showingPurchaseNavigationView) {
-            if let tint {
-                LegacyInAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata,
-                    onPurchase: onPurchaseAction
-                )
-                .accentColor(tint)
-            } else {
-                LegacyInAppPurchaseView(
-                    embedInNavigationStack: false,
-                    purchaseMetadata: purchaseMetadata,
-                    onPurchase: onPurchaseAction
-                )
-            }
-        }
         .sheet(isPresented: $showingPurchaseSheet) {
             if let tint {
                 LegacyInAppPurchaseView(
@@ -129,18 +168,17 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     }
 }
 
-#Preview {
-    _ = LegacyInAppPurchaseKit.configure(with: .preview)
-
-    return NavigationStack {
-        Form {
-            LegacyLockedInAppPurchaseFeatureView(containedInList: true)
-                .environmentObject(LegacyInAppPurchaseKit.shared)
-        }
-        #if os(macOS)
-        .formStyle(.grouped)
-        #endif
-        .navigationTitle("Settings")
-    }
-}
-
+//#Preview {
+//    _ = LegacyInAppPurchaseKit.configure(with: .preview)
+//
+//    return NavigationStack {
+//        Form {
+//            LegacyLockedInAppPurchaseFeatureView(containedInList: true)
+//                .environmentObject(LegacyInAppPurchaseKit.shared)
+//        }
+//        #if os(macOS)
+//        .formStyle(.grouped)
+//        #endif
+//        .navigationTitle("Settings")
+//    }
+//}

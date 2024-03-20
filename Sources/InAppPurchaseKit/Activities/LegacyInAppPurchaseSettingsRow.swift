@@ -40,6 +40,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
         .accessibilityValue(String(localized: "Subscribed", bundle: .module))
     }
 
+    @ViewBuilder
     private var subscribedView: some View {
         #if os(watchOS)
         VStack(alignment: .leading) {
@@ -51,21 +52,44 @@ public struct LegacyInAppPurchaseSettingsRow: View {
         }
 
         #else
-        LabeledContent {
-            Text("Subscribed", bundle: .module)
-        } label: {
-            #if os(macOS) || os(tvOS)
-            Text(inAppPurchase.configuration.title)
-                .foregroundStyle(Color.primary)
-
-            #else
-            Label {
+        if #available(iOS 16.0, tvOS 16.0, *) {
+            LabeledContent {
+                Text("Subscribed", bundle: .module)
+            } label: {
+                #if os(macOS) || os(tvOS)
                 Text(inAppPurchase.configuration.title)
                     .foregroundStyle(Color.primary)
-            } icon: {
-                Image(systemName: inAppPurchase.configuration.systemImage)
+
+                #else
+                Label {
+                    Text(inAppPurchase.configuration.title)
+                        .foregroundStyle(Color.primary)
+                } icon: {
+                    Image(systemName: inAppPurchase.configuration.systemImage)
+                }
+                #endif
             }
-            #endif
+
+        } else {
+            HStack {
+                #if os(macOS) || os(tvOS)
+                Text(inAppPurchase.configuration.title)
+                    .foregroundStyle(Color.primary)
+
+                #else
+                Label {
+                    Text(inAppPurchase.configuration.title)
+                        .foregroundStyle(Color.primary)
+                } icon: {
+                    Image(systemName: inAppPurchase.configuration.systemImage)
+                }
+                #endif
+
+                Spacer()
+
+                Text("Subscribed", bundle: .module)
+                    .foregroundStyle(Color.secondary)
+            }
         }
         #endif
     }
@@ -179,6 +203,7 @@ public struct LegacyInAppPurchaseSettingsRow: View {
         #endif
     }
 
+    @ViewBuilder
     private var purchasedBackground: some View {
         #if os(visionOS)
         ZStack {
@@ -189,22 +214,27 @@ public struct LegacyInAppPurchaseSettingsRow: View {
                 .fill(Color.accentColor.gradient.opacity(0.7))
         }
         #else
-        Rectangle()
-            .fill(Color.accentColor.gradient)
-        #endif
-    }
-}
-
-#Preview {
-    _ = LegacyInAppPurchaseKit.configure(with: .preview)
-
-    return NavigationStack {
-        Form {
-            LegacyInAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
+        if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+            Rectangle()
+                .fill(Color.accentColor.gradient)
+        } else {
+            Rectangle()
+                .fill(Color.accentColor)
         }
-        #if os(macOS)
-        .formStyle(.grouped)
         #endif
-        .navigationTitle("Settings")
     }
 }
+
+//#Preview {
+//    _ = LegacyInAppPurchaseKit.configure(with: .preview)
+//
+//    return NavigationStack {
+//        Form {
+//            LegacyInAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
+//        }
+//        #if os(macOS)
+//        .formStyle(.grouped)
+//        #endif
+//        .navigationTitle("Settings")
+//    }
+//}

@@ -34,7 +34,11 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
             if transactionState == .purchased {
                 Task {
-                    try? await Task.sleep(for: .seconds(2))
+                    if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+                        try? await Task.sleep(for: .seconds(2))
+                    } else {
+                        try? await Task.sleep(nanoseconds: 2_000_000_000)
+                    }
 
                     await MainActor.run {
                         transactionState = .pending
@@ -102,7 +106,12 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         if hasLoaded {
             return
         } else {
-            try? await Task.sleep(for: .seconds(0.3))
+            if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+                try? await Task.sleep(for: .seconds(0.3))
+            } else {
+                try? await Task.sleep(nanoseconds: 300_000_000)
+            }
+
             await waitUntilLoadedPurchases()
         }
     }

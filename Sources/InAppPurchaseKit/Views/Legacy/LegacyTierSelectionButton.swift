@@ -152,10 +152,14 @@ struct LegacyTierSelectionButton: View {
     @ViewBuilder private var tierDetailsView: some View {
         Group {
             if inAppPurchase.fetchProduct(for: tier) == nil {
-                ProgressView()
-                    #if !os(tvOS)
-                    .controlSize(.small)
-                    #endif
+                if #available(watchOS 9.0, *) {
+                    ProgressView()
+                        #if !os(tvOS)
+                        .controlSize(.small)
+                        #endif
+                } else {
+                    ProgressView()
+                }
             } else {
                 VStack(alignment: .leading, spacing: 4) {
                     #if os(watchOS)

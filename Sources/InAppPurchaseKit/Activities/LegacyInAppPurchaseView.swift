@@ -64,23 +64,31 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     public var body: some View {
         Group {
             if embedInNavigationStack {
-                NavigationStack {
-                    #if os(macOS)
-                    if embedInNavigationStack {
-                        subscriptionView
-                            .frame(width: 650, height: 500)
-                    } else {
-                        subscriptionView
+                if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+                    NavigationStack {
+                        embeddedSubscriptionView
                     }
-                    #else
-                    subscriptionView
-                    #endif
+                } else {
+                    NavigationView {
+                        embeddedSubscriptionView
+                    }
+                    .navigationViewStyle(.stack)
                 }
             } else {
                 subscriptionView
             }
         }
         .environmentObject(inAppPurchase)
+    }
+
+    @ViewBuilder
+    private var embeddedSubscriptionView: some View {
+        #if os(macOS)
+        subscriptionView
+            .frame(width: 650, height: 500)
+        #else
+        subscriptionView
+        #endif
     }
 
     private var subscriptionView: some View {
@@ -146,11 +154,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
-            if embedInNavigationStack || doneButton != nil {
-                doneToolbarItem
-            }
-            #endif
+            doneToolbarItem
         }
         .onAppear {
             configureInitialTier()
@@ -167,7 +171,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         } message: {
             Text("If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier.", bundle: .module)
         }
-        #if os(iOS) || os(macOS) || os(tvOS)
+        #if os(iOS) || os(macOS) || os(tvOS) || os(watchOS)
         .onChange(of: inAppPurchase.transactionState) { transactionState in
             Task {
                 await transactionStateUpdated(to: transactionState)
@@ -364,7 +368,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         }
         #endif
 
-        try? await Task.sleep(for: .seconds(1.0))
+        if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
+            try? await Task.sleep(for: .seconds(1.0))
+        } else {
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+        }
 
         if let onPurchaseAction {
             onPurchaseAction()
@@ -378,45 +386,49 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     private var doneToolbarItem: some ToolbarContent {
         ToolbarItem(placement: doneButtonPlacement) {
-            if let doneButton {
-                doneButton()
-            } else {
-                Group {
-                    #if os(iOS)
-                    DismissButton {
-                        dismiss()
-                    }
-                    #else
-                    Button {
-                        dismiss()
-                    } label: {
-                        #if os(visionOS) || os(watchOS)
-                        Label {
-                            Text("Done", bundle: .module)
-                        } icon: {
-                            Image(systemName: "xmark")
+            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
+            if embedInNavigationStack || doneButton != nil {
+                if let doneButton {
+                    doneButton()
+                } else {
+                    Group {
+                        #if os(iOS)
+                        DismissButton {
+                            dismiss()
                         }
                         #else
-                        Text("Done", bundle: .module)
+                        Button {
+                            dismiss()
+                        } label: {
+                            #if os(visionOS) || os(watchOS)
+                            Label {
+                                Text("Done", bundle: .module)
+                            } icon: {
+                                Image(systemName: "xmark")
+                            }
+                            #else
+                            Text("Done", bundle: .module)
+                            #endif
+                        }
+                        #if os(visionOS)
+                        .buttonBorderShape(.circle)
+                        #endif
                         #endif
                     }
-                    #if os(visionOS)
-                    .buttonBorderShape(.circle)
-                    #endif
-                    #endif
-                }
-                .background {
-                    #if os(iOS) || os(macOS) || os(visionOS)
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Close", bundle: .module)
+                    .background {
+                        #if os(iOS) || os(macOS) || os(visionOS)
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Close", bundle: .module)
+                        }
+                        .hidden()
+                        .keyboardShortcut(.cancelAction)
+                        #endif
                     }
-                    .hidden()
-                    .keyboardShortcut(.cancelAction)
-                    #endif
                 }
             }
+            #endif
         }
     }
 }

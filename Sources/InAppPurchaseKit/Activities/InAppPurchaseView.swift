@@ -12,7 +12,7 @@ import StoreKit
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
+@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
 public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -66,22 +66,23 @@ public struct InAppPurchaseView<Content: View>: View {
         Group {
             if embedInNavigationStack {
                 NavigationStack {
-                    #if os(macOS)
-                    if embedInNavigationStack {
-                        subscriptionView
-                            .frame(width: 650, height: 500)
-                    } else {
-                        subscriptionView
-                    }
-                    #else
-                    subscriptionView
-                    #endif
+                    embeddedSubscriptionView
                 }
             } else {
                 subscriptionView
             }
         }
         .environment(inAppPurchase)
+    }
+
+    @ViewBuilder
+    private var embeddedSubscriptionView: some View {
+        #if os(macOS)
+        subscriptionView
+            .frame(width: 650, height: 500)
+        #else
+        subscriptionView
+        #endif
     }
 
     private var subscriptionView: some View {
@@ -415,6 +416,7 @@ public struct InAppPurchaseView<Content: View>: View {
 }
 
 #if os(watchOS)
+@available(watchOS 10.0, *)
 extension InAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,

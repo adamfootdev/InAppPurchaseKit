@@ -11,7 +11,7 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
+@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
 struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 

@@ -66,10 +66,14 @@ struct LegacySinglePurchaseButton: View {
 
             } else {
                 HStack {
-                    ProgressView()
-                        #if !os(tvOS)
-                        .controlSize(.small)
-                        #endif
+                    if #available(watchOS 9.0, *) {
+                        ProgressView()
+                            #if !os(tvOS)
+                            .controlSize(.small)
+                            #endif
+                    } else {
+                        ProgressView()
+                    }
                 }
             }
         }
