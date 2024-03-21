@@ -376,6 +376,21 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                     purchaseCompletionBlock(product, metadata)
                 }
 
+                #if os(iOS) || os(visionOS)
+                if let scene = UIApplication.shared.connectedScenes.first(where: {
+                    $0.activationState == .foregroundActive
+                }) as? UIWindowScene {
+                    await MainActor.run {
+                        SKStoreReviewController.requestReview(in: scene)
+                    }
+                }
+
+                #elseif os(macOS)
+                await MainActor.run {
+                    SKStoreReviewController.requestReview()
+                }
+                #endif
+
                 return transaction
 
             case .userCancelled, .pending:
