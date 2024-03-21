@@ -72,7 +72,9 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     NavigationView {
                         embeddedSubscriptionView
                     }
+                    #if !os(macOS)
                     .navigationViewStyle(.stack)
+                    #endif
                 }
             } else {
                 subscriptionView
