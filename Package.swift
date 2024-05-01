@@ -32,11 +32,7 @@ let package = Package(
                 .product(name: "HapticsKit", package: "hapticskit"),
                 .product(name: "TPInAppReceipt", package: "tpinappreceipt")
             ],
-            resources: [.process("Resources")],
-            swiftSettings: [
-                .enableExperimentalFeature("StrictConcurrency")
-            ]
-        ),
+            resources: [.process("Resources")]),
         .testTarget(
             name: "InAppPurchaseKitTests",
             dependencies: ["InAppPurchaseKit"]),
