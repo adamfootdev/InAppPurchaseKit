@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct InAppPurchaseTiers {
+public struct InAppPurchaseTiers: Sendable {
     public let weeklyTier: InAppPurchaseTier?
     public let monthlyTier: InAppPurchaseTier?
     public let yearlyTier: InAppPurchaseTier?
@@ -67,7 +67,7 @@ public struct InAppPurchaseTiers {
 
     // MARK: - Previews
 
-    public static var example: InAppPurchaseTiers = {
+    public static let example: InAppPurchaseTiers = {
         let tiers = InAppPurchaseTiers(
             weeklyTier: nil,
             monthlyTier: "app.FootWare.Example.Pro.Monthly",

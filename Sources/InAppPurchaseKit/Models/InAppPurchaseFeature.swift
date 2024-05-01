@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct InAppPurchaseFeature {
+public struct InAppPurchaseFeature: Sendable {
     public let title: String
     public let description: String
     public let systemImage: String
@@ -28,7 +28,7 @@ public struct InAppPurchaseFeature {
 
     // MARK: - Previews
 
-    public static var example: InAppPurchaseFeature = {
+    public static let example: InAppPurchaseFeature = {
         let feature = InAppPurchaseFeature(
             title: "Feature",
             description: "About this feature.",

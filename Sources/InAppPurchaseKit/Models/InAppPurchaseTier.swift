@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct InAppPurchaseTier: Identifiable, Hashable {
+public struct InAppPurchaseTier: Identifiable, Hashable, Sendable {
     public let id: String
     public let type: InAppPurchaseTierType
 
@@ -22,7 +22,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
 
     // MARK: - Previews
 
-    public static var example: InAppPurchaseTier = {
+    public static let example: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Yearly",
             type: .yearly
@@ -31,7 +31,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
         return tier
     }()
 
-    public static var yearlyExample: InAppPurchaseTier = {
+    public static let yearlyExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Yearly",
             type: .yearly
@@ -40,7 +40,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
         return tier
     }()
 
-    public static var monthlyExample: InAppPurchaseTier = {
+    public static let monthlyExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Monthly",
             type: .monthly
@@ -49,7 +49,7 @@ public struct InAppPurchaseTier: Identifiable, Hashable {
         return tier
     }()
 
-    public static var lifetimeExample: InAppPurchaseTier = {
+    public static let lifetimeExample: InAppPurchaseTier = {
         let tier = InAppPurchaseTier(
             id: "app.FootWare.Example.Pro.Lifetime",
             type: .lifetime

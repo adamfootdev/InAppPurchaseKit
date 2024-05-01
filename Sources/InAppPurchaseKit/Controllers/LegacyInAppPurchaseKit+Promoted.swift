@@ -14,46 +14,48 @@ extension LegacyInAppPurchaseKit: SKPaymentTransactionObserver {
         SKPaymentQueue.default().add(self)
     }
 
-    public func paymentQueue(
+    nonisolated public func paymentQueue(
         _ queue: SKPaymentQueue,
         shouldAddStorePayment payment: SKPayment,
         for product: SKProduct
     ) -> Bool {
-        guard purchaseState != .purchased else {
-            return false
-        }
+        MainActor.assumeIsolated {
+            guard purchaseState != .purchased else {
+                return false
+            }
 
-        return true
+            return true
+        }
     }
 
-    public func paymentQueue(
+    nonisolated public func paymentQueue(
         _ queue: SKPaymentQueue,
         updatedTransactions transactions: [SKPaymentTransaction]
     ) {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case .purchasing:
-                transactionState = .purchasing
+        Task { @MainActor in
+            for transaction in transactions {
+                switch transaction.transactionState {
+                case .purchasing:
+                    transactionState = .purchasing
 
-            case .purchased:
-                queue.finishTransaction(transaction)
-                transactionState = .purchased
+                case .purchased:
+                    queue.finishTransaction(transaction)
+                    transactionState = .purchased
 
-            case .restored:
-                queue.finishTransaction(transaction)
-                transactionState = .purchased
+                case .restored:
+                    queue.finishTransaction(transaction)
+                    transactionState = .purchased
 
-            case .failed, .deferred:
-                queue.finishTransaction(transaction)
-                transactionState = .pending
+                case .failed, .deferred:
+                    queue.finishTransaction(transaction)
+                    transactionState = .pending
 
-            default:
-                queue.finishTransaction(transaction)
-                transactionState = .pending
+                default:
+                    queue.finishTransaction(transaction)
+                    transactionState = .pending
+                }
             }
-        }
 
-        Task {
             await verifyExistingTransactions()
         }
     }

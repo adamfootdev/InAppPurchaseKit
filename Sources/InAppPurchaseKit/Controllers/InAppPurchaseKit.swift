@@ -10,8 +10,8 @@ import StoreKit
 import TPInAppReceipt
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
-@Observable
-public final class InAppPurchaseKit: NSObject {
+@MainActor @Observable
+public final class InAppPurchaseKit: NSObject, Sendable {
     private static var initializedInAppPurchaseKit: InAppPurchaseKit?
 
     public static var shared: InAppPurchaseKit {
@@ -30,15 +30,15 @@ public final class InAppPurchaseKit: NSObject {
     public private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
     public private(set) var hasLoaded: Bool = false
 
+    private var checkingPromotedPurchase: Bool = false
+
     public var transactionState: TransactionState = .pending {
         didSet {
             if transactionState == .purchased {
                 Task {
                     try? await Task.sleep(for: .seconds(2))
 
-                    await MainActor.run {
-                        transactionState = .pending
-                    }
+                    transactionState = .pending
                 }
             }
         }
@@ -52,22 +52,12 @@ public final class InAppPurchaseKit: NSObject {
 
         super.init()
 
-        #if os(iOS) || os(visionOS)
-        configurePromotedListener()
-        #endif
-
         updateListenerTask = listenForTransactions()
 
         Task {
             await configurePurchases()
+            await checkForExternalPurchases()
         }
-    }
-
-
-    // MARK: - Deinit
-
-    deinit {
-        updateListenerTask?.cancel()
     }
 
 
@@ -85,7 +75,6 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor
     private func configurePurchases() async {
         if configuration.loadProducts {
             await requestProducts()
@@ -93,9 +82,7 @@ public final class InAppPurchaseKit: NSObject {
 
         await verifyExistingTransactions()
 
-        await MainActor.run {
-            hasLoaded = true
-        }
+        hasLoaded = true
     }
 
     public func waitUntilLoadedPurchases() async {
@@ -105,6 +92,18 @@ public final class InAppPurchaseKit: NSObject {
             try? await Task.sleep(for: .seconds(0.3))
             await waitUntilLoadedPurchases()
         }
+    }
+
+    public func checkForExternalPurchases(with metadata: [String: Any]? = nil) async {
+        guard checkingPromotedPurchase == false else { return }
+
+        checkingPromotedPurchase = true
+
+        for await purchaseIntent in PurchaseIntent.intents {
+            await purchase(purchaseIntent.product, with: metadata)
+        }
+
+        checkingPromotedPurchase = false
     }
 
 
@@ -248,7 +247,6 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Products
 
-    @MainActor
     private func requestProducts() async {
         do {
             availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
@@ -336,7 +334,7 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Purchase
 
-    @MainActor
+    @discardableResult
     public func purchase(
         _ product: Product,
         with metadata: [String: Any]?
@@ -371,15 +369,11 @@ public final class InAppPurchaseKit: NSObject {
                 if let scene = UIApplication.shared.connectedScenes.first(where: {
                     $0.activationState == .foregroundActive
                 }) as? UIWindowScene {
-                    await MainActor.run {
-                        SKStoreReviewController.requestReview(in: scene)
-                    }
+                    SKStoreReviewController.requestReview(in: scene)
                 }
 
                 #elseif os(macOS)
-                await MainActor.run {
-                    SKStoreReviewController.requestReview()
-                }
+                SKStoreReviewController.requestReview()
                 #endif
 
                 return transaction
@@ -399,7 +393,6 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor
     public func restorePurchases() async {
         try? await AppStore.sync()
     }
@@ -411,7 +404,7 @@ public final class InAppPurchaseKit: NSObject {
         return Task.detached {
             for await result in Transaction.updates {
                 do {
-                    let transaction = try self.checkVerified(result)
+                    let transaction = try await self.checkVerified(result)
                     await self.updatePurchasedTiers(transaction)
                     await transaction.finish()
 
@@ -426,7 +419,6 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor
     func verifyExistingTransactions() async {
         for tier in configuration.tiers.allTiers {
             do {
@@ -452,7 +444,6 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    @MainActor
     private func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.allTiers.first(where: {

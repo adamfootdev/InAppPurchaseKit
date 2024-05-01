@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum InAppPurchaseTierType {
+public enum InAppPurchaseTierType: Sendable {
     case weekly
     case monthly
     case yearly

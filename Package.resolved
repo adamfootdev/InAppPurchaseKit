@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tikhop/ASN1Swift",
       "state" : {
-        "revision" : "b53bee03a942623db25afc5bfb80227b2cb3b425",
-        "version" : "1.2.4"
+        "revision" : "403cd95194e6a962e16db7c0d373d89fce83e0f7",
+        "version" : "1.2.7"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamfootdev/HapticsKit",
       "state" : {
-        "revision" : "c44468e5ce8d69abd81cd66f4e618ed23c961ac1",
-        "version" : "1.0.1"
+        "revision" : "aa952bd8c7f47fc67e3f561f97e917a10dc74930",
+        "version" : "1.0.2"
       }
     },
     {

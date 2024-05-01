@@ -12,6 +12,7 @@ import StoreKit
 import HapticsKit
 #endif
 
+@MainActor
 public struct LegacyInAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -355,7 +356,6 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     // MARK: - Update
 
-    @MainActor
     private func transactionStateUpdated(to transactionState: TransactionState) async {
         guard transactionState == .purchased else {
             return

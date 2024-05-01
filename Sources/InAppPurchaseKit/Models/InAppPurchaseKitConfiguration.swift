@@ -8,7 +8,7 @@
 import SwiftUI
 import StoreKit
 
-public struct InAppPurchaseKitConfiguration {
+public struct InAppPurchaseKitConfiguration: Sendable {
     public let title: String
     public let subtitle: String
     public let imageName: String
@@ -26,8 +26,8 @@ public struct InAppPurchaseKitConfiguration {
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
     public let enableHapticFeedback: Bool
-    public let purchaseCompletionBlock: ((_ product: Product, _ metadata: [String: Any]?) -> Void)?
-    public let updatedPurchasesCompletionBlock: (() -> Void)?
+    public let purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)?
+    public let updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
 
     public init(
         _ title: String,
@@ -47,8 +47,8 @@ public struct InAppPurchaseKitConfiguration {
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
         enableHapticFeedback: Bool = true,
-        purchaseCompletionBlock: ((_ product: Product, _ metadata: [String: Any]?) -> Void)? = nil,
-        updatedPurchasesCompletionBlock: (() -> Void)? = nil
+        purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)? = nil,
+        updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -78,7 +78,7 @@ public struct InAppPurchaseKitConfiguration {
 
     // MARK: - Previews
 
-    public static var preview: InAppPurchaseKitConfiguration = {
+    public static let preview: InAppPurchaseKitConfiguration = {
         let configuration = InAppPurchaseKitConfiguration(
             "My App Pro",
             subtitle: "Unlock all features.",

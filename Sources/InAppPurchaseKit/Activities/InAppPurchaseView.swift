@@ -13,6 +13,7 @@ import HapticsKit
 #endif
 
 @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
+@MainActor
 public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -343,7 +344,6 @@ public struct InAppPurchaseView<Content: View>: View {
 
     // MARK: - Update
 
-    @MainActor
     private func transactionStateUpdated(to transactionState: TransactionState) async {
         guard transactionState == .purchased else {
             return

@@ -9,6 +9,7 @@ import Foundation
 import StoreKit
 import TPInAppReceipt
 
+@MainActor
 public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
     private static var initializedInAppPurchaseKit: LegacyInAppPurchaseKit?
 
@@ -40,9 +41,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                         try? await Task.sleep(nanoseconds: 2_000_000_000)
                     }
 
-                    await MainActor.run {
-                        transactionState = .pending
-                    }
+                    transactionState = .pending
                 }
             }
         }
@@ -89,7 +88,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor
     private func configurePurchases() async {
         if configuration.loadProducts {
             await requestProducts()
@@ -97,9 +95,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
         await verifyExistingTransactions()
 
-        await MainActor.run {
-            hasLoaded = true
-        }
+        hasLoaded = true
     }
 
     public func waitUntilLoadedPurchases() async {
@@ -257,7 +253,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Products
 
-    @MainActor
     private func requestProducts() async {
         do {
             availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
@@ -345,7 +340,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     // MARK: - Purchase
 
-    @MainActor
     public func purchase(
         _ product: Product,
         with metadata: [String: Any]?
@@ -380,15 +374,11 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                 if let scene = UIApplication.shared.connectedScenes.first(where: {
                     $0.activationState == .foregroundActive
                 }) as? UIWindowScene {
-                    await MainActor.run {
-                        SKStoreReviewController.requestReview(in: scene)
-                    }
+                    SKStoreReviewController.requestReview(in: scene)
                 }
 
                 #elseif os(macOS)
-                await MainActor.run {
-                    SKStoreReviewController.requestReview()
-                }
+                SKStoreReviewController.requestReview()
                 #endif
 
                 return transaction
@@ -408,7 +398,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor
     public func restorePurchases() async {
         try? await AppStore.sync()
     }
@@ -420,7 +409,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         return Task.detached {
             for await result in Transaction.updates {
                 do {
-                    let transaction = try self.checkVerified(result)
+                    let transaction = try await self.checkVerified(result)
                     await self.updatePurchasedTiers(transaction)
                     await transaction.finish()
 
@@ -435,7 +424,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor
     func verifyExistingTransactions() async {
         for tier in configuration.tiers.allTiers {
             do {
@@ -461,7 +449,6 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    @MainActor
     private func updatePurchasedTiers(_ transaction: Transaction) async {
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.allTiers.first(where: {
