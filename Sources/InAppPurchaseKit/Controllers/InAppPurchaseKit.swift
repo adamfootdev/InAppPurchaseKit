@@ -99,9 +99,11 @@ public final class InAppPurchaseKit: NSObject, Sendable {
 
         checkingPromotedPurchase = true
 
+        #if os(iOS) || os(macOS)
         for await purchaseIntent in PurchaseIntent.intents {
             await purchase(purchaseIntent.product, with: metadata)
         }
+        #endif
 
         checkingPromotedPurchase = false
     }
