@@ -24,6 +24,7 @@ struct AdditionalOptionsView: View {
     var body: some View {
         #if os(iOS) || os(visionOS)
         VStack(spacing: 16) {
+            #if !targetEnvironment(macCatalyst)
             if inAppPurchase.purchaseState != .purchased {
                 Button {
                     showingRedeemSheet = true
@@ -40,6 +41,7 @@ struct AdditionalOptionsView: View {
                 .tint(.accentColor)
                 #endif
             }
+            #endif
 
             ViewThatFits {
                 HStack(spacing: 12) {

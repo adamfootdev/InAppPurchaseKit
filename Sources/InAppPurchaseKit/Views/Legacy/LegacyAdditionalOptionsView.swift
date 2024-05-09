@@ -37,6 +37,7 @@ struct LegacyAdditionalOptionsView: View {
     private var additionalOptionsView: some View {
         #if os(iOS) || os(visionOS)
         VStack(spacing: 16) {
+            #if !targetEnvironment(macCatalyst)
             if #available(iOS 16.0, *) {
                 if inAppPurchase.purchaseState != .purchased {
                     Button {
@@ -55,6 +56,7 @@ struct LegacyAdditionalOptionsView: View {
                     #endif
                 }
             }
+            #endif
 
             if #available(iOS 16.0, *) {
                 ViewThatFits {
