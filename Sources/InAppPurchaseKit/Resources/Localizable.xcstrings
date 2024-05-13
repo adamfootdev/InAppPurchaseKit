@@ -3,6 +3,12 @@
   "strings" : {
     "%@ Required" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ مطلوب"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27,6 +33,12 @@
             "value" : "%@ Requis"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ נדרש"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -45,6 +57,12 @@
             "value" : "%@ 필수"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Vereist"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -57,6 +75,30 @@
             "value" : "%@ Obrigatório"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Obrigatório"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Necesar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Обязательно"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ bắt buộc"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67,25 +109,67 @@
     },
     "%lld Days Free, then " : {
       "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld أيام مجانية إذن "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld أيام مجانية إذن "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "يوم واحد مجاني إذن "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld يوم مجاني إذن "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "يومين مجانيين إذن "
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "0 أيام مجانية، إذن "
+                }
+              }
+            }
+          }
+        },
         "cs" : {
           "variations" : {
             "plural" : {
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dny zdarma, pak"
+                  "value" : "%lld dny zdarma, pak "
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld den zdarma, pak"
+                  "value" : "%lld den zdarma, pak "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dní zdarma, pak"
+                  "value" : "%lld dní zdarma, pak "
                 }
               }
             }
@@ -97,13 +181,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Tag gratis, dann"
+                  "value" : "%lld Tag gratis, dann "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Tage gratis, dann"
+                  "value" : "%lld Tage gratis, dann "
                 }
               }
             }
@@ -133,13 +217,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld día gratis, entonces"
+                  "value" : "%lld día gratis, entonces "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld días gratis, entonces"
+                  "value" : "%lld días gratis, entonces "
                 }
               }
             }
@@ -151,13 +235,43 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld journée gratuite, alors"
+                  "value" : "%lld journée gratuite, alors "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld jours gratuits, alors"
+                  "value" : "%lld jours gratuits, alors "
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ימים חינם, אם כך "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "אז יום אחד חינם "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ימים חינם, אם כך "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "2 ימים חינם, אם כך "
                 }
               }
             }
@@ -169,13 +283,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld giorno gratis, poi"
+                  "value" : "%lld giorno gratis, poi "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld giorni gratuiti, poi"
+                  "value" : "%lld giorni gratuiti, poi "
                 }
               }
             }
@@ -184,13 +298,31 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "日間無料, それから"
+            "value" : "%lld 日間無料、その後 "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일 무료, 그 다음에"
+            "value" : "그럼 %lld일 무료 "
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 Dag Gratis dus "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Dagen Gratis dus "
+                }
+              }
+            }
           }
         },
         "pl" : {
@@ -199,13 +331,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dzień za darmo, a następnie"
+                  "value" : "%lld dzień za darmo, a następnie "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dni za darmo, a następnie"
+                  "value" : "%lld dni za darmo, a następnie "
                 }
               }
             }
@@ -217,13 +349,97 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dia grátis, então"
+                  "value" : "%lld dia grátis, então "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld dias grátis, então"
+                  "value" : "%lld dias grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "pt-PT" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dia grátis, então "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dias grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld zile gratuite, atunci "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 zi gratuită, atunci "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld de zile gratuite, atunci "
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld дня бесплатно, затем "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld дней бесплатно, тогда "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 день бесплатно, затем "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld дней бесплатно, тогда "
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Vậy thì %lld ngày miễn phí"
                 }
               }
             }
@@ -232,32 +448,74 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld 天免费，然后"
+            "value" : "%lld 天免费，然后 "
           }
         }
       }
     },
     "%lld Months Free, then " : {
       "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld أشهر مجانية إذن "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إذن %lld أشهر مجانية "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "شهر مجاني إذن "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld شهر مجاني إذن "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "شهرين مجاناً إذن "
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "0 أشهر مجانية إذن "
+                }
+              }
+            }
+          }
+        },
         "cs" : {
           "variations" : {
             "plural" : {
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld měsíce zdarma, pak"
+                  "value" : "%lld měsíce zdarma, pak "
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld měsíc zdarma, pak"
+                  "value" : "%lld měsíc zdarma, pak "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld měsíců zdarma, pak"
+                  "value" : "%lld měsíců zdarma, pak "
                 }
               }
             }
@@ -269,13 +527,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Monat gratis, dann"
+                  "value" : "%lld Monat gratis, dann "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Monate gratis, dann"
+                  "value" : "%lld Monate gratis, dann "
                 }
               }
             }
@@ -305,13 +563,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mes gratis, entonces"
+                  "value" : "%lld mes gratis, entonces "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld meses gratis, entonces"
+                  "value" : "%lld meses gratis, entonces "
                 }
               }
             }
@@ -323,13 +581,43 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mois gratuit, alors"
+                  "value" : "%lld mois gratuit, alors "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mois gratuits, alors"
+                  "value" : "%lld mois gratuits, alors "
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld חודשים חינם, אם כך "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 חודש חינם, אם כך "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld חודשים חינם, אם כך "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "2 חודשים חינם, אם כך "
                 }
               }
             }
@@ -341,13 +629,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mese gratuito, poi"
+                  "value" : "%lld mese gratuito, poi "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mesi gratuiti, poi"
+                  "value" : "%lld mesi gratuiti, poi "
                 }
               }
             }
@@ -356,13 +644,31 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "か月間無料、 それから"
+            "value" : "%lld か月無料、その後 "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "개월 무료, 그 다음에"
+            "value" : "%lld개월 무료라면 "
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 Maand Gratis dus "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Maanden Gratis dus "
+                }
+              }
+            }
           }
         },
         "pl" : {
@@ -371,19 +677,19 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld miesiące za darmo, a następnie"
+                  "value" : "%lld miesiące za darmo, a następnie "
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld miesiąc za darmo, a następnie"
+                  "value" : "%lld miesiąc za darmo, a następnie "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld miesięcy za darmo, a następnie"
+                  "value" : "%lld miesięcy za darmo, a następnie "
                 }
               }
             }
@@ -395,13 +701,97 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld mês grátis, então"
+                  "value" : "%lld mês grátis, então "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld meses grátis, então"
+                  "value" : "%lld meses grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "pt-PT" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld mês grátis, então "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld meses grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld luni gratuit, atunci "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 lună gratuit, atunci "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld luni gratuit, atunci "
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld месяца бесплатно, затем "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld месяцев бесплатно, тогда "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 месяц бесплатно, затем "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld месяцев бесплатно, тогда "
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sau đó được miễn phí %lld tháng"
                 }
               }
             }
@@ -410,32 +800,74 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld 个月免费，然后"
+            "value" : "%lld 个月免费，然后 "
           }
         }
       }
     },
     "%lld Weeks Free, then " : {
       "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld أسابيع مجانية إذن "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إذن، %lld أسابيع مجانية "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إذن، أسبوع واحد مجاني "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "إذن، %lld أسبوع مجاني "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "أسبوعين مجانيين إذن "
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "0 أسابيع مجانية، إذن "
+                }
+              }
+            }
+          }
+        },
         "cs" : {
           "variations" : {
             "plural" : {
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld týdny zdarma, pak"
+                  "value" : "%lld týdny zdarma, pak "
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld týden zdarma, pak"
+                  "value" : "%lld týden zdarma, pak "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld týdnů zdarma, pak"
+                  "value" : "%lld týdnů zdarma, pak "
                 }
               }
             }
@@ -447,13 +879,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Woche gratis, dann"
+                  "value" : "%lld Woche gratis, dann "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld Wochen gratis, dann"
+                  "value" : "%lld Wochen gratis, dann "
                 }
               }
             }
@@ -483,13 +915,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semana gratis, entonces"
+                  "value" : "%lld semana gratis, entonces "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semanas gratis, entonces"
+                  "value" : "%lld semanas gratis, entonces "
                 }
               }
             }
@@ -501,13 +933,43 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semaine gratuite, alors"
+                  "value" : "%lld semaine gratuite, alors "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semaines gratuites, alors"
+                  "value" : "%lld semaines gratuites, alors "
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שבועות חינם, אם כן "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "שבוע חינם, אם כן "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שבועות חינם, אם כן "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "שבועיים חינם, אם כך "
                 }
               }
             }
@@ -519,13 +981,13 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld settimana gratuita, poi"
+                  "value" : "%lld settimana gratuita, poi "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld settimane gratuite, poi"
+                  "value" : "%lld settimane gratuite, poi "
                 }
               }
             }
@@ -540,7 +1002,25 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "주 무료, 그 다음에"
+            "value" : "%lld주 무료라면 "
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 Weken Gratis dus "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Weken Gratis dus "
+                }
+              }
+            }
           }
         },
         "pl" : {
@@ -549,19 +1029,19 @@
               "few" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld tygodnie za darmo, a następnie"
+                  "value" : "%lld tygodnie za darmo, a następnie "
                 }
               },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld tydzień za darmo, a następnie"
+                  "value" : "%lld tydzień za darmo, a następnie "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld tygodni za darmo, a następnie"
+                  "value" : "%lld tygodni za darmo, a następnie "
                 }
               }
             }
@@ -573,13 +1053,97 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semana grátis, então"
+                  "value" : "%lld semana grátis, então "
                 }
               },
               "other" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "%lld semanas grátis, então"
+                  "value" : "%lld semanas grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "pt-PT" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld semana grátis, então "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld semanas grátis, então "
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld săptămâni gratuit, atunci "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 săptămână gratuit, atunci "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld săptămâni gratuit, atunci "
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld недели бесплатно, затем "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld недель бесплатно, затем "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "1 неделя бесплатно, затем"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld недель бесплатно, тогда "
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Sau đó, %lld tuần miễn phí"
                 }
               }
             }
@@ -588,13 +1152,19 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%lld 周免费，然后"
+            "value" : "%lld 周免费，然后 "
           }
         }
       }
     },
     "An unknown error occurred." : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حدث خطأ غير معروف."
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -625,6 +1195,12 @@
             "value" : "Une erreur inconnue s'est produite."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אירעה שגיאה לא ידועה."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -634,13 +1210,19 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "不明なエラーが発生した。"
+            "value" : "$lld 週間無料、その後 "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "알 수 없는 오류가 발생했습니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Een onbekende fout is opgetreden."
           }
         },
         "pl" : {
@@ -655,6 +1237,30 @@
             "value" : "Ocorreu um erro desconhecido."
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro desconhecido."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O eroare necunoscută s-a întamplat."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Произошла неизвестная ошибка."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã xảy ra lỗi không xác định."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -665,6 +1271,12 @@
     },
     "Cancel" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يلغي"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -689,6 +1301,12 @@
             "value" : "Annuler"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לְבַטֵל"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -707,6 +1325,12 @@
             "value" : "취소"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuleren"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -719,6 +1343,30 @@
             "value" : "Cancelar"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anulare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hủy bỏ"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -729,6 +1377,12 @@
     },
     "Close" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يغلق"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -753,6 +1407,12 @@
             "value" : "Fermer"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "סגור"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -771,6 +1431,12 @@
             "value" : "닫기"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dichtbij"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -783,6 +1449,30 @@
             "value" : "Fechar"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fechar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Închide"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрывать"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đóng"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -793,6 +1483,12 @@
     },
     "Done" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منتهي"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -817,6 +1513,12 @@
             "value" : "Fait"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בוצע"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -835,6 +1537,12 @@
             "value" : "완료"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Klaar"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -847,6 +1555,30 @@
             "value" : "Feito"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feito"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сделанный"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xong"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -857,6 +1589,12 @@
     },
     "Hide Options" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إخفاء الخيارات"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -881,6 +1619,12 @@
             "value" : "Cacher les options"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הסתר אפשרויות"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -899,6 +1643,12 @@
             "value" : "옵션 숨기기"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opties Verbergen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -911,6 +1661,30 @@
             "value" : "Ocultar opções"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocultar opções"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ascunde Opțiuni"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Скрыть параметры"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ẩn tùy chọn"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -921,6 +1695,12 @@
     },
     "If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier." : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إذا كان لديك حاليًا اشتراك نشط أو إصدار تجريبي مجاني قيد التشغيل، فيرجى تذكر إلغاءه في حالة التبديل إلى مستوى مدى الحياة."
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -945,6 +1725,12 @@
             "value" : "Si vous disposez actuellement d'un abonnement actif ou d'un essai gratuit en cours, n'oubliez pas de l'annuler si vous passez à un niveau à vie."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אם יש לך כרגע מנוי פעיל או תקופת ניסיון בחינם, זכור לבטל אותו אם אתה עובר לשכבה לכל החיים."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -963,6 +1749,12 @@
             "value" : "현재 활성화된 구독 또는 무료 평가판이 실행 중인 경우 평생 등급으로 전환하려면 취소하는 것을 잊지 마세요."
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Als u momenteel een actief abonnement of een gratis proefperiode heeft, vergeet dan niet om dit te annuleren als u overstapt naar een levenslang niveau."
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -975,6 +1767,30 @@
             "value" : "Se você tem atualmente uma assinatura ativa ou uma avaliação gratuita em execução, lembre-se de cancelá-la se mudar para um nível vitalício."
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se você tem atualmente uma assinatura ativa ou uma avaliação gratuita em execução, lembre-se de cancelá-la se mudar para um nível vitalício."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dacă în prezent aveți un abonament activ sau o perioadă de încercare gratuită, nu uitați să îl anulați dacă treceți la un nivel pe viață."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Если у вас в настоящее время действует активная подписка или бесплатная пробная версия, не забудьте отменить ее при переходе на пожизненный уровень."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nếu bạn hiện đang có đăng ký đang hoạt động hoặc đang chạy bản dùng thử miễn phí, vui lòng nhớ hủy gói đăng ký đó nếu chuyển sang cấp độ trọn đời."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -985,6 +1801,12 @@
     },
     "Learn More" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتعلم أكثر"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1009,6 +1831,12 @@
             "value" : "En Savoir Plus"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "למד עוד"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1027,6 +1855,12 @@
             "value" : "더 알아보기"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kom Meer te Weten"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1039,6 +1873,30 @@
             "value" : "Saber Mais"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saber Mais"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Află mai Multe"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Узнать больше"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tìm hiểu thêm"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1049,6 +1907,12 @@
     },
     "Lifetime" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حياة"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1073,6 +1937,12 @@
             "value" : "Durée de vie"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לכל החיים"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1091,6 +1961,12 @@
             "value" : "평생"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Levenslang"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1103,6 +1979,30 @@
             "value" : "Vida útil"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vida útil"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Durata de Viață"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжительность жизни"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cả đời"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1113,6 +2013,12 @@
     },
     "Loyalty" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وفاء"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1137,6 +2043,12 @@
             "value" : "Loyauté"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נֶאֱמָנוּת"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1155,6 +2067,12 @@
             "value" : "충성도"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loyaliteit"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1167,6 +2085,30 @@
             "value" : "Lealdade"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lealdade"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loialitate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Верность"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lòng trung thành"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1177,6 +2119,12 @@
     },
     "Manage Subscription" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إدارة الاشتراك"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1201,6 +2149,12 @@
             "value" : "Gérer l'abonnement"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ניהול מנוי"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1219,6 +2173,12 @@
             "value" : "구독 관리"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beheer Abonnement"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1231,6 +2191,30 @@
             "value" : "Gerenciar assinatura"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gerenciar assinatura"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gestionați Abonamentul"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Управление подпиской"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quản lý thuê bao"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1241,6 +2225,12 @@
     },
     "Month" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شهر"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1265,6 +2255,12 @@
             "value" : "Mois"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "חוֹדֶשׁ"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1283,6 +2279,12 @@
             "value" : "월"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maand"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1295,6 +2297,30 @@
             "value" : "Mês"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mês"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lună"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Месяц"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tháng"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1305,6 +2331,12 @@
     },
     "Monthly" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شهريا"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1329,6 +2361,12 @@
             "value" : "Mensuel"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "יַרחוֹן"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1347,6 +2385,12 @@
             "value" : "월간"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Maandelijks"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1359,6 +2403,30 @@
             "value" : "Mensal"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mensal"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lunar"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ежемесячно"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hàng tháng"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1369,70 +2437,118 @@
     },
     "One-time payment, " : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دفعة لمرة واحدة، "
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jednorázová platba,"
+            "value" : "Jednorázová platba, "
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Einmalige Zahlung,"
+            "value" : "Einmalige Zahlung, "
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pago único,"
+            "value" : "Pago único, "
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Paiement unique,"
+            "value" : "Paiement unique, "
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תשלום חד פעמי, "
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pagamento unico,"
+            "value" : "Pagamento unico, "
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "1回限りの支払い、"
+            "value" : "1回限りの支払い、 "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "일회성 결제,"
+            "value" : "일회성 결제, "
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eenmalige betaling, "
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Płatność jednorazowa,"
+            "value" : "Płatność jednorazowa, "
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pagamento único,"
+            "value" : "Pagamento único, "
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pagamento único, "
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plată unică, "
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Одноразовый платеж, "
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thanh toán một lần, "
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "一次性付款、"
+            "value" : "一次性付款、 "
           }
         }
       }
     },
     "Privacy Policy" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سياسة الخصوصية"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1457,6 +2573,12 @@
             "value" : "Politique de confidentialité"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מדיניות הפרטיות"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1475,6 +2597,12 @@
             "value" : "개인정보 보호정책"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacybeleid"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1487,6 +2615,30 @@
             "value" : "Política de privacidade"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Política de privacidade"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politica de Confidențialitate"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "политика конфиденциальности"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chính sách bảo mật"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1497,6 +2649,12 @@
     },
     "Purchase" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شراء"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1521,6 +2679,12 @@
             "value" : "Achat"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לִרְכּוֹשׁ"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1539,6 +2703,12 @@
             "value" : "구매"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aankoop"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1551,6 +2721,30 @@
             "value" : "Compra"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compra"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cumpărare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Покупка"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mua"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1561,6 +2755,12 @@
     },
     "Redeem Code" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استرداد الرمز"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1585,6 +2785,12 @@
             "value" : "Code d'échange"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לפדות קוד"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1603,6 +2809,12 @@
             "value" : "코드 사용"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code Inwisselen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1615,6 +2827,30 @@
             "value" : "Código de resgate"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Código de resgate"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valorificați Codul"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Активировать код"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đổi mã"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1625,6 +2861,12 @@
     },
     "Redeem Free Trial" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخليص النسخة التجريبية المجانية"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1649,6 +2891,12 @@
             "value" : "Demande un essai gratuit"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מימוש ניסיון חינם"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1667,6 +2915,12 @@
             "value" : "무료 평가판 사용"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gratis Proefperiode Inwisselen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1679,6 +2933,30 @@
             "value" : "Resgate da avaliação gratuita"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resgate da avaliação gratuita"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Valorificați Proba Gratuită"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Воспользуйтесь бесплатной пробной версией"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đổi bản dùng thử miễn phí"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1689,6 +2967,12 @@
     },
     "Restore" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يعيد"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1713,6 +2997,12 @@
             "value" : "Restaurer"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לשחזר"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1731,6 +3021,12 @@
             "value" : "복원"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Herstellen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1743,6 +3039,30 @@
             "value" : "Restaurar"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restaurar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restabili"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Восстановить"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Khôi phục"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1753,6 +3073,12 @@
     },
     "Save %lld%%" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حفظ %lld%%"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1777,6 +3103,12 @@
             "value" : "Sauvegarde %lld%%"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "חסוך %lld%%"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1786,13 +3118,19 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "lld%% を保存する"
+            "value" : "%lld%% を保存する"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "lld%% 저장"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bespaar %lld%%"
           }
         },
         "pl" : {
@@ -1807,6 +3145,30 @@
             "value" : "Salvar %lld%%"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvar %lld%%"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Economisiți %lld%%"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сэкономьте %lld%%"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiết kiệm %lld%%"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1815,73 +3177,14 @@
         }
       }
     },
-    "Settings" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "cs" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nastavení"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Einstellungen"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ajustes"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Paramètres"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Impostazioni"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "설정"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ustawienia"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Configurações"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "设置"
-          }
-        }
-      }
-    },
     "Show All Options" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إظهار كافة الخيارات"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1906,6 +3209,12 @@
             "value" : "Afficher toutes les options"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הצג את כל האפשרויות"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1924,6 +3233,12 @@
             "value" : "모든 옵션 표시"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toon Alle Opties"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1936,6 +3251,30 @@
             "value" : "Mostrar todas as opções"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar todas as opções"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afișați Toate Opțiunile"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать все параметры"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị tất cả các tùy chọn"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1946,6 +3285,12 @@
     },
     "Subscribe" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يشترك"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1970,6 +3315,12 @@
             "value" : "S'abonner"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הירשם"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1988,6 +3339,12 @@
             "value" : "구독"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonneren"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2000,6 +3357,30 @@
             "value" : "Assine"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Assine"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonati-va"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подписаться"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đặt mua"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2010,6 +3391,12 @@
     },
     "Subscribed" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مشترك"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2034,6 +3421,12 @@
             "value" : "Abonné"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נרשם"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2052,6 +3445,12 @@
             "value" : "구독 신청"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geabonneerd"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2064,6 +3463,30 @@
             "value" : "Inscrito"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inscrito"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonat"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подписан"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã đăng ký"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2074,6 +3497,12 @@
     },
     "Subscribed - Thank You!" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم الاشتراك - شكرا لك!"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2098,6 +3527,12 @@
             "value" : "Abonné - Merci !"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נרשמת - תודה!"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2116,6 +3551,12 @@
             "value" : "구독 신청 - 감사합니다!"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geabonneerd - Bedankt!"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2128,6 +3569,30 @@
             "value" : "Você se inscreveu - obrigado!"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Você se inscreveu - obrigado!"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonat - Mulțumesc!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подписался-Спасибо!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã đăng ký - Cảm ơn bạn!"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2138,6 +3603,12 @@
     },
     "Switch" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يُحوّل"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2162,6 +3633,12 @@
             "value" : "Changer"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "החלף"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2180,6 +3657,12 @@
             "value" : "스위치"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schakelaar"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2192,6 +3675,30 @@
             "value" : "Trocar"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trocar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Intrerupator"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выключатель"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Công tắc"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2202,6 +3709,12 @@
     },
     "Switch Tier" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تبديل الطبقة"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2226,6 +3739,12 @@
             "value" : "Changer de Niveau"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "החלף שכבה"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2244,6 +3763,12 @@
             "value" : "스위치 등급"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Van Niveau Wisselen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2256,6 +3781,30 @@
             "value" : "Nível de Troca"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nível de Troca"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comutare Nivel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переключить уровень"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chuyển cấp"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2266,6 +3815,12 @@
     },
     "Terms" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروط"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2290,6 +3845,12 @@
             "value" : "Conditions"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תנאים"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2308,6 +3869,12 @@
             "value" : "약관"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voorwaarden"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2320,6 +3887,30 @@
             "value" : "Termos"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termos"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termeni"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Условия"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điều kiện"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2330,6 +3921,12 @@
     },
     "There was an error verifying your request. Please try again." : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حدث خطأ أثناء التحقق من طلبك. حاول مرة اخرى."
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2354,6 +3951,12 @@
             "value" : "Une erreur s'est produite lors de la vérification de ta demande. Essaie à nouveau."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "אירעה שגיאה באימות הבקשה שלך. בבקשה נסה שוב."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2372,6 +3975,12 @@
             "value" : "요청을 확인하는 동안 오류가 발생했습니다. 다시 시도해 주세요."
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Er is een fout opgetreden bij het verifiëren van uw verzoek. Probeer het opnieuw."
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2384,6 +3993,30 @@
             "value" : "Ocorreu um erro ao verificar sua solicitação. Por favor, tente novamente."
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ocorreu um erro ao verificar sua solicitação. Por favor, tente novamente."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A apărut o eroare la verificarea solicitării dvs. Vă rugăm să încercați din nou."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "При проверке вашего запроса произошла ошибка. Пожалуйста, попробуйте еще раз."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đã xảy ra lỗi khi xác minh yêu cầu của bạn. Vui lòng thử lại."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2394,6 +4027,12 @@
     },
     "This feature requires access to %@" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تتطلب هذه الميزة الوصول إلى %@"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2418,6 +4057,12 @@
             "value" : "Cette fonctionnalité nécessite l'accès à %@"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תכונה זו דורשת גישה ל-%@"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2436,6 +4081,12 @@
             "value" : "이 기능을 사용하려면 %@에 액세스해야 합니다."
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voor deze functie is toegang tot %@ vereist"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2448,6 +4099,30 @@
             "value" : "Este recurso requer acesso ao %@"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Este recurso requer acesso ao %@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Această funcție necesită acces la %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для этой функции требуется доступ к %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tính năng này yêu cầu quyền truy cập vào %@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2458,6 +4133,12 @@
     },
     "Upgrade to %@" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الترقية إلى %@"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2482,6 +4163,12 @@
             "value" : "Passe à %@"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שדרג ל-%@"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2491,13 +4178,19 @@
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "にアップグレードする。"
+            "value" : "%@ にアップグレード"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@로 업그레이드"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade naar %@"
           }
         },
         "pl" : {
@@ -2512,6 +4205,30 @@
             "value" : "Atualize para %@"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Atualize para %@"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Faceți upgrade la %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обновить до %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nâng cấp lên %@"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2522,6 +4239,12 @@
     },
     "View" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منظر"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2546,6 +4269,12 @@
             "value" : "Voir"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נוף"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2564,6 +4293,12 @@
             "value" : "보기"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weergave"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2576,6 +4311,30 @@
             "value" : "Ver"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedere"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вид"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2586,6 +4345,12 @@
     },
     "View…" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منظر…"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2610,6 +4375,12 @@
             "value" : "Voir..."
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "נוף…"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2628,6 +4399,12 @@
             "value" : "보기..."
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weergave…"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2640,6 +4417,30 @@
             "value" : "Ver..."
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ver..."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedere…"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вид…"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xem…"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2650,6 +4451,12 @@
     },
     "Week" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أسبوع"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2674,6 +4481,12 @@
             "value" : "Semaine"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שָׁבוּעַ"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2692,6 +4505,12 @@
             "value" : "주"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2704,6 +4523,30 @@
             "value" : "Semana"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semana"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Săptămână"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неделя"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tuần"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2714,6 +4557,12 @@
     },
     "Weekly" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أسبوعي"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2738,6 +4587,12 @@
             "value" : "Hebdomadaire"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שְׁבוּעִי"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2756,6 +4611,12 @@
             "value" : "주간"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wekelijks"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2768,6 +4629,30 @@
             "value" : "Semanal"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Semanal"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Săptămânal"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Еженедельно"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hàng tuần"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2778,6 +4663,12 @@
     },
     "Whatʼs Included" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ما يحتويه"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2802,6 +4693,12 @@
             "value" : "Ce quiʼs est inclus"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "מה נכלל"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2820,6 +4717,12 @@
             "value" : "포함된 내용"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wat is Inbegrepen"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2832,6 +4735,30 @@
             "value" : "O que está incluído"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O que está incluído"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce este Inclus"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Что включено"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Những gì được bao gồm"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2842,6 +4769,12 @@
     },
     "Year" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سنة"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2866,6 +4799,12 @@
             "value" : "Année"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שָׁנָה"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2884,6 +4823,12 @@
             "value" : "연도"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaar"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2896,6 +4841,30 @@
             "value" : "Ano"
           }
         },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ano"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Год"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Năm"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2906,6 +4875,12 @@
     },
     "Yearly" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سنوي"
+          }
+        },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2930,6 +4905,12 @@
             "value" : "Chaque année"
           }
         },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שְׁנָתִי"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2948,6 +4929,12 @@
             "value" : "연간"
           }
         },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jaarlijks"
+          }
+        },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2958,6 +4945,30 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Anualmente"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anualmente"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anual"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ежегодно"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hàng năm"
           }
         },
         "zh-Hans" : {
