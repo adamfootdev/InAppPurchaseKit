@@ -28,6 +28,7 @@ public final class InAppPurchaseKit: NSObject, Sendable {
     public private(set) var availableProducts: [Product] = []
     public private(set) var productsWithIntroOffer: [Product: Product.SubscriptionOffer] = [:]
     public private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
+    public private(set) var legacyUserState: LegacyUserState = .pending
     public private(set) var hasLoaded: Bool = false
 
     private var checkingPromotedPurchase: Bool = false
@@ -81,12 +82,13 @@ public final class InAppPurchaseKit: NSObject, Sendable {
         }
 
         await verifyExistingTransactions()
+        updateLegacyUserState()
 
         hasLoaded = true
     }
 
     public func waitUntilLoadedPurchases() async {
-        if hasLoaded {
+        if hasLoaded && legacyUserState != .pending {
             return
         } else {
             try? await Task.sleep(for: .seconds(0.3))
@@ -146,23 +148,30 @@ public final class InAppPurchaseKit: NSObject, Sendable {
 
     // MARK: - Legacy Users
 
-    public var legacyUser: Bool {
+    private func updateLegacyUserState() {
         guard let receipt = try? InAppReceipt.localReceipt() else {
-            return false
+            legacyUserState = .notLegacyUser
+            return
         }
 
         guard let legacyUserThreshold = configuration.legacyUserThreshold else {
-            return false
+            legacyUserState = .notLegacyUser
+            return
         }
 
         let originalVersion = receipt.originalAppVersion
 
         guard originalVersion != "1.0",
               let originalVersion = Int(originalVersion) else {
-            return false
+            legacyUserState = .notLegacyUser
+            return
         }
 
-        return originalVersion < legacyUserThreshold
+        if originalVersion < legacyUserThreshold {
+            legacyUserState = .legacyUser
+        } else {
+            legacyUserState = .notLegacyUser
+        }
     }
 
 
@@ -171,7 +180,7 @@ public final class InAppPurchaseKit: NSObject, Sendable {
     public var primaryTier: InAppPurchaseTier? {
         let tiers = configuration.tiers
 
-        if configuration.showLegacyTier && legacyUser {
+        if configuration.showLegacyTier && legacyUserState == .legacyUser {
             return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier
         } else {
             return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier ?? tiers.legacyUserLifetimeTier
@@ -181,12 +190,12 @@ public final class InAppPurchaseKit: NSObject, Sendable {
     public var availableTiers: [InAppPurchaseTier] {
         let tiers = configuration.tiers
 
-        if configuration.showLegacyTier && legacyUser {
+        if configuration.showLegacyTier && legacyUserState == .legacyUser {
             let availableTiers = [
                 tiers.weeklyTier,
                 tiers.monthlyTier,
                 tiers.yearlyTier,
-                tiers.legacyUserLifetimeTier
+                (tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier)
             ]
 
             return availableTiers.compactMap { $0 }
@@ -397,6 +406,7 @@ public final class InAppPurchaseKit: NSObject, Sendable {
 
     public func restorePurchases() async {
         try? await AppStore.sync()
+        updateLegacyUserState()
     }
 
 
