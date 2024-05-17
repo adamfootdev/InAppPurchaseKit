@@ -9,7 +9,7 @@
 import SwiftUI
 import WidgetKit
 
-@available(iOS 17.0, macOS 14.0, watchOS 10.0, *)
+@available(iOS 17.0, macOS 14.4, watchOS 10.0, *)
 @MainActor
 public struct LockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL

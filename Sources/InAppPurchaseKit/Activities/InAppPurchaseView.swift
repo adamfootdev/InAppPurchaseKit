@@ -12,7 +12,7 @@ import StoreKit
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
+@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 @MainActor
 public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
@@ -434,7 +434,7 @@ extension InAppPurchaseView where Content == EmptyView {
 }
 
 #else
-@available(iOS 17.0, macOS 14.0, tvOS 17.0, *)
+@available(iOS 17.0, macOS 14.4, tvOS 17.0, *)
 extension InAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
