@@ -26,8 +26,8 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public let sharedUserDefaults: UserDefaults
     public let overridePurchased: Bool?
     public let enableHapticFeedback: Bool
-    public let purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)?
-    public let updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
+    public let purchaseCompletionBlock: (@MainActor @Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)?
+    public let updatedPurchasesCompletionBlock: (@MainActor @Sendable () -> Void)?
 
     public init(
         _ title: String,
@@ -47,8 +47,8 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
         enableHapticFeedback: Bool = true,
-        purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)? = nil,
-        updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
+        purchaseCompletionBlock: (@MainActor @Sendable (_ product: Product, _ metadata: [String: Any]?) -> Void)? = nil,
+        updatedPurchasesCompletionBlock: (@MainActor @Sendable () -> Void)? = nil
     ) {
         self.title = title
         self.subtitle = subtitle

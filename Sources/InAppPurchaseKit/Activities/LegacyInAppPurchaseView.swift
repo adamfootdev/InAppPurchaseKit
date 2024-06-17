@@ -19,7 +19,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
     private let embedInNavigationStack: Bool
     private let purchaseMetadata: [String: Any]?
-    private let onPurchaseAction: (() -> Void)?
+    private let onPurchaseAction: (@MainActor @Sendable () -> Void)?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
 
@@ -34,7 +34,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
-        onPurchase onPurchaseAction: (() -> Void)? = nil,
+        onPurchase onPurchaseAction: (@MainActor @Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
     ) {
@@ -49,7 +49,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
-        onPurchase onPurchaseAction: (() -> Void)? = nil,
+        onPurchase onPurchaseAction: (@MainActor @Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
     ) {
@@ -440,7 +440,7 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
-        onPurchase onPurchaseAction: (() -> Void)? = nil,
+        onPurchase onPurchaseAction: (@MainActor @Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
@@ -456,7 +456,7 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
         purchaseMetadata: [String: Any]? = nil,
-        onPurchase onPurchaseAction: (() -> Void)? = nil,
+        onPurchase onPurchaseAction: (@MainActor @Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
         self.embedInNavigationStack = embedInNavigationStack
