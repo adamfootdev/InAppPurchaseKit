@@ -1,4 +1,5 @@
 {
+  "originHash" : "73a872555c653d402ce48ae31f5b8ff68bea60311711bc246d3851a143b99304",
   "pins" : [
     {
       "identity" : "asn1swift",
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamfootdev/HapticsKit",
       "state" : {
-        "revision" : "aa952bd8c7f47fc67e3f561f97e917a10dc74930",
-        "version" : "1.0.2"
+        "revision" : "de60c92520819708e3e5d9706125c8ba448c5116",
+        "version" : "1.1.0"
       }
     },
     {
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

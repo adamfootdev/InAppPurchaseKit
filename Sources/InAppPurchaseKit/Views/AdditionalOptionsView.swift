@@ -9,7 +9,6 @@ import SwiftUI
 import StoreKit
 
 @available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
-@MainActor
 struct AdditionalOptionsView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 

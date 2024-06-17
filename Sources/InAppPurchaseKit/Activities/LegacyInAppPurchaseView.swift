@@ -12,7 +12,6 @@ import StoreKit
 import HapticsKit
 #endif
 
-@MainActor
 public struct LegacyInAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 

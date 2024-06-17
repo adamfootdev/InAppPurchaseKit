@@ -12,7 +12,6 @@ import HapticsKit
 #endif
 
 @available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
-@MainActor
 public struct LockedInAppPurchaseFeatureView: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
