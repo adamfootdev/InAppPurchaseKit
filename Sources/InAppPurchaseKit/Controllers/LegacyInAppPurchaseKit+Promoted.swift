@@ -32,7 +32,7 @@ extension LegacyInAppPurchaseKit: @preconcurrency SKPaymentTransactionObserver {
         _ queue: SKPaymentQueue,
         updatedTransactions transactions: [SKPaymentTransaction]
     ) {
-        Task { @MainActor in
+        Task { @MainActor [queue, transactions] in
             for transaction in transactions {
                 switch transaction.transactionState {
                 case .purchasing:
