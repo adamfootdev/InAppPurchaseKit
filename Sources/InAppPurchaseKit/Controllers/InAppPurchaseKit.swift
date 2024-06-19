@@ -11,7 +11,7 @@ import TPInAppReceipt
 
 @available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 @MainActor @Observable
-public final class InAppPurchaseKit: NSObject, Sendable {
+public final class InAppPurchaseKit: NSObject {
     private static var initializedInAppPurchaseKit: InAppPurchaseKit?
 
     public static var shared: InAppPurchaseKit {

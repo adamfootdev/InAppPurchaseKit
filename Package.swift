@@ -17,10 +17,11 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "InAppPurchaseKit",
-            targets: ["InAppPurchaseKit"]),
+            targets: ["InAppPurchaseKit"]
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.0.0"),
+        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.2"),
         .package(url: "https://github.com/adamfootdev/TPInAppReceipt", from: "3.4.0")
     ],
     targets: [
@@ -32,9 +33,14 @@ let package = Package(
                 .product(name: "HapticsKit", package: "hapticskit"),
                 .product(name: "TPInAppReceipt", package: "tpinappreceipt")
             ],
-            resources: [.process("Resources")]),
+            resources: [.process("Resources")],
+            swiftSettings: [
+                .swiftLanguageVersion(.v6)
+            ]
+        ),
         .testTarget(
             name: "InAppPurchaseKitTests",
-            dependencies: ["InAppPurchaseKit"]),
+            dependencies: ["InAppPurchaseKit"]
+        ),
     ]
 )

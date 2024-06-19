@@ -8,27 +8,27 @@
 import Foundation
 import StoreKit
 
+extension SKPayment: @retroactive @unchecked Sendable {}
+
 #if os(iOS) || os(visionOS)
-extension LegacyInAppPurchaseKit: SKPaymentTransactionObserver {
+extension LegacyInAppPurchaseKit: @preconcurrency SKPaymentTransactionObserver {
     func configurePromotedListener() {
         SKPaymentQueue.default().add(self)
     }
 
-    nonisolated public func paymentQueue(
+    public func paymentQueue(
         _ queue: SKPaymentQueue,
         shouldAddStorePayment payment: SKPayment,
         for product: SKProduct
     ) -> Bool {
-        MainActor.assumeIsolated {
-            guard purchaseState != .purchased else {
-                return false
-            }
-
-            return true
+        guard purchaseState != .purchased else {
+            return false
         }
+
+        return true
     }
 
-    nonisolated public func paymentQueue(
+    public func paymentQueue(
         _ queue: SKPaymentQueue,
         updatedTransactions transactions: [SKPaymentTransaction]
     ) {

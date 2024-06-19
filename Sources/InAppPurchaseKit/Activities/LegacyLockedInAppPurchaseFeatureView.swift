@@ -17,7 +17,7 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
     private let containedInList: Bool
     private let useNavigationLink: Bool
     private let purchaseMetadata: [String: Any]?
-    private let onPurchaseAction: (@MainActor @Sendable () -> Void)?
+    private let onPurchaseAction: (@Sendable () -> Void)?
     private let tint: Color?
 
     @State private var showingPurchaseSheet: Bool = false
@@ -26,7 +26,7 @@ public struct LegacyLockedInAppPurchaseFeatureView: View {
         containedInList: Bool,
         useNavigationLink: Bool = false,
         purchaseMetadata: [String: Any]? = nil,
-        onPurchase onPurchaseAction: (@MainActor @Sendable () -> Void)? = nil,
+        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         tint: Color? = nil
     ) {
         self.containedInList = containedInList
