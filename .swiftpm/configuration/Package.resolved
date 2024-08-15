@@ -1,0 +1,33 @@
+{
+  "originHash" : "44790987a378a0ab195332b92596ff00218f50579c0ced5ec12fb22f5d7110f9",
+  "pins" : [
+    {
+      "identity" : "asn1swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tikhop/ASN1Swift",
+      "state" : {
+        "revision" : "403cd95194e6a962e16db7c0d373d89fce83e0f7",
+        "version" : "1.2.7"
+      }
+    },
+    {
+      "identity" : "hapticskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamfootdev/HapticsKit",
+      "state" : {
+        "revision" : "c66e9d1d7a2c55d30618bf7ac65c22c8d52ffbb1",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "tpinappreceipt",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamfootdev/TPInAppReceipt",
+      "state" : {
+        "revision" : "b3f472842a474deef4127758a4ad6300280715f7",
+        "version" : "3.4.0"
+      }
+    }
+  ],
+  "version" : 3
+}

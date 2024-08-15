@@ -17,7 +17,7 @@ public struct LockedInAppPurchaseFeatureView: View {
 
     private let containedInList: Bool
     private let useNavigationLink: Bool
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let onPurchaseAction: (@Sendable () -> Void)?
     private let tint: Color?
 
@@ -26,7 +26,7 @@ public struct LockedInAppPurchaseFeatureView: View {
     public init(
         containedInList: Bool,
         useNavigationLink: Bool = false,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: String]? = nil,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         tint: Color? = nil
     ) {

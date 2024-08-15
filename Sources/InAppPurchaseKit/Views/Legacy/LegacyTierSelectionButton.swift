@@ -17,14 +17,14 @@ struct LegacyTierSelectionButton: View {
     private let tier: InAppPurchaseTier
     @Binding private var selectedTier: InAppPurchaseTier?
     private let accessoryType: InAppPurchaseTierAccessoryType?
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let configuration: InAppPurchaseKitConfiguration
 
     init(
         tier: InAppPurchaseTier,
         selectedTier: Binding<InAppPurchaseTier?>,
         accessoryType: InAppPurchaseTierAccessoryType? = nil,
-        purchaseMetadata: [String: Any]?,
+        purchaseMetadata: [String: String]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         self.tier = tier

@@ -18,7 +18,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     @StateObject private var inAppPurchase: LegacyInAppPurchaseKit = .shared
 
     private let embedInNavigationStack: Bool
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let onPurchaseAction: (@Sendable () -> Void)?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
@@ -33,7 +33,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     #if os(watchOS)
     public init(
         embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: String]? = nil,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
@@ -48,7 +48,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
     #else
     public init(
         embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: String]? = nil,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
@@ -439,7 +439,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: String]? = nil,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
@@ -455,7 +455,7 @@ extension LegacyInAppPurchaseView where Content == EmptyView {
 extension LegacyInAppPurchaseView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: Any]? = nil,
+        purchaseMetadata: [String: String]? = nil,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {

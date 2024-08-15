@@ -351,7 +351,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     public func purchase(
         _ product: Product,
-        with metadata: [String: Any]?
+        with metadata: [String: String]?
     ) async -> Transaction? {
         transactionState = .purchasing
 

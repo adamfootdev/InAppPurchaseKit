@@ -14,11 +14,11 @@ import HapticsKit
 struct LegacySinglePurchaseButton: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let configuration: InAppPurchaseKitConfiguration
 
     init(
-        purchaseMetadata: [String: Any]?,
+        purchaseMetadata: [String: String]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         self.purchaseMetadata = purchaseMetadata

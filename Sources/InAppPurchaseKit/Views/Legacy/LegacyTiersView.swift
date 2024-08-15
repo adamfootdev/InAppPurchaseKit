@@ -16,7 +16,7 @@ import HapticsKit
 struct LegacyTiersView: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
@@ -25,7 +25,7 @@ struct LegacyTiersView: View {
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
         showingAllTiers: Binding<Bool>,
-        purchaseMetadata: [String: Any]?,
+        purchaseMetadata: [String: String]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _selectedTier = selectedTier

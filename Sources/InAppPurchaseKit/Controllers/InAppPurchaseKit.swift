@@ -96,7 +96,7 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    public func checkForExternalPurchases(with metadata: [String: Any]? = nil) async {
+    public func checkForExternalPurchases(with metadata: [String: String]? = nil) async {
         guard checkingPromotedPurchase == false else { return }
 
         checkingPromotedPurchase = true
@@ -348,7 +348,7 @@ public final class InAppPurchaseKit: NSObject {
     @discardableResult
     public func purchase(
         _ product: Product,
-        with metadata: [String: Any]?
+        with metadata: [String: String]?
     ) async -> Transaction? {
         transactionState = .purchasing
 

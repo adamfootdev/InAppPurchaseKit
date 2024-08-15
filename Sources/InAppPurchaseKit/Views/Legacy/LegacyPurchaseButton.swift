@@ -15,12 +15,12 @@ struct LegacyPurchaseButton: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
     @Binding private var tier: InAppPurchaseTier?
-    private let purchaseMetadata: [String: Any]?
+    private let purchaseMetadata: [String: String]?
     private let configuration: InAppPurchaseKitConfiguration
 
     init(
         for tier: Binding<InAppPurchaseTier?>,
-        purchaseMetadata: [String: Any]?,
+        purchaseMetadata: [String: String]?,
         configuration: InAppPurchaseKitConfiguration
     ) {
         _tier = tier
