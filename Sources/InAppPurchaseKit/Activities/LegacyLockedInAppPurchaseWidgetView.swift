@@ -58,21 +58,40 @@ public struct LegacyLockedInAppPurchaseWidgetView: View {
                         .font(.footnote.bold())
                 }
 
-                Button {
-                    openURL(url)
-                } label: {
-                    Text("Learn More")
-                        #if os(iOS)
-                        .font(.footnote.bold())
-                        #endif
-                        .padding(.horizontal, 4)
+                if #available(iOS 16.0, *) {
+                    Button {
+                        openURL(url)
+                    } label: {
+                        Text("Learn More")
+                            #if os(iOS)
+                            .font(.footnote.bold())
+                            #endif
+                            .padding(.horizontal, 4)
+                    }
+                    .buttonStyle(.bordered)
+                    #if os(iOS)
+                    .buttonBorderShape(.capsule)
+                    #endif
+                    .controlSize(.small)
+                    .tint(tint ?? Color.accentColor)
+                    .widgetAccentable()
+                } else {
+                    Button {
+                        openURL(url)
+                    } label: {
+                        Text("Learn More")
+                            #if os(iOS)
+                            .font(.footnote.bold())
+                            #endif
+                            .padding(.horizontal, 4)
+                    }
+                    .buttonStyle(.bordered)
+                    #if os(iOS)
+                    .buttonBorderShape(.capsule)
+                    #endif
+                    .controlSize(.small)
+                    .tint(tint ?? Color.accentColor)
                 }
-                .buttonStyle(.bordered)
-                #if os(iOS)
-                .buttonBorderShape(.capsule)
-                #endif
-                .controlSize(.small)
-                .tint(tint ?? Color.accentColor)
             }
             .multilineTextAlignment(.center)
         }

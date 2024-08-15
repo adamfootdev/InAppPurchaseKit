@@ -73,6 +73,7 @@ public struct LockedInAppPurchaseWidgetView: View {
                 #endif
                 .controlSize(.small)
                 .tint(tint ?? Color.accentColor)
+                .widgetAccentable()
             }
             .multilineTextAlignment(.center)
         }
