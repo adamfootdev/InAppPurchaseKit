@@ -21,7 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.2"),
+        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.3"),
         .package(url: "https://github.com/adamfootdev/TPInAppReceipt", from: "3.4.0")
     ],
     targets: [
@@ -35,7 +35,7 @@ let package = Package(
             ],
             resources: [.process("Resources")],
             swiftSettings: [
-                .swiftLanguageVersion(.v6)
+                .swiftLanguageMode(.v6)
             ]
         ),
         .testTarget(
