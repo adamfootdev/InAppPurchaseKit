@@ -49,33 +49,25 @@ struct TipJarTierButton: View {
                     }
                 }
             } label: {
-                if let product {
-                    Text(product.displayPrice)
-                        #if os(iOS) || os(visionOS)
-                        .font(.subheadline.bold())
-                        #elseif os(tvOS)
-                        .font(.callout)
-                        #else
-                        .font(.subheadline)
-                        #endif
-                        #if !os(tvOS) && !os(watchOS)
-                        .padding(.horizontal, 8)
-                        #endif
-                } else {
-                    Text(verbatim: "$1.99")
+                ZStack {
+                    Text(verbatim: "$19.99")
                         .foregroundStyle(Color.clear)
-                        #if os(iOS) || os(visionOS)
-                        .font(.subheadline.bold())
-                        #elseif os(tvOS)
-                        .font(.callout)
-                        #else
-                        .font(.subheadline)
-                        #endif
-                        #if !os(tvOS) && !os(watchOS)
-                        .padding(.horizontal, 8)
-                        #endif
-                        .accessibilityHidden(true)
+
+                    if let product {
+                        Text(product.displayPrice)
+                    }
                 }
+                #if os(iOS) || os(visionOS)
+                .font(.subheadline.bold())
+                #elseif os(tvOS)
+                .font(.callout)
+                #else
+                .font(.subheadline)
+                #endif
+                #if !os(tvOS) && !os(watchOS)
+                .padding(.horizontal, 4)
+                #endif
+                .accessibilityHidden(true)
             }
             #if !os(tvOS) && !os(watchOS)
             .buttonStyle(.borderedProminent)
