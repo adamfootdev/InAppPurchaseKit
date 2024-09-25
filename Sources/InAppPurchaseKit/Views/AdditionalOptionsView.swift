@@ -15,78 +15,122 @@ struct AdditionalOptionsView: View {
     private let configuration: InAppPurchaseKitConfiguration
 
     @State private var showingRedeemSheet: Bool = false
+    @State private var showingTipJarSheet: Bool = false
 
     init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
     }
 
     var body: some View {
-        #if os(iOS) || os(visionOS)
-        VStack(spacing: 16) {
-            #if !targetEnvironment(macCatalyst)
-            if inAppPurchase.purchaseState != .purchased {
-                Button {
-                    showingRedeemSheet = true
-                } label: {
-                    Text("Redeem Code", bundle: .module)
+        Group {
+            #if os(iOS) || os(visionOS)
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    #if !targetEnvironment(macCatalyst)
+                    if inAppPurchase.purchaseState != .purchased {
+                        Button {
+                            showingRedeemSheet = true
+                        } label: {
+                            Text("Redeem Code", bundle: .module)
+                                #if os(iOS)
+                                .font(.headline)
+                                #endif
+                                .frame(maxWidth: 280)
+                        }
                         #if os(iOS)
-                        .font(.headline)
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+                        .tint(.accentColor)
                         #endif
-                        .frame(maxWidth: 280)
+                    }
+                    #endif
+
+                    Button {
+                        showingTipJarSheet = true
+                    } label: {
+                        Text("Tip Jar", bundle: .module)
+                            #if os(iOS)
+                            .font(.headline)
+                            #endif
+                            .frame(maxWidth: 280)
+                    }
+                    #if os(iOS)
+                    .buttonStyle(.bordered)
+                    .controlSize(.large)
+                    .tint(.accentColor)
+                    #endif
                 }
-                #if os(iOS)
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .tint(.accentColor)
-                #endif
+
+                ViewThatFits {
+                    HStack(spacing: 12) {
+                        additionalOptionsContent(useDivider: true)
+                    }
+
+                    VStack(spacing: 12) {
+                        additionalOptionsContent(useDivider: false)
+                    }
+                }
             }
-            #endif
+            .offerCodeRedemption(isPresented: $showingRedeemSheet)
 
+            #elseif os(macOS)
             ViewThatFits {
-                HStack(spacing: 12) {
-                    additionalOptionsContent(useDivider: true)
+                HStack(spacing: 16) {
+                    additionalOptionsContent(useDivider: false)
                 }
 
-                VStack(spacing: 12) {
+                VStack(spacing: 8) {
                     additionalOptionsContent(useDivider: false)
                 }
             }
-        }
-        .offerCodeRedemption(isPresented: $showingRedeemSheet)
-        
-        #elseif os(macOS)
-        ViewThatFits {
-            HStack(spacing: 16) {
+
+            #elseif os(tvOS)
+            HStack(spacing: 64) {
+                HStack(spacing: 32) {
+                    Button {
+                        showingTipJarSheet = true
+                    } label: {
+                        Text("Tip Jar", bundle: .module)
+                    }
+
+                    if inAppPurchase.purchaseState != .purchased {
+                        RestoreButton()
+                    }
+                }
+
+                VStack(alignment: .leading, spacing: 12) {
+                    additionalOptionsContent(useDivider: false)
+                }
+                .foregroundStyle(Color.secondary)
+            }
+
+            #elseif os(watchOS)
+            VStack(alignment: .leading, spacing: 16) {
                 additionalOptionsContent(useDivider: false)
             }
-
-            VStack(spacing: 8) {
-                additionalOptionsContent(useDivider: false)
-            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            #endif
         }
-
-        #elseif os(tvOS)
-        HStack(spacing: 64) {
-            if inAppPurchase.purchaseState != .purchased {
-                RestoreButton()
-            }
-
-            VStack(alignment: .leading, spacing: 12) {
-                additionalOptionsContent(useDivider: false)
-            }
-            .foregroundStyle(Color.secondary)
+        .sheet(isPresented: $showingTipJarSheet) {
+            TipJarView(embedInNavigationStack: true)
+                .environment(inAppPurchase)
         }
-
-        #elseif os(watchOS)
-        VStack(alignment: .leading, spacing: 16) {
-            additionalOptionsContent(useDivider: false)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        #endif
     }
 
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
+            #if os(macOS) || os(watchOS)
+            Button {
+                showingTipJarSheet = true
+            } label: {
+                Text("Tip Jar", bundle: .module)
+            }
+
+            if useDivider {
+                Divider()
+            }
+            #endif
+
             #if !os(tvOS)
             if inAppPurchase.purchaseState != .purchased {
                 RestoreButton()
@@ -119,11 +163,11 @@ struct AdditionalOptionsView: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            AdditionalOptionsView(configuration: .preview)
-//                .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
+        AdditionalOptionsView(configuration: .preview)
+//            .frame(height: 200)
+            .frame(maxWidth: .infinity)
+            .environment(InAppPurchaseKit.preview)
+    }
+}

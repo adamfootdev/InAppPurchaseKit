@@ -14,6 +14,7 @@ struct LegacyAdditionalOptionsView: View {
     private let configuration: InAppPurchaseKitConfiguration
 
     @State private var showingRedeemSheet: Bool = false
+    @State private var showingTipJarSheet: Bool = false
 
     init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
@@ -35,15 +36,35 @@ struct LegacyAdditionalOptionsView: View {
 
     @ViewBuilder
     private var additionalOptionsView: some View {
-        #if os(iOS) || os(visionOS)
-        VStack(spacing: 16) {
-            #if !targetEnvironment(macCatalyst)
-            if #available(iOS 16.0, *) {
-                if inAppPurchase.purchaseState != .purchased {
+        Group {
+            #if os(iOS) || os(visionOS)
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    #if !targetEnvironment(macCatalyst)
+                    if #available(iOS 16.0, *) {
+                        if inAppPurchase.purchaseState != .purchased {
+                            Button {
+                                showingRedeemSheet = true
+                            } label: {
+                                Text("Redeem Code", bundle: .module)
+                                    #if os(iOS)
+                                    .font(.headline)
+                                    #endif
+                                    .frame(maxWidth: 280)
+                            }
+                            #if os(iOS)
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+                            .tint(.accentColor)
+                            #endif
+                        }
+                    }
+                    #endif
+
                     Button {
-                        showingRedeemSheet = true
+                        showingTipJarSheet = true
                     } label: {
-                        Text("Redeem Code", bundle: .module)
+                        Text("Tip Jar", bundle: .module)
                             #if os(iOS)
                             .font(.headline)
                             #endif
@@ -55,60 +76,83 @@ struct LegacyAdditionalOptionsView: View {
                     .tint(.accentColor)
                     #endif
                 }
-            }
-            #endif
 
-            if #available(iOS 16.0, *) {
-                ViewThatFits {
+                if #available(iOS 16.0, *) {
+                    ViewThatFits {
+                        HStack(spacing: 12) {
+                            additionalOptionsContent(useDivider: true)
+                        }
+
+                        VStack(spacing: 12) {
+                            additionalOptionsContent(useDivider: false)
+                        }
+                    }
+
+                } else {
                     HStack(spacing: 12) {
                         additionalOptionsContent(useDivider: true)
                     }
+                }
+            }
 
-                    VStack(spacing: 12) {
-                        additionalOptionsContent(useDivider: false)
+            #elseif os(macOS)
+            ViewThatFits {
+                HStack(spacing: 16) {
+                    additionalOptionsContent(useDivider: false)
+                }
+
+                VStack(spacing: 8) {
+                    additionalOptionsContent(useDivider: false)
+                }
+            }
+
+            #elseif os(tvOS)
+            HStack(spacing: 64) {
+                HStack(spacing: 32) {
+                    Button {
+                        showingTipJarSheet = true
+                    } label: {
+                        Text("Tip Jar", bundle: .module)
+                    }
+
+                    if inAppPurchase.purchaseState != .purchased {
+                        LegacyRestoreButton()
                     }
                 }
 
-            } else {
-                HStack(spacing: 12) {
-                    additionalOptionsContent(useDivider: true)
+                VStack(alignment: .leading, spacing: 12) {
+                    additionalOptionsContent(useDivider: false)
                 }
+                .foregroundStyle(Color.secondary)
             }
-        }
 
-        #elseif os(macOS)
-        ViewThatFits {
-            HStack(spacing: 16) {
+            #elseif os(watchOS)
+            VStack(alignment: .leading, spacing: 16) {
                 additionalOptionsContent(useDivider: false)
             }
-
-            VStack(spacing: 8) {
-                additionalOptionsContent(useDivider: false)
-            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            #endif
         }
-
-        #elseif os(tvOS)
-        HStack(spacing: 64) {
-            if inAppPurchase.purchaseState != .purchased {
-                LegacyRestoreButton()
-            }
-
-            VStack(alignment: .leading, spacing: 12) {
-                additionalOptionsContent(useDivider: false)
-            }
-            .foregroundStyle(Color.secondary)
+        .sheet(isPresented: $showingTipJarSheet) {
+            LegacyTipJarView(embedInNavigationStack: true)
+                .environmentObject(inAppPurchase)
         }
-
-        #elseif os(watchOS)
-        VStack(alignment: .leading, spacing: 16) {
-            additionalOptionsContent(useDivider: false)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        #endif
     }
 
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
+            #if os(macOS) || os(watchOS)
+            Button {
+                showingTipJarSheet = true
+            } label: {
+                Text("Tip Jar", bundle: .module)
+            }
+
+            if useDivider {
+                Divider()
+            }
+            #endif
+
             #if !os(tvOS)
             if inAppPurchase.purchaseState != .purchased {
                 LegacyRestoreButton()
