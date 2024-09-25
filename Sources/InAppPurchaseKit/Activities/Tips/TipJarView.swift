@@ -211,27 +211,24 @@ public struct TipJarView<Content: View>: View {
         case .purchased(let type):
             switch type {
             case .tipJar:
-                break
+                #if canImport(HapticsKit)
+                if inAppPurchase.configuration.enableHapticFeedback {
+                    #if os(iOS)
+                    HapticsKit.performNotification(.success)
+                    #elseif os(watchOS)
+                    HapticsKit.perform(.success)
+                    #endif
+                }
+                #endif
+
+                showingPurchasedMessage = true
+
             default:
                 return
             }
         default:
             return
         }
-
-        #if canImport(HapticsKit)
-        if inAppPurchase.configuration.enableHapticFeedback {
-            #if os(iOS)
-            HapticsKit.performNotification(.success)
-            #elseif os(watchOS)
-            HapticsKit.perform(.success)
-            #endif
-        }
-        #endif
-
-        try? await Task.sleep(for: .seconds(0.5))
-
-        showingPurchasedMessage = true
     }
 
 

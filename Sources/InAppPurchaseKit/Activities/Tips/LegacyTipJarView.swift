@@ -223,31 +223,24 @@ public struct LegacyTipJarView<Content: View>: View {
         case .purchased(let type):
             switch type {
             case .tipJar:
-                break
+                #if canImport(HapticsKit)
+                if inAppPurchase.configuration.enableHapticFeedback {
+                    #if os(iOS)
+                    HapticsKit.performNotification(.success)
+                    #elseif os(watchOS)
+                    HapticsKit.perform(.success)
+                    #endif
+                }
+                #endif
+
+                showingPurchasedMessage = true
+
             default:
                 return
             }
         default:
             return
         }
-
-        #if canImport(HapticsKit)
-        if inAppPurchase.configuration.enableHapticFeedback {
-            #if os(iOS)
-            HapticsKit.performNotification(.success)
-            #elseif os(watchOS)
-            HapticsKit.perform(.success)
-            #endif
-        }
-        #endif
-
-        if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
-            try? await Task.sleep(for: .seconds(0.5))
-        } else {
-            try? await Task.sleep(nanoseconds: 500_000_000)
-        }
-
-        showingPurchasedMessage = true
     }
 
 
