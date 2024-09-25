@@ -1481,6 +1481,9 @@
         }
       }
     },
+    "Continue" : {
+
+    },
     "Done" : {
       "localizations" : {
         "ar" : {
@@ -1586,6 +1589,9 @@
           }
         }
       }
+    },
+    "Hello, World!" : {
+
     },
     "Hide Options" : {
       "localizations" : {
@@ -1693,6 +1699,9 @@
         }
       }
     },
+    "Huge Tip" : {
+
+    },
     "If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier." : {
       "localizations" : {
         "ar" : {
@@ -1798,6 +1807,9 @@
           }
         }
       }
+    },
+    "Large Tip" : {
+
     },
     "Learn More" : {
       "localizations" : {
@@ -2223,6 +2235,9 @@
         }
       }
     },
+    "Medium Tip" : {
+
+    },
     "Month" : {
       "localizations" : {
         "ar" : {
@@ -2540,6 +2555,9 @@
           }
         }
       }
+    },
+    "Please note that these purchases do not unlock additional features." : {
+
     },
     "Privacy Policy" : {
       "localizations" : {
@@ -3283,6 +3301,9 @@
         }
       }
     },
+    "Small Tip" : {
+
+    },
     "Subscribe" : {
       "localizations" : {
         "ar" : {
@@ -3919,6 +3940,15 @@
         }
       }
     },
+    "Thank You" : {
+
+    },
+    "Thank you for the tip – it means a lot!" : {
+
+    },
+    "Thank you for using %@! If youʼre enjoying the app, please consider supporting it with a tip. Anything you can spare helps me to continue building this and other indie apps!" : {
+
+    },
     "There was an error verifying your request. Please try again." : {
       "localizations" : {
         "ar" : {
@@ -4130,6 +4160,9 @@
           }
         }
       }
+    },
+    "Tip Jar" : {
+
     },
     "Upgrade to %@" : {
       "localizations" : {

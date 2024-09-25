@@ -344,7 +344,15 @@ public struct InAppPurchaseView<Content: View>: View {
     // MARK: - Update
 
     private func transactionStateUpdated(to transactionState: TransactionState) async {
-        guard transactionState == .purchased else {
+        switch transactionState {
+        case .purchased(let type):
+            switch type {
+            case .subscription:
+                break
+            default:
+                return
+            }
+        default:
             return
         }
 

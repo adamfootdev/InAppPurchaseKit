@@ -47,7 +47,7 @@ struct TermsPrivacyButton: View {
 
 #Preview {
     TermsPrivacyButton(
-        "Terms",
+        "Terms of Use",
         url: URL(string: "https://adamfoot.dev")!
     )
 }

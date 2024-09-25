@@ -125,7 +125,7 @@ struct TierSelectionButton: View {
         #elseif os(visionOS)
         .buttonBorderShape(.roundedRectangle)
         #endif
-        .disabled(inAppPurchase.transactionState != .pending)
+        .disabled(disableButton)
         #if os(iOS) || os(macOS) || os(visionOS)
         .accessibilityAddTraits(selected ? [.isSelected] : [])
         #endif
@@ -180,6 +180,15 @@ struct TierSelectionButton: View {
         #else
         return Font.footnote
         #endif
+    }
+
+    private var disableButton: Bool {
+        switch inAppPurchase.transactionState {
+        case .pending:
+            return false
+        default:
+            return true
+        }
     }
 
 

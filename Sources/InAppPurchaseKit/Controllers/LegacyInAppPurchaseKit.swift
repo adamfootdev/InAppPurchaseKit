@@ -34,7 +34,8 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         didSet {
             objectWillChange.send()
 
-            if transactionState == .purchased {
+            switch transactionState {
+            case .purchased(_):
                 Task {
                     if #available(iOS 16.0, tvOS 16.0, watchOS 9.0, *) {
                         try? await Task.sleep(for: .seconds(2))
@@ -44,6 +45,9 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
                     transactionState = .pending
                 }
+
+            default:
+                break
             }
         }
     }
@@ -264,7 +268,9 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     private func requestProducts() async {
         do {
-            availableProducts = try await Product.products(for: configuration.tiers.tierIDs)
+            availableProducts = try await Product.products(
+                for: configuration.tiers.tierIDs + configuration.sortedTipJarTiers.map { $0.id }
+            )
 
             for product in availableProducts {
                 if let introOffer = await fetchIntroOffer(for: product) {
@@ -294,6 +300,10 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
 
     public func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
         availableProducts.first(where: { $0.id == tier.id })
+    }
+
+    public func fetchProduct(for tipJarTier: TipJarTier) -> Product? {
+        availableProducts.first(where: { $0.id == tipJarTier.id })
     }
 
     public var productsLoaded: Bool {
@@ -370,13 +380,20 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
 
-                await updatePurchasedTiers(transaction)
-                await transaction.finish()
+                if configuration.sortedTipJarTiers.contains(where: {$0.id == transaction.productID }) {
+                    await transaction.finish()
 
-                transactionState = .purchased
+                    transactionState = .purchased(.tipJar)
 
-                if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
-                    purchaseCompletionBlock(product, metadata)
+                } else {
+                    await updatePurchasedTiers(transaction)
+                    await transaction.finish()
+
+                    transactionState = .purchased(.subscription)
+
+                    if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
+                        purchaseCompletionBlock(product, metadata)
+                    }
                 }
 
                 #if os(iOS) || os(visionOS)
@@ -424,7 +441,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
                     await transaction.finish()
 
                     await MainActor.run {
-                        self.transactionState = .purchased
+                        self.transactionState = .purchased(.subscription)
                     }
 
                 } catch {

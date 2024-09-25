@@ -11,9 +11,11 @@ import StoreKit
 public struct InAppPurchaseKitConfiguration: Sendable {
     public let title: String
     public let subtitle: String
+    public let appName: String
     public let imageName: String
     public let systemImage: String
     public let tiers: InAppPurchaseTiers
+    public let tipJarTiers: Set<TipJarTier>?
     public let features: [InAppPurchaseFeature]
     public let termsOfUseURL: URL
     public let privacyPolicyURL: URL
@@ -32,9 +34,11 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public init(
         _ title: String,
         subtitle: String,
+        appName: String,
         imageName: String,
         systemImage: String = "plus.app",
         tiers: InAppPurchaseTiers,
+        tipJarTiers: Set<TipJarTier>? = nil,
         features: [InAppPurchaseFeature],
         termsOfUseURL: URL,
         privacyPolicyURL: URL,
@@ -52,9 +56,11 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     ) {
         self.title = title
         self.subtitle = subtitle
+        self.appName = appName
         self.imageName = imageName
         self.systemImage = systemImage
         self.tiers = tiers
+        self.tipJarTiers = tipJarTiers
         self.features = features
         self.termsOfUseURL = termsOfUseURL
         self.privacyPolicyURL = privacyPolicyURL
@@ -75,6 +81,16 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         tiers.allTiers.count == 1 && enableSinglePurchaseMode
     }
 
+    var sortedTipJarTiers: [TipJarTier] {
+        guard let tipJarTiers else {
+            return []
+        }
+
+        return tipJarTiers.sorted {
+            $0.type < $1.type
+        }
+    }
+
 
     // MARK: - Previews
 
@@ -82,9 +98,11 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         let configuration = InAppPurchaseKitConfiguration(
             "My App Pro",
             subtitle: "Unlock all features.",
+            appName: "My App",
             imageName: "",
             systemImage: "plus.app",
             tiers: .example,
+            tipJarTiers: TipJarTier.examples,
             features: [.example, .example, .example],
             termsOfUseURL: URL(string: "https://adamfoot.dev")!,
             privacyPolicyURL: URL(string: "https://adamfoot.dev")!,

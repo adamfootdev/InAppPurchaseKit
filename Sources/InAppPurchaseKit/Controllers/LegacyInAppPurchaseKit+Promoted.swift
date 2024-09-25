@@ -40,11 +40,11 @@ extension LegacyInAppPurchaseKit: @preconcurrency SKPaymentTransactionObserver {
 
                 case .purchased:
                     queue.finishTransaction(transaction)
-                    transactionState = .purchased
+                    transactionState = .purchased(.subscription)
 
                 case .restored:
                     queue.finishTransaction(transaction)
-                    transactionState = .purchased
+                    transactionState = .purchased(.subscription)
 
                 case .failed, .deferred:
                     queue.finishTransaction(transaction)

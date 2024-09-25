@@ -98,7 +98,7 @@ struct AdditionalOptionsView: View {
             #endif
 
             TermsPrivacyButton(
-                String(localized: "Terms", bundle: .module),
+                String(localized: "Terms of Use", bundle: .module),
                 url: configuration.termsOfUseURL
             )
 
