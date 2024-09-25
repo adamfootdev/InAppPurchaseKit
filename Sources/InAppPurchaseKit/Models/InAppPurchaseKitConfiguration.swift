@@ -38,7 +38,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         appName: String,
         imageName: String,
         systemImage: String = "plus.app",
-        tintColor: Color = .accentColor,
+        tintColor: Color,
         tiers: InAppPurchaseTiers,
         tipJarTiers: Set<TipJarTier>? = nil,
         features: [InAppPurchaseFeature],
