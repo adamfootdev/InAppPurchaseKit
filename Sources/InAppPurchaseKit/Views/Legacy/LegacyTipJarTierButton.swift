@@ -127,15 +127,10 @@ struct LegacyTipJarTierButton: View {
             return true
         } else {
             switch inAppPurchase.transactionState {
-            case .purchased(let type):
-                switch type {
-                case .tipJar:
-                    return true
-                default:
-                    return false
-                }
-            default:
+            case .pending:
                 return false
+            default:
+                return true
             }
         }
     }
