@@ -103,7 +103,7 @@ struct LegacyTipJarTierButton: View {
             #endif
             .disabled(disableButton)
             .overlay {
-                if product == nil {
+                if product == nil || inAppPurchase.transactionState == .purchasing {
                     ProgressView()
                         #if !os(tvOS) && !os(watchOS)
                         .controlSize(.mini)
