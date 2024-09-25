@@ -105,9 +105,7 @@ public struct InAppPurchaseView<Content: View>: View {
                     Divider()
                         .frame(maxWidth: mainWidth)
 
-                    AdditionalOptionsView(
-                        configuration: inAppPurchase.configuration
-                    )
+                    AdditionalOptionsView()
                 }
             }
             .frame(maxWidth: .infinity)
@@ -128,8 +126,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
                     PurchaseButton(
                         for: $selectedTier,
-                        purchaseMetadata: purchaseMetadata,
-                        configuration: inAppPurchase.configuration
+                        purchaseMetadata: purchaseMetadata
                     )
                     .padding([.horizontal, .bottom])
                 }
@@ -248,16 +245,14 @@ public struct InAppPurchaseView<Content: View>: View {
             } else {
                 if inAppPurchase.configuration.showSinglePurchaseMode {
                     SinglePurchaseButton(
-                        purchaseMetadata: purchaseMetadata,
-                        configuration: inAppPurchase.configuration
+                        purchaseMetadata: purchaseMetadata
                     )
                 } else {
                     VStack(spacing: 12) {
                         TiersView(
                             selectedTier: $selectedTier,
                             showingAllTiers: $showingAllTiers,
-                            purchaseMetadata: purchaseMetadata,
-                            configuration: inAppPurchase.configuration
+                            purchaseMetadata: purchaseMetadata
                         )
 
                         #if !os(tvOS) && !os(watchOS)
@@ -285,8 +280,7 @@ public struct InAppPurchaseView<Content: View>: View {
                     if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         PurchaseButton(
                             for: $selectedTier,
-                            purchaseMetadata: purchaseMetadata,
-                            configuration: inAppPurchase.configuration
+                            purchaseMetadata: purchaseMetadata
                         )
                     }
                     #endif

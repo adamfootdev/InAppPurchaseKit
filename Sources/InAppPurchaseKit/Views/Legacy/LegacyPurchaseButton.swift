@@ -16,16 +16,13 @@ struct LegacyPurchaseButton: View {
 
     @Binding private var tier: InAppPurchaseTier?
     private let purchaseMetadata: [String: String]?
-    private let configuration: InAppPurchaseKitConfiguration
 
     init(
         for tier: Binding<InAppPurchaseTier?>,
-        purchaseMetadata: [String: String]?,
-        configuration: InAppPurchaseKitConfiguration
+        purchaseMetadata: [String: String]?
     ) {
         _tier = tier
         self.purchaseMetadata = purchaseMetadata
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -44,7 +41,7 @@ struct LegacyPurchaseButton: View {
     private var purchaseButton: some View {
         Button {
             #if canImport(HapticsKit)
-            if configuration.enableHapticFeedback {
+            if inAppPurchase.configuration.enableHapticFeedback {
                 #if os(iOS)
                 HapticsKit.performSelection()
                 #elseif os(watchOS)
@@ -128,8 +125,7 @@ struct LegacyPurchaseButton: View {
 #Preview {
     LegacyPurchaseButton(
         for: .constant(.example),
-        purchaseMetadata: nil,
-        configuration: .preview
+        purchaseMetadata: nil
     )
     .environmentObject(LegacyInAppPurchaseKit.preview)
 }

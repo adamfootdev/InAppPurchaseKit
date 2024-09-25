@@ -12,14 +12,8 @@ import StoreKit
 struct AdditionalOptionsView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
-    private let configuration: InAppPurchaseKitConfiguration
-
     @State private var showingRedeemSheet: Bool = false
     @State private var showingTipJarSheet: Bool = false
-
-    init(configuration: InAppPurchaseKitConfiguration) {
-        self.configuration = configuration
-    }
 
     var body: some View {
         Group {
@@ -45,7 +39,7 @@ struct AdditionalOptionsView: View {
                     }
                     #endif
 
-                    if configuration.sortedTipJarTiers.isEmpty == false {
+                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -90,7 +84,7 @@ struct AdditionalOptionsView: View {
             #elseif os(tvOS)
             HStack(spacing: 64) {
                 HStack(spacing: 32) {
-                    if configuration.sortedTipJarTiers.isEmpty == false {
+                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -118,6 +112,7 @@ struct AdditionalOptionsView: View {
         }
         .sheet(isPresented: $showingTipJarSheet) {
             TipJarView(embedInNavigationStack: true)
+                .accentColor(inAppPurchase.configuration.tintColor)
                 .environment(inAppPurchase)
         }
     }
@@ -125,7 +120,7 @@ struct AdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if os(macOS) || os(watchOS)
-            if configuration.sortedTipJarTiers.isEmpty == false {
+            if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                 Button {
                     showingTipJarSheet = true
                 } label: {
@@ -150,7 +145,7 @@ struct AdditionalOptionsView: View {
 
             TermsPrivacyButton(
                 String(localized: "Terms of Use", bundle: .module),
-                url: configuration.termsOfUseURL
+                url: inAppPurchase.configuration.termsOfUseURL
             )
 
             if useDivider {
@@ -159,7 +154,7 @@ struct AdditionalOptionsView: View {
 
             TermsPrivacyButton(
                 String(localized: "Privacy Policy", bundle: .module),
-                url: configuration.privacyPolicyURL
+                url: inAppPurchase.configuration.privacyPolicyURL
             )
         }
         #if os(iOS) || os(visionOS)
@@ -172,7 +167,7 @@ struct AdditionalOptionsView: View {
 
 #Preview {
     if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
-        AdditionalOptionsView(configuration: .preview)
+        AdditionalOptionsView()
 //            .frame(height: 200)
             .frame(maxWidth: .infinity)
             .environment(InAppPurchaseKit.preview)

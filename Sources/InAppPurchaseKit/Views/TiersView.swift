@@ -16,7 +16,6 @@ struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     private let purchaseMetadata: [String: String]?
-    private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
     @Binding private var showingAllTiers: Bool
@@ -24,13 +23,11 @@ struct TiersView: View {
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
         showingAllTiers: Binding<Bool>,
-        purchaseMetadata: [String: String]?,
-        configuration: InAppPurchaseKitConfiguration
+        purchaseMetadata: [String: String]?
     ) {
         _selectedTier = selectedTier
         _showingAllTiers = showingAllTiers
         self.purchaseMetadata = purchaseMetadata
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -42,7 +39,7 @@ struct TiersView: View {
                 #if os(tvOS) || os(watchOS)
                 tierButton(for: tier)
                 #else
-                if showingAllTiers || inAppPurchase.primaryTier == tier || configuration.showPrimaryTierOnly == false {
+                if showingAllTiers || inAppPurchase.primaryTier == tier || inAppPurchase.configuration.showPrimaryTierOnly == false {
                     tierButton(for: tier)
                 }
                 #endif
@@ -67,8 +64,7 @@ struct TiersView: View {
             tier: tier,
             selectedTier: $selectedTier,
             accessoryType: accessoryType(for: tier),
-            purchaseMetadata: purchaseMetadata,
-            configuration: configuration
+            purchaseMetadata: purchaseMetadata
         )
     }
 

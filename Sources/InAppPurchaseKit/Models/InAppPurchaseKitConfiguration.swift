@@ -14,6 +14,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public let appName: String
     public let imageName: String
     public let systemImage: String
+    public let tintColor: Color
     public let tiers: InAppPurchaseTiers
     public let tipJarTiers: Set<TipJarTier>?
     public let features: [InAppPurchaseFeature]
@@ -37,6 +38,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         appName: String,
         imageName: String,
         systemImage: String = "plus.app",
+        tintColor: Color = .accentColor,
         tiers: InAppPurchaseTiers,
         tipJarTiers: Set<TipJarTier>? = nil,
         features: [InAppPurchaseFeature],
@@ -59,6 +61,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.appName = appName
         self.imageName = imageName
         self.systemImage = systemImage
+        self.tintColor = tintColor
         self.tiers = tiers
         self.tipJarTiers = tipJarTiers
         self.features = features
@@ -101,6 +104,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             appName: "My App",
             imageName: "",
             systemImage: "plus.app",
+            tintColor: .green,
             tiers: .example,
             tipJarTiers: TipJarTier.examples,
             features: [.example, .example, .example],

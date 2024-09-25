@@ -16,14 +16,9 @@ struct SinglePurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     private let purchaseMetadata: [String: String]?
-    private let configuration: InAppPurchaseKitConfiguration
 
-    init(
-        purchaseMetadata: [String: String]?,
-        configuration: InAppPurchaseKitConfiguration
-    ) {
+    init(purchaseMetadata: [String: String]?) {
         self.purchaseMetadata = purchaseMetadata
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -34,8 +29,7 @@ struct SinglePurchaseButton: View {
             if let tier {
                 PurchaseButton(
                     for: .constant(tier),
-                    purchaseMetadata: purchaseMetadata,
-                    configuration: configuration
+                    purchaseMetadata: purchaseMetadata
                 )
             }
         }

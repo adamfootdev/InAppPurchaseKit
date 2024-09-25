@@ -15,14 +15,9 @@ struct LegacySinglePurchaseButton: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
     private let purchaseMetadata: [String: String]?
-    private let configuration: InAppPurchaseKitConfiguration
 
-    init(
-        purchaseMetadata: [String: String]?,
-        configuration: InAppPurchaseKitConfiguration
-    ) {
+    init(purchaseMetadata: [String: String]?) {
         self.purchaseMetadata = purchaseMetadata
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -33,8 +28,7 @@ struct LegacySinglePurchaseButton: View {
             if let tier {
                 LegacyPurchaseButton(
                     for: .constant(tier),
-                    purchaseMetadata: purchaseMetadata,
-                    configuration: configuration
+                    purchaseMetadata: purchaseMetadata
                 )
             }
         }
@@ -93,8 +87,7 @@ struct LegacySinglePurchaseButton: View {
 
 #Preview {
     LegacySinglePurchaseButton(
-        purchaseMetadata: nil,
-        configuration: .preview
+        purchaseMetadata: nil
     )
     .environmentObject(LegacyInAppPurchaseKit.preview)
 }

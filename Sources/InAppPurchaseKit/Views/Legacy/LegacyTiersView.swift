@@ -17,7 +17,6 @@ struct LegacyTiersView: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
     private let purchaseMetadata: [String: String]?
-    private let configuration: InAppPurchaseKitConfiguration
 
     @Binding private var selectedTier: InAppPurchaseTier?
     @Binding private var showingAllTiers: Bool
@@ -25,13 +24,11 @@ struct LegacyTiersView: View {
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
         showingAllTiers: Binding<Bool>,
-        purchaseMetadata: [String: String]?,
-        configuration: InAppPurchaseKitConfiguration
+        purchaseMetadata: [String: String]?
     ) {
         _selectedTier = selectedTier
         _showingAllTiers = showingAllTiers
         self.purchaseMetadata = purchaseMetadata
-        self.configuration = configuration
     }
 
     var body: some View {
@@ -43,7 +40,7 @@ struct LegacyTiersView: View {
                 #if os(tvOS) || os(watchOS)
                 tierButton(for: tier)
                 #else
-                if showingAllTiers || inAppPurchase.primaryTier == tier || configuration.showPrimaryTierOnly == false {
+                if showingAllTiers || inAppPurchase.primaryTier == tier || inAppPurchase.configuration.showPrimaryTierOnly == false {
                     tierButton(for: tier)
                 }
                 #endif
@@ -68,8 +65,7 @@ struct LegacyTiersView: View {
             tier: tier,
             selectedTier: $selectedTier,
             accessoryType: accessoryType(for: tier),
-            purchaseMetadata: purchaseMetadata,
-            configuration: configuration
+            purchaseMetadata: purchaseMetadata
         )
     }
 
@@ -95,8 +91,7 @@ struct LegacyTiersView: View {
     LegacyTiersView(
         selectedTier: .constant(.example),
         showingAllTiers: .constant(true),
-        purchaseMetadata: nil,
-        configuration: .preview
+        purchaseMetadata: nil
     )
     .environmentObject(LegacyInAppPurchaseKit.preview)
 }

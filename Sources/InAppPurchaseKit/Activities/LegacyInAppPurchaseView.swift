@@ -113,9 +113,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     Divider()
                         .frame(maxWidth: mainWidth)
 
-                    LegacyAdditionalOptionsView(
-                        configuration: inAppPurchase.configuration
-                    )
+                    LegacyAdditionalOptionsView()
                 }
             }
             .frame(maxWidth: .infinity)
@@ -136,8 +134,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
 
                     LegacyPurchaseButton(
                         for: $selectedTier,
-                        purchaseMetadata: purchaseMetadata,
-                        configuration: inAppPurchase.configuration
+                        purchaseMetadata: purchaseMetadata
                     )
                     .padding([.horizontal, .bottom])
                 }
@@ -260,16 +257,14 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
             } else {
                 if inAppPurchase.configuration.showSinglePurchaseMode {
                     LegacySinglePurchaseButton(
-                        purchaseMetadata: purchaseMetadata,
-                        configuration: inAppPurchase.configuration
+                        purchaseMetadata: purchaseMetadata
                     )
                 } else {
                     VStack(spacing: 12) {
                         LegacyTiersView(
                             selectedTier: $selectedTier,
                             showingAllTiers: $showingAllTiers,
-                            purchaseMetadata: purchaseMetadata,
-                            configuration: inAppPurchase.configuration
+                            purchaseMetadata: purchaseMetadata
                         )
 
                         #if !os(tvOS) && !os(watchOS)
@@ -297,8 +292,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         LegacyPurchaseButton(
                             for: $selectedTier,
-                            purchaseMetadata: purchaseMetadata,
-                            configuration: inAppPurchase.configuration
+                            purchaseMetadata: purchaseMetadata
                         )
                     }
                     #endif

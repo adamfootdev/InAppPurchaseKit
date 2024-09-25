@@ -11,14 +11,8 @@ import StoreKit
 struct LegacyAdditionalOptionsView: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
-    private let configuration: InAppPurchaseKitConfiguration
-
     @State private var showingRedeemSheet: Bool = false
     @State private var showingTipJarSheet: Bool = false
-
-    init(configuration: InAppPurchaseKitConfiguration) {
-        self.configuration = configuration
-    }
 
     var body: some View {
         #if os(iOS) || os(visionOS)
@@ -61,7 +55,7 @@ struct LegacyAdditionalOptionsView: View {
                     }
                     #endif
 
-                    if configuration.sortedTipJarTiers.isEmpty == false {
+                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -111,7 +105,7 @@ struct LegacyAdditionalOptionsView: View {
             #elseif os(tvOS)
             HStack(spacing: 64) {
                 HStack(spacing: 32) {
-                    if configuration.sortedTipJarTiers.isEmpty == false {
+                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -139,6 +133,7 @@ struct LegacyAdditionalOptionsView: View {
         }
         .sheet(isPresented: $showingTipJarSheet) {
             LegacyTipJarView(embedInNavigationStack: true)
+                .accentColor(inAppPurchase.configuration.tintColor)
                 .environmentObject(inAppPurchase)
         }
     }
@@ -146,7 +141,7 @@ struct LegacyAdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if os(macOS) || os(watchOS)
-            if configuration.sortedTipJarTiers.isEmpty == false {
+            if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                 Button {
                     showingTipJarSheet = true
                 } label: {
@@ -171,7 +166,7 @@ struct LegacyAdditionalOptionsView: View {
 
             TermsPrivacyButton(
                 String(localized: "Terms of Use", bundle: .module),
-                url: configuration.termsOfUseURL
+                url: inAppPurchase.configuration.termsOfUseURL
             )
 
             if useDivider {
@@ -180,7 +175,7 @@ struct LegacyAdditionalOptionsView: View {
 
             TermsPrivacyButton(
                 String(localized: "Privacy Policy", bundle: .module),
-                url: configuration.privacyPolicyURL
+                url: inAppPurchase.configuration.privacyPolicyURL
             )
         }
         #if os(iOS) || os(visionOS)
@@ -192,6 +187,6 @@ struct LegacyAdditionalOptionsView: View {
 }
 
 #Preview {
-    LegacyAdditionalOptionsView(configuration: .preview)
+    LegacyAdditionalOptionsView()
         .environmentObject(LegacyInAppPurchaseKit.preview)
 }
