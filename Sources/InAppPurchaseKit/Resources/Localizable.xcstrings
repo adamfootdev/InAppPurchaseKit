@@ -1177,12 +1177,6 @@
             "value" : "Ein unbekannter Fehler ist aufgetreten."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "An unknown error occurred."
-          }
-        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1482,7 +1476,110 @@
       }
     },
     "Continue" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متابعة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovat"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weiter"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "לְהַמשִׁיך"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continua"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "続行"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "계속"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doorgaan"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kontynuuj"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuar"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continua"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "继续"
+          }
+        }
+      }
     },
     "Done" : {
       "localizations" : {
@@ -1589,9 +1686,6 @@
           }
         }
       }
-    },
-    "Hello, World!" : {
-
     },
     "Hide Options" : {
       "localizations" : {
@@ -1700,7 +1794,110 @@
       }
     },
     "Huge Tip" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نصيحة ضخمة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrovský Tip"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Großes Trinkgeld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Propina Enorme"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gros Pourboire"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "טיפ ענק"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mancia Enorme"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大チップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "매우 큰 팁"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grote Fooi"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ogromny Napiwek"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Enorme"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Enorme"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfat Uriaș"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Огромные чаевые"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền boa lớn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大小费"
+          }
+        }
+      }
     },
     "If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier." : {
       "localizations" : {
@@ -1809,7 +2006,110 @@
       }
     },
     "Large Tip" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نصيحة كبيرة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Velký Tip"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Großes Trinkgeld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Propina Grande"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pourboire Important"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "טיפ גדול"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mancia Grande"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大チップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "큰 팁"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grote Fooi"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Duży Napiwek"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Grande"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Grande"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfat Mare"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Большие чаевые"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền boa lớn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大小费"
+          }
+        }
+      }
     },
     "Learn More" : {
       "localizations" : {
@@ -2236,7 +2536,110 @@
       }
     },
     "Medium Tip" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نصيحة متوسطة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Střední Tip"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mittleres Trinkgeld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Propina Mediana"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pourboire Moyen"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "טיפ בינוני"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mancia Media"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中チップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "중간 팁"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium Fooi"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Średni Napiwek"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Média"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Média"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfat Mediu"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Средние чаевые"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền boa trung bình"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中小费"
+          }
+        }
+      }
     },
     "Month" : {
       "localizations" : {
@@ -2557,7 +2960,110 @@
       }
     },
     "Please note that these purchases do not unlock additional features." : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يرجى ملاحظة أن هذه المشتريات لا تفتح ميزات إضافية."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorňujeme, že tyto nákupy neodemykají další funkce."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitte beachten Sie, dass diese Käufe keine zusätzlichen Funktionen freischalten."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ten en cuenta que estas compras no desbloquean funciones adicionales."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez noter que ces achats ne débloquent pas de fonctionnalités supplémentaires."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "שים לב שרכישות אלו אינן פותחות תכונות נוספות."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si prega di notare che questi acquisti non sbloccano funzionalità aggiuntive."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これらの購入では追加機能がアンロックされないことにご注意ください。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 구매는 추가 기능을 잠금 해제하지 않습니다."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let op: deze aankopen ontgrendelen geen extra functies."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Należy pamiętać, że te zakupy nie odblokowują dodatkowych funkcji."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Observe que essas compras não desbloqueiam recursos adicionais."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Observe que essas compras não desbloqueiam recursos adicionais."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vă rugăm să rețineți că aceste achiziții nu deblochează funcții suplimentare."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обратите внимание, что эти покупки не открывают дополнительные функции."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xin lưu ý rằng những giao dịch mua này không mở khóa các tính năng bổ sung."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请注意，这些购买不会解锁其他功能。"
+          }
+        }
+      }
     },
     "Privacy Policy" : {
       "localizations" : {
@@ -3302,7 +3808,110 @@
       }
     },
     "Small Tip" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نصيحة صغيرة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malý Tip"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kleines Trinkgeld"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Propina Pequeña"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Petit Pourboire"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "טיפ קטן"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mancia Piccola"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小チップ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "작은 팁"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kleine Fooi"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mały Napiwek"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Pequena"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gorjeta Pequena"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfat Mic"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Маленькие чаевые"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiền boa nhỏ"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小小费"
+          }
+        }
+      }
     },
     "Subscribe" : {
       "localizations" : {
@@ -3834,120 +4443,429 @@
         }
       }
     },
-    "Terms" : {
+    "Terms of Use" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "شروط"
+            "value" : "شروط الاستخدام"
           }
         },
         "cs" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Podmínky"
+            "value" : "Podmínky Použití"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Begriffe"
+            "value" : "Nutzungsbedingungen"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Términos"
+            "value" : "Condiciones de Uso"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Conditions"
+            "value" : "Conditions d’Utilisation"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "תנאים"
+            "value" : "תנאי שימוש"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Termini"
+            "value" : "Termini di Utilizzo"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "条件"
+            "value" : "利用規約"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "약관"
+            "value" : "이용 약관"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voorwaarden"
+            "value" : "Gebruiksvoorwaarden"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Warunki"
+            "value" : "Warunki Korzystania"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Termos"
+            "value" : "Termos de Uso"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Termos"
+            "value" : "Termos de Uso"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Termeni"
+            "value" : "Termeni de Utilizare"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Условия"
+            "value" : "Условия использования"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Điều kiện"
+            "value" : "Điều khoản sử dụng"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "条款"
+            "value" : "使用条款"
           }
         }
       }
     },
     "Thank You" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شكرًا لك"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Děkuju"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danke"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gracias"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merci"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תודה לך"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ありがとうございます"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "감사합니다"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedankt"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziękujemy"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multumesc"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спасибо"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảm ơn"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "谢谢"
+          }
+        }
+      }
     },
     "Thank you for the tip – it means a lot!" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شكرًا لك على النصيحة - فهي تعني الكثير!"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Děkujeme za tip – hodně to znamená!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vielen Dank für das Trinkgeld – es bedeutet mir viel!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Gracias por la propina, significa mucho!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merci pour le pourboire, cela signifie beaucoup!"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תודה על הטיפ - זה אומר המון!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie per la mancia: significa molto!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チップをありがとうございます。とても嬉しいです!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "팁을 주셔서 감사합니다. 정말 큰 도움이 됩니다!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedankt voor de fooi – het betekent veel!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziękujemy za napiwek – to wiele znaczy!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado pela gorjeta – significa muito!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado pela gorjeta – significa muito!"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mulțumesc pentru pont – înseamnă foarte mult!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спасибо за чаевые — они много значат!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảm ơn bạn đã cho tiền boa – điều đó có ý nghĩa rất lớn!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "谢谢您的小费—这意义重大！"
+          }
+        }
+      }
     },
     "Thank you for using %@! If youʼre enjoying the app, please consider supporting it with a tip. Anything you can spare helps me to continue building this and other indie apps!" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شكرًا لك على استخدام %@! إذا كنت تستمتع بالتطبيق، فيرجى التفكير في دعمه بنصيحة. أي شيء يمكنك توفيره يساعدني في الاستمرار في بناء هذا التطبيق والتطبيقات المستقلة الأخرى!"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Děkujeme, že používáte %@! Pokud se vám aplikace líbí, zvažte její podporu tipem. Cokoli, co můžete ušetřit, mi pomáhá pokračovat ve vytváření této a dalších nezávislých aplikací!"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vielen Dank für die Nutzung von %@! Wenn Ihnen die App gefällt, denken Sie bitte darüber nach, sie mit einem Trinkgeld zu unterstützen. Alles, was Sie entbehren können, hilft mir, diese und andere Indie-Apps weiterzuentwickeln!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Gracias por usar %@! Si disfrutas de la aplicación, considera apoyarla con una propina. ¡Todo lo que puedas aportar me ayuda a seguir desarrollando esta y otras aplicaciones independientes!"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merci d'avoir utilisé %@! Si vous appréciez l'application, pensez à la soutenir avec un pourboire. Tout ce que vous pouvez me donner m'aide à continuer à développer cette application et d'autres applications indépendantes!"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תודה שהשתמשת ב-%@! אם אתה נהנה מהאפליקציה, אנא שקול לתמוך בה באמצעות טיפ. כל מה שאתה יכול לחסוך עוזר לי להמשיך לבנות אפליקציות אינדי זה ואחרות!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie per aver utilizzato %@! Se ti piace l'app, ti preghiamo di considerare di supportarla con una mancia. Tutto ciò che puoi risparmiare mi aiuta a continuare a sviluppare questa e altre app indipendenti!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ をご利用いただきありがとうございます! アプリを気に入っていただけましたら、チップでサポートしてください。ご寄付いただけると、このアプリや他のインディー アプリの開発を継続できます!"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@!를 사용해 주셔서 감사합니다! 앱이 마음에 드신다면 팁으로 지원해 주세요. 아낌없이 기부해 주시면 이 앱과 다른 인디 앱을 계속 만드는 데 도움이 됩니다!"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bedankt voor het gebruiken van %@! Als je de app leuk vindt, overweeg dan om deze te ondersteunen met een fooi. Alles wat je kunt missen, helpt me om deze en andere indie-apps te blijven bouwen!"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dziękujemy za korzystanie z %@! Jeśli podoba Ci się aplikacja, rozważ wsparcie jej napiwkiem. Wszystko, co możesz przekazać, pomoże mi kontynuować tworzenie tej i innych niezależnych aplikacji!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado por usar %@! Se você está gostando do aplicativo, considere apoiá-lo com uma gorjeta. Qualquer coisa que você puder me ajudar a continuar a desenvolver este e outros aplicativos indie!"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrigado por usar %@! Se você está gostando do aplicativo, considere apoiá-lo com uma gorjeta. Qualquer coisa que você puder me ajudar a continuar a desenvolver este e outros aplicativos indie!"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vă mulțumim că folosiți %@! Dacă vă place aplicația, vă rugăm să o susțineți cu un sfat. Orice puteți economisi mă ajută să continui să construiesc aceasta și alte aplicații indie!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Спасибо за использование %@! Если вам нравится приложение, пожалуйста, рассмотрите возможность поддержать его чаевыми. Все, что вы можете выделить, поможет мне продолжить создание этого и других инди-приложений!"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cảm ơn bạn đã sử dụng %@! Nếu bạn thích ứng dụng này, vui lòng cân nhắc hỗ trợ bằng tiền boa. Bất kỳ khoản tiền nào bạn có thể hỗ trợ đều giúp tôi tiếp tục xây dựng ứng dụng này và các ứng dụng độc lập khác!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "感谢您使用 %@！如果您喜欢这款应用，请考虑给它小费。您能给的任何小费都可以帮助我继续开发这款应用和其他独立应用！"
+          }
+        }
+      }
     },
     "There was an error verifying your request. Please try again." : {
       "localizations" : {
@@ -4162,7 +5080,110 @@
       }
     },
     "Tip Jar" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وعاء النصيحة"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip Jar"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trinkgeldkasse"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bote de Propinas"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pot à Pourboires"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "צנצנת טיפ"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barattolo delle Mance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "チップジャー"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "팁 병"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fooienpot"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Słoik na Napiwki"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pote de Gorjeta"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pote de Gorjeta"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sfat Borcan"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Банка чаевых"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hũ tiền boa"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小费罐"
+          }
+        }
+      }
     },
     "Upgrade to %@" : {
       "localizations" : {

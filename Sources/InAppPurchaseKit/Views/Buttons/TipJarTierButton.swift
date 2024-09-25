@@ -62,7 +62,7 @@ struct TipJarTierButton: View {
                         .padding(.horizontal, 8)
                         #endif
                 } else {
-                    Text("$1.99")
+                    Text(verbatim: "$1.99")
                         .foregroundStyle(Color.clear)
                         #if os(iOS) || os(visionOS)
                         .font(.subheadline.bold())

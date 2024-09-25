@@ -458,14 +458,11 @@ extension InAppPurchaseView where Content == EmptyView {
 }
 #endif
 
-//#Preview {
-//    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//        _ = InAppPurchaseKit.configure(with: .preview)
-//    }
-//
-//    return Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            InAppPurchaseView()
-//        }
-//    }
-//}
+#Preview {
+    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
+        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+
+        InAppPurchaseView()
+            .environment(inAppPurchase)
+    }
+}
