@@ -45,20 +45,23 @@ struct AdditionalOptionsView: View {
                     }
                     #endif
 
-                    Button {
-                        showingTipJarSheet = true
-                    } label: {
-                        Text("Tip Jar", bundle: .module)
-                            #if os(iOS)
-                            .font(.headline)
-                            #endif
-                            .frame(maxWidth: 280)
+                    if configuration.sortedTipJarTiers.isEmpty == false {
+                        Button {
+                            showingTipJarSheet = true
+                        } label: {
+                            Text("Tip Jar", bundle: .module)
+                                #if os(iOS)
+                                .font(.headline)
+                                #endif
+                                .frame(maxWidth: 280)
+                        }
+                        #if os(iOS)
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+                        .tint(.accentColor)
+                        #endif
                     }
-                    #if os(iOS)
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .tint(.accentColor)
-                    #endif
+
                 }
 
                 ViewThatFits {
@@ -87,10 +90,12 @@ struct AdditionalOptionsView: View {
             #elseif os(tvOS)
             HStack(spacing: 64) {
                 HStack(spacing: 32) {
-                    Button {
-                        showingTipJarSheet = true
-                    } label: {
-                        Text("Tip Jar", bundle: .module)
+                    if configuration.sortedTipJarTiers.isEmpty == false {
+                        Button {
+                            showingTipJarSheet = true
+                        } label: {
+                            Text("Tip Jar", bundle: .module)
+                        }
                     }
 
                     if inAppPurchase.purchaseState != .purchased {
@@ -120,14 +125,16 @@ struct AdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if os(macOS) || os(watchOS)
-            Button {
-                showingTipJarSheet = true
-            } label: {
-                Text("Tip Jar", bundle: .module)
-            }
-
-            if useDivider {
-                Divider()
+            if configuration.sortedTipJarTiers.isEmpty == false {
+                Button {
+                    showingTipJarSheet = true
+                } label: {
+                    Text("Tip Jar", bundle: .module)
+                }
+                
+                if useDivider {
+                    Divider()
+                }
             }
             #endif
 
