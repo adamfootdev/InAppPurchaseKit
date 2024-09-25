@@ -21,7 +21,7 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
         }
     }
 
-    public let configuration: InAppPurchaseKitConfiguration
+    public private(set) var configuration: InAppPurchaseKitConfiguration
     private var updateListenerTask: Task<Void, Error>? = nil
 
     @Published public private(set) var availableProducts: [Product] = []
@@ -91,6 +91,10 @@ public final class LegacyInAppPurchaseKit: NSObject, ObservableObject {
             initializedInAppPurchaseKit = object
             return object
         }
+    }
+
+    public func updateConfiguration(with configuration: InAppPurchaseKitConfiguration) {
+        self.configuration = configuration
     }
 
     private func configurePurchases() async {
