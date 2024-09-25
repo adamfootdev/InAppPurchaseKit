@@ -9,28 +9,28 @@ import SwiftUI
 import StoreKit
 
 public struct InAppPurchaseKitConfiguration: Sendable {
-    public let title: String
-    public let subtitle: String
-    public let appName: String
-    public let imageName: String
-    public let systemImage: String
-    public let tintColor: Color
-    public let tiers: InAppPurchaseTiers
-    public let tipJarTiers: Set<TipJarTier>?
-    public let features: [InAppPurchaseFeature]
-    public let termsOfUseURL: URL
-    public let privacyPolicyURL: URL
-    public let loadProducts: Bool
-    public let enableSinglePurchaseMode: Bool
-    public let showPrimaryTierOnly: Bool
-    public let legacyUserThreshold: Int?
-    public let showLegacyTier: Bool
-    public let fromAppExtension: Bool
-    public let sharedUserDefaults: UserDefaults
-    public let overridePurchased: Bool?
-    public let enableHapticFeedback: Bool
-    public let purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: String]?) -> Void)?
-    public let updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
+    public var title: String
+    public var subtitle: String
+    public var appName: String
+    public var imageName: String
+    public var systemImage: String
+    public var tintColor: Color
+    public var tiers: InAppPurchaseTiers
+    public var tipJarTiers: Set<TipJarTier>?
+    public var features: [InAppPurchaseFeature]
+    public var termsOfUseURL: URL
+    public var privacyPolicyURL: URL
+    public var loadProducts: Bool
+    public var enableSinglePurchaseMode: Bool
+    public var showPrimaryTierOnly: Bool
+    public var legacyUserThreshold: Int?
+    public var showLegacyTier: Bool
+    public var fromAppExtension: Bool
+    public var sharedUserDefaults: UserDefaults
+    public var overridePurchased: Bool?
+    public var enableHapticFeedback: Bool
+    public var purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: String]?) -> Void)?
+    public var updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
 
     public init(
         _ title: String,
