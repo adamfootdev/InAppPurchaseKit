@@ -11,29 +11,17 @@ import SwiftUI
 public struct InAppPurchaseSettingsRow: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let purchaseMetadata: [String: String]?
+    @Binding private var showingPurchaseView: Bool
 
-    @State private var showingPurchaseView: Bool = false
-
-    public init(
-        purchaseMetadata: [String: String]? = nil
-    ) {
-        self.purchaseMetadata = purchaseMetadata
+    public init(showingPurchaseView: Binding<Bool>) {
+        _showingPurchaseView = showingPurchaseView
     }
 
     public var body: some View {
-        Group {
-            if inAppPurchase.purchaseState == .purchased {
-                subscribedButton
-            } else {
-                purchaseButton
-            }
-        }
-        .sheet(isPresented: $showingPurchaseView) {
-            InAppPurchaseView(
-                purchaseMetadata: purchaseMetadata
-            )
-            .accentColor(inAppPurchase.configuration.tintColor)
+        if inAppPurchase.purchaseState == .purchased {
+            subscribedButton
+        } else {
+            purchaseButton
         }
     }
 
