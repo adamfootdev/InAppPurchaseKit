@@ -142,7 +142,6 @@ public struct InAppPurchaseView<Content: View>: View {
         .interactiveDismissDisabled()
         #elseif os(macOS)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .frame(height: 500)
         #endif
         .toolbar {
             #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)

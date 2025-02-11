@@ -39,6 +39,12 @@
             "value" : "%@ נדרש"
           }
         },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Kötelező"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -91,6 +97,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ Обязательно"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Povinné"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Gerekli"
           }
         },
         "vi" : {
@@ -158,6 +176,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld dny zdarma, pak "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld dny zdarma "
                 }
               },
               "one" : {
@@ -277,6 +301,24 @@
             }
           }
         },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld nap ingyenes "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld nap ingyenes "
+                }
+              }
+            }
+          }
+        },
         "it" : {
           "variations" : {
             "plural" : {
@@ -299,12 +341,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 日間無料、その後 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld日間無料、その後"
+                }
+              }
+            }
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "그럼 %lld일 무료 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld일 무료, 그 후"
+                }
+              }
+            }
           }
         },
         "nl" : {
@@ -328,6 +390,18 @@
         "pl" : {
           "variations" : {
             "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dni za darmo, a potem"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld dni za darmo, a potem"
+                }
+              },
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
@@ -433,6 +507,54 @@
             }
           }
         },
+        "sk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld dni zadarmo "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld dni zadarmo "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld deň zadarmo "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld dni zadarmo "
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Gün Ücretsiz, ardından"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Gün Ücretsiz, ardından"
+                }
+              }
+            }
+          }
+        },
         "vi" : {
           "variations" : {
             "plural" : {
@@ -449,6 +571,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 天免费，然后 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 天免费，然后"
+                }
+              }
+            }
           }
         }
       }
@@ -504,6 +636,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld měsíce zdarma, pak "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld měsíce zdarma "
                 }
               },
               "one" : {
@@ -623,6 +761,24 @@
             }
           }
         },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld hónap ingyenes "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld hónap ingyenes "
+                }
+              }
+            }
+          }
+        },
         "it" : {
           "variations" : {
             "plural" : {
@@ -645,12 +801,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld か月無料、その後 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lldか月無料、その後"
+                }
+              }
+            }
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld개월 무료라면 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld개월 무료, 그 후"
+                }
+              }
+            }
           }
         },
         "nl" : {
@@ -678,6 +854,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld miesiące za darmo, a następnie "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld miesiące za darmo, a potem"
                 }
               },
               "one" : {
@@ -785,6 +967,54 @@
             }
           }
         },
+        "sk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Potom %lld mesiace zadarmo "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Potom %lld mesiace zadarmo "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Potom %lld mesiac zadarmo "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Potom %lld mesiace zadarmo "
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Ay Ücretsiz, ardından"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Ay Ücretsiz, ardından"
+                }
+              }
+            }
+          }
+        },
         "vi" : {
           "variations" : {
             "plural" : {
@@ -801,6 +1031,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 个月免费，然后 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld 个月免费"
+                }
+              }
+            }
           }
         }
       }
@@ -856,6 +1096,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld týdny zdarma, pak "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld týdny zdarma "
                 }
               },
               "one" : {
@@ -975,6 +1221,24 @@
             }
           }
         },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld hét ingyenes "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Akkor %lld hét ingyenes "
+                }
+              }
+            }
+          }
+        },
         "it" : {
           "variations" : {
             "plural" : {
@@ -997,12 +1261,32 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "週間無料、 それから"
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld週間無料、その後"
+                }
+              }
+            }
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld주 무료라면 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld주 무료, 그 후"
+                }
+              }
+            }
           }
         },
         "nl" : {
@@ -1030,6 +1314,12 @@
                 "stringUnit" : {
                   "state" : "translated",
                   "value" : "%lld tygodnie za darmo, a następnie "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld tygodnie za darmo, a potem"
                 }
               },
               "one" : {
@@ -1137,6 +1427,54 @@
             }
           }
         },
+        "sk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld týždne zadarmo "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld týždne zadarmo "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld týždeň zadarmo "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Tak %lld týždne zadarmo "
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Hafta Ücretsiz, ardından"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Hafta Ücretsiz, ardından"
+                }
+              }
+            }
+          }
+        },
         "vi" : {
           "variations" : {
             "plural" : {
@@ -1153,6 +1491,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%lld 周免费，然后 "
+          },
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "然后免费 %lld 周"
+                }
+              }
+            }
           }
         }
       }
@@ -1193,6 +1541,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "אירעה שגיאה לא ידועה."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ismeretlen hiba történt."
           }
         },
         "it" : {
@@ -1249,6 +1603,18 @@
             "value" : "Произошла неизвестная ошибка."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vyskytla sa neznáma chyba."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilinmeyen bir hata oluştu."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1299,6 +1665,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לְבַטֵל"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mégsem"
           }
         },
         "it" : {
@@ -1355,6 +1727,18 @@
             "value" : "Отмена"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zrušiť"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vazgeç"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1405,6 +1789,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "סגור"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bezárás"
           }
         },
         "it" : {
@@ -1461,6 +1851,18 @@
             "value" : "Закрывать"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zatvoriť"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapat"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1511,6 +1913,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לְהַמשִׁיך"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Folytatás"
           }
         },
         "it" : {
@@ -1567,6 +1975,18 @@
             "value" : "Продолжить"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pokračovať"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sürdür"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1617,6 +2037,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "בוצע"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kész"
           }
         },
         "it" : {
@@ -1673,6 +2099,18 @@
             "value" : "Сделанный"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hotovo"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bitti"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1723,6 +2161,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הסתר אפשרויות"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beállítások elrejtése"
           }
         },
         "it" : {
@@ -1779,6 +2223,18 @@
             "value" : "Скрыть параметры"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skryť možnosti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seçenekleri Gizle"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1829,6 +2285,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "טיפ ענק"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hatalmas tipp"
           }
         },
         "it" : {
@@ -1885,6 +2347,18 @@
             "value" : "Огромные чаевые"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrovský Tip"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Büyük Bahşiş"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1935,6 +2409,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "אם יש לך כרגע מנוי פעיל או תקופת ניסיון בחינם, זכור לבטל אותו אם אתה עובר לשכבה לכל החיים."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ha jelenleg aktív előfizetése vagy ingyenes próbaverziója fut, ne felejtse el lemondani, ha élethosszig tartó szintre vált."
           }
         },
         "it" : {
@@ -1991,6 +2471,18 @@
             "value" : "Если у вас в настоящее время действует активная подписка или бесплатная пробная версия, не забудьте отменить ее при переходе на пожизненный уровень."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ak máte momentálne aktívne predplatné alebo bezplatnú skúšobnú verziu, nezabudnite ho zrušiť, ak prejdete na doživotnú úroveň."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şu anda aktif bir aboneliğiniz veya ücretsiz deneme sürümünüz varsa, ömür boyu katmana geçmeniz durumunda lütfen bunu iptal etmeyi unutmayın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2041,6 +2533,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "טיפ גדול"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nagy hegy"
           }
         },
         "it" : {
@@ -2097,6 +2595,18 @@
             "value" : "Большие чаевые"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veľký tip"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Büyük Bahşiş"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2147,6 +2657,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "למד עוד"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "További információ"
           }
         },
         "it" : {
@@ -2203,6 +2719,18 @@
             "value" : "Узнать больше"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Viac informácií"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daha Fazla Bilgi"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2253,6 +2781,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לכל החיים"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Élettartam"
           }
         },
         "it" : {
@@ -2309,6 +2843,18 @@
             "value" : "Продолжительность жизни"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celý život"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ömür boyu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2359,6 +2905,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "נֶאֱמָנוּת"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hűség"
           }
         },
         "it" : {
@@ -2415,6 +2967,18 @@
             "value" : "Верность"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vernosť"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bağlılık"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2465,6 +3029,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ניהול מנוי"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Előfizetés kezelése"
           }
         },
         "it" : {
@@ -2521,6 +3091,18 @@
             "value" : "Управление подпиской"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spravovať predplatné"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aboneliği Yönet"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2571,6 +3153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "טיפ בינוני"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Közepes Tipp"
           }
         },
         "it" : {
@@ -2627,6 +3215,18 @@
             "value" : "Средние чаевые"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stredný tip"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orta Uç"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2677,6 +3277,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "חוֹדֶשׁ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hónap"
           }
         },
         "it" : {
@@ -2733,6 +3339,18 @@
             "value" : "Месяц"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesiac"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ay"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2783,6 +3401,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "יַרחוֹן"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havonta"
           }
         },
         "it" : {
@@ -2839,6 +3463,18 @@
             "value" : "Ежемесячно"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesačne"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her Ay"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2889,6 +3525,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תשלום חד פעמי, "
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Egyszeri fizetés, "
           }
         },
         "it" : {
@@ -2945,6 +3587,18 @@
             "value" : "Одноразовый платеж, "
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jednorazová platba, "
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tek seferlik ödeme,"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2995,6 +3649,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שים לב שרכישות אלו אינן פותחות תכונות נוספות."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Felhívjuk figyelmét, hogy ezek a vásárlások nem nyitnak meg további funkciókat."
           }
         },
         "it" : {
@@ -3051,6 +3711,18 @@
             "value" : "Обратите внимание, что эти покупки не открывают дополнительные функции."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upozorňujeme, že tieto nákupy neodomknú ďalšie funkcie."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lütfen bu satın alımların ek özelliklerin kilidini açmayacağını unutmayın."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3101,6 +3773,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מדיניות הפרטיות"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adatvédelmi szabályzat"
           }
         },
         "it" : {
@@ -3157,6 +3835,18 @@
             "value" : "политика конфиденциальности"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zásady ochrany osobných údajov"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gizlilik Politikası"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3207,6 +3897,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לִרְכּוֹשׁ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás"
           }
         },
         "it" : {
@@ -3263,6 +3959,18 @@
             "value" : "Покупка"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nákup"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Satın Al"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3313,6 +4021,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לפדות קוד"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kód beváltása"
           }
         },
         "it" : {
@@ -3369,6 +4083,18 @@
             "value" : "Активировать код"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uplatniť kód"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kodu Kullan"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3419,6 +4145,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מימוש ניסיון חינם"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ingyenes próbaverzió beváltása"
           }
         },
         "it" : {
@@ -3475,6 +4207,18 @@
             "value" : "Воспользуйтесь бесплатной пробной версией"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uplatniť bezplatnú skúšobnú verziu"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ücretsiz Denemeyi Kullanın"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3525,6 +4269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "לשחזר"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Visszaállítás"
           }
         },
         "it" : {
@@ -3581,6 +4331,18 @@
             "value" : "Восстановить"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obnoviť"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eski haline getirmek"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3631,6 +4393,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "חסוך %lld%%"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Takarítson meg %lld%%"
           }
         },
         "it" : {
@@ -3687,6 +4455,18 @@
             "value" : "Сэкономьте %lld%%"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ušetrite %lld%%"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld%% tasarruf edin"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3737,6 +4517,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הצג את כל האפשרויות"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Összes opció megjelenítése"
           }
         },
         "it" : {
@@ -3793,6 +4579,18 @@
             "value" : "Показать все параметры"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť všetky možnosti"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tüm Seçenekleri Göster"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3843,6 +4641,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "טיפ קטן"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kis tipp"
           }
         },
         "it" : {
@@ -3899,6 +4703,18 @@
             "value" : "Маленькие чаевые"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Malý tip"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Küçük İpucu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3949,6 +4765,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הירשם"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feliratkozás"
           }
         },
         "it" : {
@@ -4005,6 +4827,18 @@
             "value" : "Подписаться"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odoberať"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abone Ol"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4055,6 +4889,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "נרשם"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Előfizetve"
           }
         },
         "it" : {
@@ -4111,6 +4951,18 @@
             "value" : "Подписан"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Odoberané"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abone"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4161,6 +5013,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "נרשמת - תודה!"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feliratkozott - Köszönjük!"
           }
         },
         "it" : {
@@ -4217,6 +5075,18 @@
             "value" : "Подписался-Спасибо!"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prihlásené na odber – ďakujeme!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abone Oldunuz - Teşekkürler!"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4267,6 +5137,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "החלף"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kapcsoló"
           }
         },
         "it" : {
@@ -4323,6 +5199,18 @@
             "value" : "Выключатель"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spínač"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Düğme"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4373,6 +5261,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "החלף שכבה"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch Tier"
           }
         },
         "it" : {
@@ -4429,6 +5323,18 @@
             "value" : "Переключить уровень"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prepnúť úroveň"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seviye Değiştir"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4479,6 +5385,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תנאי שימוש"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Felhasználási feltételek"
           }
         },
         "it" : {
@@ -4535,6 +5447,18 @@
             "value" : "Условия использования"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Podmienky používania"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kullanım Şartları"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4585,6 +5509,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תודה לך"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köszönjük"
           }
         },
         "it" : {
@@ -4641,6 +5571,18 @@
             "value" : "Спасибо"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďakujeme"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Teşekkürler"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4691,6 +5633,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תודה על הטיפ - זה אומר המון!"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köszönöm a tippet – sokat jelent!"
           }
         },
         "it" : {
@@ -4747,6 +5695,18 @@
             "value" : "Спасибо за чаевые — они много значат!"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďakujeme za tip – veľa to znamená!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İpucu için teşekkürler, çok şey ifade ediyor!"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4797,6 +5757,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תודה שהשתמשת ב-%@! אם אתה נהנה מהאפליקציה, אנא שקול לתמוך בה באמצעות טיפ. כל מה שאתה יכול לחסוך עוזר לי להמשיך לבנות אפליקציות אינדי זה ואחרות!"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Köszönjük, hogy a %@ szolgáltatást használja! Ha élvezi az alkalmazást, kérjük, támogassa egy tippel. Bármi, amit fel tudsz hagyni, segít, hogy folytassam ennek és más független alkalmazásoknak a létrehozását!"
           }
         },
         "it" : {
@@ -4853,6 +5819,18 @@
             "value" : "Спасибо за использование %@! Если вам нравится приложение, пожалуйста, рассмотрите возможность поддержать его чаевыми. Все, что вы можете выделить, поможет мне продолжить создание этого и других инди-приложений!"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ďakujeme, že používate %@! Ak sa vám aplikácia páči, skúste ju podporiť tipom. Všetko, čo môžete ušetriť, mi pomáha pokračovať v budovaní tejto a ďalších nezávislých aplikácií!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ kullandığınız için teşekkür ederiz! Uygulamadan keyif alıyorsanız, lütfen bir bahşişle desteklemeyi düşünün. Verebileceğiniz her şey, bu ve diğer bağımsız uygulamaları geliştirmeye devam etmeme yardımcı olur!"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4903,6 +5881,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "אירעה שגיאה באימות הבקשה שלך. בבקשה נסה שוב."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiba történt a kérés ellenőrzése során. Kérjük, próbálja újra."
           }
         },
         "it" : {
@@ -4959,6 +5943,18 @@
             "value" : "При проверке вашего запроса произошла ошибка. Пожалуйста, попробуйте еще раз."
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pri overovaní vašej žiadosti sa vyskytla chyba. Skúste to znova."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Talebiniz doğrulanırken bir hata oluştu. Lütfen tekrar deneyin."
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5009,6 +6005,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "תכונה זו דורשת גישה ל-%@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ehhez a funkcióhoz hozzáférés szükséges a következőhöz: %@"
           }
         },
         "it" : {
@@ -5065,6 +6067,18 @@
             "value" : "Для этой функции требуется доступ к %@"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Táto funkcia vyžaduje prístup k %@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu özellik %@ erişimini gerektirir"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5115,6 +6129,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "צנצנת טיפ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip Jar"
           }
         },
         "it" : {
@@ -5171,6 +6191,18 @@
             "value" : "Банка чаевых"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip Jar"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bahşiş Kavanozu"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5221,6 +6253,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שדרג ל-%@"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frissítés a következőre: %@"
           }
         },
         "it" : {
@@ -5277,6 +6315,18 @@
             "value" : "Обновить до %@"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inovovať na %@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@'a yükseltin"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5327,6 +6377,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "נוף"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Megtekintés"
           }
         },
         "it" : {
@@ -5383,6 +6439,18 @@
             "value" : "Вид"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Görüntüle"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5433,6 +6501,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "הצג את מדיניות הפרטיות..."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adatvédelmi szabályzat megtekintése…"
           }
         },
         "it" : {
@@ -5489,6 +6563,18 @@
             "value" : "Просмотреть политику конфиденциальности…"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť Zásady ochrany osobných údajov…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gizlilik Politikasını Görüntüle…"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5539,6 +6625,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "צפה בתנאי השימוש..."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Felhasználási feltételek megtekintése…"
           }
         },
         "it" : {
@@ -5595,6 +6687,18 @@
             "value" : "Просмотреть условия использования…"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť podmienky používania…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kullanım Şartlarını Görüntüle…"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5645,6 +6749,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "נוף…"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kilátás…"
           }
         },
         "it" : {
@@ -5701,6 +6811,18 @@
             "value" : "Вид…"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zobraziť…"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Görüş…"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5751,6 +6873,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שָׁבוּעַ"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hét"
           }
         },
         "it" : {
@@ -5807,6 +6935,18 @@
             "value" : "Неделя"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Týždeň"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hafta"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5857,6 +6997,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שְׁבוּעִי"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hetente"
           }
         },
         "it" : {
@@ -5913,6 +7059,18 @@
             "value" : "Еженедельно"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Týždenne"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Her Hafta"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5963,6 +7121,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "מה נכלל"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mit tartalmaz"
           }
         },
         "it" : {
@@ -6019,6 +7183,18 @@
             "value" : "Что включено"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Čo je zahrnuté"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neler Dahil?"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6069,6 +7245,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שָׁנָה"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Év"
           }
         },
         "it" : {
@@ -6125,6 +7307,18 @@
             "value" : "Год"
           }
         },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rok"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yıl"
+          }
+        },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6175,6 +7369,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "שְׁנָתִי"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Évi"
           }
         },
         "it" : {
@@ -6229,6 +7429,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ежегодно"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ročne"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yıllık"
           }
         },
         "vi" : {

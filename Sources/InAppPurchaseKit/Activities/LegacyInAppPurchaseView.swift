@@ -150,7 +150,6 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
         .interactiveDismissDisabled()
         #elseif os(macOS)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .frame(height: 500)
         #endif
         .toolbar {
             doneToolbarItem
