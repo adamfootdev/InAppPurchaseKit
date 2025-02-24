@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum TransactionPurchasedType {
+public enum TransactionPurchasedType: Sendable {
     case subscription
     case tipJar
 }

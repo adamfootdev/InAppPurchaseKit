@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PurchaseState {
+public enum PurchaseState: Sendable {
     case pending
     case notPurchased
     case purchased

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum TransactionState: Equatable {
+public enum TransactionState: Equatable, Sendable {
     case pending
     case purchasing
     case purchased(_ type: TransactionPurchasedType)
