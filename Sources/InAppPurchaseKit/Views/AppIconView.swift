@@ -21,7 +21,7 @@ struct AppIconView: View {
         )
         .resizable()
         .scaledToFill()
-        #if os(iOS) || os(macOS) || os(tvOS)
+        #if os(iOS) || os(tvOS)
         .clipShape(RoundedRectangle(
             cornerRadius: imageCornerRadius,
             style: .continuous
