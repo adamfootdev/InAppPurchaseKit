@@ -239,9 +239,11 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                         Button {
                             showingSwitchTierMessage = true
                         } label: {
+                            #if !os(macOS)
                             Text("Switch Tier", bundle: .module)
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
+                            #endif
                         }
                         #if os(watchOS)
                         .tint(.accentColor)

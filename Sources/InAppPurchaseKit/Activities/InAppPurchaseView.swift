@@ -228,8 +228,10 @@ public struct InAppPurchaseView<Content: View>: View {
                             showingSwitchTierMessage = true
                         } label: {
                             Text("Switch Tier", bundle: .module)
+                                #if !os(macOS)
                                 .font(.headline)
                                 .frame(maxWidth: .infinity)
+                                #endif
                         }
                         #if os(watchOS)
                         .tint(.accentColor)
