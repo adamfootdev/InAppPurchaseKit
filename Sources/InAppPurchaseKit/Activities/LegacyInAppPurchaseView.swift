@@ -113,7 +113,7 @@ public struct LegacyInAppPurchaseView<Content: View>: View {
                     Divider()
                         .frame(maxWidth: mainWidth)
 
-                    LegacyAdditionalOptionsView()
+                    LegacyAdditionalOptionsView(ignorePurchaseState: $ignorePurchaseState)
                 }
             }
             .frame(maxWidth: .infinity)

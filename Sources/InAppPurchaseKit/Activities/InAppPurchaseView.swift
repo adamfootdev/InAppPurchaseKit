@@ -105,7 +105,7 @@ public struct InAppPurchaseView<Content: View>: View {
                     Divider()
                         .frame(maxWidth: mainWidth)
 
-                    AdditionalOptionsView()
+                    AdditionalOptionsView(ignorePurchaseState: $ignorePurchaseState)
                 }
             }
             .frame(maxWidth: .infinity)

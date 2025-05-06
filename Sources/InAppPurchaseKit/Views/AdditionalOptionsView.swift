@@ -12,8 +12,14 @@ import StoreKit
 struct AdditionalOptionsView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
+    @Binding private var ignorePurchaseState: Bool
+
     @State private var showingRedeemSheet: Bool = false
     @State private var showingTipJarSheet: Bool = false
+
+    init(ignorePurchaseState: Binding<Bool>) {
+        _ignorePurchaseState = ignorePurchaseState
+    }
 
     var body: some View {
         Group {
@@ -21,7 +27,7 @@ struct AdditionalOptionsView: View {
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
                     #if !targetEnvironment(macCatalyst)
-                    if inAppPurchase.purchaseState != .purchased {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         Button {
                             showingRedeemSheet = true
                         } label: {
@@ -167,7 +173,7 @@ struct AdditionalOptionsView: View {
 
 #Preview {
     if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
-        AdditionalOptionsView()
+        AdditionalOptionsView(ignorePurchaseState: .constant(false))
 //            .frame(height: 200)
             .frame(maxWidth: .infinity)
             .environment(InAppPurchaseKit.preview)

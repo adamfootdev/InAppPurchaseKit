@@ -11,8 +11,14 @@ import StoreKit
 struct LegacyAdditionalOptionsView: View {
     @EnvironmentObject private var inAppPurchase: LegacyInAppPurchaseKit
 
+    @Binding private var ignorePurchaseState: Bool
+
     @State private var showingRedeemSheet: Bool = false
     @State private var showingTipJarSheet: Bool = false
+
+    init(ignorePurchaseState: Binding<Bool>) {
+        _ignorePurchaseState = ignorePurchaseState
+    }
 
     var body: some View {
         #if os(iOS) || os(visionOS)
@@ -36,7 +42,7 @@ struct LegacyAdditionalOptionsView: View {
                 HStack(spacing: 16) {
                     #if !targetEnvironment(macCatalyst)
                     if #available(iOS 16.0, *) {
-                        if inAppPurchase.purchaseState != .purchased {
+                        if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                             Button {
                                 showingRedeemSheet = true
                             } label: {
@@ -187,6 +193,6 @@ struct LegacyAdditionalOptionsView: View {
 }
 
 #Preview {
-    LegacyAdditionalOptionsView()
+    LegacyAdditionalOptionsView(ignorePurchaseState: .constant(false))
         .environmentObject(LegacyInAppPurchaseKit.preview)
 }
