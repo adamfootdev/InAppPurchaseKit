@@ -21,14 +21,13 @@ struct LegacyAdditionalOptionsView: View {
     }
 
     var body: some View {
-        #if os(iOS) || os(visionOS)
-        if #available(iOS 16.0, *) {
+        #if os(iOS) || os(macOS) || os(visionOS)
+        if #available(iOS 16.0, macOS 15.0, *) {
             additionalOptionsView
                 .offerCodeRedemption(isPresented: $showingRedeemSheet)
         } else {
             additionalOptionsView
         }
-
         #else
         additionalOptionsView
         #endif
@@ -40,7 +39,6 @@ struct LegacyAdditionalOptionsView: View {
             #if os(iOS) || os(visionOS)
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
-                    #if !targetEnvironment(macCatalyst)
                     if #available(iOS 16.0, *) {
                         if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                             Button {
@@ -59,7 +57,6 @@ struct LegacyAdditionalOptionsView: View {
                             #endif
                         }
                     }
-                    #endif
 
                     if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
@@ -100,10 +97,30 @@ struct LegacyAdditionalOptionsView: View {
             #elseif os(macOS)
             ViewThatFits {
                 HStack(spacing: 16) {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
+                        if #available(macOS 15.0, *) {
+                            Button {
+                                showingRedeemSheet = true
+                            } label: {
+                                Text("Redeem Code", bundle: .module)
+                            }
+                        }
+                    }
+
                     additionalOptionsContent(useDivider: false)
                 }
 
                 VStack(spacing: 8) {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
+                        if #available(macOS 15.0, *) {
+                            Button {
+                                showingRedeemSheet = true
+                            } label: {
+                                Text("Redeem Code", bundle: .module)
+                            }
+                        }
+                    }
+                    
                     additionalOptionsContent(useDivider: false)
                 }
             }

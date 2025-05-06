@@ -22,11 +22,23 @@ struct AdditionalOptionsView: View {
     }
 
     var body: some View {
+        #if os(macOS)
+        if #available(macOS 15.0, *) {
+            additionalOptionsView
+                .offerCodeRedemption(isPresented: $showingRedeemSheet)
+        } else {
+            additionalOptionsView
+        }
+        #else
+        additionalOptionsView
+        #endif
+    }
+
+    private var additionalOptionsView: some View {
         Group {
             #if os(iOS) || os(visionOS)
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
-                    #if !targetEnvironment(macCatalyst)
                     if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         Button {
                             showingRedeemSheet = true
@@ -43,7 +55,6 @@ struct AdditionalOptionsView: View {
                         .tint(.accentColor)
                         #endif
                     }
-                    #endif
 
                     if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
                         Button {
@@ -79,10 +90,30 @@ struct AdditionalOptionsView: View {
             #elseif os(macOS)
             ViewThatFits {
                 HStack(spacing: 16) {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
+                        if #available(macOS 15.0, *) {
+                            Button {
+                                showingRedeemSheet = true
+                            } label: {
+                                Text("Redeem Code", bundle: .module)
+                            }
+                        }
+                    }
+
                     additionalOptionsContent(useDivider: false)
                 }
 
                 VStack(spacing: 8) {
+                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
+                        if #available(macOS 15.0, *) {
+                            Button {
+                                showingRedeemSheet = true
+                            } label: {
+                                Text("Redeem Code", bundle: .module)
+                            }
+                        }
+                    }
+
                     additionalOptionsContent(useDivider: false)
                 }
             }
