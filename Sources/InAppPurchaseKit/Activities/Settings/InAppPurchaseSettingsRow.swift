@@ -10,17 +10,26 @@ import SwiftUI
 public struct InAppPurchaseSettingsRow: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    @Binding private var showingPurchaseView: Bool
+    private let onPurchaseAction: (@Sendable () -> Void)?
 
-    public init(showingPurchaseView: Binding<Bool>) {
-        _showingPurchaseView = showingPurchaseView
+    @State private var showingPurchaseSheet: Bool = false
+
+    public init(
+        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+    ) {
+        self.onPurchaseAction = onPurchaseAction
     }
 
     public var body: some View {
-        if inAppPurchase.purchaseState == .purchased {
-            subscribedButton
-        } else {
-            purchaseButton
+        Group {
+            if inAppPurchase.purchaseState == .purchased {
+                subscribedButton
+            } else {
+                purchaseButton
+            }
+        }
+        .sheet(isPresented: $showingPurchaseSheet) {
+            InAppPurchaseView(onPurchase: onPurchaseAction)
         }
     }
 
@@ -29,7 +38,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var subscribedButton: some View {
         Button {
-            showingPurchaseView = true
+            showingPurchaseSheet = true
         } label: {
             subscribedView
         }
@@ -78,7 +87,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var purchaseButton: some View {
         Button {
-            showingPurchaseView = true
+            showingPurchaseSheet = true
         } label: {
             purchaseView
         }
@@ -160,7 +169,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     private var viewButton: some View {
         Button {
-            showingPurchaseView = true
+            showingPurchaseSheet = true
         } label: {
             #if os(macOS)
             Text("View…")
@@ -203,7 +212,7 @@ public struct InAppPurchaseSettingsRow: View {
 
     NavigationStack {
         Form {
-            InAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
+            InAppPurchaseSettingsRow()
         }
         #if os(macOS)
         .formStyle(.grouped)

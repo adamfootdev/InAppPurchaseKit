@@ -32,12 +32,12 @@ struct FeatureRow: View {
                 .resizable()
                 .scaledToFit()
                 .font(imageFont)
-                .foregroundStyle(feature.systemColor)
+                .foregroundStyle(imageTint)
                 .frame(width: imageWidth, height: imageHeight)
                 .padding(imagePadding)
                 .background {
                     Circle()
-                        .foregroundStyle(feature.systemColor.opacity(0.2))
+                        .foregroundStyle(imageBackground)
                 }
                 .accessibilityHidden(true)
 
@@ -110,6 +110,22 @@ struct FeatureRow: View {
         return 20
         #else
         return 8
+        #endif
+    }
+
+    private var imageBackground: Color {
+        #if os(visionOS)
+        return feature.systemColor.opacity(0.7)
+        #else
+        return feature.systemColor.opacity(0.2)
+        #endif
+    }
+
+    private var imageTint: Color {
+        #if os(visionOS)
+        return .white
+        #else
+        return feature.systemColor
         #endif
     }
 }
