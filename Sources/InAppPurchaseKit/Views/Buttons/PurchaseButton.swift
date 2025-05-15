@@ -11,19 +11,13 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     @Binding private var tier: InAppPurchaseTier?
-    private let purchaseMetadata: [String: String]?
 
-    init(
-        for tier: Binding<InAppPurchaseTier?>,
-        purchaseMetadata: [String: String]?
-    ) {
+    init(for tier: Binding<InAppPurchaseTier?>) {
         _tier = tier
-        self.purchaseMetadata = purchaseMetadata
     }
 
     var body: some View {
@@ -51,12 +45,10 @@ struct PurchaseButton: View {
             }
             #endif
 
-            if let tier, let product = inAppPurchase.fetchProduct(for: tier) {
+            if let tier,
+                let product = inAppPurchase.fetchProduct(for: tier) {
                 Task {
-                    await inAppPurchase.purchase(
-                        product,
-                        with: purchaseMetadata
-                    )
+                    await inAppPurchase.purchase(product)
                 }
             }
         } label: {
@@ -123,15 +115,11 @@ struct PurchaseButton: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            PurchaseButton(
-//                for: .constant(.example),
-//                purchaseMetadata: nil,
-//                configuration: .preview
-//            )
-//            .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    PurchaseButton(
+        for: .constant(.example)
+    )
+    .environment(inAppPurchase)
+}

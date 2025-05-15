@@ -38,4 +38,11 @@ fileprivate struct CloseButton: UIViewRepresentable {
 
     func updateUIView(_ uiView: UIButton, context: Context) {}
 }
+
+#Preview {
+    DismissButton {
+        print("Done")
+    }
+    .frame(width: 0, height: 0)
+}
 #endif

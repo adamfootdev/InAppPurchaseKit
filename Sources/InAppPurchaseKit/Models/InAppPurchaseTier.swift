@@ -58,3 +58,9 @@ public struct InAppPurchaseTier: Identifiable, Hashable, Sendable {
         return tier
     }()
 }
+
+extension InAppPurchaseTier: Comparable {
+    public static func <(lhs: InAppPurchaseTier, rhs: InAppPurchaseTier) -> Bool {
+        lhs.type < rhs.type
+    }
+}

@@ -9,7 +9,6 @@
 import SwiftUI
 import WidgetKit
 
-@available(iOS 17.0, macOS 14.4, watchOS 10.0, *)
 public struct LockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.widgetFamily) private var widgetFamily
@@ -80,12 +79,18 @@ public struct LockedInAppPurchaseWidgetView: View {
     }
 }
 
-//#Preview {
-//    if #available(iOS 17.0, *) {
-//        return LockedInAppPurchaseWidgetView(
-//            learnMoreURL: URL(string: "myapp://?function=subscribe")!,
-//            tint: nil
-//        )
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    LockedInAppPurchaseWidgetView(
+        learnMoreURL: URL(string: "myapp://?function=subscribe")!,
+        tint: nil
+    )
+    .frame(width: 200, height: 200)
+    .background {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(Color.gray.opacity(0.2)).foregroundStyle(.secondary)
+    }
+    .environment(inAppPurchase)
+}
 #endif

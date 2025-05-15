@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum InAppPurchaseTierType: Sendable {
+public enum InAppPurchaseTierType: Int, Sendable {
     case weekly
     case monthly
     case yearly
@@ -72,5 +72,11 @@ public enum InAppPurchaseTierType: Sendable {
                 bundle: .module
             )
         }
+    }
+}
+
+extension InAppPurchaseTierType: Comparable {
+    public static func <(lhs: InAppPurchaseTierType, rhs: InAppPurchaseTierType) -> Bool {
+        lhs.rawValue < rhs.rawValue
     }
 }

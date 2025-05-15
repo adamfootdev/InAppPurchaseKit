@@ -12,7 +12,6 @@ import StoreKit
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct TipJarTierButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
@@ -42,10 +41,7 @@ struct TipJarTierButton: View {
 
                 if let product {
                     Task {
-                        await inAppPurchase.purchase(
-                            product,
-                            with: nil
-                        )
+                        await inAppPurchase.purchase(product)
                     }
                 }
             } label: {
@@ -129,18 +125,16 @@ struct TipJarTierButton: View {
 }
 
 #Preview {
-    if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
-        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+    let inAppPurchase = InAppPurchaseKit.preview
 
-        Form {
-            TipJarTierButton(.example)
-        }
-        #if os(macOS)
-        .formStyle(.grouped)
-        .frame(width: 500, height: 500)
-        #elseif os(visionOS)
-        .frame(width: 500, height: 500)
-        #endif
-        .environment(inAppPurchase)
+    Form {
+        TipJarTierButton(.example)
     }
+    #if os(macOS)
+    .formStyle(.grouped)
+    .frame(width: 500, height: 500)
+    #elseif os(visionOS)
+    .frame(width: 500, height: 500)
+    #endif
+    .environment(inAppPurchase)
 }

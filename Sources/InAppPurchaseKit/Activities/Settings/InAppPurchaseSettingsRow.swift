@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 public struct InAppPurchaseSettingsRow: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
@@ -38,7 +37,10 @@ public struct InAppPurchaseSettingsRow: View {
         .buttonStyle(.plain)
         #endif
         .accessibilityLabel(inAppPurchase.configuration.title)
-        .accessibilityValue(String(localized: "Subscribed", bundle: .module))
+        .accessibilityValue(String(
+            localized: "Subscribed",
+            bundle: .module
+        ))
     }
 
     private var subscribedView: some View {
@@ -196,20 +198,17 @@ public struct InAppPurchaseSettingsRow: View {
     }
 }
 
-//#Preview {
-//    if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//        _ = InAppPurchaseKit.configure(with: .preview)
-//    }
-//
-//    return NavigationStack {
-//        Form {
-//            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//                InAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
-//            }
-//        }
-//        #if os(macOS)
-//        .formStyle(.grouped)
-//        #endif
-//        .navigationTitle("Settings")
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    NavigationStack {
+        Form {
+            InAppPurchaseSettingsRow(showingPurchaseView: .constant(false))
+        }
+        #if os(macOS)
+        .formStyle(.grouped)
+        #endif
+        .navigationTitle("Settings")
+        .environment(inAppPurchase)
+    }
+}

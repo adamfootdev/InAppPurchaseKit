@@ -11,23 +11,18 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
-    private let purchaseMetadata: [String: String]?
 
     @Binding private var selectedTier: InAppPurchaseTier?
     @Binding private var showingAllTiers: Bool
 
     init(
         selectedTier: Binding<InAppPurchaseTier?>,
-        showingAllTiers: Binding<Bool>,
-        purchaseMetadata: [String: String]?
+        showingAllTiers: Binding<Bool>
     ) {
         _selectedTier = selectedTier
         _showingAllTiers = showingAllTiers
-        self.purchaseMetadata = purchaseMetadata
     }
 
     var body: some View {
@@ -63,8 +58,7 @@ struct TiersView: View {
         TierSelectionButton(
             tier: tier,
             selectedTier: $selectedTier,
-            accessoryType: accessoryType(for: tier),
-            purchaseMetadata: purchaseMetadata
+            accessoryType: accessoryType(for: tier)
         )
     }
 
@@ -86,16 +80,12 @@ struct TiersView: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            TiersView(
-//                selectedTier: .constant(.example),
-//                showingAllTiers: .constant(true),
-//                purchaseMetadata: nil,
-//                configuration: .preview
-//            )
-//            .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    TiersView(
+        selectedTier: .constant(.example),
+        showingAllTiers: .constant(true)
+    )
+    .environment(inAppPurchase)
+}

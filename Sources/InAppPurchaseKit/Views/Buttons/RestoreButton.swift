@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct RestoreButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
@@ -22,11 +21,9 @@ struct RestoreButton: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            RestoreButton()
-//                .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    RestoreButton()
+        .environment(inAppPurchase)
+}

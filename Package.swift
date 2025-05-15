@@ -7,11 +7,11 @@ let package = Package(
     name: "InAppPurchaseKit",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v15),
-        .macOS(.v13),
-        .tvOS(.v15),
+        .iOS(.v17),
+        .macOS("14.4"),
+        .tvOS(.v17),
         .visionOS(.v1),
-        .watchOS(.v8)
+        .watchOS(.v10)
     ],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -22,7 +22,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.3"),
-        .package(url: "https://github.com/adamfootdev/TPInAppReceipt", from: "3.4.0")
+        .package(url: "https://github.com/tikhop/TPInAppReceipt", from: "3.4.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

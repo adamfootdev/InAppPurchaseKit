@@ -20,8 +20,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var features: [InAppPurchaseFeature]
     public var termsOfUseURL: URL
     public var privacyPolicyURL: URL
-    public var loadProducts: Bool
-    public var enableSinglePurchaseMode: Bool
     public var showPrimaryTierOnly: Bool
     public var legacyUserThreshold: Int?
     public var showLegacyTier: Bool
@@ -29,7 +27,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var sharedUserDefaults: UserDefaults
     public var overridePurchased: Bool?
     public var enableHapticFeedback: Bool
-    public var purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: String]?) -> Void)?
+    public var purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)?
     public var updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
 
     public init(
@@ -44,8 +42,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         features: [InAppPurchaseFeature],
         termsOfUseURL: URL,
         privacyPolicyURL: URL,
-        loadProducts: Bool = true,
-        enableSinglePurchaseMode: Bool = true,
         showPrimaryTierOnly: Bool = true,
         legacyUserThreshold: Int? = nil,
         showLegacyTier: Bool = true,
@@ -53,7 +49,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
         enableHapticFeedback: Bool = true,
-        purchaseCompletionBlock: (@Sendable (_ product: Product, _ metadata: [String: String]?) -> Void)? = nil,
+        purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)? = nil,
         updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
     ) {
         self.title = title
@@ -67,8 +63,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.features = features
         self.termsOfUseURL = termsOfUseURL
         self.privacyPolicyURL = privacyPolicyURL
-        self.loadProducts = loadProducts
-        self.enableSinglePurchaseMode = enableSinglePurchaseMode
         self.showPrimaryTierOnly = showPrimaryTierOnly
         self.legacyUserThreshold = legacyUserThreshold
         self.showLegacyTier = showLegacyTier
@@ -81,7 +75,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     }
 
     var showSinglePurchaseMode: Bool {
-        tiers.allTiers.count == 1 && enableSinglePurchaseMode
+        tiers.allTiers.count == 1
     }
 
     var sortedTipJarTiers: [TipJarTier] {
@@ -89,9 +83,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             return []
         }
 
-        return tipJarTiers.sorted {
-            $0.type < $1.type
-        }
+        return tipJarTiers.sorted()
     }
 
 
@@ -110,16 +102,14 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             features: [.example, .example, .example],
             termsOfUseURL: URL(string: "https://adamfoot.dev")!,
             privacyPolicyURL: URL(string: "https://adamfoot.dev")!,
-            loadProducts: true,
-            enableSinglePurchaseMode: true,
             showPrimaryTierOnly: true,
             legacyUserThreshold: nil,
             showLegacyTier: true,
             fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil
-        ) { product, metadata in
-            print("Purchased \(product.displayName) with \(metadata ?? [:])")
+        ) { product in
+            print("Purchased \(product.displayName)")
         } updatedPurchasesCompletionBlock: {
             print("Updated Purchases")
         }

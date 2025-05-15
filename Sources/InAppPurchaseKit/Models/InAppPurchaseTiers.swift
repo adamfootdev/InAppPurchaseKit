@@ -60,6 +60,11 @@ public struct InAppPurchaseTiers: Sendable {
         return tiers.compactMap { $0 }
     }
 
+    public var orderedTiers: [InAppPurchaseTier] {
+        let tiers = [lifetimeTier, legacyUserLifetimeTier, yearlyTier, monthlyTier, weeklyTier]
+        return tiers.compactMap { $0 }
+    }
+
     var tierIDs: [String] {
         allTiers.map { $0.id }
     }

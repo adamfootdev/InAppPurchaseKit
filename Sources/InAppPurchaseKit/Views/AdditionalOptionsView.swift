@@ -8,7 +8,6 @@
 import SwiftUI
 import StoreKit
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct AdditionalOptionsView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
@@ -149,7 +148,6 @@ struct AdditionalOptionsView: View {
         }
         .sheet(isPresented: $showingTipJarSheet) {
             TipJarView(embedInNavigationStack: true)
-                .accentColor(inAppPurchase.configuration.tintColor)
                 .environment(inAppPurchase)
         }
     }
@@ -203,10 +201,14 @@ struct AdditionalOptionsView: View {
 }
 
 #Preview {
-    if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    VStack {
+        Spacer()
+            .frame(maxHeight: .infinity)
+            .layoutPriority(100)
+
         AdditionalOptionsView(ignorePurchaseState: .constant(false))
-//            .frame(height: 200)
-            .frame(maxWidth: .infinity)
-            .environment(InAppPurchaseKit.preview)
     }
+    .environment(inAppPurchase)
 }

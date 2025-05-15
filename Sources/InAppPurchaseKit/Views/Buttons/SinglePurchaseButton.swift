@@ -11,15 +11,8 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct SinglePurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
-    private let purchaseMetadata: [String: String]?
-
-    init(purchaseMetadata: [String: String]?) {
-        self.purchaseMetadata = purchaseMetadata
-    }
 
     var body: some View {
         VStack(spacing: mainSpacing) {
@@ -27,10 +20,7 @@ struct SinglePurchaseButton: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             if let tier {
-                PurchaseButton(
-                    for: .constant(tier),
-                    purchaseMetadata: purchaseMetadata
-                )
+                PurchaseButton(for: .constant(tier))
             }
         }
     }
@@ -82,14 +72,9 @@ struct SinglePurchaseButton: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            SinglePurchaseButton(
-//                purchaseMetadata: nil,
-//                configuration: .preview
-//            )
-//            .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    SinglePurchaseButton()
+        .environment(inAppPurchase)
+}

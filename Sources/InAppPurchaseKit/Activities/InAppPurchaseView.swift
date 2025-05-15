@@ -12,14 +12,12 @@ import StoreKit
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let embedInNavigationStack: Bool
-    private let purchaseMetadata: [String: String]?
+    private let includeNavigationStack: Bool
     private let onPurchaseAction: (@Sendable () -> Void)?
     @ViewBuilder private let doneButton: (() -> Content)?
     private let doneButtonPlacement: ToolbarItemPlacement
@@ -33,14 +31,12 @@ public struct InAppPurchaseView<Content: View>: View {
 
     #if os(watchOS)
     public init(
-        embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: String]? = nil,
+        includeNavigationStack: Bool = true,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
         doneButton: (() -> Content)? = nil
     ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.purchaseMetadata = purchaseMetadata
+        self.includeNavigationStack = includeNavigationStack
         self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
@@ -48,14 +44,12 @@ public struct InAppPurchaseView<Content: View>: View {
 
     #else
     public init(
-        embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: String]? = nil,
+        includeNavigationStack: Bool = true,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
         doneButton: (() -> Content)? = nil
     ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.purchaseMetadata = purchaseMetadata
+        self.includeNavigationStack = includeNavigationStack
         self.onPurchaseAction = onPurchaseAction
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
@@ -64,7 +58,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
     public var body: some View {
         Group {
-            if embedInNavigationStack {
+            if includeNavigationStack {
                 NavigationStack {
                     embeddedSubscriptionView
                 }
@@ -124,11 +118,8 @@ public struct InAppPurchaseView<Content: View>: View {
                 VStack(spacing: 16) {
                     Divider()
 
-                    PurchaseButton(
-                        for: $selectedTier,
-                        purchaseMetadata: purchaseMetadata
-                    )
-                    .padding([.horizontal, .bottom])
+                    PurchaseButton(for: $selectedTier)
+                        .padding([.horizontal, .bottom])
                 }
                 .background {
                     Rectangle()
@@ -145,7 +136,7 @@ public struct InAppPurchaseView<Content: View>: View {
         #endif
         .toolbar {
             #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
-            if embedInNavigationStack || doneButton != nil {
+            if includeNavigationStack || doneButton != nil {
                 doneToolbarItem
             }
             #endif
@@ -170,6 +161,7 @@ public struct InAppPurchaseView<Content: View>: View {
                 await transactionStateUpdated(to: transactionState)
             }
         }
+        .accentColor(inAppPurchase.configuration.tintColor)
     }
 
     private var mainSpacing: CGFloat {
@@ -245,15 +237,12 @@ public struct InAppPurchaseView<Content: View>: View {
 
             } else {
                 if inAppPurchase.configuration.showSinglePurchaseMode {
-                    SinglePurchaseButton(
-                        purchaseMetadata: purchaseMetadata
-                    )
+                    SinglePurchaseButton()
                 } else {
                     VStack(spacing: 12) {
                         TiersView(
                             selectedTier: $selectedTier,
-                            showingAllTiers: $showingAllTiers,
-                            purchaseMetadata: purchaseMetadata
+                            showingAllTiers: $showingAllTiers
                         )
 
                         #if !os(tvOS) && !os(watchOS)
@@ -279,10 +268,7 @@ public struct InAppPurchaseView<Content: View>: View {
 
                     #if os(macOS) || os(visionOS)
                     if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
-                        PurchaseButton(
-                            for: $selectedTier,
-                            purchaseMetadata: purchaseMetadata
-                        )
+                        PurchaseButton(for: $selectedTier)
                     }
                     #endif
                 }
@@ -419,16 +405,13 @@ public struct InAppPurchaseView<Content: View>: View {
 }
 
 #if os(watchOS)
-@available(watchOS 10.0, *)
 extension InAppPurchaseView where Content == EmptyView {
     public init(
-        embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: String]? = nil,
+        includeNavigationStack: Bool = true,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
     ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.purchaseMetadata = purchaseMetadata
+        self.includeNavigationStack = includeNavigationStack
         self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
@@ -436,16 +419,13 @@ extension InAppPurchaseView where Content == EmptyView {
 }
 
 #else
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, *)
 extension InAppPurchaseView where Content == EmptyView {
     public init(
-        embedInNavigationStack: Bool = true,
-        purchaseMetadata: [String: String]? = nil,
+        includeNavigationStack: Bool = true,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
         doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
     ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.purchaseMetadata = purchaseMetadata
+        self.includeNavigationStack = includeNavigationStack
         self.onPurchaseAction = onPurchaseAction
         self.doneButton = nil
         self.doneButtonPlacement = doneButtonPlacement
@@ -454,10 +434,8 @@ extension InAppPurchaseView where Content == EmptyView {
 #endif
 
 #Preview {
-    if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
-        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+    let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
 
-        InAppPurchaseView()
-            .environment(inAppPurchase)
-    }
+    InAppPurchaseView()
+        .environment(inAppPurchase)
 }

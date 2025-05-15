@@ -11,7 +11,6 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 public struct TipJarView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -56,6 +55,7 @@ public struct TipJarView<Content: View>: View {
                 tipJarView
             }
         }
+        .accentColor(inAppPurchase.configuration.tintColor)
         .environment(inAppPurchase)
     }
 
@@ -280,7 +280,6 @@ public struct TipJarView<Content: View>: View {
 }
 
 #if os(watchOS)
-@available(watchOS 10.0, *)
 extension TipJarView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
@@ -293,7 +292,6 @@ extension TipJarView where Content == EmptyView {
 }
 
 #else
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, *)
 extension TipJarView where Content == EmptyView {
     public init(
         embedInNavigationStack: Bool = true,
@@ -307,10 +305,8 @@ extension TipJarView where Content == EmptyView {
 #endif
 
 #Preview {
-    if #available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *) {
-        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+    let inAppPurchase = InAppPurchaseKit.preview
 
-        TipJarView()
-            .environment(inAppPurchase)
-    }
+    TipJarView()
+        .environment(inAppPurchase)
 }

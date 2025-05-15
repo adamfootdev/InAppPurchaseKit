@@ -1,5 +1,5 @@
 {
-  "originHash" : "a683c0d40a267c9cf18110f50a0462f8311470934a11239b6d76d4390196ed9c",
+  "originHash" : "ec909667b9eabe06128aa47ffb033d8786f504e23bebf5f97ae0c1ead6016745",
   "pins" : [
     {
       "identity" : "asn1swift",
@@ -22,10 +22,10 @@
     {
       "identity" : "tpinappreceipt",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/adamfootdev/TPInAppReceipt",
+      "location" : "https://github.com/tikhop/TPInAppReceipt",
       "state" : {
-        "revision" : "b3f472842a474deef4127758a4ad6300280715f7",
-        "version" : "3.4.0"
+        "revision" : "e135055eaeba5a52874b7f9b290f42890cbe981f",
+        "version" : "3.4.1"
       }
     }
   ],

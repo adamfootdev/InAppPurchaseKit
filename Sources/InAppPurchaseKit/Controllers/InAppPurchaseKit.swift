@@ -9,7 +9,6 @@ import Foundation
 import StoreKit
 import TPInAppReceipt
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 @MainActor @Observable
 public final class InAppPurchaseKit: NSObject {
     private static var initializedInAppPurchaseKit: InAppPurchaseKit?
@@ -25,11 +24,7 @@ public final class InAppPurchaseKit: NSObject {
     public private(set) var configuration: InAppPurchaseKitConfiguration
     private var updateListenerTask: Task<Void, Error>? = nil
 
-    public private(set) var availableProducts: [Product] = []
-    public private(set) var productsWithIntroOffer: [Product: Product.SubscriptionOffer] = [:]
-    public private(set) var purchasedTiers: Set<InAppPurchaseTier> = []
-    public private(set) var legacyUserState: LegacyUserState = .pending
-    public private(set) var hasLoaded: Bool = false
+    public private(set) var productsLoadState: ProductsLoadState = .pending
 
     private var checkingPromotedPurchase: Bool = false
 
@@ -39,10 +34,8 @@ public final class InAppPurchaseKit: NSObject {
             case .purchased(_):
                 Task {
                     try? await Task.sleep(for: .seconds(2))
-
                     transactionState = .pending
                 }
-
             default:
                 break
             }
@@ -60,7 +53,7 @@ public final class InAppPurchaseKit: NSObject {
         updateListenerTask = listenForTransactions()
 
         Task {
-            await configurePurchases()
+            await updateProductLoadState()
             await checkForExternalPurchases()
         }
     }
@@ -84,19 +77,32 @@ public final class InAppPurchaseKit: NSObject {
         self.configuration = configuration
     }
 
-    private func configurePurchases() async {
-        if configuration.loadProducts {
-            await requestProducts()
+
+    // MARK: - Products
+
+    private func updateProductLoadState(fromReload: Bool = false) async {
+        if fromReload == false {
+            productsLoadState = .loading
         }
 
-        await verifyExistingTransactions()
-        updateLegacyUserState()
+        let products = await fetchProducts()
+        let purchasedTiers = await fetchPurchasedTiers()
+        let legacyUser = fetchLegacyUserState()
 
-        hasLoaded = true
+        productsLoadState = .loaded(
+            products.products,
+            products.introOffers,
+            purchasedTiers,
+            legacyUser
+        )
+
+        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
+            updatedPurchasesCompletionBlock()
+        }
     }
 
     public func waitUntilLoadedPurchases() async {
-        if hasLoaded && legacyUserState != .pending {
+        if productsLoadState.hasLoaded {
             return
         } else {
             try? await Task.sleep(for: .seconds(0.3))
@@ -104,14 +110,66 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    public func checkForExternalPurchases(with metadata: [String: String]? = nil) async {
+    private func fetchProducts() async -> (
+        products: [Product],
+        introOffers: [Product: Product.SubscriptionOffer]
+    ) {
+        do {
+            let products = try await Product.products(
+                for: configuration.tiers.tierIDs + configuration.sortedTipJarTiers.map { $0.id }
+            )
+
+            var introOffers: [Product: Product.SubscriptionOffer] = [:]
+
+            for product in products {
+                if let introOffer = await fetchIntroOffer(for: product) {
+                    introOffers[product] = introOffer
+                }
+            }
+
+            return (products, introOffers)
+
+        } catch {
+            return ([], [:])
+        }
+    }
+
+    private func fetchTransactionState(
+        for productIdentifier: String
+    ) async throws -> Bool {
+        guard let result = await Transaction.latest(for: productIdentifier) else {
+            return false
+        }
+
+        let transaction = try checkVerified(result)
+
+        if let expirationDate = transaction.expirationDate,
+           expirationDate < .now {
+            return false
+        } else {
+            return transaction.revocationDate == nil && !transaction.isUpgraded
+        }
+    }
+
+    public func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
+        productsLoadState.fetchProduct(for: tier.id)
+    }
+
+    public func fetchProduct(for tipJarTier: TipJarTier) -> Product? {
+        productsLoadState.fetchProduct(for: tipJarTier.id)
+    }
+
+
+    // MARK: - External Purchases
+
+    public func checkForExternalPurchases() async {
         guard checkingPromotedPurchase == false else { return }
 
         checkingPromotedPurchase = true
 
         #if os(iOS) || os(macOS)
         for await purchaseIntent in PurchaseIntent.intents {
-            await purchase(purchaseIntent.product, with: metadata)
+            await purchase(purchaseIntent.product)
         }
         #endif
 
@@ -122,8 +180,8 @@ public final class InAppPurchaseKit: NSObject {
     // MARK: - Purchase Status
 
     public var activeTier: InAppPurchaseTier? {
-        return configuration.tiers.allTiers.first(where: {
-            purchasedTiers.contains($0)
+        return configuration.tiers.orderedTiers.first(where: {
+            productsLoadState.purchasedTiers.contains($0)
         })
     }
 
@@ -138,7 +196,7 @@ public final class InAppPurchaseKit: NSObject {
             return purchased ? .purchased : .notPurchased
 
         } else {
-            guard hasLoaded else {
+            guard productsLoadState.hasLoaded else {
                 return .pending
             }
 
@@ -156,30 +214,20 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Legacy Users
 
-    private func updateLegacyUserState() {
-        guard let receipt = try? InAppReceipt.localReceipt() else {
-            legacyUserState = .notLegacyUser
-            return
-        }
-
-        guard let legacyUserThreshold = configuration.legacyUserThreshold else {
-            legacyUserState = .notLegacyUser
-            return
+    private func fetchLegacyUserState() -> Bool {
+        guard let receipt = try? InAppReceipt.localReceipt(),
+              let legacyUserThreshold = configuration.legacyUserThreshold else {
+            return false
         }
 
         let originalVersion = receipt.originalAppVersion
 
         guard originalVersion != "1.0",
               let originalVersion = Int(originalVersion) else {
-            legacyUserState = .notLegacyUser
-            return
+            return false
         }
 
-        if originalVersion < legacyUserThreshold {
-            legacyUserState = .legacyUser
-        } else {
-            legacyUserState = .notLegacyUser
-        }
+        return originalVersion < legacyUserThreshold
     }
 
 
@@ -188,17 +236,17 @@ public final class InAppPurchaseKit: NSObject {
     public var primaryTier: InAppPurchaseTier? {
         let tiers = configuration.tiers
 
-        if configuration.showLegacyTier && legacyUserState == .legacyUser {
+        if configuration.showLegacyTier && productsLoadState.isLegacyUser {
             return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier
         } else {
-            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier ?? tiers.legacyUserLifetimeTier
+            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier
         }
     }
 
     public var availableTiers: [InAppPurchaseTier] {
         let tiers = configuration.tiers
 
-        if configuration.showLegacyTier && legacyUserState == .legacyUser {
+        if configuration.showLegacyTier && productsLoadState.isLegacyUser {
             let availableTiers = [
                 tiers.weeklyTier,
                 tiers.monthlyTier,
@@ -263,52 +311,65 @@ public final class InAppPurchaseKit: NSObject {
         return message
     }
 
+    private func fetchPurchasedTiers() async -> Set<InAppPurchaseTier> {
+        var purchasedTiers: Set<InAppPurchaseTier> = []
 
-    // MARK: - Products
-
-    private func requestProducts() async {
-        do {
-            availableProducts = try await Product.products(
-                for: configuration.tiers.tierIDs + configuration.sortedTipJarTiers.map { $0.id }
-            )
-
-            for product in availableProducts {
-                if let introOffer = await fetchIntroOffer(for: product) {
-                    productsWithIntroOffer[product] = introOffer
+        for tier in configuration.tiers.allTiers {
+            do {
+                if try await fetchTransactionState(for: tier.id) {
+                    purchasedTiers.insert(tier)
                 }
+            } catch {}
+        }
+
+        return purchasedTiers
+    }
+
+    private func updatePurchasedTiers(_ transaction: Transaction) async {
+        var purchasedTiers: Set<InAppPurchaseTier> = []
+
+        switch productsLoadState {
+        case .loaded(_, _, let tiers, _):
+            purchasedTiers = tiers
+        default:
+            purchasedTiers = []
+        }
+
+        if transaction.revocationDate == nil {
+            if let tier = configuration.tiers.allTiers.first(where: {
+                $0.id == transaction.productID
+            }) {
+                purchasedTiers.insert(tier)
+            }
+        } else {
+            let tiers = purchasedTiers.filter {
+                $0.id == transaction.productID
             }
 
-        } catch {
-            print("Failed product request: \(error.localizedDescription)")
+            for tier in tiers {
+                purchasedTiers.remove(tier)
+            }
+        }
+
+        switch productsLoadState {
+        case .loaded(let products, let introOffers, _, let legacyUser):
+            productsLoadState = .loaded(
+                products,
+                introOffers,
+                purchasedTiers,
+                legacyUser
+            )
+        default:
+            break
+        }
+
+        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
+            updatedPurchasesCompletionBlock()
         }
     }
 
-    private func fetchTransactionState(for productIdentifier: String) async throws -> Bool {
-        guard let result = await Transaction.latest(for: productIdentifier) else {
-            return false
-        }
 
-        let transaction = try checkVerified(result)
-
-        if let expirationDate = transaction.expirationDate,
-           expirationDate < .now {
-            return false
-        } else {
-            return transaction.revocationDate == nil && !transaction.isUpgraded
-        }
-    }
-
-    public func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
-        availableProducts.first(where: { $0.id == tier.id })
-    }
-
-    public func fetchProduct(for tipJarTier: TipJarTier) -> Product? {
-        availableProducts.first(where: { $0.id == tipJarTier.id })
-    }
-
-    public var productsLoaded: Bool {
-        availableProducts.isEmpty == false
-    }
+    // MARK: - Savings
 
     public var yearlySaving: Int? {
         guard let monthlyTier = configuration.tiers.monthlyTier,
@@ -353,17 +414,14 @@ public final class InAppPurchaseKit: NSObject {
     }
 
     public func introOffer(for product: Product) -> Product.SubscriptionOffer? {
-        productsWithIntroOffer[product]
+        productsLoadState.fetchIntroOffer(for: product)
     }
 
 
     // MARK: - Purchase
 
     @discardableResult
-    public func purchase(
-        _ product: Product,
-        with metadata: [String: String]?
-    ) async -> Transaction? {
+    public func purchase(_ product: Product) async -> Transaction? {
         transactionState = .purchasing
 
         do {
@@ -381,9 +439,10 @@ public final class InAppPurchaseKit: NSObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
 
-                if configuration.sortedTipJarTiers.contains(where: {$0.id == transaction.productID }) {
+                if configuration.sortedTipJarTiers.contains(where: {
+                    $0.id == transaction.productID
+                }) {
                     await transaction.finish()
-
                     transactionState = .purchased(.tipJar)
 
                 } else {
@@ -393,7 +452,7 @@ public final class InAppPurchaseKit: NSObject {
                     transactionState = .purchased(.subscription)
 
                     if let purchaseCompletionBlock = configuration.purchaseCompletionBlock {
-                        purchaseCompletionBlock(product, metadata)
+                        purchaseCompletionBlock(product)
                     }
                 }
 
@@ -427,7 +486,7 @@ public final class InAppPurchaseKit: NSObject {
 
     public func restorePurchases() async {
         try? await AppStore.sync()
-        updateLegacyUserState()
+        await updateProductLoadState(fromReload: true)
     }
 
 
@@ -445,26 +504,8 @@ public final class InAppPurchaseKit: NSObject {
                         self.transactionState = .purchased(.subscription)
                     }
 
-                } catch {
-                    print("Transaction failed verification")
-                }
+                } catch {}
             }
-        }
-    }
-
-    func verifyExistingTransactions() async {
-        for tier in configuration.tiers.allTiers {
-            do {
-                if try await fetchTransactionState(for: tier.id) {
-                    purchasedTiers.insert(tier)
-                }
-            } catch {
-                print("Transaction failed verification")
-            }
-        }
-
-        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
-            updatedPurchasesCompletionBlock()
         }
     }
 
@@ -474,28 +515,6 @@ public final class InAppPurchaseKit: NSObject {
             throw InAppPurchaseKitError.failedStoreVerification
         case .verified(let safe):
             return safe
-        }
-    }
-
-    private func updatePurchasedTiers(_ transaction: Transaction) async {
-        if transaction.revocationDate == nil {
-            if let tier = configuration.tiers.allTiers.first(where: {
-                $0.id == transaction.productID
-            }) {
-                purchasedTiers.insert(tier)
-            }
-        } else {
-            let tiers = purchasedTiers.filter {
-                $0.id == transaction.productID
-            }
-
-            for tier in tiers {
-                purchasedTiers.remove(tier)
-            }
-        }
-
-        if let updatedPurchasesCompletionBlock = configuration.updatedPurchasesCompletionBlock {
-            updatedPurchasesCompletionBlock()
         }
     }
 

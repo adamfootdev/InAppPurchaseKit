@@ -52,3 +52,9 @@ public struct TipJarTier: Identifiable, Hashable, Sendable {
         ]
     }()
 }
+
+extension TipJarTier: Comparable {
+    public static func <(lhs: TipJarTier, rhs: TipJarTier) -> Bool {
+        lhs.type < rhs.type
+    }
+}

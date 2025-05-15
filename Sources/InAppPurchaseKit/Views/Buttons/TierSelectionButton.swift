@@ -11,25 +11,21 @@ import SwiftUI
 import HapticsKit
 #endif
 
-@available(iOS 17.0, macOS 14.4, tvOS 17.0, watchOS 10.0, *)
 struct TierSelectionButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     private let tier: InAppPurchaseTier
     @Binding private var selectedTier: InAppPurchaseTier?
     private let accessoryType: InAppPurchaseTierAccessoryType?
-    private let purchaseMetadata: [String: String]?
 
     init(
         tier: InAppPurchaseTier,
         selectedTier: Binding<InAppPurchaseTier?>,
-        accessoryType: InAppPurchaseTierAccessoryType? = nil,
-        purchaseMetadata: [String: String]?
+        accessoryType: InAppPurchaseTierAccessoryType? = nil
     ) {
         self.tier = tier
         _selectedTier = selectedTier
         self.accessoryType = accessoryType
-        self.purchaseMetadata = purchaseMetadata
     }
 
     var body: some View {
@@ -40,10 +36,7 @@ struct TierSelectionButton: View {
             if inAppPurchase.transactionState == .purchasing {
                 ProgressView()
             } else {
-                PurchaseButton(
-                    for: .constant(tier),
-                    purchaseMetadata: purchaseMetadata
-                )
+                PurchaseButton(for: .constant(tier))
             }
         }
 
@@ -68,10 +61,7 @@ struct TierSelectionButton: View {
 
             if let product = inAppPurchase.fetchProduct(for: tier) {
                 Task {
-                    await inAppPurchase.purchase(
-                        product,
-                        with: purchaseMetadata
-                    )
+                    await inAppPurchase.purchase(product)
                 }
             }
 
@@ -262,17 +252,13 @@ struct TierSelectionButton: View {
     }
 }
 
-//#Preview {
-//    Group {
-//        if #available(iOS 17.0, macOS 14.0, tvOS 17.0, *) {
-//            TierSelectionButton(
-//                tier: .example,
-//                selectedTier: .constant(.example),
-//                accessoryType: .saving(value: 20),
-//                purchaseMetadata: nil,
-//                configuration: .preview
-//            )
-//            .environment(InAppPurchaseKit.preview)
-//        }
-//    }
-//}
+#Preview {
+    let inAppPurchase = InAppPurchaseKit.preview
+
+    TierSelectionButton(
+        tier: .example,
+        selectedTier: .constant(.example),
+        accessoryType: .saving(value: 20)
+    )
+    .environment(inAppPurchase)
+}
