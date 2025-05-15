@@ -46,8 +46,12 @@ struct TipJarTierButton: View {
                 }
             } label: {
                 ZStack {
-                    Text(verbatim: "$19.99")
+                    Text(verbatim: "-")
                         .foregroundStyle(Color.clear)
+                        .accessibilityHidden(true)
+                        #if os(tvOS)
+                        .padding(.horizontal, 12)
+                        #endif
 
                     if let product {
                         Text(product.displayPrice)
