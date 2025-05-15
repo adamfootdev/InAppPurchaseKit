@@ -51,7 +51,7 @@ struct AdditionalOptionsView: View {
                         #if os(iOS)
                         .buttonStyle(.bordered)
                         .controlSize(.large)
-                        .tint(.accentColor)
+                        .tint(inAppPurchase.configuration.tintColor)
                         #endif
                     }
 
@@ -68,7 +68,7 @@ struct AdditionalOptionsView: View {
                         #if os(iOS)
                         .buttonStyle(.bordered)
                         .controlSize(.large)
-                        .tint(.accentColor)
+                        .tint(inAppPurchase.configuration.tintColor)
                         #endif
                     }
 

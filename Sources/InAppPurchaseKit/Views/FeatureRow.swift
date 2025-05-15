@@ -36,8 +36,12 @@ struct FeatureRow: View {
                 .frame(width: imageWidth, height: imageHeight)
                 .padding(imagePadding)
                 .background {
-                    Circle()
+                    RoundedRectangle(cornerRadius: imageRadius)
                         .foregroundStyle(imageBackground)
+                        .frame(
+                            width: imageWidth + (imagePadding * 2),
+                            height: imageWidth + (imagePadding * 2)
+                        )
                 }
                 .accessibilityHidden(true)
 
@@ -91,26 +95,30 @@ struct FeatureRow: View {
 
     private var imageWidth: CGFloat {
         #if os(tvOS)
-        return 36
+        return 40
         #else
-        return 18
+        return 24
         #endif
     }
 
     private var imageHeight: CGFloat {
         #if os(tvOS)
-        return 28
+        return 30
         #else
-        return 14
+        return 18
         #endif
     }
 
     private var imagePadding: CGFloat {
         #if os(tvOS)
-        return 20
+        return 10
         #else
-        return 8
+        return 6
         #endif
+    }
+
+    private var imageRadius: CGFloat {
+        imageWidth/2
     }
 
     private var imageBackground: Color {

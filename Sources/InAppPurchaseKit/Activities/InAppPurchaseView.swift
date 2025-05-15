@@ -161,7 +161,9 @@ public struct InAppPurchaseView<Content: View>: View {
                 await transactionStateUpdated(to: transactionState)
             }
         }
+        #if !os(tvOS)
         .accentColor(inAppPurchase.configuration.tintColor)
+        #endif
     }
 
     private var mainSpacing: CGFloat {
@@ -226,7 +228,7 @@ public struct InAppPurchaseView<Content: View>: View {
                                 #endif
                         }
                         #if os(watchOS)
-                        .tint(.accentColor)
+                        .tint(inAppPurchase.configuration.tintColor)
                         #endif
 
                     default:

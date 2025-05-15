@@ -60,7 +60,7 @@ public struct LockedInAppPurchaseFeatureView: View {
                 #else
                 .buttonStyle(.plain)
                 .font(.subheadline)
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(inAppPurchase.configuration.tintColor)
                 #endif
             }
         }

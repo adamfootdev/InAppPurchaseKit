@@ -55,7 +55,9 @@ public struct TipJarView<Content: View>: View {
                 tipJarView
             }
         }
+        #if !os(tvOS)
         .accentColor(inAppPurchase.configuration.tintColor)
+        #endif
         .environment(inAppPurchase)
     }
 

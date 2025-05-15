@@ -70,7 +70,7 @@ struct PurchaseButton: View {
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
         #elseif os(watchOS)
-        .tint(.accentColor)
+        .tint(inAppPurchase.configuration.tintColor)
         #endif
         .disabled(inAppPurchase.transactionState != .pending)
         .overlay {

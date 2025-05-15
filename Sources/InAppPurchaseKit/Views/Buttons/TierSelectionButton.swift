@@ -187,7 +187,7 @@ struct TierSelectionButton: View {
                     #if os(visionOS)
                     .foregroundStyle(Color.white)
                     #else
-                    .foregroundStyle(Color.white, Color.accentColor)
+                    .foregroundStyle(Color.white, inAppPurchase.configuration.tintColor)
                     #endif
             } else {
                 Image(systemName: "circle")
@@ -226,7 +226,7 @@ struct TierSelectionButton: View {
                         style: .continuous
                     )
                     .stroke(
-                        Color.accentColor,
+                        inAppPurchase.configuration.tintColor,
                         lineWidth: 2
                     )
                 }
