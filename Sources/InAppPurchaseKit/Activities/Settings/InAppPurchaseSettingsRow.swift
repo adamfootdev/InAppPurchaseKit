@@ -21,13 +21,18 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     public var body: some View {
-        Group {
+        ZStack {
             if inAppPurchase.purchaseState == .purchased {
                 subscribedButton
             } else {
                 purchaseButton
             }
         }
+        #if os(iOS) || os(visionOS)
+        .listRowBackground(inAppPurchase.purchaseState == .purchased ? nil : purchaseBackground)
+        #elseif os(watchOS)
+        .listItemTint(inAppPurchase.purchaseState == .purchased ? nil : inAppPurchase.configuration.tintColor)
+        #endif
         .sheet(isPresented: $showingPurchaseSheet) {
             InAppPurchaseView(onPurchase: onPurchaseAction)
         }
@@ -93,11 +98,6 @@ public struct InAppPurchaseSettingsRow: View {
         }
         #if os(iOS) || os(macOS)
         .buttonStyle(.plain)
-        #endif
-        #if os(iOS) || os(visionOS)
-        .listRowBackground(purchaseBackground)
-        #elseif os(watchOS)
-        .listItemTint(inAppPurchase.configuration.tintColor)
         #endif
         .accessibilityLabel(inAppPurchase.configuration.title)
     }
