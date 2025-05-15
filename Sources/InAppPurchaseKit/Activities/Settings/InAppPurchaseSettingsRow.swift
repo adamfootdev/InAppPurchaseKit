@@ -95,15 +95,26 @@ public struct InAppPurchaseSettingsRow: View {
         .buttonStyle(.plain)
         #endif
         #if os(iOS) || os(visionOS)
-        .listRowBackground(purchasedBackground)
+        .listRowBackground(purchaseBackground)
         #elseif os(watchOS)
-        .listItemTint(.accentColor)
+        .listItemTint(inAppPurchase.configuration.tintColor)
         #endif
         .accessibilityLabel(inAppPurchase.configuration.title)
     }
 
     private var purchaseView: some View {
         HStack(spacing: 8) {
+            #if os(iOS) || os(macOS) || os(tvOS) || os(visionOS)
+            Image(systemName: inAppPurchase.configuration.systemImage)
+                .imageScale(.large)
+                .font(titleFont)
+                .foregroundStyle(titleColor)
+                .padding(.trailing, 8)
+                #if os(tvOS)
+                .padding(.trailing, 20)
+                #endif
+            #endif
+
             VStack(alignment: .leading, spacing: purchaseSpacing) {
                 Text(inAppPurchase.configuration.title)
                     .font(titleFont)
@@ -115,9 +126,12 @@ public struct InAppPurchaseSettingsRow: View {
             }
             .minimumScaleFactor(0.6)
 
-            #if os(iOS) || os(macOS) || os(visionOS)
+            #if os(iOS) || os(macOS) || os(tvOS) || os(visionOS)
             Spacer()
-            viewButton
+
+            Image(systemName: "chevron.forward")
+                .foregroundStyle(subtitleColor)
+                .font(subtitleFont)
             #endif
         }
         .padding(.vertical, 8)
@@ -142,8 +156,10 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     private var titleColor: Color {
-        #if os(macOS) || os(tvOS)
+        #if os(macOS)
         return Color.primary
+        #elseif os(tvOS)
+        return inAppPurchase.configuration.tintColor
         #else
         return Color.white
         #endif
@@ -167,42 +183,18 @@ public struct InAppPurchaseSettingsRow: View {
         #endif
     }
 
-    private var viewButton: some View {
-        Button {
-            showingPurchaseSheet = true
-        } label: {
-            #if os(macOS)
-            Text("View…")
-
-            #else
-            Text("View")
-                .font(.headline)
-                .foregroundStyle(Color.accentColor)
-                .padding(.horizontal, 8)
-            #endif
-        }
-        #if os(iOS) || os(visionOS)
-        .buttonStyle(.borderedProminent)
-        .buttonBorderShape(.capsule)
-        .controlSize(.small)
-        .tint(.white)
-        #elseif os(macOS)
-        .buttonStyle(.bordered)
-        #endif
-    }
-
-    private var purchasedBackground: some View {
+    private var purchaseBackground: some View {
         #if os(visionOS)
         ZStack {
             Rectangle()
                 .fill(.thickMaterial)
 
             Rectangle()
-                .fill(Color.accentColor.gradient.opacity(0.7))
+                .fill(inAppPurchase.configuration.tintColor.gradient.opacity(0.7))
         }
         #else
         Rectangle()
-            .fill(Color.accentColor.gradient)
+            .fill(inAppPurchase.configuration.tintColor.gradient)
         #endif
     }
 }
