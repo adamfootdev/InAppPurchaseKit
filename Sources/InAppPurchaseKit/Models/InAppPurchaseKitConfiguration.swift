@@ -21,7 +21,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var termsOfUseURL: URL
     public var privacyPolicyURL: URL
     public var showPrimaryTierOnly: Bool
-    public var legacyUserThreshold: Int?
+    public var legacyUserThreshold: LegacyUserThreshold?
     public var showLegacyTier: Bool
     public var fromAppExtension: Bool
     public var sharedUserDefaults: UserDefaults
@@ -43,7 +43,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         termsOfUseURL: URL,
         privacyPolicyURL: URL,
         showPrimaryTierOnly: Bool = true,
-        legacyUserThreshold: Int? = nil,
+        legacyUserThreshold: LegacyUserThreshold? = nil,
         showLegacyTier: Bool = true,
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,

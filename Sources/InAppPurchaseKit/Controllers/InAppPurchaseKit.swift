@@ -7,7 +7,6 @@
 
 import Foundation
 import StoreKit
-import TPInAppReceipt
 
 @MainActor @Observable
 public final class InAppPurchaseKit: NSObject {
@@ -87,7 +86,7 @@ public final class InAppPurchaseKit: NSObject {
 
         let products = await fetchProducts()
         let purchasedTiers = await fetchPurchasedTiers()
-        let legacyUser = fetchLegacyUserState()
+        let legacyUser = await fetchLegacyUserState()
 
         productsLoadState = .loaded(
             products.products,
@@ -214,20 +213,87 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Legacy Users
 
-    private func fetchLegacyUserState() -> Bool {
-        guard let receipt = try? InAppReceipt.localReceipt(),
-              let legacyUserThreshold = configuration.legacyUserThreshold else {
+    private func fetchLegacyUserState() async -> Bool {
+        guard let threshold = configuration.legacyUserThreshold else {
             return false
         }
 
-        let originalVersion = receipt.originalAppVersion
+        do {
+            let transactionResult = try await AppTransaction.shared
 
-        guard originalVersion != "1.0",
-              let originalVersion = Int(originalVersion) else {
+            switch transactionResult {
+            case .unverified(_, _):
+                return false
+            case .verified(let transaction):
+                let originalVersion = transaction.originalAppVersion
+
+                guard Int(transaction.originalPurchaseDate.timeIntervalSince1970) != 0 else {
+                    return false
+                }
+
+                if originalVersion.contains(".") {
+                    let value = threshold.version
+                    let valueComponents = value.split(separator: ".").map { Int($0) }
+                    let originalVersionComponents = originalVersion.split(separator: ".").map { Int($0) }
+
+                    guard valueComponents.count >= 1,
+                          let valueMajor = valueComponents[0],
+                          originalVersionComponents.count >= 1,
+                          let originalVersionMajor = originalVersionComponents[0] else {
+                        return false
+                    }
+
+                    if originalVersionMajor < valueMajor {
+                        return true
+
+                    } else if originalVersionMajor == valueMajor {
+                        if valueComponents.count >= 2,
+                           let valueMinor = valueComponents[1],
+                           originalVersionComponents.count >= 2,
+                           let originalVersionMinor = originalVersionComponents[1] {
+                            if originalVersionMinor < valueMinor {
+                                return true
+
+                            } else if originalVersionMinor == valueMinor {
+                                if valueComponents.count >= 3,
+                                   let valuePatch = valueComponents[2],
+                                   originalVersionComponents.count >= 3,
+                                   let originalVersionPatch = originalVersionComponents[2] {
+                                    if originalVersionPatch < valuePatch {
+                                        return true
+                                    } else {
+                                        return false
+                                    }
+
+                                } else {
+                                    return true
+                                }
+
+                            } else {
+                                return false
+                            }
+
+                        } else {
+                            return true
+                        }
+
+                    } else {
+                        return false
+                    }
+
+                } else {
+                    guard let originalVersion = Int(originalVersion) else {
+                        return false
+                    }
+
+                    let value = threshold.buildNumber
+                    return originalVersion < value
+                }
+            }
+
+        } catch {
             return false
         }
-
-        return originalVersion < legacyUserThreshold
     }
 
 
@@ -486,6 +552,7 @@ public final class InAppPurchaseKit: NSObject {
 
     public func restorePurchases() async {
         try? await AppStore.sync()
+        _ = try? await AppTransaction.refresh()
         await updateProductLoadState(fromReload: true)
     }
 

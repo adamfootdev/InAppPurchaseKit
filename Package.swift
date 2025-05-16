@@ -21,8 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.3"),
-        .package(url: "https://github.com/tikhop/TPInAppReceipt", from: "3.4.1")
+        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "1.1.3")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -30,8 +29,7 @@ let package = Package(
         .target(
             name: "InAppPurchaseKit",
             dependencies: [
-                .product(name: "HapticsKit", package: "hapticskit"),
-                .product(name: "TPInAppReceipt", package: "tpinappreceipt")
+                .product(name: "HapticsKit", package: "hapticskit")
             ],
             resources: [.process("Resources")],
             swiftSettings: [
