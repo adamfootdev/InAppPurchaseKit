@@ -58,6 +58,7 @@ public struct LockedInAppPurchaseFeatureSettingsRow<Content: View>: View {
                     }
                     #endif
                 }
+                .contentShape(Rectangle())
             }
             #if os(macOS)
             .buttonStyle(.plain)

@@ -135,6 +135,7 @@ public struct InAppPurchaseSettingsRow: View {
             #endif
         }
         .padding(.vertical, 8)
+        .contentShape(Rectangle())
     }
 
     private var purchaseSpacing: CGFloat {

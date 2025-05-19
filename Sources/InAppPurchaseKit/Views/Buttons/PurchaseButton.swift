@@ -69,6 +69,7 @@ struct PurchaseButton: View {
         #if os(iOS) || os(macOS)
         .buttonStyle(.borderedProminent)
         .controlSize(.large)
+        .tint(inAppPurchase.configuration.tintColor)
         #elseif os(watchOS)
         .tint(inAppPurchase.configuration.tintColor)
         #endif
