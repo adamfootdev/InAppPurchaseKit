@@ -36,13 +36,11 @@ struct PurchaseButton: View {
     private var purchaseButton: some View {
         Button {
             #if canImport(HapticsKit)
-            if inAppPurchase.configuration.enableHapticFeedback {
-                #if os(iOS)
-                HapticsKit.performSelection()
-                #elseif os(watchOS)
-                HapticsKit.perform(.click)
-                #endif
-            }
+            #if os(iOS)
+            HapticsKit.shared.performSelection()
+            #elseif os(watchOS)
+            HapticsKit.shared.perform(.click)
+            #endif
             #endif
 
             if let tier,

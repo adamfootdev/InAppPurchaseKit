@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-#if canImport(HapticsKit)
-import HapticsKit
-#endif
-
 struct SinglePurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 

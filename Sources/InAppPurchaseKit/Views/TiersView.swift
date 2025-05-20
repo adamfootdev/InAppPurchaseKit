@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-#if canImport(HapticsKit)
-import HapticsKit
-#endif
-
 struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 

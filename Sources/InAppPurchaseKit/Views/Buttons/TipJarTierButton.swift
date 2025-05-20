@@ -30,13 +30,11 @@ struct TipJarTierButton: View {
         LabeledContent {
             Button {
                 #if canImport(HapticsKit)
-                if inAppPurchase.configuration.enableHapticFeedback {
-                    #if os(iOS)
-                    HapticsKit.performImpact(.soft, at: 0.6)
-                    #elseif os(watchOS)
-                    HapticsKit.perform(.click)
-                    #endif
-                }
+                #if os(iOS)
+                HapticsKit.shared.performImpact(.soft, at: 0.6)
+                #elseif os(watchOS)
+                HapticsKit.shared.perform(.click)
+                #endif
                 #endif
 
                 if let product {

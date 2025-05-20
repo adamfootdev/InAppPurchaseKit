@@ -7,7 +7,9 @@
 
 import SwiftUI
 import StoreKit
+import HapticsKit
 
+@MainActor
 public struct InAppPurchaseKitConfiguration: Sendable {
     public var title: String
     public var subtitle: String
@@ -26,7 +28,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var fromAppExtension: Bool
     public var sharedUserDefaults: UserDefaults
     public var overridePurchased: Bool?
-    public var enableHapticFeedback: Bool
+    public var haptics: HapticsKit
     public var purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)?
     public var updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
 
@@ -48,7 +50,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
-        enableHapticFeedback: Bool = true,
+        haptics: HapticsKit?,
         purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)? = nil,
         updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
     ) {
@@ -69,9 +71,15 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.fromAppExtension = fromAppExtension
         self.sharedUserDefaults = sharedUserDefaults
         self.overridePurchased = overridePurchased
-        self.enableHapticFeedback = enableHapticFeedback
         self.purchaseCompletionBlock = purchaseCompletionBlock
         self.updatedPurchasesCompletionBlock = updatedPurchasesCompletionBlock
+
+        if let haptics {
+            self.haptics = haptics
+        } else {
+            let haptics = HapticsKit.configure(with: .init())
+            self.haptics = haptics
+        }
     }
 
     var showSinglePurchaseMode: Bool {
@@ -107,7 +115,8 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             showLegacyTier: true,
             fromAppExtension: false,
             sharedUserDefaults: .standard,
-            overridePurchased: nil
+            overridePurchased: nil,
+            haptics: nil
         ) { product in
             print("Purchased \(product.displayName)")
         } updatedPurchasesCompletionBlock: {
