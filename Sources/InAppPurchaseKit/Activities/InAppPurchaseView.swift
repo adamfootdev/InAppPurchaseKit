@@ -7,10 +7,7 @@
 
 import SwiftUI
 import StoreKit
-
-#if canImport(HapticsKit)
 import HapticsKit
-#endif
 
 public struct InAppPurchaseView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
@@ -339,12 +336,10 @@ public struct InAppPurchaseView<Content: View>: View {
             return
         }
 
-        #if canImport(HapticsKit)
         #if os(iOS)
-        HapticsKit.shared.performNotification(.success)
+        inAppPurchase.configuration.haptics.performNotification(.success)
         #elseif os(watchOS)
-        HapticsKit.shared.perform(.success)
-        #endif
+        inAppPurchase.configuration.haptics.perform(.success)
         #endif
 
         try? await Task.sleep(for: .seconds(1.0))

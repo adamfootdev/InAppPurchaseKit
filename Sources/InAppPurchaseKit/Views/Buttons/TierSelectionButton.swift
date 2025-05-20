@@ -6,10 +6,7 @@
 //
 
 import SwiftUI
-
-#if canImport(HapticsKit)
 import HapticsKit
-#endif
 
 struct TierSelectionButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
@@ -47,12 +44,10 @@ struct TierSelectionButton: View {
 
     private var tierButton: some View {
         Button {
-            #if canImport(HapticsKit)
             #if os(iOS)
-            HapticsKit.shared.performImpact(.soft, at: 0.6)
+            inAppPurchase.configuration.haptics.performImpact(.soft, at: 0.6)
             #elseif os(watchOS)
-            HapticsKit.shared.perform(.click)
-            #endif
+            inAppPurchase.configuration.haptics.perform(.click)
             #endif
 
             selectedTier = tier

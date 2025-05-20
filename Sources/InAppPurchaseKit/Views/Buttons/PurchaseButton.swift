@@ -6,10 +6,7 @@
 //
 
 import SwiftUI
-
-#if canImport(HapticsKit)
 import HapticsKit
-#endif
 
 struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
@@ -35,12 +32,10 @@ struct PurchaseButton: View {
 
     private var purchaseButton: some View {
         Button {
-            #if canImport(HapticsKit)
             #if os(iOS)
-            HapticsKit.shared.performSelection()
+            inAppPurchase.configuration.haptics.performSelection()
             #elseif os(watchOS)
-            HapticsKit.shared.perform(.click)
-            #endif
+            inAppPurchase.configuration.haptics.perform(.click)
             #endif
 
             if let tier,

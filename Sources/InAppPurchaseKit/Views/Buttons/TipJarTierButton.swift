@@ -7,10 +7,7 @@
 
 import SwiftUI
 import StoreKit
-
-#if canImport(HapticsKit)
 import HapticsKit
-#endif
 
 struct TipJarTierButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
@@ -29,12 +26,10 @@ struct TipJarTierButton: View {
     var body: some View {
         LabeledContent {
             Button {
-                #if canImport(HapticsKit)
                 #if os(iOS)
-                HapticsKit.shared.performImpact(.soft, at: 0.6)
+                inAppPurchase.configuration.haptics.performImpact(.soft, at: 0.6)
                 #elseif os(watchOS)
-                HapticsKit.shared.perform(.click)
-                #endif
+                inAppPurchase.configuration.haptics.perform(.click)
                 #endif
 
                 if let product {

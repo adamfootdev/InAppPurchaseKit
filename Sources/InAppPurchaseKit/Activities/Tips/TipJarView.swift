@@ -6,10 +6,7 @@
 //
 
 import SwiftUI
-
-#if canImport(HapticsKit)
 import HapticsKit
-#endif
 
 public struct TipJarView<Content: View>: View {
     @Environment(\.dismiss) private var dismiss
@@ -213,12 +210,10 @@ public struct TipJarView<Content: View>: View {
         case .purchased(let type):
             switch type {
             case .tipJar:
-                #if canImport(HapticsKit)
                 #if os(iOS)
-                HapticsKit.shared.performNotification(.success)
+                inAppPurchase.configuration.haptics.performNotification(.success)
                 #elseif os(watchOS)
-                HapticsKit.shared.perform(.success)
-                #endif
+                inAppPurchase.configuration.haptics.perform(.success)
                 #endif
 
                 showingPurchasedMessage = true
