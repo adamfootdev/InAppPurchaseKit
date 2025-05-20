@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamfootdev/HapticsKit",
       "state" : {
-        "revision" : "e48e566d4ee3ff42a53a82ae5c32fcdbc4262866",
-        "version" : "2.0.1"
+        "revision" : "6f1d92247c80e01e641466a7544bc2243d962b38",
+        "version" : "2.0.2"
       }
     }
   ],
