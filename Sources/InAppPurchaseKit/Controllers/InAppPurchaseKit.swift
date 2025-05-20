@@ -60,20 +60,18 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Configuration
 
+    @discardableResult
     public static func configure(
         with configuration: InAppPurchaseKitConfiguration
     ) -> InAppPurchaseKit {
-        if configuration.fromAppExtension, let initializedInAppPurchaseKit {
+        if let initializedInAppPurchaseKit {
+            initializedInAppPurchaseKit.configuration = configuration
             return initializedInAppPurchaseKit
         } else {
             let object = InAppPurchaseKit(configuration: configuration)
             initializedInAppPurchaseKit = object
             return object
         }
-    }
-
-    public func updateConfiguration(with configuration: InAppPurchaseKitConfiguration) {
-        self.configuration = configuration
     }
 
 
