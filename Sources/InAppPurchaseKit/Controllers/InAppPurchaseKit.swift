@@ -380,8 +380,10 @@ public final class InAppPurchaseKit: NSObject {
 
         for tier in configuration.tiers.allTiers {
             do {
-                if try await fetchTransactionState(for: tier.id) {
-                    purchasedTiers.insert(tier)
+                for id in ([tier.id] + tier.alternateIDs) {
+                    if try await fetchTransactionState(for: id) {
+                        purchasedTiers.insert(tier)
+                    }
                 }
             } catch {}
         }
@@ -401,13 +403,13 @@ public final class InAppPurchaseKit: NSObject {
 
         if transaction.revocationDate == nil {
             if let tier = configuration.tiers.allTiers.first(where: {
-                $0.id == transaction.productID
+                $0.id == transaction.productID || $0.alternateIDs.contains(transaction.productID)
             }) {
                 purchasedTiers.insert(tier)
             }
         } else {
             let tiers = purchasedTiers.filter {
-                $0.id == transaction.productID
+                $0.id == transaction.productID || $0.alternateIDs.contains(transaction.productID)
             }
 
             for tier in tiers {

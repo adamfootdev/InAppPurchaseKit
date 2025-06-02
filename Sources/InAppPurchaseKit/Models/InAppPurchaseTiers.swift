@@ -66,7 +66,7 @@ public struct InAppPurchaseTiers: Sendable {
     }
 
     var tierIDs: [String] {
-        allTiers.map { $0.id }
+        allTiers.map { $0.id } + allTiers.flatMap { $0.alternateIDs }
     }
 
 

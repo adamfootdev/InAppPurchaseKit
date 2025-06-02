@@ -10,13 +10,16 @@ import Foundation
 public struct InAppPurchaseTier: Identifiable, Hashable, Sendable {
     public let id: String
     public let type: InAppPurchaseTierType
+    public let alternateIDs: [String]
 
     public init(
         id: String,
-        type: InAppPurchaseTierType
+        type: InAppPurchaseTierType,
+        alternateIDs: [String]? = nil
     ) {
         self.id = id
         self.type = type
+        self.alternateIDs = alternateIDs ?? []
     }
 
 
