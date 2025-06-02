@@ -22,7 +22,7 @@ public enum ProductsLoadState {
 
     // MARK: - State
 
-    var hasLoaded: Bool {
+    public var hasLoaded: Bool {
         switch self {
         case .loaded(_, _, _, _):
             return true
@@ -31,7 +31,7 @@ public enum ProductsLoadState {
         }
     }
 
-    var availableProducts: [Product] {
+    public var availableProducts: [Product] {
         switch self {
         case .loaded(let products, _, _, _):
             return products
@@ -40,7 +40,7 @@ public enum ProductsLoadState {
         }
     }
 
-    var introOffers: [Product: Product.SubscriptionOffer] {
+    public var introOffers: [Product: Product.SubscriptionOffer] {
         switch self {
         case .loaded(_, let introOffers, _, _):
             return introOffers
@@ -49,7 +49,7 @@ public enum ProductsLoadState {
         }
     }
 
-    var purchasedTiers: Set<InAppPurchaseTier> {
+    public var purchasedTiers: Set<InAppPurchaseTier> {
         switch self {
         case .loaded(_, _, let purchasedTiers, _):
             return purchasedTiers
@@ -58,7 +58,7 @@ public enum ProductsLoadState {
         }
     }
 
-    var isLegacyUser: Bool {
+    public var isLegacyUser: Bool {
         switch self {
         case .loaded(_, _, _, let legacy):
             return legacy
