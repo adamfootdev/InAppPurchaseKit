@@ -1,5 +1,5 @@
 //
-//  LockedInAppPurchaseFeatureSettingsRow.swift
+//  LockedInAppPurchaseFeatureNavigationLink.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 15/05/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct LockedInAppPurchaseFeatureSettingsRow<Content: View>: View {
+public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
     private let title: String
@@ -75,7 +75,7 @@ public struct LockedInAppPurchaseFeatureSettingsRow<Content: View>: View {
 
     NavigationStack {
         Form {
-            LockedInAppPurchaseFeatureSettingsRow(
+            LockedInAppPurchaseFeatureNavigationLink(
                 "Title",
                 systemImage: "app"
             ) {
