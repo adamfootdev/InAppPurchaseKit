@@ -12,6 +12,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
 
     private let title: String
     private let systemImage: String
+    private let enableIfLegacyUser: Bool
     private let action: (() -> Void)
     private let onPurchaseAction: (@Sendable () -> Void)?
 
@@ -20,24 +21,26 @@ public struct LockedInAppPurchaseFeatureButton: View {
     public init(
         _ title: String,
         systemImage: String,
+        enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.title = title
         self.systemImage = systemImage
+        self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
     }
 
     public var body: some View {
         Button {
-            if inAppPurchase.purchaseState == .purchased {
+            if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
                 action()
             } else {
                 showingPurchaseSheet = true
             }
         } label: {
-            if inAppPurchase.purchaseState == .purchased {
+            if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
                 #if os(macOS)
                 Text(title)
                 #else

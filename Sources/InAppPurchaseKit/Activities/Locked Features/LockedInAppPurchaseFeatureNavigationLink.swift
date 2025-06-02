@@ -12,6 +12,7 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
 
     private let title: String
     private let systemImage: String
+    private let enableIfLegacyUser: Bool
     private let destination: Content
     private let onPurchaseAction: (@Sendable () -> Void)?
 
@@ -20,17 +21,19 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
     public init(
         _ title: String,
         systemImage: String,
+        enableIfLegacyUser: Bool = false,
         destination: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.title = title
         self.systemImage = systemImage
+        self.enableIfLegacyUser = enableIfLegacyUser
         self.destination = destination()
         self.onPurchaseAction = onPurchaseAction
     }
     
     public var body: some View {
-        if inAppPurchase.purchaseState == .purchased {
+        if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
             NavigationLink {
                 destination
             } label: {
