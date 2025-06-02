@@ -19,28 +19,49 @@ public struct InAppPurchaseTiers: Sendable {
         monthlyTier: String?,
         yearlyTier: String?,
         lifetimeTier: String?,
-        legacyUserLifetimeTier: String? = nil
+        legacyUserLifetimeTier: String? = nil,
+        alternateWeeklyTiers: [String]? = nil,
+        alternateMonthlyTiers: [String]? = nil,
+        alternateYearlyTiers: [String]? = nil,
+        alternateLifetimeTiers: [String]? = nil,
+        alternateLegacyUserLifetimeTiers: [String]? = nil,
     ) {
         if let weeklyTier {
-            self.weeklyTier = .init(id: weeklyTier, type: .weekly)
+            self.weeklyTier = .init(
+                id: weeklyTier,
+                type: .weekly,
+                alternateIDs: alternateWeeklyTiers
+            )
         } else {
             self.weeklyTier = nil
         }
 
         if let monthlyTier {
-            self.monthlyTier = .init(id: monthlyTier, type: .monthly)
+            self.monthlyTier = .init(
+                id: monthlyTier,
+                type: .monthly,
+                alternateIDs: alternateMonthlyTiers
+            )
         } else {
             self.monthlyTier = nil
         }
 
         if let yearlyTier {
-            self.yearlyTier = .init(id: yearlyTier, type: .yearly)
+            self.yearlyTier = .init(
+                id: yearlyTier,
+                type: .yearly,
+                alternateIDs: alternateYearlyTiers
+            )
         } else {
             self.yearlyTier = nil
         }
 
         if let lifetimeTier {
-            self.lifetimeTier = .init(id: lifetimeTier, type: .lifetime)
+            self.lifetimeTier = .init(
+                id: lifetimeTier,
+                type: .lifetime,
+                alternateIDs: alternateLifetimeTiers
+            )
         } else {
             self.lifetimeTier = nil
         }
@@ -48,7 +69,8 @@ public struct InAppPurchaseTiers: Sendable {
         if let legacyUserLifetimeTier {
             self.legacyUserLifetimeTier = .init(
                 id: legacyUserLifetimeTier,
-                type: .legacyUserLifetime
+                type: .legacyUserLifetime,
+                alternateIDs: alternateLegacyUserLifetimeTiers
             )
         } else {
             self.legacyUserLifetimeTier = nil
