@@ -25,7 +25,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var showPrimaryTierOnly: Bool
     public var legacyUserThreshold: LegacyUserThreshold?
     public var showLegacyTier: Bool
-    public var fromAppExtension: Bool
     public var sharedUserDefaults: UserDefaults
     public var overridePurchased: Bool?
     public var haptics: HapticsKit
@@ -47,7 +46,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         showPrimaryTierOnly: Bool = true,
         legacyUserThreshold: LegacyUserThreshold? = nil,
         showLegacyTier: Bool = true,
-        fromAppExtension: Bool = false,
         sharedUserDefaults: UserDefaults,
         overridePurchased: Bool? = nil,
         haptics: HapticsKit?,
@@ -68,7 +66,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.showPrimaryTierOnly = showPrimaryTierOnly
         self.legacyUserThreshold = legacyUserThreshold
         self.showLegacyTier = showLegacyTier
-        self.fromAppExtension = fromAppExtension
         self.sharedUserDefaults = sharedUserDefaults
         self.overridePurchased = overridePurchased
         self.purchaseCompletionBlock = purchaseCompletionBlock
@@ -113,7 +110,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             showPrimaryTierOnly: true,
             legacyUserThreshold: nil,
             showLegacyTier: true,
-            fromAppExtension: false,
             sharedUserDefaults: .standard,
             overridePurchased: nil,
             haptics: nil
