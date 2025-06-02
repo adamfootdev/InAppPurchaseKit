@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TermsPrivacyButton: View {
     @Environment(\.openURL) private var openURL
+    @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     private let title: String
     private let url: URL
@@ -41,6 +42,9 @@ struct TermsPrivacyButton: View {
         Button(title) {
             openURL(url)
         }
+        #if os(iOS) || os(macOS)
+        .tint(inAppPurchase.configuration.tintColor)
+        #endif
         #endif
     }
 }

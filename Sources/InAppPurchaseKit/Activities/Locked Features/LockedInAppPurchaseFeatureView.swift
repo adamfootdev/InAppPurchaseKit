@@ -65,21 +65,29 @@ public struct LockedInAppPurchaseFeatureView: View {
             }
         }
         .listRowInsets(.init(
-            top: listRowPadding,
-            leading: 0,
-            bottom: listRowPadding,
-            trailing: 0
+            top: listVerticalPadding,
+            leading: listHorizontalPadding,
+            bottom: listVerticalPadding,
+            trailing: listHorizontalPadding
         ))
         .sheet(isPresented: $showingPurchaseSheet) {
             InAppPurchaseView(onPurchase: onPurchaseAction)
         }
     }
 
-    private var listRowPadding: CGFloat {
+    private var listVerticalPadding: CGFloat {
         #if os(tvOS)
         return 80
+        #else
+        return 16
+        #endif
+    }
+
+    private var listHorizontalPadding: CGFloat {
+        #if os(tvOS)
+        return 40
         #elseif os(watchOS)
-        return 32
+        return 8
         #else
         return 16
         #endif
@@ -90,7 +98,7 @@ public struct LockedInAppPurchaseFeatureView: View {
     let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
 
     NavigationStack {
-        Form {
+        List {
             LockedInAppPurchaseFeatureView()
         }
         #if os(macOS)

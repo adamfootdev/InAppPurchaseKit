@@ -261,6 +261,9 @@ public struct InAppPurchaseView<Content: View>: View {
                                 }
                                 .font(.subheadline)
                             }
+                            #if os(iOS) || os(macOS)
+                            .tint(inAppPurchase.configuration.tintColor)
+                            #endif
                         }
                         #endif
                     }
