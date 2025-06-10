@@ -9,6 +9,7 @@
 import SwiftUI
 import WidgetKit
 
+@available(visionOS 26.0, *)
 public struct LockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.widgetFamily) private var widgetFamily
@@ -25,7 +26,8 @@ public struct LockedInAppPurchaseWidgetView: View {
 
     public var body: some View {
         switch widgetFamily {
-        case .accessoryCircular, .accessoryCorner:
+        #if !os(visionOS)
+        case .accessoryCircular:
             Image(systemName: "lock.fill")
                 .font(.title)
 
@@ -44,6 +46,11 @@ public struct LockedInAppPurchaseWidgetView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.footnote.bold())
             }
+        #endif
+
+        case .accessoryCorner:
+            Image(systemName: "lock.fill")
+                .font(.title)
 
         default:
             VStack(spacing: 16) {
@@ -82,15 +89,17 @@ public struct LockedInAppPurchaseWidgetView: View {
 #Preview {
     let inAppPurchase = InAppPurchaseKit.preview
 
-    LockedInAppPurchaseWidgetView(
-        learnMoreURL: URL(string: "myapp://?function=subscribe")!,
-        tint: nil
-    )
-    .frame(width: 200, height: 200)
-    .background {
-        RoundedRectangle(cornerRadius: 16)
-            .fill(Color.gray.opacity(0.2)).foregroundStyle(.secondary)
+    if #available(visionOS 26.0, *) {
+        LockedInAppPurchaseWidgetView(
+            learnMoreURL: URL(string: "myapp://?function=subscribe")!,
+            tint: nil
+        )
+        .frame(width: 200, height: 200)
+        .background {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.gray.opacity(0.2)).foregroundStyle(.secondary)
+        }
+        .environment(inAppPurchase)
     }
-    .environment(inAppPurchase)
 }
 #endif

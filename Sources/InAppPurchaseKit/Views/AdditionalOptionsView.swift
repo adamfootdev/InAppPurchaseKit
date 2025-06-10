@@ -161,7 +161,8 @@ struct AdditionalOptionsView: View {
                 } label: {
                     Text("Tip Jar", bundle: .module)
                 }
-                
+                .tint(inAppPurchase.configuration.tintColor)
+
                 if useDivider {
                     Divider()
                 }

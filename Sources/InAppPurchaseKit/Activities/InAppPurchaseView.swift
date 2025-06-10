@@ -26,7 +26,6 @@ public struct InAppPurchaseView<Content: View>: View {
     @State private var ignorePurchaseState: Bool = false
     @State private var showingSwitchTierMessage: Bool = false
 
-    #if os(watchOS)
     public init(
         includeNavigationStack: Bool = true,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
@@ -38,20 +37,6 @@ public struct InAppPurchaseView<Content: View>: View {
         self.doneButton = doneButton
         self.doneButtonPlacement = doneButtonPlacement
     }
-
-    #else
-    public init(
-        includeNavigationStack: Bool = true,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
-        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
-        doneButton: (() -> Content)? = nil
-    ) {
-        self.includeNavigationStack = includeNavigationStack
-        self.onPurchaseAction = onPurchaseAction
-        self.doneButton = doneButton
-        self.doneButtonPlacement = doneButtonPlacement
-    }
-    #endif
 
     public var body: some View {
         Group {
@@ -362,39 +347,66 @@ public struct InAppPurchaseView<Content: View>: View {
             if let doneButton {
                 doneButton()
             } else {
-                Group {
-                    #if os(iOS)
-                    DismissButton {
-                        dismiss()
-                    }
-                    #else
-                    Button {
+                if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *) {
+                    Button(role: .close) {
                         dismiss()
                     } label: {
-                        #if os(visionOS) || os(watchOS)
+                        #if os(macOS)
+                        Text("Done", bundle: .module)
+                        #else
                         Label {
                             Text("Done", bundle: .module)
                         } icon: {
                             Image(systemName: "xmark")
                         }
-                        #else
-                        Text("Done", bundle: .module)
                         #endif
                     }
-                    #if os(visionOS)
-                    .buttonBorderShape(.circle)
-                    #endif
-                    #endif
-                }
-                .background {
                     #if os(iOS) || os(macOS) || os(visionOS)
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Close", bundle: .module)
+                    .background {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Close", bundle: .module)
+                        }
+                        .hidden()
+                        .keyboardShortcut(.cancelAction)
                     }
-                    .hidden()
-                    .keyboardShortcut(.cancelAction)
+                    #endif
+                } else {
+                    Group {
+                        #if os(iOS)
+                        DismissButton {
+                            dismiss()
+                        }
+                        #else
+                        Button {
+                            dismiss()
+                        } label: {
+                            #if os(visionOS) || os(watchOS)
+                            Label {
+                                Text("Done", bundle: .module)
+                            } icon: {
+                                Image(systemName: "xmark")
+                            }
+                            #else
+                            Text("Done", bundle: .module)
+                            #endif
+                        }
+                        #if os(visionOS)
+                        .buttonBorderShape(.circle)
+                        #endif
+                        #endif
+                    }
+                    #if os(iOS) || os(macOS) || os(visionOS)
+                    .background {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Close", bundle: .module)
+                        }
+                        .hidden()
+                        .keyboardShortcut(.cancelAction)
+                    }
                     #endif
                 }
             }
@@ -402,7 +414,6 @@ public struct InAppPurchaseView<Content: View>: View {
     }
 }
 
-#if os(watchOS)
 extension InAppPurchaseView where Content == EmptyView {
     public init(
         includeNavigationStack: Bool = true,
@@ -415,21 +426,6 @@ extension InAppPurchaseView where Content == EmptyView {
         self.doneButtonPlacement = doneButtonPlacement
     }
 }
-
-#else
-extension InAppPurchaseView where Content == EmptyView {
-    public init(
-        includeNavigationStack: Bool = true,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil,
-        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
-    ) {
-        self.includeNavigationStack = includeNavigationStack
-        self.onPurchaseAction = onPurchaseAction
-        self.doneButton = nil
-        self.doneButtonPlacement = doneButtonPlacement
-    }
-}
-#endif
 
 #Preview {
     let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
