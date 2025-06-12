@@ -10,8 +10,9 @@ import SwiftUI
 public struct LockedInAppPurchaseFeatureButton: View {
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let title: String
-    private let systemImage: String
+    private let titleKey: LocalizedStringKey?
+    private let title: String?
+    private let systemImage: String?
     private let enableIfLegacyUser: Bool
     private let action: (() -> Void)
     private let onPurchaseAction: (@Sendable () -> Void)?
@@ -19,14 +20,29 @@ public struct LockedInAppPurchaseFeatureButton: View {
     @State private var showingPurchaseSheet: Bool = false
 
     public init(
-        _ title: String,
+        _ titleKey: LocalizedStringKey,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
-        self.title = title
+        self.titleKey = titleKey
+        self.title = nil
         self.systemImage = systemImage
+        self.enableIfLegacyUser = enableIfLegacyUser
+        self.action = action
+        self.onPurchaseAction = onPurchaseAction
+    }
+
+    public init(
+        _ titleKey: LocalizedStringKey,
+        enableIfLegacyUser: Bool = false,
+        action: (@escaping () -> Void),
+        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+    ) {
+        self.titleKey = titleKey
+        self.title = nil
+        self.systemImage = nil
         self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
@@ -41,25 +57,38 @@ public struct LockedInAppPurchaseFeatureButton: View {
             }
         } label: {
             if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
-                #if os(macOS)
-                Text(title)
-                #else
-                Label(title, systemImage: systemImage)
-                #endif
+                if let titleKey, let systemImage {
+                    Label(titleKey, systemImage: systemImage)
+                } else if let titleKey {
+                    Text(titleKey)
+                } else if let title, let systemImage {
+                    Label(title, systemImage: systemImage)
+                } else if let title {
+                    Text(title)
+                }
             } else {
                 LabeledContent {
                     Image(systemName: "lock.fill")
                 } label: {
-                    #if os(macOS)
-                    Text(title)
-                    #else
-                    Label {
+                    if let titleKey, let systemImage {
+                        Label {
+                            Text(titleKey)
+                                .foregroundStyle(Color.primary)
+                        } icon: {
+                            Image(systemName: systemImage)
+                        }
+                    } else if let titleKey {
+                        Text(titleKey)
+                    } else if let title, let systemImage {
+                        Label {
+                            Text(title)
+                                .foregroundStyle(Color.primary)
+                        } icon: {
+                            Image(systemName: systemImage)
+                        }
+                    } else if let title {
                         Text(title)
-                            .foregroundStyle(Color.primary)
-                    } icon: {
-                        Image(systemName: systemImage)
                     }
-                    #endif
                 }
             }
         }
@@ -69,6 +98,37 @@ public struct LockedInAppPurchaseFeatureButton: View {
         .sheet(isPresented: $showingPurchaseSheet) {
             InAppPurchaseView()
         }
+    }
+}
+
+extension LockedInAppPurchaseFeatureButton {
+    public init(
+        _ title: String,
+        systemImage: String,
+        enableIfLegacyUser: Bool = false,
+        action: (@escaping () -> Void),
+        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+    ) {
+        self.titleKey = nil
+        self.title = title
+        self.systemImage = systemImage
+        self.enableIfLegacyUser = enableIfLegacyUser
+        self.action = action
+        self.onPurchaseAction = onPurchaseAction
+    }
+
+    public init(
+        _ title: String,
+        enableIfLegacyUser: Bool = false,
+        action: (@escaping () -> Void),
+        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+    ) {
+        self.titleKey = nil
+        self.title = title
+        self.systemImage = nil
+        self.enableIfLegacyUser = enableIfLegacyUser
+        self.action = action
+        self.onPurchaseAction = onPurchaseAction
     }
 }
 
