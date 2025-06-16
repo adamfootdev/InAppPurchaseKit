@@ -67,6 +67,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
                         }
                     } else if let titleKey {
                         Text(titleKey)
+                            .foregroundStyle(Color.primary)
                     } else if let title, let systemImage {
                         Label {
                             Text(title)
@@ -76,6 +77,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
                         }
                     } else if let title {
                         Text(title)
+                            .foregroundStyle(Color.primary)
                     }
                 }
                 .contentShape(Rectangle())
