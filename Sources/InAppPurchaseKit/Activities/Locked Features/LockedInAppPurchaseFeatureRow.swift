@@ -14,7 +14,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
     private let title: String?
     private let systemImage: String?
     private let enableIfLegacyUser: Bool
-    private let content: Content
+    @ViewBuilder private let content: Content
     private let onPurchaseAction: (@Sendable () -> Void)?
 
     @State private var showingPurchaseSheet: Bool = false
@@ -23,7 +23,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
         _ titleKey: LocalizedStringKey,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
-        content: @escaping () -> Content,
+        @ViewBuilder content: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.titleKey = titleKey
@@ -37,7 +37,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
     public init(
         _ titleKey: LocalizedStringKey,
         enableIfLegacyUser: Bool = false,
-        content: @escaping () -> Content,
+        @ViewBuilder content: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.titleKey = titleKey
@@ -95,7 +95,7 @@ extension LockedInAppPurchaseFeatureRow {
         _ title: String,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
-        content: @escaping () -> Content,
+        @ViewBuilder content: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.titleKey = nil
@@ -109,7 +109,7 @@ extension LockedInAppPurchaseFeatureRow {
     public init(
         _ title: String,
         enableIfLegacyUser: Bool = false,
-        content: @escaping () -> Content,
+        @ViewBuilder content: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {
         self.titleKey = nil
