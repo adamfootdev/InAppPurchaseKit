@@ -8,7 +8,7 @@
 import Foundation
 import StoreKit
 
-public enum ProductsLoadState {
+public enum ProductsLoadState: Sendable {
     case pending
     case loading
 
