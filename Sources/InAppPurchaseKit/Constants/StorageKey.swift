@@ -8,5 +8,6 @@
 import Foundation
 
 enum StorageKey {
-    static let extensionSubscribed = "ExtensionSubscribed"
+    static let extensionSubscribed = "IAPKExtensionSubscribed"
+    static let enableHapticFeedback = "IAPKEnableHapticFeedback"
 }

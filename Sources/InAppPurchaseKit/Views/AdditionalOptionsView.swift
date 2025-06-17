@@ -147,7 +147,7 @@ struct AdditionalOptionsView: View {
             #endif
         }
         .sheet(isPresented: $showingTipJarSheet) {
-            TipJarView(embedInNavigationStack: true)
+            TipJarView(includeNavigationStack: true)
                 .environment(inAppPurchase)
         }
     }

@@ -26,7 +26,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
     public var legacyUserThreshold: LegacyUserThreshold?
     public var showLegacyTier: Bool
     public var sharedUserDefaults: UserDefaults
-    public var overridePurchased: Bool?
     public var haptics: HapticsKit
     public var purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)?
     public var updatedPurchasesCompletionBlock: (@Sendable () -> Void)?
@@ -47,8 +46,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         legacyUserThreshold: LegacyUserThreshold? = nil,
         showLegacyTier: Bool = true,
         sharedUserDefaults: UserDefaults,
-        overridePurchased: Bool? = nil,
-        haptics: HapticsKit?,
+        haptics: HapticsKit? = nil,
         purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)? = nil,
         updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
     ) {
@@ -67,14 +65,17 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.legacyUserThreshold = legacyUserThreshold
         self.showLegacyTier = showLegacyTier
         self.sharedUserDefaults = sharedUserDefaults
-        self.overridePurchased = overridePurchased
         self.purchaseCompletionBlock = purchaseCompletionBlock
         self.updatedPurchasesCompletionBlock = updatedPurchasesCompletionBlock
 
         if let haptics {
             self.haptics = haptics
         } else {
-            let haptics = HapticsKit.configure(with: .init())
+            let haptics = HapticsKit.configure(with: .init(
+                userDefaults: .standard,
+                storageKey: StorageKey.enableHapticFeedback
+            ))
+
             self.haptics = haptics
         }
     }
@@ -111,7 +112,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             legacyUserThreshold: nil,
             showLegacyTier: true,
             sharedUserDefaults: .standard,
-            overridePurchased: nil,
             haptics: nil
         ) { product in
             print("Purchased \(product.displayName)")

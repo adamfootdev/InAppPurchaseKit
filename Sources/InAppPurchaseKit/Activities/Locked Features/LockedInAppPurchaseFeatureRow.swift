@@ -94,7 +94,7 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
 
 extension LockedInAppPurchaseFeatureRow {
     public init(
-        _ title: String,
+        verbatim title: String,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
         @ViewBuilder content: @escaping () -> Content,
@@ -109,7 +109,7 @@ extension LockedInAppPurchaseFeatureRow {
     }
 
     public init(
-        _ title: String,
+        verbatim title: String,
         enableIfLegacyUser: Bool = false,
         @ViewBuilder content: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil

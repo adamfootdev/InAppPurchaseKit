@@ -104,7 +104,7 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
 
 extension LockedInAppPurchaseFeatureNavigationLink {
     public init(
-        _ title: String,
+        verbatim title: String,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
         @ViewBuilder destination: @escaping () -> Content,
@@ -119,7 +119,7 @@ extension LockedInAppPurchaseFeatureNavigationLink {
     }
 
     public init(
-        _ title: String,
+        verbatim title: String,
         enableIfLegacyUser: Bool = false,
         @ViewBuilder destination: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil

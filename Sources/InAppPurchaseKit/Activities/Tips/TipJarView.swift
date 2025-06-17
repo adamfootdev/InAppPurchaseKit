@@ -8,43 +8,27 @@
 import SwiftUI
 import HapticsKit
 
-public struct TipJarView<Content: View>: View {
+public struct TipJarView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let embedInNavigationStack: Bool
-    @ViewBuilder private let doneButton: (() -> Content)?
-    private let doneButtonPlacement: ToolbarItemPlacement
+    private let includeNavigationStack: Bool
+    private let includeDismissButton: Bool
 
     @State private var showingPurchasedMessage: Bool = false
 
-    #if os(watchOS)
     public init(
-        embedInNavigationStack: Bool = true,
-        doneButtonPlacement: ToolbarItemPlacement = .cancellationAction,
-        doneButton: (() -> Content)? = nil
+        includeNavigationStack: Bool = true,
+        includeDismissButton: Bool = true,
     ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.doneButton = doneButton
-        self.doneButtonPlacement = doneButtonPlacement
+        self.includeNavigationStack = includeNavigationStack
+        self.includeDismissButton = includeDismissButton
     }
-
-    #else
-    public init(
-        embedInNavigationStack: Bool = true,
-        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction,
-        doneButton: (() -> Content)? = nil
-    ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.doneButton = doneButton
-        self.doneButtonPlacement = doneButtonPlacement
-    }
-    #endif
 
     public var body: some View {
         Group {
-            if embedInNavigationStack {
+            if includeNavigationStack {
                 NavigationStack {
                     embeddedTipJarView
                 }
@@ -83,7 +67,7 @@ public struct TipJarView<Content: View>: View {
                         #else
                         .font(.callout)
                         #endif
-                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity)
                 #if os(tvOS)
@@ -177,7 +161,7 @@ public struct TipJarView<Content: View>: View {
         #endif
         .toolbar {
             #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
-            if embedInNavigationStack || doneButton != nil {
+            if includeDismissButton {
                 doneToolbarItem
             }
             #endif
@@ -231,73 +215,80 @@ public struct TipJarView<Content: View>: View {
 
     private var doneToolbarItem: some ToolbarContent {
         ToolbarItem(placement: doneButtonPlacement) {
-            if let doneButton {
-                doneButton()
-            } else {
-                Group {
-                    #if os(iOS)
-                    DismissButton {
-                        dismiss()
-                    }
-                    #else
+            doneToolbarButton
+                #if os(iOS) || os(macOS) || os(visionOS)
+                .background {
                     Button {
                         dismiss()
                     } label: {
-                        #if os(visionOS) || os(watchOS)
                         Label {
-                            Text("Done", bundle: .module)
+                            Text("Close", bundle: .module)
                         } icon: {
                             Image(systemName: "xmark")
                         }
-                        #else
-                        Text("Done", bundle: .module)
-                        #endif
-                    }
-                    #if os(visionOS)
-                    .buttonBorderShape(.circle)
-                    #endif
-                    #endif
-                }
-                .background {
-                    #if os(iOS) || os(macOS) || os(visionOS)
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Close", bundle: .module)
                     }
                     .hidden()
                     .keyboardShortcut(.cancelAction)
+                }
+                #endif
+        }
+    }
+
+    @ViewBuilder
+    private var doneToolbarButton: some View {
+        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *) {
+            Button(role: .close) {
+                dismiss()
+            } label: {
+                #if os(macOS)
+                Text("Done", bundle: .module)
+                #else
+                Label {
+                    Text("Done", bundle: .module)
+                } icon: {
+                    Image(systemName: "xmark")
+                }
+                #endif
+            }
+
+        } else {
+            Group {
+                #if os(iOS)
+                DismissButton {
+                    dismiss()
+                }
+                #else
+                Button {
+                    dismiss()
+                } label: {
+                    #if os(visionOS) || os(watchOS)
+                    Label {
+                        Text("Done", bundle: .module)
+                    } icon: {
+                        Image(systemName: "xmark")
+                    }
+                    #else
+                    Text("Done", bundle: .module)
                     #endif
                 }
+                #if os(visionOS)
+                .buttonBorderShape(.circle)
+                #endif
+                #endif
             }
         }
     }
-}
 
-#if os(watchOS)
-extension TipJarView where Content == EmptyView {
-    public init(
-        embedInNavigationStack: Bool = true,
-        doneButtonPlacement: ToolbarItemPlacement = .cancellationAction
-    ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.doneButton = nil
-        self.doneButtonPlacement = doneButtonPlacement
+    private var doneButtonPlacement: ToolbarItemPlacement {
+        #if os(macOS)
+        return .confirmationAction
+        #elseif os(watchOS)
+        return .cancellationAction
+        #else
+        return .topBarTrailing
+        #endif
     }
 }
-
-#else
-extension TipJarView where Content == EmptyView {
-    public init(
-        embedInNavigationStack: Bool = true,
-        doneButtonPlacement: ToolbarItemPlacement = .confirmationAction
-    ) {
-        self.embedInNavigationStack = embedInNavigationStack
-        self.doneButton = nil
-        self.doneButtonPlacement = doneButtonPlacement
-    }
-}
-#endif
 
 #Preview {
     let inAppPurchase = InAppPurchaseKit.preview

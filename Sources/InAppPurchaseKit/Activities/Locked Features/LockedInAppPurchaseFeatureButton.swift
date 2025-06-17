@@ -105,7 +105,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
 
 extension LockedInAppPurchaseFeatureButton {
     public init(
-        _ title: String,
+        verbatim title: String,
         systemImage: String,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
@@ -120,7 +120,7 @@ extension LockedInAppPurchaseFeatureButton {
     }
 
     public init(
-        _ title: String,
+        verbatim title: String,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil

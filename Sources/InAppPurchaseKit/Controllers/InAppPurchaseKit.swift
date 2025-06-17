@@ -183,9 +183,7 @@ public final class InAppPurchaseKit: NSObject {
     }
 
     public var purchaseState: PurchaseState {
-        if let overridePurchased = configuration.overridePurchased {
-            return overridePurchased ? .purchased : .notPurchased
-        } else if Bundle.main.bundlePath.hasSuffix(".appex") {
+        if Bundle.main.bundlePath.hasSuffix(".appex") {
             let purchased = configuration.sharedUserDefaults.bool(
                 forKey: StorageKey.extensionSubscribed
             )
@@ -264,7 +262,7 @@ public final class InAppPurchaseKit: NSObject {
                                     }
 
                                 } else {
-                                    return true
+                                    return false
                                 }
 
                             } else {
@@ -272,7 +270,7 @@ public final class InAppPurchaseKit: NSObject {
                             }
 
                         } else {
-                            return true
+                            return false
                         }
 
                     } else {
