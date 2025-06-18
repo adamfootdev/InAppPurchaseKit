@@ -13,6 +13,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
     private let titleKey: LocalizedStringKey?
     private let title: String?
     private let systemImage: String?
+    private let titleColor: Color
     private let enableIfLegacyUser: Bool
     private let action: (() -> Void)
     private let onPurchaseAction: (@Sendable () -> Void)?
@@ -22,6 +23,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
     public init(
         _ titleKey: LocalizedStringKey,
         systemImage: String,
+        titleColor: Color = Color.primary,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
@@ -29,6 +31,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
         self.titleKey = titleKey
         self.title = nil
         self.systemImage = systemImage
+        self.titleColor = titleColor
         self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
@@ -36,6 +39,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
 
     public init(
         _ titleKey: LocalizedStringKey,
+        titleColor: Color = Color.primary,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
@@ -43,6 +47,7 @@ public struct LockedInAppPurchaseFeatureButton: View {
         self.titleKey = titleKey
         self.title = nil
         self.systemImage = nil
+        self.titleColor = titleColor
         self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
@@ -57,40 +62,12 @@ public struct LockedInAppPurchaseFeatureButton: View {
             }
         } label: {
             if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
-                if let titleKey, let systemImage {
-                    Label(titleKey, systemImage: systemImage)
-                } else if let titleKey {
-                    Text(titleKey)
-                } else if let title, let systemImage {
-                    Label(title, systemImage: systemImage)
-                } else if let title {
-                    Text(title)
-                }
+                label
             } else {
                 LabeledContent {
                     Image(systemName: "lock.fill")
                 } label: {
-                    if let titleKey, let systemImage {
-                        Label {
-                            Text(titleKey)
-                                .foregroundStyle(Color.primary)
-                        } icon: {
-                            Image(systemName: systemImage)
-                        }
-                    } else if let titleKey {
-                        Text(titleKey)
-                            .foregroundStyle(Color.primary)
-                    } else if let title, let systemImage {
-                        Label {
-                            Text(title)
-                                .foregroundStyle(Color.primary)
-                        } icon: {
-                            Image(systemName: systemImage)
-                        }
-                    } else if let title {
-                        Text(title)
-                            .foregroundStyle(Color.primary)
-                    }
+                    label
                 }
             }
         }
@@ -101,12 +78,38 @@ public struct LockedInAppPurchaseFeatureButton: View {
             InAppPurchaseView()
         }
     }
+
+    @ViewBuilder
+    private var label: some View {
+        if let titleKey, let systemImage {
+            Label {
+                Text(titleKey)
+                    .foregroundStyle(titleColor)
+            } icon: {
+                Image(systemName: systemImage)
+            }
+        } else if let titleKey {
+            Text(titleKey)
+                .foregroundStyle(titleColor)
+        } else if let title, let systemImage {
+            Label {
+                Text(title)
+                    .foregroundStyle(titleColor)
+            } icon: {
+                Image(systemName: systemImage)
+            }
+        } else if let title {
+            Text(title)
+                .foregroundStyle(titleColor)
+        }
+    }
 }
 
 extension LockedInAppPurchaseFeatureButton {
     public init(
         verbatim title: String,
         systemImage: String,
+        titleColor: Color = Color.primary,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
@@ -114,6 +117,7 @@ extension LockedInAppPurchaseFeatureButton {
         self.titleKey = nil
         self.title = title
         self.systemImage = systemImage
+        self.titleColor = titleColor
         self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
@@ -121,6 +125,7 @@ extension LockedInAppPurchaseFeatureButton {
 
     public init(
         verbatim title: String,
+        titleColor: Color = Color.primary,
         enableIfLegacyUser: Bool = false,
         action: (@escaping () -> Void),
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
@@ -128,6 +133,7 @@ extension LockedInAppPurchaseFeatureButton {
         self.titleKey = nil
         self.title = title
         self.systemImage = nil
+        self.titleColor = titleColor
         self.enableIfLegacyUser = enableIfLegacyUser
         self.action = action
         self.onPurchaseAction = onPurchaseAction
