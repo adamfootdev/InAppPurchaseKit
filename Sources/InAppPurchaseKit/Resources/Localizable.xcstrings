@@ -21,6 +21,12 @@
             "value" : "%@ Erforderlich"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ Required"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -228,7 +234,7 @@
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%lld Days Free, then "
                 }
               }
@@ -676,7 +682,7 @@
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%lld Months Free, then "
                 }
               }
@@ -1124,7 +1130,7 @@
               },
               "other" : {
                 "stringUnit" : {
-                  "state" : "new",
+                  "state" : "translated",
                   "value" : "%lld Weeks Free, then "
                 }
               }
@@ -1469,6 +1475,448 @@
         }
       }
     },
+    "%lld Years Free, then " : {
+      "localizations" : {
+        "ar" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ثلاث سنوات مجانية، ثم "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld سنوات مجانية، ثم "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld سنة واحدة مجانية، ثم "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld سنة مجانية، ثم "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld سنتان مجانًا، ثم "
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld سنوات مجانية، ثم "
+                }
+              }
+            }
+          }
+        },
+        "cs" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld roky zdarma, poté "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld let zdarma, poté "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rok zdarma, poté "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld let zdarma, poté "
+                }
+              }
+            }
+          }
+        },
+        "de" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Jahr kostenlos, dann "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Jahre kostenlos, dann "
+                }
+              }
+            }
+          }
+        },
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Year Free, then "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Years Free, then "
+                }
+              }
+            }
+          }
+        },
+        "es" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld año gratis, luego "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld años gratis, luego "
+                }
+              }
+            }
+          }
+        },
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld an gratuit, puis "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ans gratuits, puis "
+                }
+              }
+            }
+          }
+        },
+        "he" : {
+          "variations" : {
+            "plural" : {
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שנים חינם, ואז "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שנה חינם, ואז "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שנים חינם, ואז "
+                }
+              },
+              "two" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld שנים חינם, ואז "
+                }
+              }
+            }
+          }
+        },
+        "hu" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld év ingyen, utána "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld év ingyen, utána "
+                }
+              }
+            }
+          }
+        },
+        "it" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anno gratis, poi "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anni gratis, poi "
+                }
+              }
+            }
+          }
+        },
+        "ja" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld年間無料、その後"
+                }
+              }
+            }
+          }
+        },
+        "ko" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld년 무료 이용 후, "
+                }
+              }
+            }
+          }
+        },
+        "nl" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld jaar gratis, daarna "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld jaar gratis, daarna "
+                }
+              }
+            }
+          }
+        },
+        "pl" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lata za darmo, potem "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lat za darmo, potem "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rok za darmo, potem "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lat za darmo, potem "
+                }
+              }
+            }
+          }
+        },
+        "pt-BR" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ano grátis, depois "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld anos grátis, depois "
+                }
+              }
+            }
+          }
+        },
+        "pt-PT" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Ano Grátis, depois "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Anos Grátis, depois "
+                }
+              }
+            }
+          }
+        },
+        "ro" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld an gratuit, apoi "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld ani gratuit, apoi "
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld года бесплатно, затем "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld лет бесплатно, затем "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld год бесплатно, затем "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld лет бесплатно, затем "
+                }
+              }
+            }
+          }
+        },
+        "sk" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rokov zadarmo, potom "
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rokov zadarmo, potom "
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rok zadarmo, potom "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld rokov zadarmo, potom "
+                }
+              }
+            }
+          }
+        },
+        "tr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Yıl Ücretsiz, sonra "
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Yıl Ücretsiz, sonra "
+                }
+              }
+            }
+          }
+        },
+        "vi" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Năm Dùng Miễn Phí, sau đó "
+                }
+              }
+            }
+          }
+        },
+        "zh-Hans" : {
+          "variations" : {
+            "plural" : {
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "免费 %lld 年，之后"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "An unknown error occurred." : {
       "localizations" : {
         "ar" : {
@@ -1487,6 +1935,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ein unbekannter Fehler ist aufgetreten."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An unknown error occurred."
           }
         },
         "es" : {
@@ -1613,6 +2067,12 @@
             "value" : "Stornieren"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1735,6 +2195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Schließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
           }
         },
         "es" : {
@@ -1861,6 +2327,12 @@
             "value" : "Weiter"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1983,6 +2455,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Erledigt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
           }
         },
         "es" : {
@@ -2109,6 +2587,12 @@
             "value" : "Optionen ausblenden"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Options"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2231,6 +2715,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Großes Trinkgeld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Huge Tip"
           }
         },
         "es" : {
@@ -2357,6 +2847,12 @@
             "value" : "Wenn Sie derzeit über ein aktives Abonnement oder eine kostenlose Testversion verfügen, denken Sie bitte daran, dieses zu kündigen, wenn Sie zu einem lebenslangen Tarif wechseln."
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2479,6 +2975,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Großes Trinkgeld"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Large Tip"
           }
         },
         "es" : {
@@ -2605,6 +3107,12 @@
             "value" : "Lern Mehr"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Learn More"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2727,6 +3235,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lebenslang"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime"
           }
         },
         "es" : {
@@ -2853,6 +3367,12 @@
             "value" : "Loyalität"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loyalty"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2975,6 +3495,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abonnement verwalten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Subscription"
           }
         },
         "es" : {
@@ -3101,6 +3627,12 @@
             "value" : "Mittleres Trinkgeld"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medium Tip"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3223,6 +3755,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Monat"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Month"
           }
         },
         "es" : {
@@ -3349,6 +3887,12 @@
             "value" : "Monatlich"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3471,6 +4015,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Einmalige Zahlung, "
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time payment, "
           }
         },
         "es" : {
@@ -3597,6 +4147,12 @@
             "value" : "Bitte beachten Sie, dass diese Käufe keine zusätzlichen Funktionen freischalten."
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please note that these purchases do not unlock additional features."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3719,6 +4275,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Datenschutzrichtlinie"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
           }
         },
         "es" : {
@@ -3845,6 +4407,12 @@
             "value" : "Kaufen"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3967,6 +4535,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Code einlösen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redeem Code"
           }
         },
         "es" : {
@@ -4093,6 +4667,12 @@
             "value" : "Kostenlose Testversion einlösen"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Redeem Free Trial"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4215,6 +4795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wiederherstellen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
           }
         },
         "es" : {
@@ -4341,6 +4927,12 @@
             "value" : "Speichern %lld%%"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save %lld%%"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4463,6 +5055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Alle Optionen anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show All Options"
           }
         },
         "es" : {
@@ -4589,6 +5187,12 @@
             "value" : "Kleines Trinkgeld"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Small Tip"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4711,6 +5315,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abonnieren"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribe"
           }
         },
         "es" : {
@@ -4837,6 +5447,12 @@
             "value" : "Abonnieren"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4959,6 +5575,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Abonnieren - Danke!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscribed - Thank You!"
           }
         },
         "es" : {
@@ -5085,6 +5707,12 @@
             "value" : "Schalten"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5207,6 +5835,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Stufe Wechseln"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Switch Tier"
           }
         },
         "es" : {
@@ -5333,6 +5967,12 @@
             "value" : "Nutzungsbedingungen"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5455,6 +6095,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Danke"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank You"
           }
         },
         "es" : {
@@ -5581,6 +6227,12 @@
             "value" : "Vielen Dank für das Trinkgeld – es bedeutet mir viel!"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank you for the tip – it means a lot!"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5703,6 +6355,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vielen Dank für die Nutzung von %@! Wenn Ihnen die App gefällt, denken Sie bitte darüber nach, sie mit einem Trinkgeld zu unterstützen. Alles, was Sie entbehren können, hilft mir, diese und andere Indie-Apps weiterzuentwickeln!"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank you for using %@! If youʼre enjoying the app, please consider supporting it with a tip. Anything you can spare helps me to continue building this and other indie apps!"
           }
         },
         "es" : {
@@ -5829,6 +6487,12 @@
             "value" : "Bei der Überprüfung deiner Anfrage ist ein Fehler aufgetreten. Bitte versuche es noch einmal."
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was an error verifying your request. Please try again."
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5951,6 +6615,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Für diese Funktion ist Zugriff auf %@ erforderlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This feature requires access to %@"
           }
         },
         "es" : {
@@ -6077,6 +6747,12 @@
             "value" : "Trinkgeldkasse"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tip Jar"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6199,6 +6875,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Upgrade auf %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upgrade to %@"
           }
         },
         "es" : {
@@ -6325,6 +7007,12 @@
             "value" : "Datenschutzrichtlinie Anzeigen…"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Privacy Policy…"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6447,6 +7135,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nutzungsbedingungen Anzeigen…"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Terms of Use…"
           }
         },
         "es" : {
@@ -6573,6 +7267,12 @@
             "value" : "Woche"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6695,6 +7395,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Wöchentlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly"
           }
         },
         "es" : {
@@ -6821,6 +7527,12 @@
             "value" : "Was ist enthalten?"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Whatʼs Included"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6945,6 +7657,12 @@
             "value" : "Jahr"
           }
         },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Year"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7067,6 +7785,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jährlich"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yearly"
           }
         },
         "es" : {

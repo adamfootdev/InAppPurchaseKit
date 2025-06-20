@@ -356,6 +356,11 @@ public final class InAppPurchaseKit: NSObject {
                         localized: "\(introOffer.period.value) Months Free, then ",
                         bundle: .module
                     )
+                case .year:
+                    message += String(
+                        localized: "\(introOffer.period.value) Years Free, then ",
+                        bundle: .module
+                    )
                 default:
                     message += ""
                 }
