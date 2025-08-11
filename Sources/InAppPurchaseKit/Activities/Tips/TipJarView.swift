@@ -93,14 +93,22 @@ public struct TipJarView: View {
 
             Section {
                 #if os(macOS)
-                LabeledContent(String(localized: "Terms of Use", bundle: .module)) {
+                HStack {
+                    Text(String(localized: "Terms of Use", bundle: .module))
+
+                    Spacer()
+
                     TermsPrivacyButton(
                         String(localized: "View Terms of Use…", bundle: .module),
                         url: inAppPurchase.configuration.termsOfUseURL
                     )
                 }
 
-                LabeledContent(String(localized: "Privacy Policy", bundle: .module)) {
+                HStack {
+                    Text(String(localized: "Privacy Policy", bundle: .module))
+
+                    Spacer()
+
                     TermsPrivacyButton(
                         String(localized: "View Privacy Policy…", bundle: .module),
                         url: inAppPurchase.configuration.termsOfUseURL
@@ -195,7 +203,7 @@ public struct TipJarView: View {
             switch type {
             case .tipJar:
                 #if os(iOS)
-                inAppPurchase.configuration.haptics.performNotification(.success)
+                inAppPurchase.configuration.haptics.perform(.notification(.success))
                 #elseif os(watchOS)
                 inAppPurchase.configuration.haptics.perform(.success)
                 #endif
@@ -250,6 +258,9 @@ public struct TipJarView: View {
                 }
                 #endif
             }
+            #if os(visionOS)
+            .buttonBorderShape(.circle)
+            #endif
 
         } else {
             Group {

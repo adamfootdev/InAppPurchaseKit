@@ -322,7 +322,7 @@ public struct InAppPurchaseView: View {
         }
 
         #if os(iOS)
-        inAppPurchase.configuration.haptics.performNotification(.success)
+        inAppPurchase.configuration.haptics.perform(.notification(.success))
         #elseif os(watchOS)
         inAppPurchase.configuration.haptics.perform(.success)
         #endif
@@ -376,6 +376,9 @@ public struct InAppPurchaseView: View {
                 }
                 #endif
             }
+            #if os(visionOS)
+            .buttonBorderShape(.circle)
+            #endif
 
         } else {
             Group {

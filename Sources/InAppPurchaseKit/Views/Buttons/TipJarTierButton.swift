@@ -27,7 +27,7 @@ struct TipJarTierButton: View {
         LabeledContent {
             Button {
                 #if os(iOS)
-                inAppPurchase.configuration.haptics.performImpact(.soft, at: 0.6)
+                inAppPurchase.configuration.haptics.perform(.impact(.soft, intensity: 0.6))
                 #elseif os(watchOS)
                 inAppPurchase.configuration.haptics.perform(.click)
                 #endif

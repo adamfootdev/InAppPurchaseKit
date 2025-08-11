@@ -46,7 +46,6 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         legacyUserThreshold: LegacyUserThreshold? = nil,
         showLegacyTier: Bool = true,
         sharedUserDefaults: UserDefaults,
-        haptics: HapticsKit? = nil,
         purchaseCompletionBlock: (@Sendable (_ product: Product) -> Void)? = nil,
         updatedPurchasesCompletionBlock: (@Sendable () -> Void)? = nil
     ) {
@@ -68,16 +67,12 @@ public struct InAppPurchaseKitConfiguration: Sendable {
         self.purchaseCompletionBlock = purchaseCompletionBlock
         self.updatedPurchasesCompletionBlock = updatedPurchasesCompletionBlock
 
-        if let haptics {
-            self.haptics = haptics
-        } else {
-            let haptics = HapticsKit.configure(with: .init(
-                userDefaults: .standard,
-                storageKey: StorageKey.enableHapticFeedback
-            ))
+        let haptics = HapticsKit.configure(with: .init(
+            userDefaults: .standard,
+            storageKey: StorageKey.enableHapticFeedback
+        ))
 
-            self.haptics = haptics
-        }
+        self.haptics = haptics
     }
 
     var showSinglePurchaseMode: Bool {
@@ -111,8 +106,7 @@ public struct InAppPurchaseKitConfiguration: Sendable {
             showPrimaryTierOnly: true,
             legacyUserThreshold: nil,
             showLegacyTier: true,
-            sharedUserDefaults: .standard,
-            haptics: nil
+            sharedUserDefaults: .standard
         ) { product in
             print("Purchased \(product.displayName)")
         } updatedPurchasesCompletionBlock: {

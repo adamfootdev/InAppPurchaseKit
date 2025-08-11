@@ -45,7 +45,7 @@ struct TierSelectionButton: View {
     private var tierButton: some View {
         Button {
             #if os(iOS)
-            inAppPurchase.configuration.haptics.performImpact(.soft, at: 0.6)
+            inAppPurchase.configuration.haptics.perform(.impact(.soft, intensity: 0.6))
             #elseif os(watchOS)
             inAppPurchase.configuration.haptics.perform(.click)
             #endif

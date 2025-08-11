@@ -1,13 +1,13 @@
 {
-  "originHash" : "743910bcc1a2cd8a0025532edeb4d73efc95516367bce9bad0d8b169e1d86af6",
+  "originHash" : "48a19622d7653492e63d5bc69f1749504b77027cfe62303d08c6eb7838400aa0",
   "pins" : [
     {
       "identity" : "hapticskit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adamfootdev/HapticsKit",
       "state" : {
-        "revision" : "55ef9086d5f13b7f114db435e443b00190ebd0f8",
-        "version" : "2.0.4"
+        "revision" : "9cb02bfa3cd9a577f805ed9878aa7f78c3c37412",
+        "version" : "3.0.0"
       }
     }
   ],

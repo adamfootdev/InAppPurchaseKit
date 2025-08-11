@@ -42,7 +42,7 @@ struct TermsPrivacyButton: View {
         Button(title) {
             openURL(url)
         }
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
         .tint(inAppPurchase.configuration.tintColor)
         #endif
         #endif

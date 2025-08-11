@@ -78,7 +78,7 @@ public struct LockedInAppPurchaseWidgetView: View {
                 .buttonBorderShape(.capsule)
                 #endif
                 .controlSize(.small)
-                .tint(tint ?? Color.accentColor)
+                .tint(tint ?? inAppPurchase.configuration.tintColor)
                 .widgetAccentable()
             }
             .multilineTextAlignment(.center)
@@ -97,7 +97,7 @@ public struct LockedInAppPurchaseWidgetView: View {
         .frame(width: 200, height: 200)
         .background {
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.gray.opacity(0.2)).foregroundStyle(.secondary)
+                .fill(Color.gray.opacity(0.2))
         }
         .environment(inAppPurchase)
     }

@@ -143,7 +143,6 @@ struct AdditionalOptionsView: View {
             VStack(alignment: .leading, spacing: 16) {
                 additionalOptionsContent(useDivider: false)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
             #endif
         }
         .sheet(isPresented: $showingTipJarSheet) {
@@ -161,7 +160,6 @@ struct AdditionalOptionsView: View {
                 } label: {
                     Text("Tip Jar", bundle: .module)
                 }
-                .tint(inAppPurchase.configuration.tintColor)
 
                 if useDivider {
                     Divider()
@@ -179,19 +177,21 @@ struct AdditionalOptionsView: View {
             }
             #endif
 
-            TermsPrivacyButton(
-                String(localized: "Terms of Use", bundle: .module),
-                url: inAppPurchase.configuration.termsOfUseURL
-            )
+            Group {
+                TermsPrivacyButton(
+                    String(localized: "Terms of Use", bundle: .module),
+                    url: inAppPurchase.configuration.termsOfUseURL
+                )
 
-            if useDivider {
-                Divider()
+                if useDivider {
+                    Divider()
+                }
+
+                TermsPrivacyButton(
+                    String(localized: "Privacy Policy", bundle: .module),
+                    url: inAppPurchase.configuration.privacyPolicyURL
+                )
             }
-
-            TermsPrivacyButton(
-                String(localized: "Privacy Policy", bundle: .module),
-                url: inAppPurchase.configuration.privacyPolicyURL
-            )
         }
         #if os(iOS) || os(visionOS)
         .font(.subheadline)

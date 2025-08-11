@@ -21,7 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "2.0.4")
+        .package(url: "https://github.com/adamfootdev/HapticsKit", from: "3.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

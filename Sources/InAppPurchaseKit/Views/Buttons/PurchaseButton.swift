@@ -25,6 +25,14 @@ struct PurchaseButton: View {
             purchaseButton
         }
 
+        #elseif os(iOS) || os(macOS)
+        if #available(iOS 26.0, macOS 26.0, *) {
+            purchaseButton
+                .buttonStyle(.glassProminent)
+        } else {
+            purchaseButton
+                .buttonStyle(.borderedProminent)
+        }
         #else
         purchaseButton
         #endif
@@ -33,7 +41,7 @@ struct PurchaseButton: View {
     private var purchaseButton: some View {
         Button {
             #if os(iOS)
-            inAppPurchase.configuration.haptics.performSelection()
+            inAppPurchase.configuration.haptics.perform(.selection)
             #elseif os(watchOS)
             inAppPurchase.configuration.haptics.perform(.click)
             #endif
@@ -51,6 +59,7 @@ struct PurchaseButton: View {
                 .frame(maxWidth: 280)
                 #elseif os(macOS)
                 .font(.system(.body, weight: .medium))
+                .foregroundStyle(.white)
                 .padding(.horizontal, 20)
                 .frame(maxWidth: 160)
                 #elseif os(tvOS)
@@ -60,7 +69,6 @@ struct PurchaseButton: View {
                 #endif
         }
         #if os(iOS) || os(macOS)
-        .buttonStyle(.borderedProminent)
         .controlSize(.large)
         .tint(inAppPurchase.configuration.tintColor)
         #elseif os(watchOS)

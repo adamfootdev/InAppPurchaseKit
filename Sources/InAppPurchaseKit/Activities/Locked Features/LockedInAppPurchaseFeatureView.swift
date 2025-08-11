@@ -47,7 +47,10 @@ public struct LockedInAppPurchaseFeatureView: View {
                         .padding(.horizontal, 8)
                         #endif
                 }
-                #if os(tvOS)
+                #if os(macOS)
+                .font(.subheadline)
+                .foregroundStyle(inAppPurchase.configuration.tintColor)
+                #elseif os(tvOS)
                 .buttonStyle(.bordered)
                 .font(.subheadline)
                 .padding(.top, 12)
