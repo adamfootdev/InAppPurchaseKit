@@ -98,7 +98,9 @@ public struct InAppPurchaseView: View {
                     Divider()
 
                     PurchaseButton(for: $selectedTier)
-                        .padding([.horizontal, .bottom])
+                        .frame(maxWidth: 400)
+                        .padding(.horizontal, 40)
+                        .padding(.bottom, 16)
                 }
                 .background {
                     Rectangle()

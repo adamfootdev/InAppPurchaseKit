@@ -68,7 +68,10 @@ struct PurchaseButton: View {
                 .frame(maxWidth: 280)
                 #endif
         }
-        #if os(iOS) || os(macOS)
+        #if os(iOS)
+        .controlSize(.extraLarge)
+        .tint(inAppPurchase.configuration.tintColor)
+        #elseif os(macOS)
         .controlSize(.large)
         .tint(inAppPurchase.configuration.tintColor)
         #elseif os(watchOS)
