@@ -20,7 +20,6 @@ struct FeatureRow: View {
             rowView
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .buttonStyle(.plain)
         #else
         rowView
         #endif
