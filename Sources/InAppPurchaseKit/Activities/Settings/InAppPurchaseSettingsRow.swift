@@ -164,10 +164,8 @@ public struct InAppPurchaseSettingsRow: View {
     }
 
     private var titleColor: Color {
-        #if os(macOS)
+        #if os(macOS) || os(tvOS)
         return Color.primary
-        #elseif os(tvOS)
-        return inAppPurchase.configuration.tintColor
         #else
         return Color.white
         #endif
