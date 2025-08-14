@@ -56,7 +56,7 @@ struct PurchaseButton: View {
             Text(title)
                 #if os(iOS)
                 .font(.headline)
-                .frame(maxWidth: 280)
+                .frame(maxWidth: 400)
                 #elseif os(macOS)
                 .font(.system(.body, weight: .medium))
                 .foregroundStyle(.white)
@@ -65,7 +65,7 @@ struct PurchaseButton: View {
                 #elseif os(tvOS)
                 .frame(maxWidth: 400)
                 #elseif os(visionOS)
-                .frame(maxWidth: 280)
+                .frame(maxWidth: 400)
                 #endif
         }
         #if os(iOS)

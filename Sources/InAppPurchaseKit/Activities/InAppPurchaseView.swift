@@ -255,6 +255,9 @@ public struct InAppPurchaseView: View {
                     #if os(macOS) || os(visionOS)
                     if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
                         PurchaseButton(for: $selectedTier)
+                            #if os(visionOS)
+                            .frame(maxWidth: 280)
+                            #endif
                     }
                     #endif
                 }

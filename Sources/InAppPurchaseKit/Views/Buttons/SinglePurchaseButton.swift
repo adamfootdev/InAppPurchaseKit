@@ -17,6 +17,9 @@ struct SinglePurchaseButton: View {
 
             if let tier {
                 PurchaseButton(for: .constant(tier))
+                    #if os(iOS) || os(visionOS)
+                    .frame(maxWidth: 280)
+                    #endif
             }
         }
     }
