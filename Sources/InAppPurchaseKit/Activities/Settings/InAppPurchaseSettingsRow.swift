@@ -33,9 +33,16 @@ public struct InAppPurchaseSettingsRow: View {
         #elseif os(watchOS)
         .listItemTint(inAppPurchase.purchaseState == .purchased ? nil : inAppPurchase.configuration.tintColor)
         #endif
+        #if os(tvOS)
+        .fullScreenCover(isPresented: $showingPurchaseSheet) {
+            InAppPurchaseView(onPurchase: onPurchaseAction)
+                .background(Material.regular)
+        }
+        #else
         .sheet(isPresented: $showingPurchaseSheet) {
             InAppPurchaseView(onPurchase: onPurchaseAction)
         }
+        #endif
     }
 
 

@@ -73,9 +73,16 @@ public struct LockedInAppPurchaseFeatureView: View {
             bottom: listVerticalPadding,
             trailing: listHorizontalPadding
         ))
+        #if os(tvOS)
+        .fullScreenCover(isPresented: $showingPurchaseSheet) {
+            InAppPurchaseView(onPurchase: onPurchaseAction)
+                .background(Material.regular)
+        }
+        #else
         .sheet(isPresented: $showingPurchaseSheet) {
             InAppPurchaseView(onPurchase: onPurchaseAction)
         }
+        #endif
     }
 
     private var listVerticalPadding: CGFloat {

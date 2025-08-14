@@ -145,10 +145,18 @@ struct AdditionalOptionsView: View {
             }
             #endif
         }
+        #if os(tvOS)
+        .fullScreenCover(isPresented: $showingTipJarSheet) {
+            TipJarView(includeNavigationStack: true)
+                .background(Material.regular)
+                .environment(inAppPurchase)
+        }
+        #else
         .sheet(isPresented: $showingTipJarSheet) {
             TipJarView(includeNavigationStack: true)
                 .environment(inAppPurchase)
         }
+        #endif
     }
 
     private func additionalOptionsContent(useDivider: Bool) -> some View {

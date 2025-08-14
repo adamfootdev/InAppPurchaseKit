@@ -70,9 +70,16 @@ public struct LockedInAppPurchaseFeatureRow<Content: View>: View {
             #if os(macOS)
             .buttonStyle(.plain)
             #endif
-            .sheet(isPresented: $showingPurchaseSheet) {
-                InAppPurchaseView()
+            #if os(tvOS)
+            .fullScreenCover(isPresented: $showingPurchaseSheet) {
+                InAppPurchaseView(onPurchase: onPurchaseAction)
+                    .background(Material.regular)
             }
+            #else
+            .sheet(isPresented: $showingPurchaseSheet) {
+                InAppPurchaseView(onPurchase: onPurchaseAction)
+            }
+            #endif
         }
     }
 
