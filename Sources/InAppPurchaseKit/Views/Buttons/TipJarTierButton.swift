@@ -24,6 +24,50 @@ struct TipJarTierButton: View {
     }
 
     var body: some View {
+        #if os(tvOS)
+        Button {
+            if let product {
+                Task {
+                    await inAppPurchase.purchase(product)
+                }
+            }
+        } label: {
+            LabeledContent {
+                ZStack {
+                    Text(verbatim: "-")
+                        .foregroundStyle(Color.clear)
+                        .accessibilityHidden(true)
+                        .padding(.horizontal, 12)
+
+                    if let product {
+                        Text(product.displayPrice)
+                    }
+                }
+                .font(.callout)
+                .accessibilityHidden(true)
+                .overlay {
+                    if product == nil || inAppPurchase.transactionState == .purchasing  {
+                        ProgressView()
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 2)
+                    }
+                }
+
+            } label: {
+                Label {
+                    Text(tier.type.title)
+                        .font(.headline)
+                } icon: {
+                    Image(systemName: "heart.fill")
+                        .imageScale(.large)
+                        .foregroundStyle(.pink)
+                        .scaleEffect(imageScale)
+                }
+            }
+            .padding(.vertical)
+        }
+        .disabled(disableButton)
+        #else
         LabeledContent {
             Button {
                 #if os(iOS)
@@ -42,9 +86,6 @@ struct TipJarTierButton: View {
                     Text(verbatim: "-")
                         .foregroundStyle(Color.clear)
                         .accessibilityHidden(true)
-                        #if os(tvOS)
-                        .padding(.horizontal, 12)
-                        #endif
 
                     if let product {
                         Text(product.displayPrice)
@@ -52,20 +93,15 @@ struct TipJarTierButton: View {
                 }
                 #if os(iOS) || os(visionOS)
                 .font(.subheadline.bold())
-                #elseif os(tvOS)
-                .font(.callout)
                 #else
                 .font(.subheadline)
                 #endif
-                #if !os(tvOS) && !os(watchOS)
+                #if !os(watchOS)
                 .padding(.horizontal, 4)
                 #endif
                 .accessibilityHidden(true)
             }
-            #if os(tvOS)
-            .buttonStyle(.plain)
-            #endif
-            #if !os(tvOS) && !os(watchOS)
+            #if !os(watchOS)
             .buttonStyle(.borderedProminent)
             #if !os(macOS)
             .buttonBorderShape(.capsule)
@@ -78,7 +114,7 @@ struct TipJarTierButton: View {
             .overlay {
                 if product == nil || inAppPurchase.transactionState == .purchasing  {
                     ProgressView()
-                        #if !os(tvOS) && !os(watchOS)
+                        #if !os(watchOS)
                         .controlSize(.mini)
                         #endif
                         .padding(.horizontal, 20)
@@ -89,20 +125,12 @@ struct TipJarTierButton: View {
         } label: {
             Label {
                 Text(tier.type.title)
-                    #if os(tvOS)
-                    .font(.headline)
-                    #endif
             } icon: {
                 Image(systemName: "heart.fill")
-                    #if os(tvOS)
-                    .imageScale(.large)
-                    #endif
                     .foregroundStyle(.pink)
                     .scaleEffect(imageScale)
             }
         }
-        #if os(tvOS)
-        .padding(.vertical)
         #endif
     }
 
