@@ -96,7 +96,7 @@ struct TierSelectionButton: View {
                 backgroundView
             }
             #elseif os(tvOS)
-            .padding(.vertical, 8)
+            .padding(.vertical, 16)
             #endif
         }
         #if os(macOS)

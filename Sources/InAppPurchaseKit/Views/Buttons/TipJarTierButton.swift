@@ -62,6 +62,9 @@ struct TipJarTierButton: View {
                 #endif
                 .accessibilityHidden(true)
             }
+            #if os(tvOS)
+            .buttonStyle(.plain)
+            #endif
             #if !os(tvOS) && !os(watchOS)
             .buttonStyle(.borderedProminent)
             #if !os(macOS)

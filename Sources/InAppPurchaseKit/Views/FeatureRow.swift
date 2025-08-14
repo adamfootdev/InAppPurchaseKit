@@ -18,6 +18,7 @@ struct FeatureRow: View {
         #if os(tvOS)
         Button {} label: {
             rowView
+                .padding(.vertical, 16)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         #else
@@ -54,6 +55,7 @@ struct FeatureRow: View {
                     .font(descriptionFont)
                     .foregroundStyle(Color.secondary)
             }
+            .multilineTextAlignment(.leading)
             .accessibilityElement(children: .combine)
         }
     }
