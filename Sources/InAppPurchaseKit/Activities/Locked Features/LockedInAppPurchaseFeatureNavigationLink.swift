@@ -39,7 +39,7 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
 
     public init(
         _ titleKey: LocalizedStringKey,
-        titleColor: Color = Color.accentColor,
+        titleColor: Color = Color.primary,
         enableIfLegacyUser: Bool = false,
         @ViewBuilder destination: @escaping () -> Content,
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
