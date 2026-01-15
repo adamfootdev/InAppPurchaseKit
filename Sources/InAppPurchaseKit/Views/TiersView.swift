@@ -10,11 +10,11 @@ import SwiftUI
 struct TiersView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
-    @Binding private var selectedTier: InAppPurchaseTier?
+    @Binding private var selectedTier: PurchaseTier?
     @Binding private var showingAllTiers: Bool
 
     init(
-        selectedTier: Binding<InAppPurchaseTier?>,
+        selectedTier: Binding<PurchaseTier?>,
         showingAllTiers: Binding<Bool>
     ) {
         _selectedTier = selectedTier
@@ -24,13 +24,13 @@ struct TiersView: View {
     var body: some View {
         VStack(alignment: .trailing, spacing: tierSpacing) {
             ForEach(
-                Array(inAppPurchase.availableTiers.enumerated()),
+                Array(inAppPurchase.configuration.tiers.orderedTiers.reversed().enumerated()),
                 id: \.0
             ) { _, tier in
                 #if os(tvOS) || os(watchOS)
                 tierButton(for: tier)
                 #else
-                if showingAllTiers || inAppPurchase.primaryTier == tier || inAppPurchase.configuration.showPrimaryTierOnly == false {
+                if showingAllTiers || inAppPurchase.primaryTier == tier || tier.configuration.alwaysVisible {
                     tierButton(for: tier)
                 }
                 #endif
@@ -49,7 +49,7 @@ struct TiersView: View {
     }
 
     private func tierButton(
-        for tier: InAppPurchaseTier
+        for tier: PurchaseTier
     ) -> some View {
         TierSelectionButton(
             tier: tier,
@@ -59,19 +59,25 @@ struct TiersView: View {
     }
 
     private func accessoryType(
-        for tier: InAppPurchaseTier
-    ) -> InAppPurchaseTierAccessoryType? {
-        switch tier.type {
-        case .yearly:
+        for tier: PurchaseTier
+    ) -> PurchaseTierAccessoryType? {
+        switch tier {
+        case .yearly(let configuration):
             if let yearlySaving = inAppPurchase.yearlySaving {
                 return .saving(value: yearlySaving)
+            } else if inAppPurchase.productsLoadState.isLegacyUser,
+                      configuration.legacyConfiguration != nil {
+                return .loyalty
             } else {
                 return nil
             }
-        case .legacyUserLifetime:
-            return .loyalty
         default:
-            return nil
+            if inAppPurchase.productsLoadState.isLegacyUser,
+               tier.configuration.legacyConfiguration != nil {
+                return .loyalty
+            } else {
+                return nil
+            }
         }
     }
 }
@@ -80,7 +86,7 @@ struct TiersView: View {
     let inAppPurchase = InAppPurchaseKit.preview
 
     TiersView(
-        selectedTier: .constant(.example),
+        selectedTier: .constant(.yearly(configuration: .example)),
         showingAllTiers: .constant(true)
     )
     .environment(inAppPurchase)

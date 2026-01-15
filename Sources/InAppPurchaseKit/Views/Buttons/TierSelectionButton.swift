@@ -11,14 +11,14 @@ import HapticsKit
 struct TierSelectionButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
-    private let tier: InAppPurchaseTier
-    @Binding private var selectedTier: InAppPurchaseTier?
-    private let accessoryType: InAppPurchaseTierAccessoryType?
+    private let tier: PurchaseTier
+    @Binding private var selectedTier: PurchaseTier?
+    private let accessoryType: PurchaseTierAccessoryType?
 
     init(
-        tier: InAppPurchaseTier,
-        selectedTier: Binding<InAppPurchaseTier?>,
-        accessoryType: InAppPurchaseTierAccessoryType? = nil
+        tier: PurchaseTier,
+        selectedTier: Binding<PurchaseTier?>,
+        accessoryType: PurchaseTierAccessoryType? = nil
     ) {
         self.tier = tier
         _selectedTier = selectedTier
@@ -45,9 +45,9 @@ struct TierSelectionButton: View {
     private var tierButton: some View {
         Button {
             #if os(iOS)
-            inAppPurchase.configuration.haptics.perform(.impact(.soft, intensity: 0.6))
+            HapticsKit.shared.perform(.impact(.soft, intensity: 0.6))
             #elseif os(watchOS)
-            inAppPurchase.configuration.haptics.perform(.click)
+            HapticsKit.shared.perform(.click)
             #endif
 
             selectedTier = tier
@@ -62,7 +62,7 @@ struct TierSelectionButton: View {
             HStack(alignment: .top, spacing: 16) {
                 VStack(alignment: .leading) {
                     HStack(spacing: 12) {
-                        Text(tier.type.title)
+                        Text(tier.title)
                             .font(titleFont)
                             .foregroundStyle(Color.primary)
 
@@ -139,7 +139,7 @@ struct TierSelectionButton: View {
             } else {
                 VStack(alignment: .leading, spacing: 4) {
                     #if os(watchOS)
-                    Text(tier.type.title)
+                    Text(tier.title)
                         .font(titleFont)
                         .foregroundStyle(Color.primary)
                     #endif
@@ -249,8 +249,8 @@ struct TierSelectionButton: View {
     let inAppPurchase = InAppPurchaseKit.preview
 
     TierSelectionButton(
-        tier: .example,
-        selectedTier: .constant(.example),
+        tier: .yearly(configuration: .example),
+        selectedTier: .constant(.yearly(configuration: .example)),
         accessoryType: .saving(value: 20)
     )
     .environment(inAppPurchase)

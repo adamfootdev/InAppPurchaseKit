@@ -1,5 +1,5 @@
 //
-//  InAppPurchaseTierAccessoryType.swift
+//  PurchaseTierAccessoryType.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 31/01/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum InAppPurchaseTierAccessoryType {
+enum PurchaseTierAccessoryType {
     case saving(value: Int)
     case loyalty
 

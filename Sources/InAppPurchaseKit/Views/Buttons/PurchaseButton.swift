@@ -11,9 +11,9 @@ import HapticsKit
 struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
-    @Binding private var tier: InAppPurchaseTier?
+    @Binding private var tier: PurchaseTier?
 
-    init(for tier: Binding<InAppPurchaseTier?>) {
+    init(for tier: Binding<PurchaseTier?>) {
         _tier = tier
     }
 
@@ -41,9 +41,9 @@ struct PurchaseButton: View {
     private var purchaseButton: some View {
         Button {
             #if os(iOS)
-            inAppPurchase.configuration.haptics.perform(.selection)
+            HapticsKit.shared.perform(.selection)
             #elseif os(watchOS)
-            inAppPurchase.configuration.haptics.perform(.click)
+            HapticsKit.shared.perform(.click)
             #endif
 
             if let tier,
@@ -90,8 +90,8 @@ struct PurchaseButton: View {
 
     private var title: String {
         if let tier {
-            switch tier.type {
-            case .weekly, .monthly, .yearly:
+            switch tier {
+            case .weekly(_), .monthly(_), .yearly(_):
                 if let product = inAppPurchase.fetchProduct(for: tier),
                    inAppPurchase.introOffer(for: product) != nil {
                     return String(
@@ -105,7 +105,7 @@ struct PurchaseButton: View {
                     )
                 }
 
-            case .lifetime, .legacyUserLifetime:
+            case .lifetime(_):
                 return String(
                     localized: "Purchase",
                     bundle: .module
@@ -124,7 +124,7 @@ struct PurchaseButton: View {
     let inAppPurchase = InAppPurchaseKit.preview
 
     PurchaseButton(
-        for: .constant(.example)
+        for: .constant(.yearly(configuration: .example))
     )
     .environment(inAppPurchase)
 }

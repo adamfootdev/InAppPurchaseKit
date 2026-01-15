@@ -203,9 +203,9 @@ public struct TipJarView: View {
             switch type {
             case .tipJar:
                 #if os(iOS)
-                inAppPurchase.configuration.haptics.perform(.notification(.success))
+                HapticsKit.shared.perform(.notification(.success))
                 #elseif os(watchOS)
-                inAppPurchase.configuration.haptics.perform(.success)
+                HapticsKit.shared.perform(.success)
                 #endif
 
                 showingPurchasedMessage = true

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct FeatureRow: View {
-    private let feature: InAppPurchaseFeature
+    private let feature: PurchaseFeature
 
-    init(_ feature: InAppPurchaseFeature) {
+    init(_ feature: PurchaseFeature) {
         self.feature = feature
     }
 

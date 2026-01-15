@@ -18,7 +18,7 @@ public struct InAppPurchaseView: View {
     private let includeDismissButton: Bool
     private let onPurchaseAction: (@Sendable () -> Void)?
 
-    @State private var selectedTier: InAppPurchaseTier?
+    @State private var selectedTier: PurchaseTier?
     @State private var showingAllTiers: Bool = false
     
     @State private var showingManageSubscriptionSheet: Bool = false
@@ -39,7 +39,10 @@ public struct InAppPurchaseView: View {
         Group {
             if includeNavigationStack {
                 NavigationStack {
-                    embeddedSubscriptionView
+                    subscriptionView
+                        #if os(macOS)
+                        .frame(width: 650, height: 500)
+                        #endif
                 }
             } else {
                 subscriptionView
@@ -48,68 +51,25 @@ public struct InAppPurchaseView: View {
         .environment(inAppPurchase)
     }
 
-    @ViewBuilder
-    private var embeddedSubscriptionView: some View {
-        #if os(macOS)
-        subscriptionView
-            .frame(width: 650, height: 500)
-        #else
-        subscriptionView
-        #endif
-    }
-
     private var subscriptionView: some View {
-        ScrollView {
-            VStack(spacing: mainSpacing) {
-                InAppPurchaseHeaderView(
-                    configuration: inAppPurchase.configuration
-                )
-                .frame(maxWidth: .infinity)
-
-                tiersView
-
-                VStack(spacing: mainSpacing / 2) {
-                    Divider()
-                        .frame(maxWidth: mainWidth)
-
-                    featuresView
-                        .frame(maxWidth: mainWidth)
-
-                    Divider()
-                        .frame(maxWidth: mainWidth)
-
-                    AdditionalOptionsView(ignorePurchaseState: $ignorePurchaseState)
-                }
+        Group {
+            #if os(iOS)
+            if #available(iOS 26.0, *) {
+                mainSubscriptionView
+                    .safeAreaBar(edge: .bottom) {
+                        safeAreaPurchaseBar
+                    }
+            } else {
+                mainSubscriptionView
+                    .safeAreaInset(edge: .bottom) {
+                        safeAreaPurchaseBar
+                    }
             }
-            .frame(maxWidth: .infinity)
-            #if os(iOS) || os(visionOS)
-            .padding([.horizontal, .bottom])
-            .padding(.top, 8)
-            #elseif os(macOS)
-            .padding(20)
-            #elseif os(tvOS) || os(watchOS)
-            .padding()
+            #else
+            mainSubscriptionView
             #endif
         }
         #if os(iOS)
-        .safeAreaInset(edge: .bottom) {
-            if (inAppPurchase.purchaseState != .purchased || ignorePurchaseState) && inAppPurchase.configuration.showSinglePurchaseMode == false {
-                VStack(spacing: 16) {
-                    Divider()
-
-                    PurchaseButton(for: $selectedTier)
-                        .frame(maxWidth: 400)
-                        .padding(.horizontal, 40)
-                        .padding(.bottom, 16)
-                }
-                .background {
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .edgesIgnoringSafeArea(.all)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
-                }
-            }
-        }
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled()
         #elseif os(macOS)
@@ -147,6 +107,70 @@ public struct InAppPurchaseView: View {
         #endif
     }
 
+    @ViewBuilder
+    private var safeAreaPurchaseBar: some View {
+        if (inAppPurchase.purchaseState != .purchased || ignorePurchaseState) && inAppPurchase.configuration.showSinglePurchaseMode == false {
+            if #available(iOS 26.0, *) {
+                safeAreaPurchaseButton
+            } else {
+                VStack(spacing: 16) {
+                    Divider()
+                    safeAreaPurchaseButton
+                }
+                .background {
+                    Rectangle()
+                        .fill(.ultraThinMaterial)
+                        .ignoresSafeArea(.all)
+                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+                }
+            }
+        }
+    }
+
+    private var safeAreaPurchaseButton: some View {
+        PurchaseButton(for: $selectedTier)
+            .frame(maxWidth: 400)
+            .padding(.horizontal, 40)
+            .padding(.bottom, 16)
+    }
+
+    private var mainSubscriptionView: some View {
+        ScrollView {
+            VStack(spacing: mainSpacing) {
+                InAppPurchaseHeaderView(
+                    configuration: inAppPurchase.configuration
+                )
+                .frame(maxWidth: .infinity)
+
+                tiersView
+
+                VStack(spacing: mainSpacing / 2) {
+                    Divider()
+                        .frame(maxWidth: mainWidth)
+
+                    featuresView
+                        .frame(maxWidth: mainWidth)
+
+                    Divider()
+                        .frame(maxWidth: mainWidth)
+
+                    AdditionalOptionsView(
+                        ignorePurchaseState: $ignorePurchaseState
+                    )
+                }
+            }
+            .frame(maxWidth: .infinity)
+            #if os(iOS) || os(visionOS)
+            .padding([.horizontal, .bottom])
+            .padding(.top, 8)
+            #elseif os(macOS)
+            .padding(20)
+            #elseif os(tvOS) || os(watchOS)
+            .padding()
+            #endif
+        }
+    }
+
     private var mainSpacing: CGFloat {
         #if os(macOS) || os(watchOS)
         return 20
@@ -164,8 +188,8 @@ public struct InAppPurchaseView: View {
                 VStack(spacing: 20) {
                     SubscribedFooterView()
 
-                    switch inAppPurchase.activeTier?.type {
-                    case .weekly, .monthly, .yearly:
+                    switch inAppPurchase.activeTier {
+                    case .weekly(_), .monthly(_), .yearly(_):
                         VStack(spacing: 8) {
                             Button {
                                 showingManageSubscriptionSheet = true
@@ -197,8 +221,8 @@ public struct InAppPurchaseView: View {
                 VStack(spacing: 20) {
                     SubscribedFooterView()
 
-                    switch inAppPurchase.activeTier?.type {
-                    case .weekly, .monthly, .yearly:
+                    switch inAppPurchase.activeTier {
+                    case .weekly(_), .monthly(_), .yearly(_):
                         Button {
                             showingSwitchTierMessage = true
                         } label: {
@@ -229,7 +253,7 @@ public struct InAppPurchaseView: View {
                         )
 
                         #if !os(tvOS) && !os(watchOS)
-                        if inAppPurchase.availableTiers.count > 1 && inAppPurchase.configuration.showPrimaryTierOnly {
+                        if inAppPurchase.configuration.tiers.orderedTiers.count > 1 && (inAppPurchase.alwaysVisibleTiers.count != inAppPurchase.configuration.tiers.orderedTiers.count) {
                             Button {
                                 withAnimation {
                                     showingAllTiers.toggle()
@@ -327,9 +351,9 @@ public struct InAppPurchaseView: View {
         }
 
         #if os(iOS)
-        inAppPurchase.configuration.haptics.perform(.notification(.success))
+        HapticsKit.shared.perform(.notification(.success))
         #elseif os(watchOS)
-        inAppPurchase.configuration.haptics.perform(.success)
+        HapticsKit.shared.perform(.success)
         #endif
 
         try? await Task.sleep(for: .seconds(1.0))

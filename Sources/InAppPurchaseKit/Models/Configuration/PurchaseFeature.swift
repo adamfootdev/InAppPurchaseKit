@@ -1,5 +1,5 @@
 //
-//  InAppPurchaseFeature.swift
+//  PurchaseFeature.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 31/01/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-public struct InAppPurchaseFeature: Sendable {
+public struct PurchaseFeature: Sendable {
     public let title: String
     public let description: String
     public let systemImage: String
@@ -28,8 +28,8 @@ public struct InAppPurchaseFeature: Sendable {
 
     // MARK: - Previews
 
-    public static let example: InAppPurchaseFeature = {
-        let feature = InAppPurchaseFeature(
+    public static let example: PurchaseFeature = {
+        let feature = PurchaseFeature(
             title: "Feature",
             description: "About this feature.",
             systemImage: "checkmark",

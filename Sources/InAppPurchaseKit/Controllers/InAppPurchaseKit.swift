@@ -21,6 +21,8 @@ public final class InAppPurchaseKit: NSObject {
     }
 
     public private(set) var configuration: InAppPurchaseKitConfiguration
+
+    @ObservationIgnored
     private var updateListenerTask: Task<Void, Error>? = nil
 
     public private(set) var productsLoadState: ProductsLoadState = .pending
@@ -148,8 +150,15 @@ public final class InAppPurchaseKit: NSObject {
         }
     }
 
-    public func fetchProduct(for tier: InAppPurchaseTier) -> Product? {
-        productsLoadState.fetchProduct(for: tier.id)
+    public func fetchProduct(for tier: PurchaseTier) -> Product? {
+        if productsLoadState.isLegacyUser,
+           let configuration = tier.configuration.legacyConfiguration {
+            return productsLoadState.fetchProduct(
+                for: configuration.id
+            )
+        } else {
+            return productsLoadState.fetchProduct(for: tier.id)
+        }
     }
 
     public func fetchProduct(for tipJarTier: TipJarTier) -> Product? {
@@ -175,13 +184,15 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Purchase Status
-
-    public var activeTier: InAppPurchaseTier? {
+    
+    /// The highest tier that the user has purchased.
+    public var activeTier: PurchaseTier? {
         return configuration.tiers.orderedTiers.first(where: {
             productsLoadState.purchasedTiers.contains($0)
         })
     }
-
+    
+    /// The current purchase state for the user.
     public var purchaseState: PurchaseState {
         if Bundle.main.bundlePath.hasSuffix(".appex") {
             let purchased = configuration.sharedUserDefaults.bool(
@@ -208,9 +219,11 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Legacy Users
-
+    
+    /// Returns a `Bool` based on whether the user meets the criteria.
+    /// - Returns: A `Bool` indicating whether they are a legacy user.
     private func fetchLegacyUserState() async -> Bool {
-        guard let threshold = configuration.legacyUserThreshold else {
+        guard let threshold = configuration.preInAppPurchaseThreshold else {
             return false
         }
 
@@ -294,51 +307,42 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Tiers
+    
+    /// The tier to pre-select based on the configuration.
+    public var primaryTier: PurchaseTier? {
+        let tiers = configuration.tiers.orderedTiers
 
-    public var primaryTier: InAppPurchaseTier? {
-        let tiers = configuration.tiers
-
-        if configuration.showLegacyTier && productsLoadState.isLegacyUser {
-            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier
+        if let tier = tiers.first(where: {
+            $0.configuration.isPrimary
+        }) {
+            return tier
+        } else if let tier = tiers.first(where: {
+            $0.configuration.alwaysVisible
+        }) {
+            return tier
         } else {
-            return tiers.yearlyTier ?? tiers.monthlyTier ?? tiers.weeklyTier ?? tiers.lifetimeTier
+            return tiers.first
+        }
+    }
+    
+    /// The tiers that should always be shown to the user.
+    public var alwaysVisibleTiers: [PurchaseTier] {
+        let tiers = configuration.tiers
+        
+        return tiers.orderedTiers.filter {
+            $0.configuration.alwaysVisible
         }
     }
 
-    public var availableTiers: [InAppPurchaseTier] {
-        let tiers = configuration.tiers
-
-        if configuration.showLegacyTier && productsLoadState.isLegacyUser {
-            let availableTiers = [
-                tiers.weeklyTier,
-                tiers.monthlyTier,
-                tiers.yearlyTier,
-                (tiers.legacyUserLifetimeTier ?? tiers.lifetimeTier)
-            ]
-
-            return availableTiers.compactMap { $0 }
-
-        } else {
-            let availableTiers = [
-                tiers.weeklyTier,
-                tiers.monthlyTier,
-                tiers.yearlyTier,
-                tiers.lifetimeTier
-            ]
-
-            return availableTiers.compactMap { $0 }
-        }
-    }
-
-    public func fetchTierSubtitle(for tier: InAppPurchaseTier) -> String {
+    public func fetchTierSubtitle(for tier: PurchaseTier) -> String {
         guard let product = fetchProduct(for: tier) else {
             return ""
         }
 
         var message: String = ""
 
-        switch tier.type {
-        case .weekly, .monthly, .yearly:
+        switch tier {
+        case .weekly(_), .monthly(_), .yearly(_):
             if let introOffer = introOffer(for: product) {
                 switch introOffer.period.unit {
                 case .day:
@@ -366,36 +370,36 @@ public final class InAppPurchaseKit: NSObject {
                 }
             }
 
-        case .lifetime, .legacyUserLifetime:
+        case .lifetime(_):
             message += String(
                 localized: "One-time payment, ",
                 bundle: .module
             )
         }
 
-        message += "\(product.displayPrice)/\(tier.type.paymentTimeTitle)"
+        message += "\(product.displayPrice)/\(tier.paymentTimeTitle)"
 
         return message
     }
 
-    private func fetchPurchasedTiers() async -> Set<InAppPurchaseTier> {
-        var purchasedTiers: Set<InAppPurchaseTier> = []
+    private func fetchPurchasedTiers() async -> Set<PurchaseTier> {
+        var purchasedTiers: Set<PurchaseTier> = []
 
-        for tier in configuration.tiers.allTiers {
-            do {
-                for id in ([tier.id] + tier.alternateIDs) {
-                    if try await fetchTransactionState(for: id) {
+        for tier in configuration.tiers.orderedTiers {
+            if purchasedTiers.contains(tier) == false {
+                for id in tier.tierIDs {
+                    if (try? await fetchTransactionState(for: id)) ?? false {
                         purchasedTiers.insert(tier)
                     }
                 }
-            } catch {}
+            }
         }
 
         return purchasedTiers
     }
 
     private func updatePurchasedTiers(_ transaction: Transaction) async {
-        var purchasedTiers: Set<InAppPurchaseTier> = []
+        var purchasedTiers: Set<PurchaseTier> = []
 
         switch productsLoadState {
         case .loaded(_, _, let tiers, _):
@@ -405,14 +409,14 @@ public final class InAppPurchaseKit: NSObject {
         }
 
         if transaction.revocationDate == nil {
-            if let tier = configuration.tiers.allTiers.first(where: {
-                $0.id == transaction.productID || $0.alternateIDs.contains(transaction.productID)
+            if let tier = configuration.tiers.orderedTiers.first(where: {
+                $0.tierIDs.contains(transaction.productID)
             }) {
                 purchasedTiers.insert(tier)
             }
         } else {
             let tiers = purchasedTiers.filter {
-                $0.id == transaction.productID || $0.alternateIDs.contains(transaction.productID)
+                $0.tierIDs.contains(transaction.productID)
             }
 
             for tier in tiers {
@@ -470,7 +474,9 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Intro Offers
 
-    private func fetchIntroOffer(for product: Product) async -> Product.SubscriptionOffer? {
+    private func fetchIntroOffer(
+        for product: Product
+    ) async -> Product.SubscriptionOffer? {
         guard let renewableSubscription = product.subscription else {
             return nil
         }
@@ -482,7 +488,9 @@ public final class InAppPurchaseKit: NSObject {
         return nil
     }
 
-    public func introOffer(for product: Product) -> Product.SubscriptionOffer? {
+    public func introOffer(
+        for product: Product
+    ) -> Product.SubscriptionOffer? {
         productsLoadState.fetchIntroOffer(for: product)
     }
 

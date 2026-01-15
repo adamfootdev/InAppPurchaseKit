@@ -15,7 +15,7 @@ public enum ProductsLoadState: Sendable {
     case loaded(
         _ products: [Product],
         _ introOffers: [Product: Product.SubscriptionOffer],
-        _ purchasedTiers: Set<InAppPurchaseTier>,
+        _ purchasedTiers: Set<PurchaseTier>,
         _ legacyUser: Bool
     )
 
@@ -49,7 +49,7 @@ public enum ProductsLoadState: Sendable {
         }
     }
 
-    public var purchasedTiers: Set<InAppPurchaseTier> {
+    public var purchasedTiers: Set<PurchaseTier> {
         switch self {
         case .loaded(_, _, let purchasedTiers, _):
             return purchasedTiers

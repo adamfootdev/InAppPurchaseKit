@@ -37,7 +37,7 @@ struct SinglePurchaseButton: View {
 
     // MARK: - Details
 
-    var tier: InAppPurchaseTier? {
+    var tier: PurchaseTier? {
         inAppPurchase.primaryTier
     }
 

@@ -1,5 +1,5 @@
 //
-//  LegacyUserThreshold.swift
+//  PreInAppPurchaseThreshold.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 16/05/2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LegacyUserThreshold: Sendable {
+public struct PreInAppPurchaseThreshold: Sendable {
     let buildNumber: Int
     let version: String
 
