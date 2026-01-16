@@ -15,7 +15,7 @@ public struct PurchaseTierConfiguration: Identifiable, Hashable, Sendable {
     public let alternateIDs: [String]
     
     /// A `Bool` indicating whether this tier should always be shown regardless of whether
-    /// hiding/showing all options.
+    /// hiding/showing all options. On some platforms, all options will always be visible.
     public let alwaysVisible: Bool
     
     /// A `Bool` indicating whether the tier is the primary tier to pre-select and show in
