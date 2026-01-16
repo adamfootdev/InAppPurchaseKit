@@ -9,8 +9,11 @@ import SwiftUI
 
 #if os(iOS)
 struct DismissButton: View {
+    /// The action to perform when pressed.
     private let action: () -> Void
-
+    
+    /// Creates a new `DismissButton`
+    /// - Parameter action: The action to perform when pressed.
     init(perform action: @escaping () -> Void) {
         self.action = action
     }
@@ -21,8 +24,11 @@ struct DismissButton: View {
 }
 
 fileprivate struct CloseButton: UIViewRepresentable {
+    /// The action to perform when pressed.
     private let action: () -> Void
 
+    /// Creates a new `CloseButton`
+    /// - Parameter action: The action to perform when pressed.
     init(perform action: @escaping () -> Void) {
         self.action = action
     }

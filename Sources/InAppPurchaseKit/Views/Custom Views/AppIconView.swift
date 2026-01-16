@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct AppIconView: View {
-    private let configuration: InAppPurchaseKitConfiguration
+    /// A `String` containing the app icon image name.
+    private let imageName: String
 
-    init(configuration: InAppPurchaseKitConfiguration) {
-        self.configuration = configuration
+    /// Creates a new `AppIconView`.
+    /// - Parameter imageName: A `String` containing the app icon image name.
+    init(named imageName: String) {
+        self.imageName = imageName
     }
 
     var body: some View {
@@ -45,9 +48,9 @@ struct AppIconView: View {
 
     private var appIcon: PlatformImage? {
         #if os(macOS)
-        return NSImage(named: configuration.imageName)
+        return NSImage(named: imageName)
         #else
-        return UIImage(named: configuration.imageName, in: .main, with: nil)
+        return UIImage(named: imageName, in: .main, with: nil)
         #endif
     }
 
@@ -87,5 +90,7 @@ struct AppIconView: View {
 }
 
 #Preview {
-    AppIconView(configuration: .preview)
+    AppIconView(
+        named: InAppPurchaseKitConfiguration.example.imageName
+    )
 }

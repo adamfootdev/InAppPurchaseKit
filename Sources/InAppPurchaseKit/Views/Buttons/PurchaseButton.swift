@@ -10,9 +10,12 @@ import HapticsKit
 
 struct PurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
+    
+    /// The current selected tier.
     @Binding private var tier: PurchaseTier?
-
+    
+    /// Creates a new `PurchaseButton`
+    /// - Parameter tier: The current selected tier.
     init(for tier: Binding<PurchaseTier?>) {
         _tier = tier
     }

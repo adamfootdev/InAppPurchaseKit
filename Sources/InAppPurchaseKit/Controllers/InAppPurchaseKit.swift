@@ -10,8 +10,10 @@ import StoreKit
 
 @MainActor @Observable
 public final class InAppPurchaseKit: NSObject {
+    /// The current `InAppPurchaseKit` object.
     private static var initializedInAppPurchaseKit: InAppPurchaseKit?
-
+    
+    /// Access the current `InAppPurchaseKit` instance.
     public static var shared: InAppPurchaseKit {
         if let initializedInAppPurchaseKit {
             return initializedInAppPurchaseKit
@@ -19,20 +21,28 @@ public final class InAppPurchaseKit: NSObject {
             fatalError("Please initialize InAppPurchaseKit by calling InAppPurchaseKit.configure(…) first.")
         }
     }
-
+    
+    /// The current `InAppPurchaseKitConfiguration` to use for the in-app purchase views.
     public private(set) var configuration: InAppPurchaseKitConfiguration
-
+    
+    /// A task to listen for updates to the transaction state.
     @ObservationIgnored
     private var updateListenerTask: Task<Void, Error>? = nil
-
+    
+    /// An enum containing the load state of the products.
     public private(set) var productsLoadState: ProductsLoadState = .pending
-
+    
+    /// A `Bool` indicating whether promoted purchases are currently being checked.
+    @ObservationIgnored
     private var checkingPromotedPurchase: Bool = false
-
+    
+    /// An enum containing the current transaction state.
     public var transactionState: TransactionState = .pending {
         didSet {
             switch transactionState {
             case .purchased(_):
+                // Reset the state back to pending so the user
+                // can purchase another in-app purchase.
                 Task {
                     try? await Task.sleep(for: .seconds(2))
                     transactionState = .pending
@@ -45,7 +55,9 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Init
-
+    
+    /// Creates a new `InAppPurchaseKit` object.
+    /// - Parameter configuration: The `InAppPurchaseKitConfiguration` to use for the in-app purchase views.
     private init(configuration: InAppPurchaseKitConfiguration) {
         self.configuration = configuration
 
@@ -61,7 +73,10 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Configuration
-
+    
+    /// Configure `InAppPurchaseKit` with the set configuration.
+    /// - Parameter configuration: The `InAppPurchaseKitConfiguration` to use for the in-app purchase views.
+    /// - Returns: The initialized instance of `InAppPurchaseKit`.
     @discardableResult
     public static func configure(
         with configuration: InAppPurchaseKitConfiguration
@@ -78,7 +93,10 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Products
-
+    
+    /// Refreshes the product load state by checking for purchases.
+    /// - Parameter fromReload: A `Bool` indicating whether the refresh should be
+    /// for a reload.
     private func updateProductLoadState(fromReload: Bool = false) async {
         if fromReload == false {
             productsLoadState = .loading
@@ -99,7 +117,8 @@ public final class InAppPurchaseKit: NSObject {
             updatedPurchasesCompletionBlock()
         }
     }
-
+    
+    /// Wait until purchases have been loaded.
     public func waitUntilLoadedPurchases() async {
         if productsLoadState.hasLoaded {
             return
@@ -108,15 +127,16 @@ public final class InAppPurchaseKit: NSObject {
             await waitUntilLoadedPurchases()
         }
     }
-
+    
+    /// Fetches StoreKit products based on the IDs in the configuration.
+    /// - Returns: An array of `Product` with a dictionary of offers.
     private func fetchProducts() async -> (
         products: [Product],
         introOffers: [Product: Product.SubscriptionOffer]
     ) {
         do {
-            let products = try await Product.products(
-                for: configuration.tiers.tierIDs + configuration.sortedTipJarTiers.map { $0.id }
-            )
+            let productIDs = (configuration.tiers.allTierIDs + (configuration.tipJarTiers?.allTierIDs ?? [])).map { $0 }
+            let products = try await Product.products(for: productIDs)
 
             var introOffers: [Product: Product.SubscriptionOffer] = [:]
 
@@ -132,7 +152,10 @@ public final class InAppPurchaseKit: NSObject {
             return ([], [:])
         }
     }
-
+    
+    /// Checks whether the user has an active purchase for the provided identifier.
+    /// - Parameter productIdentifier: A `String` containing the product ID.
+    /// - Returns: A `Bool` indicating whether the user has purchased that product.
     private func fetchTransactionState(
         for productIdentifier: String
     ) async throws -> Bool {
@@ -149,25 +172,34 @@ public final class InAppPurchaseKit: NSObject {
             return transaction.revocationDate == nil && !transaction.isUpgraded
         }
     }
-
+    
+    /// Fetches a StoreKit product based on a tier.
+    /// - Parameter tier: The `PurchaseTier` to fetch the product for.
+    /// - Returns: An optional StoreKit `Product` if available.
     public func fetchProduct(for tier: PurchaseTier) -> Product? {
         if productsLoadState.isLegacyUser,
-           let configuration = tier.configuration.legacyConfiguration {
-            return productsLoadState.fetchProduct(
-                for: configuration.id
-            )
-        } else {
-            return productsLoadState.fetchProduct(for: tier.id)
+           let configuration = tier.configuration.legacyConfiguration,
+           configuration.visible,
+           let product = productsLoadState.fetchProduct(
+            for: configuration.id
+           )  {
+            return product
         }
-    }
 
+        return productsLoadState.fetchProduct(for: tier.id)
+    }
+    
+    /// Fetches a StoreKit product based on a Tip Jar tier.
+    /// - Parameter tipJarTier: The `TipJarTier` to fetch the product for.
+    /// - Returns: An optional StoreKit `Product` if available.
     public func fetchProduct(for tipJarTier: TipJarTier) -> Product? {
         productsLoadState.fetchProduct(for: tipJarTier.id)
     }
 
 
     // MARK: - External Purchases
-
+    
+    /// Checks if the user has made a purchase externally e.g. via the App Store.
     public func checkForExternalPurchases() async {
         guard checkingPromotedPurchase == false else { return }
 
@@ -223,7 +255,7 @@ public final class InAppPurchaseKit: NSObject {
     /// Returns a `Bool` based on whether the user meets the criteria.
     /// - Returns: A `Bool` indicating whether they are a legacy user.
     private func fetchLegacyUserState() async -> Bool {
-        guard let threshold = configuration.preInAppPurchaseThreshold else {
+        guard let threshold = configuration.legacyPurchaseThreshold else {
             return false
         }
 
@@ -308,7 +340,7 @@ public final class InAppPurchaseKit: NSObject {
 
     // MARK: - Tiers
     
-    /// The tier to pre-select based on the configuration.
+    /// The `PurchaseTier` to pre-select based on the configuration.
     public var primaryTier: PurchaseTier? {
         let tiers = configuration.tiers.orderedTiers
 
@@ -333,7 +365,10 @@ public final class InAppPurchaseKit: NSObject {
             $0.configuration.alwaysVisible
         }
     }
-
+    
+    /// Fetches the subtitle for a given tier.
+    /// - Parameter tier: The `PurchaseTier` to fetch the subtitle for.
+    /// - Returns: A `String` containing the subtitle.
     public func fetchTierSubtitle(for tier: PurchaseTier) -> String {
         guard let product = fetchProduct(for: tier) else {
             return ""
@@ -381,7 +416,9 @@ public final class InAppPurchaseKit: NSObject {
 
         return message
     }
-
+    
+    /// Fetches a list of all the tiers a user has purchased.
+    /// - Returns: A set of `PurchaseTier` that the user has purchased.
     private func fetchPurchasedTiers() async -> Set<PurchaseTier> {
         var purchasedTiers: Set<PurchaseTier> = []
 
@@ -397,7 +434,9 @@ public final class InAppPurchaseKit: NSObject {
 
         return purchasedTiers
     }
-
+    
+    /// Updates the purchased tiers based on a StoreKit transaction.
+    /// - Parameter transaction: The StoreKit `Transaction` to update based on.
     private func updatePurchasedTiers(_ transaction: Transaction) async {
         var purchasedTiers: Set<PurchaseTier> = []
 
@@ -443,7 +482,8 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Savings
-
+    
+    /// The percentage saving of a yearly plan vs a monthly one.
     public var yearlySaving: Int? {
         guard let monthlyTier = configuration.tiers.monthlyTier,
                 let yearlyTier = configuration.tiers.yearlyTier else {
@@ -473,7 +513,10 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Intro Offers
-
+    
+    /// Fetches an intro offer for a StoreKit `Product` if available.
+    /// - Parameter product: The StoreKit `Product` to fetch the intro offer for.
+    /// - Returns: An optional intro offer if available.
     private func fetchIntroOffer(
         for product: Product
     ) async -> Product.SubscriptionOffer? {
@@ -487,7 +530,10 @@ public final class InAppPurchaseKit: NSObject {
 
         return nil
     }
-
+    
+    /// Fetches the stored intro offer for a StoreKit `Product` if available.
+    /// - Parameter product: The StoreKit `Product` to fetch the intro offer for.
+    /// - Returns: An optional intro offer if available.
     public func introOffer(
         for product: Product
     ) -> Product.SubscriptionOffer? {
@@ -496,7 +542,10 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Purchase
-
+    
+    /// Asks the system to purchase the selected product.
+    /// - Parameter product: The StoreKit `Product` to purchase.
+    /// - Returns: An optional `Transaction` if the user purchased the product.
     @discardableResult
     public func purchase(_ product: Product) async -> Transaction? {
         transactionState = .purchasing
@@ -516,8 +565,8 @@ public final class InAppPurchaseKit: NSObject {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
 
-                if configuration.sortedTipJarTiers.contains(where: {
-                    $0.id == transaction.productID
+                if (configuration.tipJarTiers?.allTierIDs ?? []).contains(where: {
+                    $0 == transaction.productID
                 }) {
                     await transaction.finish()
                     transactionState = .purchased(.tipJar)
@@ -560,7 +609,8 @@ public final class InAppPurchaseKit: NSObject {
             return nil
         }
     }
-
+    
+    /// Restores the purchases for the user.
     public func restorePurchases() async {
         try? await AppStore.sync()
         _ = try? await AppTransaction.refresh()
@@ -569,7 +619,9 @@ public final class InAppPurchaseKit: NSObject {
 
 
     // MARK: - Transactions
-
+    
+    /// Creates a task to listen for transactions.
+    /// - Returns: The task to listen to transactions.
     private func listenForTransactions() -> Task<Void, Error> {
         return Task.detached {
             for await result in Transaction.updates {
@@ -586,7 +638,10 @@ public final class InAppPurchaseKit: NSObject {
             }
         }
     }
-
+    
+    /// Checks if the transaction can be verified.
+    /// - Parameter result: The verification result type.
+    /// - Returns: The verification result.
     private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {
         case .unverified:
@@ -600,7 +655,7 @@ public final class InAppPurchaseKit: NSObject {
     // MARK: - Previews
 
     public static var preview: InAppPurchaseKit = {
-        let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+        let inAppPurchase = InAppPurchaseKit.configure(with: .example)
         return inAppPurchase
     }()
 }

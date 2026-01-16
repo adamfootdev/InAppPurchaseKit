@@ -8,11 +8,24 @@
 import SwiftUI
 
 public struct PurchaseFeature: Sendable {
+    /// A `String` containing the feature title.
     public let title: String
+    
+    /// A `String` containing the feature description.
     public let description: String
+    
+    /// A `String` containing the name of the system image.
     public let systemImage: String
+    
+    /// The `Color` to tint the image.
     public let systemColor: Color
-
+    
+    /// Creates a new `PurchaseFeature` object.
+    /// - Parameters:
+    ///   - title: A `String` containing the feature title.
+    ///   - description: A `String` containing the feature description.
+    ///   - systemImage: A `String` containing the name of the system image.
+    ///   - systemColor: The `Color` to tint the image.
     public init(
         title: String,
         description: String,

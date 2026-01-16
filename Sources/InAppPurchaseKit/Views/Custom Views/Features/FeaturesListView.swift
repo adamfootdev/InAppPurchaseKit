@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct FeaturesListView: View {
+    /// An array of `PurchaseFeature` to display.
     private let features: [PurchaseFeature]
 
+    /// Creates a new `FeaturesListView`.
+    /// - Parameter features: An array of `PurchaseFeature` to display.
     init(_ features: [PurchaseFeature]) {
         self.features = features
     }

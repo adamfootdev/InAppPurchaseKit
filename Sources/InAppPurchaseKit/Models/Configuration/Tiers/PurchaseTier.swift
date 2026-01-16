@@ -13,16 +13,6 @@ public enum PurchaseTier: Identifiable, Hashable, Sendable {
     case yearly(configuration: PurchaseTierConfiguration)
     case lifetime(configuration: PurchaseTierConfiguration)
 
-    public var id: String {
-        switch self {
-        case .weekly(let configuration),
-                .monthly(let configuration),
-                .yearly(let configuration),
-                .lifetime(let configuration):
-            return configuration.id
-        }
-    }
-
     public var configuration: PurchaseTierConfiguration {
         switch self {
         case .weekly(let configuration),
@@ -33,24 +23,16 @@ public enum PurchaseTier: Identifiable, Hashable, Sendable {
         }
     }
 
-    var legacyID: String? {
-        switch self {
-        case .weekly(let configuration),
-                .monthly(let configuration),
-                .yearly(let configuration),
-                .lifetime(let configuration):
-            return configuration.legacyConfiguration?.id
-        }
+    public var id: String {
+        return configuration.id
     }
 
-    var alternateIDs: [String] {
-        switch self {
-        case .weekly(let configuration),
-                .monthly(let configuration),
-                .yearly(let configuration),
-                .lifetime(let configuration):
-            return configuration.alternateIDs
-        }
+    public var legacyID: String? {
+        return configuration.legacyConfiguration?.id
+    }
+
+    public var alternateIDs: [String] {
+        return configuration.alternateIDs
     }
 
     var tierIDs: [String] {

@@ -8,9 +8,16 @@
 import Foundation
 
 public struct LegacyPurchaseTierConfiguration: Identifiable, Hashable, Sendable {
+    /// A `String` containing the ID of the tier.
     public let id: String
+    
+    /// A `Bool` indicating whether the tier should be available to purchase.
     public let visible: Bool
-
+    
+    /// Creates a new `LegacyPurchaseTierConfiguration` object.
+    /// - Parameters:
+    ///   - id: A `String` containing the ID of the tier.
+    ///   - visible: A `Bool` indicating whether the tier should be available to purchase.
     init(id: String, visible: Bool) {
         self.id = id
         self.visible = visible

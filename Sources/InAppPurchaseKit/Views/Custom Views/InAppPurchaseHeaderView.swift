@@ -8,9 +8,17 @@
 import SwiftUI
 
 struct InAppPurchaseHeaderView: View {
+    /// A `String` containing the subtitle for the view.
     private let subtitle: String
+    
+    /// The current `InAppPurchaseKitConfiguration`.
     private let configuration: InAppPurchaseKitConfiguration
-
+    
+    /// Creates a new `InAppPurchaseHeaderView`.
+    /// - Parameters:
+    ///   - subtitle: An optional `String` containing the subtitle for the view. If
+    ///   a value is not supplied, the configuration subtitle will be used instead.
+    ///   - configuration: The current `InAppPurchaseKitConfiguration`.
     init(
         subtitle: String? = nil,
         configuration: InAppPurchaseKitConfiguration
@@ -21,7 +29,9 @@ struct InAppPurchaseHeaderView: View {
 
     var body: some View {
         VStack(spacing: mainSpacing) {
-            AppIconView(configuration: configuration)
+            AppIconView(
+                named: configuration.imageName
+            )
 
             VStack(spacing: 6) {
                 Text(
@@ -71,5 +81,5 @@ struct InAppPurchaseHeaderView: View {
 }
 
 #Preview {
-    InAppPurchaseHeaderView(configuration: .preview)
+    InAppPurchaseHeaderView(configuration: .example)
 }

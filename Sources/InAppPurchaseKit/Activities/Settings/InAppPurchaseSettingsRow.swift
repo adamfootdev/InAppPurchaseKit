@@ -8,12 +8,23 @@
 import SwiftUI
 
 public struct InAppPurchaseSettingsRow: View {
+    /// Creates a new `InAppPurchaseKit` object to monitor.
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
+    /// An optional action to perform when a transaction is completed. This is separate
+    /// to the action set in `InAppPurchaseKitConfiguration` but both
+    /// will be performed. If an action is set, you will need to also dismiss the view. This
+    /// is handled automatically when no action is set.
     private let onPurchaseAction: (@Sendable () -> Void)?
-
+    
+    /// A `Bool` indicating whether the in-app purchase sheet is shown.
     @State private var showingPurchaseSheet: Bool = false
-
+    
+    /// Creates a new `InAppPurchaseSettingsRow` view.
+    /// - Parameter onPurchaseAction: An optional action to perform when a transaction is completed. This is separate
+    ///   to the action set in `InAppPurchaseKitConfiguration` but both
+    ///   will be performed. If an action is set, you will need to also dismiss the view. This
+    ///   is handled automatically when no action is set. Defaults to `nil`.
     public init(
         onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
     ) {

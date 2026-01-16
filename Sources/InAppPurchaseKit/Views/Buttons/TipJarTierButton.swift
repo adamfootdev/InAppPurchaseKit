@@ -11,10 +11,17 @@ import HapticsKit
 
 struct TipJarTierButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
+    
+    /// The `TipJarTier` to display.
     private let tier: TipJarTier
+    
+    /// A `CGFloat` containing the scale at which to show the image.
     private let imageScale: CGFloat
-
+    
+    /// Creates a new `TipJarTierButton` view.
+    /// - Parameters:
+    ///   - tier: The `TipJarTier` to display.
+    ///   - imageScale: A `CGFloat` containing the scale at which to show the image.
     init(
         _ tier: TipJarTier,
         imageScale: CGFloat = 1
@@ -55,7 +62,7 @@ struct TipJarTierButton: View {
 
             } label: {
                 Label {
-                    Text(tier.type.title)
+                    Text(tier.title)
                         .font(.headline)
                 } icon: {
                     Image(systemName: "heart.fill")
@@ -124,7 +131,7 @@ struct TipJarTierButton: View {
 
         } label: {
             Label {
-                Text(tier.type.title)
+                Text(tier.title)
             } icon: {
                 Image(systemName: "heart.fill")
                     .foregroundStyle(.pink)
@@ -156,7 +163,7 @@ struct TipJarTierButton: View {
     let inAppPurchase = InAppPurchaseKit.preview
 
     Form {
-        TipJarTierButton(.example)
+        TipJarTierButton(.small(configuration: .example))
     }
     #if os(macOS)
     .formStyle(.grouped)

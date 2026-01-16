@@ -11,7 +11,7 @@ struct SinglePurchaseButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
     var body: some View {
-        VStack(spacing: mainSpacing) {
+        VStack(spacing: SizingConstants.purchaseButtonSpacing) {
             tierDetailsView
                 .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -24,16 +24,6 @@ struct SinglePurchaseButton: View {
         }
     }
 
-    private var mainSpacing: CGFloat {
-        #if os(macOS) || os(watchOS)
-        return 8
-        #elseif os(tvOS)
-        return 20
-        #else
-        return 12
-        #endif
-    }
-
 
     // MARK: - Details
 
@@ -41,7 +31,8 @@ struct SinglePurchaseButton: View {
         inAppPurchase.primaryTier
     }
 
-    @ViewBuilder private var tierDetailsView: some View {
+    @ViewBuilder
+    private var tierDetailsView: some View {
         Group {
             if let tier, inAppPurchase.fetchProduct(for: tier) != nil {
                 Text(inAppPurchase.fetchTierSubtitle(for: tier))

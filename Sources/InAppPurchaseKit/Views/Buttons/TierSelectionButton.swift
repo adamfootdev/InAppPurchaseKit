@@ -10,11 +10,21 @@ import HapticsKit
 
 struct TierSelectionButton: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
+    
+    /// The `PurchaseTier` to display.
     private let tier: PurchaseTier
+    
+    /// The current selected `PurchaseTier`.
     @Binding private var selectedTier: PurchaseTier?
+    
+    /// An optional accessory type to show for the tier.
     private let accessoryType: PurchaseTierAccessoryType?
-
+    
+    /// Creates a new `TierSelectionButton`.
+    /// - Parameters:
+    ///   - tier: The `PurchaseTier` to display.
+    ///   - selectedTier: The current selected `PurchaseTier`.
+    ///   - accessoryType: An optional accessory type to show for the tier.
     init(
         tier: PurchaseTier,
         selectedTier: Binding<PurchaseTier?>,
@@ -129,7 +139,7 @@ struct TierSelectionButton: View {
         #endif
     }
 
-    @ViewBuilder private var tierDetailsView: some View {
+    private var tierDetailsView: some View {
         Group {
             if inAppPurchase.fetchProduct(for: tier) == nil {
                 ProgressView()

@@ -11,11 +11,16 @@ import StoreKit
 struct AdditionalOptionsView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
+    /// A `Bool` indicating whether to ignore the current purchase state. This
+    /// is used when a user chooses to change their tier after already purchasing.
     @Binding private var ignorePurchaseState: Bool
 
     @State private var showingRedeemSheet: Bool = false
     @State private var showingTipJarSheet: Bool = false
-
+    
+    /// Creates a new `AdditionalOptionsView`.
+    /// - Parameter ignorePurchaseState: A `Bool` indicating whether to ignore the current purchase state. This
+    /// is used when a user chooses to change their tier after already purchasing.
     init(ignorePurchaseState: Binding<Bool>) {
         _ignorePurchaseState = ignorePurchaseState
     }
@@ -55,7 +60,7 @@ struct AdditionalOptionsView: View {
                         #endif
                     }
 
-                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
+                    if (inAppPurchase.configuration.tipJarTiers?.orderedTiers ?? []).isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -120,7 +125,7 @@ struct AdditionalOptionsView: View {
             #elseif os(tvOS)
             HStack(spacing: 64) {
                 HStack(spacing: 32) {
-                    if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
+                    if inAppPurchase.configuration.tipJarTiers?.orderedTiers.isEmpty == false {
                         Button {
                             showingTipJarSheet = true
                         } label: {
@@ -162,7 +167,7 @@ struct AdditionalOptionsView: View {
     private func additionalOptionsContent(useDivider: Bool) -> some View {
         Group {
             #if os(macOS) || os(watchOS)
-            if inAppPurchase.configuration.sortedTipJarTiers.isEmpty == false {
+            if inAppPurchase.configuration.tipJarTiers?.orderedTiers.isEmpty == false {
                 Button {
                     showingTipJarSheet = true
                 } label: {

@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct FeatureRow: View {
+    /// The `PurchaseFeature` to display.
     private let feature: PurchaseFeature
-
+    
+    /// Creates a new `FeatureRow` view.
+    /// - Parameter feature: The `PurchaseFeature` to display.
     init(_ feature: PurchaseFeature) {
         self.feature = feature
     }

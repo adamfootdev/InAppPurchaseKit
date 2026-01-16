@@ -7,54 +7,48 @@
 
 import Foundation
 
-public struct TipJarTier: Identifiable, Hashable, Sendable {
-    public let id: String
-    public let type: TipJarTierType
+public enum TipJarTier: Identifiable, Hashable, Sendable {
+    case small(configuration: TipJarTierConfiguration)
+    case medium(configuration: TipJarTierConfiguration)
+    case large(configuration: TipJarTierConfiguration)
+    case huge(configuration: TipJarTierConfiguration)
 
-    public init(
-        id: String,
-        type: TipJarTierType
-    ) {
-        self.id = id
-        self.type = type
+    public var configuration: TipJarTierConfiguration {
+        switch self {
+        case .small(let configuration),
+                .medium(let configuration),
+                .large(let configuration),
+                .huge(let configuration):
+            return configuration
+        }
     }
 
+    public var id: String {
+        return configuration.id
+    }
 
-    // MARK: - Previews
-
-    public static let example: TipJarTier = {
-        let tier = TipJarTier(
-            id: "app.FootWare.Example.Tip.Small",
-            type: .small
-        )
-
-        return tier
-    }()
-
-    public static let examples: Set<TipJarTier> = {
-        return [
-            .init(
-                id: "app.FootWare.Example.Tip.Small",
-                type: .small
-            ),
-            .init(
-                id: "app.FootWare.Example.Tip.Medium",
-                type: .medium
-            ),
-            .init(
-                id: "app.FootWare.Example.Tip.Large",
-                type: .large
-            ),
-            .init(
-                id: "app.FootWare.Example.Tip.Huge",
-                type: .huge
+    public var title: String {
+        switch self {
+        case .small:
+            return String(
+                localized: "Small Tip",
+                bundle: .module
             )
-        ]
-    }()
-}
-
-extension TipJarTier: Comparable {
-    public static func <(lhs: TipJarTier, rhs: TipJarTier) -> Bool {
-        lhs.type < rhs.type
+        case .medium:
+            return String(
+                localized: "Medium Tip",
+                bundle: .module
+            )
+        case .large:
+            return String(
+                localized: "Large Tip",
+                bundle: .module
+            )
+        case .huge:
+            return String(
+                localized: "Huge Tip",
+                bundle: .module
+            )
+        }
     }
 }

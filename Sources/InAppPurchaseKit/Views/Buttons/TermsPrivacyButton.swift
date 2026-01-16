@@ -10,10 +10,17 @@ import SwiftUI
 struct TermsPrivacyButton: View {
     @Environment(\.openURL) private var openURL
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
-
+    
+    /// A `String` containing the text to show on the button.
     private let title: String
+    
+    /// The `URL` to open when the button is selected.
     private let url: URL
-
+    
+    /// Creates a new `TermsPrivacyButton` view.
+    /// - Parameters:
+    ///   - title: A `String` containing the text to show on the button.
+    ///   - url: The `URL` to open when the button is selected.
     init(_ title: String, url: URL) {
         self.title = title
         self.url = url

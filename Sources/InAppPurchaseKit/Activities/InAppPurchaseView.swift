@@ -11,20 +11,41 @@ import HapticsKit
 
 public struct InAppPurchaseView: View {
     @Environment(\.dismiss) private var dismiss
-
-    @State private var inAppPurchase: InAppPurchaseKit = .shared
-
-    private let includeNavigationStack: Bool
-    private let includeDismissButton: Bool
-    private let onPurchaseAction: (@Sendable () -> Void)?
-
-    @State private var selectedTier: PurchaseTier?
-    @State private var showingAllTiers: Bool = false
     
-    @State private var showingManageSubscriptionSheet: Bool = false
-    @State private var ignorePurchaseState: Bool = false
-    @State private var showingSwitchTierMessage: Bool = false
+    /// Creates a new `InAppPurchaseKit` object to monitor.
+    @State private var inAppPurchase: InAppPurchaseKit = .shared
+    
+    /// A `Bool` indicating whether the purchase view should be contained in
+    /// its own `NavigationStack`.
+    private let includeNavigationStack: Bool
+    
+    /// A `Bool` indicating whether the purchase view should be dismissed from
+    /// the top toolbar.
+    private let includeDismissButton: Bool
 
+    /// An optional action to perform when a transaction is completed. This is separate
+    /// to the action set in `InAppPurchaseKitConfiguration` but both
+    /// will be performed. If an action is set, you will need to also dismiss the view. This
+    /// is handled automatically when no action is set.
+    private let onPurchaseAction: (@Sendable () -> Void)?
+    
+    /// The current in-app purchase tier that has been selected in the list.
+    @State private var selectedTier: PurchaseTier?
+
+    /// A `Bool` indicating whether to ignore the current purchase state. This
+    /// is used when a user chooses to change their tier after already purchasing.
+    @State private var ignorePurchaseState: Bool = false
+    
+    /// Creates a new `InAppPurchaseView`.
+    /// - Parameters:
+    ///   - includeNavigationStack: A `Bool` indicating whether the purchase view should be contained in
+    ///   its own `NavigationStack`. Defaults to `true`.
+    ///   - includeDismissButton: A `Bool` indicating whether the purchase view should be dismissed from
+    ///   the top toolbar. Defaults to `true`.
+    ///   - onPurchaseAction: An optional action to perform when a transaction is completed. This is separate
+    ///   to the action set in `InAppPurchaseKitConfiguration` but both
+    ///   will be performed. If an action is set, you will need to also dismiss the view. This
+    ///   is handled automatically when no action is set. Defaults to `nil`.
     public init(
         includeNavigationStack: Bool = true,
         includeDismissButton: Bool = true,
@@ -55,104 +76,72 @@ public struct InAppPurchaseView: View {
         Group {
             #if os(iOS)
             if #available(iOS 26.0, *) {
-                mainSubscriptionView
+                subscriptionViewContents
                     .safeAreaBar(edge: .bottom) {
-                        safeAreaPurchaseBar
+                        BottomSafeAreaPurchaseBar(
+                            selectedTier: $selectedTier,
+                            ignorePurchaseState: $ignorePurchaseState
+                        )
                     }
             } else {
-                mainSubscriptionView
+                subscriptionViewContents
                     .safeAreaInset(edge: .bottom) {
-                        safeAreaPurchaseBar
+                        BottomSafeAreaPurchaseBar(
+                            selectedTier: $selectedTier,
+                            ignorePurchaseState: $ignorePurchaseState
+                        )
                     }
             }
             #else
-            mainSubscriptionView
+            subscriptionViewContents
             #endif
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .interactiveDismissDisabled()
-        #elseif os(macOS)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         #endif
         .toolbar {
-            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
+            #if !os(tvOS)
             if includeDismissButton {
                 doneToolbarItem
             }
             #endif
         }
-        .onAppear {
-            configureInitialTier()
-        }
-        #if os(iOS) || os(visionOS)
-        .manageSubscriptionsSheet(isPresented: $showingManageSubscriptionSheet)
+        #if !os(tvOS)
+        .accentColor(inAppPurchase.configuration.tintColor)
         #endif
-        .alert(String(localized: "Switch Tier", bundle: .module), isPresented: $showingSwitchTierMessage) {
-            Button(String(localized: "Cancel", bundle: .module), role: .cancel) {}
-
-            Button(String(localized: "Switch", bundle: .module)) {
-                ignorePurchaseState = true
-            }
-        } message: {
-            Text("If you currently have an active subscription or free trial running, please remember to cancel it if switching to a lifetime tier.", bundle: .module)
+        .onAppear {
+            guard selectedTier == nil else { return }
+            selectedTier = inAppPurchase.primaryTier
         }
         .onChange(of: inAppPurchase.transactionState) { _, transactionState in
             Task {
                 await transactionStateUpdated(to: transactionState)
             }
         }
-        #if !os(tvOS)
-        .accentColor(inAppPurchase.configuration.tintColor)
-        #endif
     }
 
-    @ViewBuilder
-    private var safeAreaPurchaseBar: some View {
-        if (inAppPurchase.purchaseState != .purchased || ignorePurchaseState) && inAppPurchase.configuration.showSinglePurchaseMode == false {
-            if #available(iOS 26.0, *) {
-                safeAreaPurchaseButton
-            } else {
-                VStack(spacing: 16) {
-                    Divider()
-                    safeAreaPurchaseButton
-                }
-                .background {
-                    Rectangle()
-                        .fill(.ultraThinMaterial)
-                        .ignoresSafeArea(.all)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
-                }
-            }
-        }
-    }
-
-    private var safeAreaPurchaseButton: some View {
-        PurchaseButton(for: $selectedTier)
-            .frame(maxWidth: 400)
-            .padding(.horizontal, 40)
-            .padding(.bottom, 16)
-    }
-
-    private var mainSubscriptionView: some View {
+    private var subscriptionViewContents: some View {
         ScrollView {
-            VStack(spacing: mainSpacing) {
+            VStack(spacing: SizingConstants.mainSpacing) {
                 InAppPurchaseHeaderView(
                     configuration: inAppPurchase.configuration
                 )
                 .frame(maxWidth: .infinity)
 
-                tiersView
+                TiersView(
+                    selectedTier: $selectedTier,
+                    ignorePurchaseState: $ignorePurchaseState
+                )
 
-                VStack(spacing: mainSpacing / 2) {
-                    Divider()
-                        .frame(maxWidth: mainWidth)
-
-                    featuresView
-                        .frame(maxWidth: mainWidth)
-
-                    Divider()
-                        .frame(maxWidth: mainWidth)
+                VStack(spacing: SizingConstants.mainSpacing / 2) {
+                    Group {
+                        Divider()
+                        FeaturesView(inAppPurchase.configuration.features)
+                        Divider()
+                    }
+                    .frame(maxWidth: SizingConstants.mainContentWidth)
 
                     AdditionalOptionsView(
                         ignorePurchaseState: $ignorePurchaseState
@@ -171,169 +160,6 @@ public struct InAppPurchaseView: View {
         }
     }
 
-    private var mainSpacing: CGFloat {
-        #if os(macOS) || os(watchOS)
-        return 20
-        #elseif os(tvOS)
-        return 40
-        #else
-        return 32
-        #endif
-    }
-
-    private var tiersView: some View {
-        Group {
-            if inAppPurchase.purchaseState == .purchased && ignorePurchaseState == false {
-                #if os(iOS) || os(visionOS)
-                VStack(spacing: 20) {
-                    SubscribedFooterView()
-
-                    switch inAppPurchase.activeTier {
-                    case .weekly(_), .monthly(_), .yearly(_):
-                        VStack(spacing: 8) {
-                            Button {
-                                showingManageSubscriptionSheet = true
-                            } label: {
-                                Text("Manage Subscription", bundle: .module)
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.bordered)
-                            .controlSize(.large)
-
-                            Button {
-                                showingSwitchTierMessage = true
-                            } label: {
-                                Text("Switch Tier", bundle: .module)
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity)
-                            }
-                            .buttonStyle(.bordered)
-                            .controlSize(.large)
-                        }
-
-                    default:
-                        EmptyView()
-                    }
-                }
-
-                #else
-                VStack(spacing: 20) {
-                    SubscribedFooterView()
-
-                    switch inAppPurchase.activeTier {
-                    case .weekly(_), .monthly(_), .yearly(_):
-                        Button {
-                            showingSwitchTierMessage = true
-                        } label: {
-                            Text("Switch Tier", bundle: .module)
-                                #if !os(macOS)
-                                .font(.headline)
-                                .frame(maxWidth: .infinity)
-                                #endif
-                        }
-                        #if os(watchOS)
-                        .tint(inAppPurchase.configuration.tintColor)
-                        #endif
-
-                    default:
-                        EmptyView()
-                    }
-                }
-                #endif
-
-            } else {
-                if inAppPurchase.configuration.showSinglePurchaseMode {
-                    SinglePurchaseButton()
-                } else {
-                    VStack(spacing: 12) {
-                        TiersView(
-                            selectedTier: $selectedTier,
-                            showingAllTiers: $showingAllTiers
-                        )
-
-                        #if !os(tvOS) && !os(watchOS)
-                        if inAppPurchase.configuration.tiers.orderedTiers.count > 1 && (inAppPurchase.alwaysVisibleTiers.count != inAppPurchase.configuration.tiers.orderedTiers.count) {
-                            Button {
-                                withAnimation {
-                                    showingAllTiers.toggle()
-                                    selectedTier = inAppPurchase.primaryTier
-                                }
-                            } label: {
-                                Group {
-                                    if showingAllTiers {
-                                        Text("Hide Options")
-                                    } else {
-                                        Text("Show All Options")
-                                    }
-                                }
-                                .font(.subheadline)
-                            }
-                            #if os(iOS) || os(macOS)
-                            .tint(inAppPurchase.configuration.tintColor)
-                            #endif
-                        }
-                        #endif
-                    }
-
-                    #if os(macOS) || os(visionOS)
-                    if inAppPurchase.purchaseState != .purchased || ignorePurchaseState {
-                        PurchaseButton(for: $selectedTier)
-                            #if os(visionOS)
-                            .frame(maxWidth: 280)
-                            #endif
-                    }
-                    #endif
-                }
-            }
-        }
-        .frame(maxWidth: mainWidth)
-        .animation(
-            .easeInOut(duration: 0.5),
-            value: inAppPurchase.purchaseState
-        )
-    }
-
-
-    // MARK: - Features
-
-    private var featuresView: some View {
-        VStack(spacing: mainSpacing / 2) {
-            Text("Whatʼs Included", bundle: .module)
-                .font(featuresTitleFont)
-                .foregroundStyle(Color.primary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .accessibilityAddTraits(.isHeader)
-
-            FeaturesListView(inAppPurchase.configuration.features)
-        }
-        .padding(.vertical, 8)
-    }
-
-    private var featuresTitleFont: Font {
-        #if os(visionOS)
-        return Font.title3
-        #else
-        return Font.title3.bold()
-        #endif
-    }
-
-
-    // MARK: - Configuration
-
-    private func configureInitialTier() {
-        guard selectedTier == nil else { return }
-        selectedTier = inAppPurchase.primaryTier
-    }
-
-    private var mainWidth: CGFloat {
-        #if os(tvOS)
-        return 800
-        #else
-        return 400
-        #endif
-    }
-
 
     // MARK: - Update
 
@@ -342,26 +168,25 @@ public struct InAppPurchaseView: View {
         case .purchased(let type):
             switch type {
             case .subscription:
-                break
+                #if os(iOS)
+                HapticsKit.shared.perform(.notification(.success))
+                #elseif os(watchOS)
+                HapticsKit.shared.perform(.success)
+                #endif
+
+                try? await Task.sleep(for: .seconds(1.0))
+
+                if let onPurchaseAction {
+                    onPurchaseAction()
+                } else {
+                    dismiss()
+                }
+
             default:
                 return
             }
         default:
             return
-        }
-
-        #if os(iOS)
-        HapticsKit.shared.perform(.notification(.success))
-        #elseif os(watchOS)
-        HapticsKit.shared.perform(.success)
-        #endif
-
-        try? await Task.sleep(for: .seconds(1.0))
-
-        if let onPurchaseAction {
-            onPurchaseAction()
-        } else {
-            dismiss()
         }
     }
 
@@ -369,75 +194,14 @@ public struct InAppPurchaseView: View {
     // MARK: - Toolbar
 
     private var doneToolbarItem: some ToolbarContent {
-        ToolbarItem(placement: doneButtonPlacement) {
-            doneToolbarButton
-                #if os(iOS) || os(macOS) || os(visionOS)
-                .background {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label {
-                            Text("Close", bundle: .module)
-                        } icon: {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                    .hidden()
-                    .keyboardShortcut(.cancelAction)
-                }
-                #endif
-        }
-    }
-
-    @ViewBuilder
-    private var doneToolbarButton: some View {
-        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *) {
-            Button(role: .close) {
+        ToolbarItem(placement: doneToolbarItemPlacement) {
+            DoneToolbarButton {
                 dismiss()
-            } label: {
-                #if os(macOS)
-                Text("Done", bundle: .module)
-                #else
-                Label {
-                    Text("Done", bundle: .module)
-                } icon: {
-                    Image(systemName: "xmark")
-                }
-                #endif
-            }
-            #if os(visionOS)
-            .buttonBorderShape(.circle)
-            #endif
-
-        } else {
-            Group {
-                #if os(iOS)
-                DismissButton {
-                    dismiss()
-                }
-                #else
-                Button {
-                    dismiss()
-                } label: {
-                    #if os(visionOS) || os(watchOS)
-                    Label {
-                        Text("Done", bundle: .module)
-                    } icon: {
-                        Image(systemName: "xmark")
-                    }
-                    #else
-                    Text("Done", bundle: .module)
-                    #endif
-                }
-                #if os(visionOS)
-                .buttonBorderShape(.circle)
-                #endif
-                #endif
             }
         }
     }
 
-    private var doneButtonPlacement: ToolbarItemPlacement {
+    private var doneToolbarItemPlacement: ToolbarItemPlacement {
         #if os(macOS)
         return .confirmationAction
         #elseif os(watchOS)
@@ -449,7 +213,7 @@ public struct InAppPurchaseView: View {
 }
 
 #Preview {
-    let inAppPurchase = InAppPurchaseKit.configure(with: .preview)
+    let inAppPurchase = InAppPurchaseKit.configure(with: .example)
 
     InAppPurchaseView()
         .environment(inAppPurchase)

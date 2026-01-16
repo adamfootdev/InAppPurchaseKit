@@ -8,11 +8,24 @@
 import Foundation
 
 public struct PurchaseTiers: Sendable {
+    /// The weekly optional `PurchaseTier`.
     public let weeklyTier: PurchaseTier?
+    
+    /// The monthly optional `PurchaseTier`.
     public let monthlyTier: PurchaseTier?
+    
+    /// The yearly optional `PurchaseTier`.
     public let yearlyTier: PurchaseTier?
+    
+    /// The lifetime optional `PurchaseTier`.
     public let lifetimeTier: PurchaseTier?
-
+    
+    /// Creates a new `PurchaseTiers` object.
+    /// - Parameters:
+    ///   - weeklyTier: The weekly optional `PurchaseTier`.
+    ///   - monthlyTier: The monthly optional `PurchaseTier`.
+    ///   - yearlyTier: The yearly optional `PurchaseTier`.
+    ///   - lifetimeTier: The lifetime optional `PurchaseTier`.
     public init(
         weeklyTier: PurchaseTierConfiguration?,
         monthlyTier: PurchaseTierConfiguration?,
@@ -49,8 +62,8 @@ public struct PurchaseTiers: Sendable {
         return tiers.compactMap { $0 }
     }
 
-    var tierIDs: [String] {
-        orderedTiers.map { $0.id } + orderedTiers.compactMap { $0.legacyID } + orderedTiers.flatMap { $0.alternateIDs }
+    var allTierIDs: [String] {
+        return orderedTiers.flatMap { $0.tierIDs }
     }
 
 

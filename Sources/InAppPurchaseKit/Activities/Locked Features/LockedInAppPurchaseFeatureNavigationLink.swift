@@ -8,57 +8,36 @@
 import SwiftUI
 
 public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
+    /// Creates a new `InAppPurchaseKit` object to monitor.
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
-    private let titleKey: LocalizedStringKey?
-    private let title: String?
-    private let systemImage: String?
-    private let titleColor: Color
-    private let enableIfLegacyUser: Bool
+    /// The `LockedFeatureConfiguration` to use for the view.
+    private let configuration: LockedFeatureConfiguration
+    
+    /// The view to show if the user is subscribed.
     @ViewBuilder private let destination: Content
-    private let onPurchaseAction: (@Sendable () -> Void)?
 
+    /// A `Bool` indicating whether the in-app purchase sheet is shown.
     @State private var showingPurchaseSheet: Bool = false
-
+    
+    /// Creates a new `LockedInAppPurchaseFeatureNavigationLink` view.
+    /// - Parameters:
+    ///   - configuration: The `LockedFeatureConfiguration` to use for the view.
+    ///   - destination: The view to show if the user is subscribed.
     public init(
-        _ titleKey: LocalizedStringKey,
-        systemImage: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        @ViewBuilder destination: @escaping () -> Content,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+        configuration: LockedFeatureConfiguration,
+        @ViewBuilder destination: @escaping () -> Content
     ) {
-        self.titleKey = titleKey
-        self.title = nil
-        self.systemImage = systemImage
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
+        self.configuration = configuration
         self.destination = destination()
-        self.onPurchaseAction = onPurchaseAction
-    }
-
-    public init(
-        _ titleKey: LocalizedStringKey,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        @ViewBuilder destination: @escaping () -> Content,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = titleKey
-        self.title = nil
-        self.systemImage = nil
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.destination = destination()
-        self.onPurchaseAction = onPurchaseAction
     }
 
     public var body: some View {
-        if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
+        if inAppPurchase.purchaseState == .purchased || (configuration.enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
             NavigationLink {
                 destination
             } label: {
-                label
+                LockedFeatureLabel(configuration: configuration)
             }
         } else {
             Button {
@@ -67,7 +46,7 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
                 LabeledContent {
                     Image(systemName: "lock.fill")
                 } label: {
-                    label
+                    LockedFeatureLabel(configuration: configuration)
                 }
                 .contentShape(Rectangle())
             }
@@ -76,75 +55,15 @@ public struct LockedInAppPurchaseFeatureNavigationLink<Content: View>: View {
             #endif
             #if os(tvOS)
             .fullScreenCover(isPresented: $showingPurchaseSheet) {
-                InAppPurchaseView(onPurchase: onPurchaseAction)
+                InAppPurchaseView(onPurchase: configuration.onPurchaseAction)
                     .background(Material.regular)
             }
             #else
             .sheet(isPresented: $showingPurchaseSheet) {
-                InAppPurchaseView(onPurchase: onPurchaseAction)
+                InAppPurchaseView(onPurchase: configuration.onPurchaseAction)
             }
             #endif
         }
-    }
-
-    @ViewBuilder
-    private var label: some View {
-        if let titleKey, let systemImage {
-            Label {
-                Text(titleKey)
-                    .foregroundStyle(titleColor)
-            } icon: {
-                Image(systemName: systemImage)
-            }
-        } else if let titleKey {
-            Text(titleKey)
-                .foregroundStyle(titleColor)
-        } else if let title, let systemImage {
-            Label {
-                Text(title)
-                    .foregroundStyle(titleColor)
-            } icon: {
-                Image(systemName: systemImage)
-            }
-        } else if let title {
-            Text(title)
-                .foregroundStyle(titleColor)
-        }
-    }
-}
-
-extension LockedInAppPurchaseFeatureNavigationLink {
-    public init(
-        verbatim title: String,
-        systemImage: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        @ViewBuilder destination: @escaping () -> Content,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = nil
-        self.title = title
-        self.systemImage = systemImage
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.destination = destination()
-        self.onPurchaseAction = onPurchaseAction
-    }
-
-    public init(
-        verbatim title: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        @ViewBuilder destination: @escaping () -> Content,
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = nil
-        self.title = title
-        self.systemImage = nil
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.destination = destination()
-        self.onPurchaseAction = onPurchaseAction
     }
 }
 
@@ -153,10 +72,7 @@ extension LockedInAppPurchaseFeatureNavigationLink {
 
     NavigationStack {
         Form {
-            LockedInAppPurchaseFeatureNavigationLink(
-                "Title",
-                systemImage: "app"
-            ) {
+            LockedInAppPurchaseFeatureNavigationLink(configuration: .example) {
                 Text("Destination")
             }
         }

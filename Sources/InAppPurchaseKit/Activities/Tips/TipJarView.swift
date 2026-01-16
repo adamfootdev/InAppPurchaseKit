@@ -11,13 +11,26 @@ import HapticsKit
 public struct TipJarView: View {
     @Environment(\.dismiss) private var dismiss
 
+    /// Creates a new `InAppPurchaseKit` object to monitor.
     @State private var inAppPurchase: InAppPurchaseKit = .shared
 
+    /// A `Bool` indicating whether the purchase view should be contained in
+    /// its own `NavigationStack`.
     private let includeNavigationStack: Bool
+
+    /// A `Bool` indicating whether the purchase view should be dismissed from
+    /// the top toolbar.
     private let includeDismissButton: Bool
 
+    /// A `Bool` indicating whether the purchased message alert should be shown.
     @State private var showingPurchasedMessage: Bool = false
-
+    
+    /// Creates a new `TipJarView`.
+    /// - Parameters:
+    ///   - includeNavigationStack: A `Bool` indicating whether the purchase view should be contained in
+    ///   its own `NavigationStack`. Defaults to `true`.
+    ///   - includeDismissButton: A `Bool` indicating whether the purchase view should be dismissed from
+    ///   the top toolbar. Defaults to `true`.
     public init(
         includeNavigationStack: Bool = true,
         includeDismissButton: Bool = true,
@@ -30,7 +43,10 @@ public struct TipJarView: View {
         Group {
             if includeNavigationStack {
                 NavigationStack {
-                    embeddedTipJarView
+                    tipJarView
+                        #if os(macOS)
+                        .frame(width: 650, height: 500)
+                        #endif
                 }
             } else {
                 tipJarView
@@ -42,21 +58,13 @@ public struct TipJarView: View {
         .environment(inAppPurchase)
     }
 
-    @ViewBuilder
-    private var embeddedTipJarView: some View {
-        #if os(macOS)
-        tipJarView
-            .frame(width: 650, height: 500)
-        #else
-        tipJarView
-        #endif
-    }
-
     private var tipJarView: some View {
         Form {
             Section {
                 VStack(spacing: headerSpacing) {
-                    AppIconView(configuration: inAppPurchase.configuration)
+                    AppIconView(
+                        named: inAppPurchase.configuration.imageName
+                    )
 
                     Text("Thank you for using \(inAppPurchase.configuration.appName)! If youʼre enjoying the app, please consider supporting it with a tip. Anything you can spare helps me to continue building this and other indie apps!", bundle: .module)
                         #if os(tvOS)
@@ -77,17 +85,19 @@ public struct TipJarView: View {
                 .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
             }
 
-            Section {
-                ForEach(
-                    Array(inAppPurchase.configuration.sortedTipJarTiers.enumerated()),
-                    id: \.0
-                ) { index, tier in
-                    TipJarTierButton(
-                        tier,
-                        imageScale: 1 - (
-                            CGFloat(inAppPurchase.configuration.sortedTipJarTiers.count - index) * 0.1
+            if let tiers = inAppPurchase.configuration.tipJarTiers?.orderedTiers {
+                Section {
+                    ForEach(
+                        Array(tiers.enumerated()),
+                        id: \.0
+                    ) { index, tier in
+                        TipJarTierButton(
+                            tier,
+                            imageScale: 1 - (
+                                CGFloat(tiers.count - index) * 0.1
+                            )
                         )
-                    )
+                    }
                 }
             }
 
@@ -168,7 +178,7 @@ public struct TipJarView: View {
         .frame(height: 500)
         #endif
         .toolbar {
-            #if os(iOS) || os(macOS) || os(visionOS) || os(watchOS)
+            #if !os(tvOS)
             if includeDismissButton {
                 doneToolbarItem
             }
@@ -223,69 +233,8 @@ public struct TipJarView: View {
 
     private var doneToolbarItem: some ToolbarContent {
         ToolbarItem(placement: doneButtonPlacement) {
-            doneToolbarButton
-                #if os(iOS) || os(macOS) || os(visionOS)
-                .background {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Label {
-                            Text("Close", bundle: .module)
-                        } icon: {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                    .hidden()
-                    .keyboardShortcut(.cancelAction)
-                }
-                #endif
-        }
-    }
-
-    @ViewBuilder
-    private var doneToolbarButton: some View {
-        if #available(iOS 26.0, macOS 26.0, tvOS 26.0, visionOS 26.0, watchOS 26.0, *) {
-            Button(role: .close) {
+            DoneToolbarButton {
                 dismiss()
-            } label: {
-                #if os(macOS)
-                Text("Done", bundle: .module)
-                #else
-                Label {
-                    Text("Done", bundle: .module)
-                } icon: {
-                    Image(systemName: "xmark")
-                }
-                #endif
-            }
-            #if os(visionOS)
-            .buttonBorderShape(.circle)
-            #endif
-
-        } else {
-            Group {
-                #if os(iOS)
-                DismissButton {
-                    dismiss()
-                }
-                #else
-                Button {
-                    dismiss()
-                } label: {
-                    #if os(visionOS) || os(watchOS)
-                    Label {
-                        Text("Done", bundle: .module)
-                    } icon: {
-                        Image(systemName: "xmark")
-                    }
-                    #else
-                    Text("Done", bundle: .module)
-                    #endif
-                }
-                #if os(visionOS)
-                .buttonBorderShape(.circle)
-                #endif
-                #endif
             }
         }
     }

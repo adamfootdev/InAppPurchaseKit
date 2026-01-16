@@ -8,66 +8,45 @@
 import SwiftUI
 
 public struct LockedInAppPurchaseFeatureButton: View {
+    /// Creates a new `InAppPurchaseKit` object to monitor.
     @State private var inAppPurchase: InAppPurchaseKit = .shared
-
-    private let titleKey: LocalizedStringKey?
-    private let title: String?
-    private let systemImage: String?
-    private let titleColor: Color
-    private let enableIfLegacyUser: Bool
+    
+    /// The `LockedFeatureConfiguration` to use for the view.
+    private let configuration: LockedFeatureConfiguration
+    
+    /// The action to perform if the user is subscribed.
     private let action: (() -> Void)
-    private let onPurchaseAction: (@Sendable () -> Void)?
-
+    
+    /// A `Bool` indicating whether the in-app purchase sheet is shown.
     @State private var showingPurchaseSheet: Bool = false
-
+    
+    /// Creates a new `LockedInAppPurchaseFeatureButton` view.
+    /// - Parameters:
+    ///   - configuration: The `LockedFeatureConfiguration` to use for the view.
+    ///   - action: The action to perform if the user is subscribed.
     public init(
-        _ titleKey: LocalizedStringKey,
-        systemImage: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        action: (@escaping () -> Void),
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
+        configuration: LockedFeatureConfiguration,
+        action: (@escaping () -> Void)
     ) {
-        self.titleKey = titleKey
-        self.title = nil
-        self.systemImage = systemImage
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
+        self.configuration = configuration
         self.action = action
-        self.onPurchaseAction = onPurchaseAction
-    }
-
-    public init(
-        _ titleKey: LocalizedStringKey,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        action: (@escaping () -> Void),
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = titleKey
-        self.title = nil
-        self.systemImage = nil
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.action = action
-        self.onPurchaseAction = onPurchaseAction
     }
 
     public var body: some View {
         Button {
-            if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
+            if inAppPurchase.purchaseState == .purchased || (configuration.enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
                 action()
             } else {
                 showingPurchaseSheet = true
             }
         } label: {
-            if inAppPurchase.purchaseState == .purchased || (enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
-                label
+            if inAppPurchase.purchaseState == .purchased || (configuration.enableIfLegacyUser && inAppPurchase.productsLoadState.isLegacyUser) {
+                LockedFeatureLabel(configuration: configuration)
             } else {
                 LabeledContent {
                     Image(systemName: "lock.fill")
                 } label: {
-                    label
+                    LockedFeatureLabel(configuration: configuration)
                 }
             }
         }
@@ -76,74 +55,14 @@ public struct LockedInAppPurchaseFeatureButton: View {
         #endif
         #if os(tvOS)
         .fullScreenCover(isPresented: $showingPurchaseSheet) {
-            InAppPurchaseView(onPurchase: onPurchaseAction)
+            InAppPurchaseView(onPurchase: configuration.onPurchaseAction)
                 .background(Material.regular)
         }
         #else
         .sheet(isPresented: $showingPurchaseSheet) {
-            InAppPurchaseView(onPurchase: onPurchaseAction)
+            InAppPurchaseView(onPurchase: configuration.onPurchaseAction)
         }
         #endif
-    }
-
-    @ViewBuilder
-    private var label: some View {
-        if let titleKey, let systemImage {
-            Label {
-                Text(titleKey)
-                    .foregroundStyle(titleColor)
-            } icon: {
-                Image(systemName: systemImage)
-            }
-        } else if let titleKey {
-            Text(titleKey)
-                .foregroundStyle(titleColor)
-        } else if let title, let systemImage {
-            Label {
-                Text(title)
-                    .foregroundStyle(titleColor)
-            } icon: {
-                Image(systemName: systemImage)
-            }
-        } else if let title {
-            Text(title)
-                .foregroundStyle(titleColor)
-        }
-    }
-}
-
-extension LockedInAppPurchaseFeatureButton {
-    public init(
-        verbatim title: String,
-        systemImage: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        action: (@escaping () -> Void),
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = nil
-        self.title = title
-        self.systemImage = systemImage
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.action = action
-        self.onPurchaseAction = onPurchaseAction
-    }
-
-    public init(
-        verbatim title: String,
-        titleColor: Color = Color.primary,
-        enableIfLegacyUser: Bool = false,
-        action: (@escaping () -> Void),
-        onPurchase onPurchaseAction: (@Sendable () -> Void)? = nil
-    ) {
-        self.titleKey = nil
-        self.title = title
-        self.systemImage = nil
-        self.titleColor = titleColor
-        self.enableIfLegacyUser = enableIfLegacyUser
-        self.action = action
-        self.onPurchaseAction = onPurchaseAction
     }
 }
 
@@ -152,10 +71,7 @@ extension LockedInAppPurchaseFeatureButton {
 
     NavigationStack {
         Form {
-            LockedInAppPurchaseFeatureButton(
-                "Title",
-                systemImage: "app"
-            ) {
+            LockedInAppPurchaseFeatureButton(configuration: .example) {
                 print("Pressed")
             }
         }

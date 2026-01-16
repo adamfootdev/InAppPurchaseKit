@@ -1,5 +1,5 @@
 //
-//  TiersView.swift
+//  TiersListView.swift
 //  InAppPurchaseKit
 //
 //  Created by Adam Foot on 01/02/2024.
@@ -7,12 +7,19 @@
 
 import SwiftUI
 
-struct TiersView: View {
+struct TiersListView: View {
     @Environment(InAppPurchaseKit.self) private var inAppPurchase
 
+    /// The current in-app purchase tier that has been selected in the list.
     @Binding private var selectedTier: PurchaseTier?
-    @Binding private var showingAllTiers: Bool
 
+    /// A `Bool` indicating whether all in-app purchase options are visible.
+    @Binding private var showingAllTiers: Bool
+    
+    /// Creates a new `TiersListView`.
+    /// - Parameters:
+    ///   - selectedTier: The current in-app purchase tier that has been selected in the list.
+    ///   - showingAllTiers: A `Bool` indicating whether all in-app purchase options are visible.
     init(
         selectedTier: Binding<PurchaseTier?>,
         showingAllTiers: Binding<Bool>
@@ -66,14 +73,16 @@ struct TiersView: View {
             if let yearlySaving = inAppPurchase.yearlySaving {
                 return .saving(value: yearlySaving)
             } else if inAppPurchase.productsLoadState.isLegacyUser,
-                      configuration.legacyConfiguration != nil {
+                      let legacyConfiguration = configuration.legacyConfiguration,
+                      legacyConfiguration.visible {
                 return .loyalty
             } else {
                 return nil
             }
         default:
             if inAppPurchase.productsLoadState.isLegacyUser,
-               tier.configuration.legacyConfiguration != nil {
+               let legacyConfiguration = tier.configuration.legacyConfiguration,
+               legacyConfiguration.visible {
                 return .loyalty
             } else {
                 return nil
@@ -85,7 +94,7 @@ struct TiersView: View {
 #Preview {
     let inAppPurchase = InAppPurchaseKit.preview
 
-    TiersView(
+    TiersListView(
         selectedTier: .constant(.yearly(configuration: .example)),
         showingAllTiers: .constant(true)
     )

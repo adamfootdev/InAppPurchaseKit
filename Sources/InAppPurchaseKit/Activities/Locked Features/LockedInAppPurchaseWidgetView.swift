@@ -13,13 +13,27 @@ import WidgetKit
 public struct LockedInAppPurchaseWidgetView: View {
     @Environment(\.openURL) private var openURL
     @Environment(\.widgetFamily) private var widgetFamily
-
-    @State private var inAppPurchase: InAppPurchaseKit = .shared
-
+    
+    /// The `InAppPurchaseKitConfiguration` to use.
+    private let configuration: InAppPurchaseKitConfiguration
+    
+    /// The `URL` to open when the widget is selected.
     private let url: URL
+    
+    /// An optional `Color` to use for tinting the view.
     private let tint: Color?
 
-    public init(learnMoreURL url: URL, tint: Color? = nil) {
+    /// Creates a new `LockedInAppPurchaseWidgetView`.
+    /// - Parameters:
+    ///   - configuration: The `InAppPurchaseKitConfiguration` to use.
+    ///   - url: The `URL` to open when the widget is selected.
+    ///   - tint: An optional `Color` to use for tinting the view. Defaults to `nil`.
+    public init(
+        configuration: InAppPurchaseKitConfiguration,
+        learnMoreURL url: URL,
+        tint: Color? = nil
+    ) {
+        self.configuration = configuration
         self.url = url
         self.tint = tint
     }
@@ -33,7 +47,7 @@ public struct LockedInAppPurchaseWidgetView: View {
 
         case .accessoryInline:
             Label(
-                "\(inAppPurchase.configuration.title) Required",
+                "\(configuration.title) Required",
                 systemImage: "lock.fill"
             )
 
@@ -42,7 +56,7 @@ public struct LockedInAppPurchaseWidgetView: View {
                 Image(systemName: "lock.fill")
                     .imageScale(.large)
 
-                Text("\(inAppPurchase.configuration.title) Required")
+                Text("\(configuration.title) Required")
                     .fixedSize(horizontal: false, vertical: true)
                     .font(.footnote.bold())
             }
@@ -59,7 +73,7 @@ public struct LockedInAppPurchaseWidgetView: View {
                         .font(.title)
                         .foregroundStyle(Color.secondary)
 
-                    Text("\(inAppPurchase.configuration.title) Required")
+                    Text("\(configuration.title) Required")
                         .fixedSize(horizontal: false, vertical: true)
                         .font(.footnote.bold())
                 }
@@ -78,7 +92,7 @@ public struct LockedInAppPurchaseWidgetView: View {
                 .buttonBorderShape(.capsule)
                 #endif
                 .controlSize(.small)
-                .tint(tint ?? inAppPurchase.configuration.tintColor)
+                .tint(tint ?? configuration.tintColor)
                 .widgetAccentable()
             }
             .multilineTextAlignment(.center)
@@ -87,10 +101,9 @@ public struct LockedInAppPurchaseWidgetView: View {
 }
 
 #Preview {
-    let inAppPurchase = InAppPurchaseKit.preview
-
     if #available(visionOS 26.0, *) {
         LockedInAppPurchaseWidgetView(
+            configuration: .example,
             learnMoreURL: URL(string: "myapp://?function=subscribe")!,
             tint: nil
         )
@@ -99,7 +112,6 @@ public struct LockedInAppPurchaseWidgetView: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.gray.opacity(0.2))
         }
-        .environment(inAppPurchase)
     }
 }
 #endif
