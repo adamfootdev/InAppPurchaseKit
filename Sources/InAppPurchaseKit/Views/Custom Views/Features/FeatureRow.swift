@@ -65,7 +65,7 @@ struct FeatureRow: View {
 
     private var mainSpacing: CGFloat {
         #if os(tvOS)
-        return 20
+        return 28
         #else
         return 12
         #endif
@@ -126,7 +126,7 @@ struct FeatureRow: View {
     }
 
     private var imageBackground: Color {
-        #if os(visionOS)
+        #if os(tvOS) || os(visionOS)
         return feature.systemColor.opacity(0.7)
         #else
         return feature.systemColor.opacity(0.2)
@@ -134,7 +134,7 @@ struct FeatureRow: View {
     }
 
     private var imageTint: Color {
-        #if os(visionOS)
+        #if os(tvOS) || os(visionOS)
         return .white
         #else
         return feature.systemColor

@@ -85,13 +85,13 @@ struct TiersView: View {
             if inAppPurchase.configuration.tiers.orderedTiers.count == 1 {
                 SinglePurchaseButton()
             } else {
-                VStack(spacing: 12) {
+                VStack(spacing: tiersListSpacing) {
                     TiersListView(
                         selectedTier: $selectedTier,
                         showingAllTiers: $showingAllTiers
                     )
 
-                    #if !os(tvOS) && !os(watchOS)
+                    #if !os(watchOS)
                     if inAppPurchase.configuration.tiers.orderedTiers.count > 1 && (inAppPurchase.alwaysVisibleTiers.count != inAppPurchase.configuration.tiers.orderedTiers.count) {
                         toggleOptionsButton
                     }
@@ -108,6 +108,14 @@ struct TiersView: View {
                 #endif
             }
         }
+    }
+
+    private var tiersListSpacing: CGFloat {
+        #if os(tvOS)
+        return 28
+        #else
+        return 12
+        #endif
     }
 
     private var manageSubscriptionButton: some View {

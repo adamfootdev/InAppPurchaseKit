@@ -34,7 +34,7 @@ struct TiersListView: View {
                 Array(inAppPurchase.configuration.tiers.orderedTiers.reversed().enumerated()),
                 id: \.0
             ) { _, tier in
-                #if os(tvOS) || os(watchOS)
+                #if os(watchOS)
                 tierButton(for: tier)
                 #else
                 if showingAllTiers || inAppPurchase.primaryTier == tier || tier.configuration.alwaysVisible {
