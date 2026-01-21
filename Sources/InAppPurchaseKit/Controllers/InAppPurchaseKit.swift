@@ -378,7 +378,8 @@ public final class InAppPurchaseKit: NSObject {
 
         switch tier {
         case .weekly(_), .monthly(_), .yearly(_):
-            if let introOffer = introOffer(for: product) {
+            if let introOffer = introOffer(for: product),
+               introOffer.paymentMode == .freeTrial {
                 switch introOffer.period.unit {
                 case .day:
                     message += String(
@@ -403,6 +404,11 @@ public final class InAppPurchaseKit: NSObject {
                 default:
                     message += ""
                 }
+
+                message += "\(product.displayPrice)/\(tier.paymentTimeTitle). No payment due today."
+
+            } else {
+                message += "\(product.displayPrice)/\(tier.paymentTimeTitle)"
             }
 
         case .lifetime(_):
@@ -410,9 +416,9 @@ public final class InAppPurchaseKit: NSObject {
                 localized: "One-time payment, ",
                 bundle: .module
             )
-        }
 
-        message += "\(product.displayPrice)/\(tier.paymentTimeTitle)"
+            message += "\(product.displayPrice)/\(tier.paymentTimeTitle)"
+        }
 
         return message
     }
