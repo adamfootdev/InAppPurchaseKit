@@ -73,6 +73,11 @@ struct TiersView: View {
                     VStack(spacing: 8) {
                         #if os(iOS) || os(visionOS)
                         manageSubscriptionButton
+                        #elseif os(watchOS)
+                        Text("You can manage your subscription on your iPhone.")
+                            .font(.footnote)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.secondary)
                         #endif
 
                         switchTierButton
@@ -91,11 +96,9 @@ struct TiersView: View {
                         showingAllTiers: $showingAllTiers
                     )
 
-                    #if !os(watchOS)
                     if inAppPurchase.configuration.tiers.orderedTiers.count > 1 && (inAppPurchase.alwaysVisibleTiers.count != inAppPurchase.configuration.tiers.orderedTiers.count) {
                         toggleOptionsButton
                     }
-                    #endif
                 }
 
                 #if os(macOS) || os(visionOS)
@@ -162,9 +165,16 @@ struct TiersView: View {
                     Text("Show All Options")
                 }
             }
+            #if os(watchOS)
+            .font(.footnote)
+            #else
             .font(.subheadline)
+            #endif
         }
-        #if os(iOS) || os(macOS)
+        #if os(watchOS)
+        .controlSize(.mini)
+        #endif
+        #if os(iOS) || os(macOS) || os(watchOS)
         .tint(inAppPurchase.configuration.tintColor)
         #endif
     }

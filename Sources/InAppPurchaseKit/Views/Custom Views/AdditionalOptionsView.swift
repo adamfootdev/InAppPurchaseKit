@@ -147,7 +147,7 @@ struct AdditionalOptionsView: View {
             }
 
             #elseif os(watchOS)
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 12) {
                 additionalOptionsContent(useDivider: false)
             }
             #endif
@@ -175,9 +175,7 @@ struct AdditionalOptionsView: View {
                 } label: {
                     Text("Tip Jar", bundle: .module)
                 }
-                #if os(macOS)
                 .tint(inAppPurchase.configuration.tintColor)
-                #endif
 
                 if useDivider {
                     Divider()

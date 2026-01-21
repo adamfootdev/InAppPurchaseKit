@@ -25,11 +25,17 @@ struct PurchaseButton: View {
         if inAppPurchase.transactionState == .purchasing {
             ProgressView()
         } else {
-            purchaseButton
+            glassPurchaseButton
         }
+        #else
+        glassPurchaseButton
+        #endif
+    }
 
-        #elseif os(iOS) || os(macOS)
-        if #available(iOS 26.0, macOS 26.0, *) {
+    @ViewBuilder
+    private var glassPurchaseButton: some View {
+        #if os(iOS) || os(macOS) || os(watchOS)
+        if #available(iOS 26.0, macOS 26.0, watchOS 26.0, *) {
             purchaseButton
                 .buttonStyle(.glassProminent)
         } else {
