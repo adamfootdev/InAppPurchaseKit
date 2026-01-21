@@ -18,7 +18,7 @@ struct RestoreButton: View {
         } label: {
             Text("Restore", bundle: .module)
         }
-        #if os(iOS)
+        #if os(iOS) || os(macOS)
         .tint(inAppPurchase.configuration.tintColor)
         #endif
     }

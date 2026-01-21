@@ -101,6 +101,7 @@ struct AdditionalOptionsView: View {
                             } label: {
                                 Text("Redeem Code", bundle: .module)
                             }
+                            .tint(inAppPurchase.configuration.tintColor)
                         }
                     }
 
@@ -115,6 +116,7 @@ struct AdditionalOptionsView: View {
                             } label: {
                                 Text("Redeem Code", bundle: .module)
                             }
+                            .tint(inAppPurchase.configuration.tintColor)
                         }
                     }
 
@@ -173,6 +175,9 @@ struct AdditionalOptionsView: View {
                 } label: {
                     Text("Tip Jar", bundle: .module)
                 }
+                #if os(macOS)
+                .tint(inAppPurchase.configuration.tintColor)
+                #endif
 
                 if useDivider {
                     Divider()
