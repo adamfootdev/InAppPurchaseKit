@@ -28,7 +28,7 @@ public struct LegacyPurchaseTierConfiguration: Identifiable, Hashable, Sendable 
 
     public static let example: LegacyPurchaseTierConfiguration = {
         let configuration = LegacyPurchaseTierConfiguration(
-            id: "app.FootWare.Example.Pro.LegacyYearly",
+            id: "com.example.MyApp.Pro.LegacyYearly",
             visible: true
         )
 

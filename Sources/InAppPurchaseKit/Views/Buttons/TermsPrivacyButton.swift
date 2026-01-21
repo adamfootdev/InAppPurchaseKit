@@ -59,6 +59,6 @@ struct TermsPrivacyButton: View {
 #Preview {
     TermsPrivacyButton(
         String(localized: "Terms of Use", bundle: .module),
-        url: URL(string: "https://adamfoot.dev")!
+        url: URL(string: "https://example.com/privacy-policy")!
     )
 }

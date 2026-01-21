@@ -22,7 +22,7 @@ public struct TipJarTierConfiguration: Identifiable, Hashable, Sendable {
 
     public static let example: TipJarTierConfiguration = {
         let configuration = TipJarTierConfiguration(
-            id: "app.FootWare.Example.Tip.Small"
+            id: "com.example.MyApp.Tip.Small"
         )
 
         return configuration

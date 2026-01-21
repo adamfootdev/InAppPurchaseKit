@@ -71,10 +71,10 @@ public struct TipJarTiers: Sendable {
 
     public static let example: TipJarTiers = {
         let tiers = TipJarTiers(
-            smallTier: .init(id: "app.FootWare.Example.Tip.Small"),
-            mediumTier: .init(id: "app.FootWare.Example.Tip.Medium"),
-            largeTier: .init(id: "app.FootWare.Example.Tip.Large"),
-            hugeTier: .init(id: "app.FootWare.Example.Tip.Huge")
+            smallTier: .init(id: "com.example.MyApp.Tip.Small"),
+            mediumTier: .init(id: "com.example.MyApp.Tip.Medium"),
+            largeTier: .init(id: "com.example.MyApp.Tip.Large"),
+            hugeTier: .init(id: "com.example.MyApp.Tip.Huge")
         )
 
         return tiers

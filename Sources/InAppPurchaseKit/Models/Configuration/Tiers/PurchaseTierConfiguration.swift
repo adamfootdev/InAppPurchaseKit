@@ -57,7 +57,7 @@ public struct PurchaseTierConfiguration: Identifiable, Hashable, Sendable {
 
     public static let example: PurchaseTierConfiguration = {
         let configuration = PurchaseTierConfiguration(
-            id: "app.FootWare.Example.Pro.Yearly",
+            id: "com.example.MyApp.Pro.Yearly",
             alwaysVisible: true
         )
 

@@ -72,9 +72,9 @@ public struct PurchaseTiers: Sendable {
     public static let example: PurchaseTiers = {
         let tiers = PurchaseTiers(
             weeklyTier: nil,
-            monthlyTier: .init(id: "app.FootWare.Example.Pro.Monthly", alwaysVisible: false),
-            yearlyTier: .init(id: "app.FootWare.Example.Pro.Yearly", alwaysVisible: true),
-            lifetimeTier: .init(id: "app.FootWare.Example.Pro.Lifetime", alwaysVisible: false)
+            monthlyTier: .init(id: "com.example.MyApp.Pro.Monthly", alwaysVisible: false),
+            yearlyTier: .init(id: "com.example.MyApp.Pro.Yearly", alwaysVisible: true),
+            lifetimeTier: .init(id: "com.example.MyApp.Pro.Lifetime", alwaysVisible: false)
         )
 
         return tiers
