@@ -156,6 +156,7 @@ struct TierSelectionButton: View {
 
                     Text(inAppPurchase.fetchTierSubtitle(for: tier))
                         .font(subtitleFont)
+                        .multilineTextAlignment(.leading)
                         .foregroundStyle(Color.secondary)
                 }
             }

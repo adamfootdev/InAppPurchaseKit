@@ -245,6 +245,8 @@ case .loaded(
 )
 ```
 
+This state indicates that InAppPurchaseKit has finished loading. It contains available products, any intro offers (InAppPurchaseKit only supports free trials currently), tiers the user has purchased and whether they are a legacy user.
+
 ### PurchaseState
 
 This is an enum that is used for indicating the current purchase state for the user. It also works for widgets/other extensions by checking UserDefaults. It can be accessed like so:
