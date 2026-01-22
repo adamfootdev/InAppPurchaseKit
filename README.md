@@ -14,6 +14,10 @@ InAppPurchaseKit provides developers for Apple platforms with the ability to add
     <img src ="Assets/feature-graphic.png" />
 </p>
 
+InAppPurchaseKit is built on top of StoreKit 2 and is fully compliant with Apple Developer Guidelines. It has already been used in multiple production apps with no issues.
+
+Before using InAppPurchaseKit, please ensure you have setup your in-app purchases in App Store Connect.
+
 1. [Requirements](#requirements)
 2. [Integration](#integration)
 3. [Usage](#usage)
