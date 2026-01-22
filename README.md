@@ -1,8 +1,18 @@
+<p align="center">
+    <img src="Assets/icon.png" alt="Project Icon" width="250" />
+</p>
+
+<p align="center">
+    <img src="https://img.shields.io/badge/platforms-iOS%2FiPadOS%2017.0%2B%20%7C%20macOS%2014.4%2B%20%7C%20tvOS%2017.0%2B%20%7C%20visionOS%201.0%2B%20%7C%20watchOS%2010.0%2B-blue" alt="Platform" />
+</p>
+
 # InAppPurchaseKit
 
-![Platform](https://img.shields.io/badge/platforms-iOS%2FiPadOS%2017.0%2B%20%7C%20macOS%2014.4%2B%20%7C%20tvOS%2017.0%2B%20%7C%20visionOS%201.0%2B%20%7C%20watchOS%2010.0%2B-blue)
-
 InAppPurchaseKit provides developers for Apple platforms with the ability to add a subscription screen to their apps. It also features an optional tip jar screen too and other views to show locked content. This is built using SwiftUI so can be displayed natively from a SwiftUI app or using a UIHostingController in a UIKit app.
+
+<p align="center">
+    <img src ="Assets/feature-graphic.png" />
+</p>
 
 1. [Requirements](#requirements)
 2. [Integration](#integration)
