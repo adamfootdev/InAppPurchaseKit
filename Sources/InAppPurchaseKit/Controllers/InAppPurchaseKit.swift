@@ -30,8 +30,12 @@ public final class InAppPurchaseKit: NSObject {
     private var updateListenerTask: Task<Void, Error>? = nil
     
     /// An enum containing the load state of the products.
-    public private(set) var productsLoadState: ProductsLoadState = .pending
-    
+    public private(set) var productsLoadState: ProductsLoadState = .pending {
+        didSet {
+            updateExtensions()
+        }
+    }
+
     /// A `Bool` indicating whether promoted purchases are currently being checked.
     @ObservationIgnored
     private var checkingPromotedPurchase: Bool = false
@@ -239,14 +243,18 @@ public final class InAppPurchaseKit: NSObject {
             }
 
             let purchased = activeTier != nil
-
-            configuration.sharedUserDefaults.set(
-                purchased,
-                forKey: StorageKey.extensionSubscribed
-            )
-
             return purchased ? .purchased : .notPurchased
         }
+    }
+    
+    /// Updates extensions with the current purchase state.
+    private func updateExtensions() {
+        let purchased = activeTier != nil
+
+        configuration.sharedUserDefaults.set(
+            purchased,
+            forKey: StorageKey.extensionSubscribed
+        )
     }
 
 
