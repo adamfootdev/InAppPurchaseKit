@@ -32,9 +32,12 @@ public final class InAppPurchaseKit: NSObject {
     /// An enum containing the load state of the products.
     public private(set) var productsLoadState: ProductsLoadState = .pending {
         didSet {
-            updateExtensions()
+            updatePurchaseState()
         }
     }
+
+    /// An enum containing the current purchase state for the user.
+    public private(set) var purchaseState: PurchaseState = .pending
 
     /// A `Bool` indicating whether promoted purchases are currently being checked.
     @ObservationIgnored
@@ -228,33 +231,30 @@ public final class InAppPurchaseKit: NSObject {
         })
     }
     
-    /// The current purchase state for the user.
-    public var purchaseState: PurchaseState {
+    /// Updates the current purchase state.
+    private func updatePurchaseState() {
         if Bundle.main.bundlePath.hasSuffix(".appex") {
             let purchased = configuration.sharedUserDefaults.bool(
                 forKey: StorageKey.extensionSubscribed
             )
 
-            return purchased ? .purchased : .notPurchased
+            purchaseState = purchased ? .purchased : .notPurchased
 
         } else {
             guard productsLoadState.hasLoaded else {
-                return .pending
+                purchaseState = .pending
+                return
             }
 
             let purchased = activeTier != nil
-            return purchased ? .purchased : .notPurchased
-        }
-    }
-    
-    /// Updates extensions with the current purchase state.
-    private func updateExtensions() {
-        let purchased = activeTier != nil
 
-        configuration.sharedUserDefaults.set(
-            purchased,
-            forKey: StorageKey.extensionSubscribed
-        )
+            configuration.sharedUserDefaults.set(
+                purchased,
+                forKey: StorageKey.extensionSubscribed
+            )
+
+            purchaseState =  purchased ? .purchased : .notPurchased
+        }
     }
 
 
