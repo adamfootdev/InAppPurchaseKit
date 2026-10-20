@@ -176,31 +176,37 @@ public final class InAppPurchaseKit: NSObject {
         }
 
         let transaction = try checkVerified(result)
-
-        return transactionIsActive(transaction)
+        return await transactionIsActive(transaction)
     }
 
     /// Checks whether a transaction currently grants access.
     /// - Parameter transaction: The StoreKit transaction to check.
     /// - Returns: A `Bool` indicating whether the transaction is active.
-    private func transactionIsActive(_ transaction: Transaction) -> Bool {
-        if let expirationDate = transaction.expirationDate,
-           expirationDate < .now {
-            return false
-        } else {
-            return transaction.revocationDate == nil && !transaction.isUpgraded
+    private func transactionIsActive(_ transaction: Transaction) async -> Bool {
+        for await result in Transaction.currentEntitlements {
+            guard case .verified(let entitlement) = result else {
+                continue
+            }
+
+            if entitlement.productID == transaction.productID {
+                return true
+            }
         }
+
+        return false
     }
 
     /// Checks whether a transaction represents an expired subscription.
     /// - Parameter transaction: The StoreKit transaction to check.
     /// - Returns: A `Bool` indicating whether the transaction is an expired subscription.
-    private func transactionIsExpiredSubscription(_ transaction: Transaction) -> Bool {
-        guard let expirationDate = transaction.expirationDate else {
+    private func transactionIsExpiredSubscription(_ transaction: Transaction) async -> Bool {
+        guard transaction.expirationDate != nil,
+              transaction.revocationDate == nil,
+              !transaction.isUpgraded else {
             return false
         }
 
-        return expirationDate < .now && transaction.revocationDate == nil && !transaction.isUpgraded
+        return !(await transactionIsActive(transaction))
     }
     
     /// Fetches a StoreKit product based on a tier.
@@ -385,7 +391,7 @@ public final class InAppPurchaseKit: NSObject {
             for id in tierIDs {
                 guard let result = await Transaction.latest(for: id),
                       let transaction = try? checkVerified(result),
-                      transactionIsExpiredSubscription(transaction) else {
+                      await transactionIsExpiredSubscription(transaction) else {
                     continue
                 }
 
@@ -513,7 +519,7 @@ public final class InAppPurchaseKit: NSObject {
             purchasedTiers = []
         }
 
-        if transactionIsActive(transaction) {
+        if await transactionIsActive(transaction) {
             if let tier = configuration.tiers.orderedTiers.first(where: {
                 ($0.tierIDs ?? []).contains(transaction.productID)
             }) {
