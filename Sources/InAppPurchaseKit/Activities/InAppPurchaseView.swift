@@ -112,7 +112,7 @@ public struct InAppPurchaseView: View {
         .toolbar {
             #if !os(tvOS)
             if includeDismissButton {
-                #if os(iOS)
+                #if os(iOS) && !targetEnvironment(macCatalyst)
                 if #available(iOS 27.1, *) {
                     doneToolbarItem
                         .axisBehavior(.verticalPreferred)
