@@ -14,7 +14,7 @@ InAppPurchaseKit provides developers for Apple platforms with the ability to add
     <img src ="Assets/feature-graphic.png" />
 </p>
 
-InAppPurchaseKit is built on top of StoreKit 2 and is fully compliant with Apple Developer Guidelines. It has already been used in multiple production apps with no issues.
+InAppPurchaseKit is built on top of StoreKit 2 and is fully compliant with Apple Developer Guidelines. It has already been used in multiple production apps with no issues. InAppPurchaseKit can be used alongside RevenueCat or Superwall in their observer modes.
 
 Before using InAppPurchaseKit, please ensure you have setup your in-app purchases in App Store Connect.
 
@@ -147,12 +147,14 @@ This is a struct containing details about an individual tier. It can be created 
 ```swift
 let configuration = PurchaseTierConfiguration(
     id: "com.example.MyApp.Pro.Yearly",
-    alternateIDs: ["com.example.MyApp.Pro.OldYearly"],
+    alternateIDs: ["com.example.MyApp.Pro.OldYearly", "com.example.MyBundle.Yearly"],
     alwaysVisible: true,
     isPrimary: true,
     legacyConfiguration: legacyConfiguration
 )
 ```
+
+The alternateIDs array can be used to add identifiers used in the past to ensure users do not lose access to content or for subscription bundles across multiple apps. Please use a custom view to display bundles with the purchase method in InAppPurchaseKit.
 
 ### LegacyPurchaseTierConfiguration
 

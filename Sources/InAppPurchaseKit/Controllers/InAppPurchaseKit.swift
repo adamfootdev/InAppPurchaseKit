@@ -44,7 +44,7 @@ public final class InAppPurchaseKit: NSObject {
     public private(set) var purchaseState: PurchaseState = .pending
     
     /// An enum containing the current transaction state.
-    public var transactionState: TransactionState = .pending {
+    public private(set) var transactionState: TransactionState = .pending {
         didSet {
             switch transactionState {
             case .purchased(_):

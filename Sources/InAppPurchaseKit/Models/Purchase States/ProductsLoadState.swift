@@ -80,11 +80,11 @@ public enum ProductsLoadState: Sendable {
 
     // MARK: - Products
 
-    func fetchProduct(for id: String) -> Product? {
+    public func fetchProduct(for id: String) -> Product? {
         availableProducts.first(where: { $0.id == id })
     }
 
-    func fetchIntroOffer(for product: Product) -> Product.SubscriptionOffer? {
+    public func fetchIntroOffer(for product: Product) -> Product.SubscriptionOffer? {
         introOffers[product]
     }
 }
